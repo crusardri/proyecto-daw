@@ -44,3 +44,100 @@ function showOrdersShowcase($titulo){
     </div>
     <?php
 }
+
+
+
+function showOrdersTable(){
+    ?>
+        <table class="order-table">
+           <tr class="header-res">
+                <th>Órdenes</th>
+            </tr>
+            <tr class="header">
+                <th>ID</th>
+                <th>Estado</th>
+                <th>Asignado a</th>
+                <th>Cliente</th>
+                <th>Entrada</th>
+                <th>Previsto</th>
+                <th>Terminado</th>
+                <th>Entregado</th>
+                <th>Actualizado</th>
+                <th>Descripción</th>
+            </tr>
+            <tr class="order pending">
+                <td><span class="label">ID: </span> <a href="">000001</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> -</td>
+                <td class="date"><span class="label">Entregado: </span> -</td>
+                <td class="date"><span class="label">Actualizado: </span> 17/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>
+            <tr class="order working">
+                <td><span class="label">ID: </span> <a href="">000002</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name working">En proceso</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> -</td>
+                <td class="date"><span class="label">Entregado: </span> -</td>
+                <td class="date"><span class="label">Actualizado: </span> 18/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>
+            <tr class="order finished">
+                <td><span class="label">ID: </span> <a href="">000003</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name finished">Terminado</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> 19/04/2019</td>
+                <td class="date"><span class="label">Entregado: </span> -</td>
+                <td class="date"><span class="label">Actualizado: </span> 19/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>
+            <tr class="order out">
+                <td><span class="label">ID: </span> <a href="">000004</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name out"> Recogido</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> 19/04/2019</td>
+                <td class="date"><span class="label">Entregado: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Actualizado: </span> 20/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>
+            <tr class="order pending">
+                <td><span class="label">ID: </span> <a href="">000005</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> -</td>
+                <td class="date"><span class="label">Entregado: </span> -</td>
+                <td class="date"><span class="label">Actualizado: </span> 17/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>
+            <tr class="order pending">
+                <td><span class="label">ID: </span> <a href="">000006</a></td>
+                <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
+                <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
+                <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
+                <td class="date"><span class="label">Previsto: </span> 20/04/2019</td>
+                <td class="date"><span class="label">Terminado: </span> -</td>
+                <td class="date"><span class="label">Entregado: </span> -</td>
+                <td class="date"><span class="label">Actualizado: </span> 17/04/2019</td>
+                <td class="desc"><span class="label">Descripción: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+            </tr>        
+        </table>
+    
+    <?php
+}

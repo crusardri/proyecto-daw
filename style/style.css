@@ -6,13 +6,24 @@ body {
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff;
 }
+
 /* Comun */
+input,
+textarea,
+select {
+    font-family: "Open Sans", sans-serif;
+    outline: none;
+}
 a {
     text-decoration: none;
     color: #0060ac;
 }
 a:hover {
     text-decoration: underline;
+}
+a:focus {
+    outline: 2px solid #0060ac;
+    text-decoration: none;
 }
 
 /* Boton con relieve */
@@ -74,13 +85,16 @@ a.haptic-button.medium {
 .estate-name {
     display: inline-block;
     text-align: center;
-    min-width: 70px;
+    min-width: 80px;
     background-color: rgba(0,0,0,0.1);
     padding: 0 5px;
     border-radius: 5px;
     box-shadow: 2px 2px 4px -0px rgba(0,0,0,0.2);
+    color: #000;
 }
-
+.estate-name:hover {
+    text-decoration: none;
+}
 .estate-name.pending { background-color: #e3b7eb;} /* Pendiente/nueva */
 .estate-name.working {background-color: #ffcd85;} /* En proceso */
 .estate-name.finished {background-color: #d2f5b0;} /* Finalizado */
@@ -265,7 +279,6 @@ div.worker-container {
 }
 @media (max-width: 1000px){
     div.worker-container {
-        display: grid;
         grid-template-columns: 100%;
         grid-template-areas: "buttons" "my-orders" "all-orders" "updates";
     }
@@ -288,4 +301,211 @@ div.worker-container > .all-orders {
 }
 div.worker-container > .updates {
     grid-area: updates;
+}
+
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - orders.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+
+div.orders-container {
+    display: grid;
+    margin: auto;
+    display: grid;
+    max-width: 1600px;
+    grid-template-columns: auto 200px;
+    grid-template-areas: "search new-order" "orders orders";
+}
+@media (max-width: 1000px){
+    div.orders-container {
+        grid-template-columns: 100%;
+        grid-template-areas: "search" "new-order" "orders";
+    }
+}
+div.orders-container .new-order{
+    grid-area: new-order;
+    margin: 20px auto 10px;
+}
+div.orders-container > form {
+    grid-area: search;
+}
+div.orders-container > form > div.search-box {
+    margin: 20px auto 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: stretch;
+    width: calc(100% - 40px);
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+    border-radius: 50px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+div.orders-container > form > div.search-box > input[type="text"] {
+    flex-grow: 1;
+    height: 30px;
+    padding: 5px 0 5px 10px;
+    font-size: 1em;
+    border: 0px;
+    transition: all 0.2s;
+}
+div.orders-container > form > div.search-box > input[type="text"]::placeholder {
+    color: #000;
+    font-size: 0.8em;
+    line-height: 30px;
+}
+div.orders-container > form > div.search-box > input[type="text"]:hover {
+    background-color: #eee;
+}
+div.orders-container > form > div.search-box > input[type="submit"] {
+    border: 0px;
+    flex-shrink: 1;
+    background-color: #ddd;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s;
+    padding-right: 10px;
+}
+div.orders-container > form > div.search-box > input[type="submit"]:hover {
+    background-color: #ccc;
+}
+
+section.orders-container {
+    grid-area: orders;
+    margin: 0 20px 20px 20px;
+}
+
+
+table.order-table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: separate;
+    border-spacing: 0px 3px;
+    padding: 0px 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+    overflow: hidden;
+    font-size: 0.9em;
+}
+
+table.order-table .date{
+    text-align: center;
+}
+table.order-table .desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+table.order-table .label {
+    display: none;
+    font-weight: 600;
+}
+table.order-table tr.header {
+    background-color: #ffd700;
+    box-shadow: 0px -4px 3px 5px rgba(0,0,0,0.2);
+    transform: scale(1.01) translate(0px, -3px);
+}
+table.order-table tr.header-res {
+    display: none;
+    background-color: #ffd700;
+    height: 30px;
+    line-height: 30px;
+}
+table.order-table tr.header-res > th{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+table.order-table tr.header > th {
+    padding: 5px;
+}
+
+table.order-table tr.order > td{
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+}
+table.order-table tr.order:last-child > td{
+    border: 1px solid transparent;
+}
+table.order-table tr.order:hover > td{
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: 0 1px 0 #ddd;
+}
+table.order-table tr.order:hover > td:first-child{
+    border-radius: 3px 0 0 3px;
+}
+table.order-table tr.order:hover > td:last-child{
+    border-radius: 0 3px 3px 0;
+}
+@media (max-width: 1000px){
+    table.order-table {
+        display: block;
+        background-color: rgba(0,0,0,0.1);
+        border: 1px solid #ffd700;
+        border-spacing: 0;
+        padding: 0;
+    }
+    table.order-table .label {
+        display: inline-block;
+    }
+    table.order-table tr.header {
+        display: none;
+    }
+    table.order-table tr.header-res {
+        display: block;
+    }
+    table.order-table tr.order{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        background-color: #fff;
+        width: calc(100% - 30px);
+        margin: 10px auto;
+        border-left: 10px solid #000;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2); 
+    }
+    table.order-table tr.order.pending {border-color: #e3b7eb;} /* Pendiente/nueva */
+    table.order-table tr.order.working {border-color: #ffcd85;} /* En proceso */
+    table.order-table tr.order.finished {border-color: #d2f5b0;} /* Finalizado */
+    table.order-table tr.order.out {border-color: #c2dfff;} /* Recogido */
+    
+    table.order-table tr.order:hover {
+        background-color: #fff8d4;
+    }
+    table.order-table tr.order:hover > td{
+        background-color: transparent;
+        border: 0px;
+        box-shadow: 0 0 0 0;
+    }
+    table.order-table tr.order > td{
+        border: 0px;
+        background-color: transparent;
+    }
+    table.order-table tr.order:last-child > td{
+        border: 0px solid transparent;
+    }
+    table.order-table tr.order > td.desc{
+        position: relative;
+        max-width: none;
+        white-space: normal;
+        line-height: 1.2em;
+        max-height: calc(2.4em - 3px);
+        text-align: justify;
+        background-color: #EEEEEE;
+    }
+    table.order-table tr.order > td.desc:after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 1.2em;
+        width: 50px;
+        background: linear-gradient(to left, #EEEEEE 50%, #EEEEEE00 100%);
+    }
 }

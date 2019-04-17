@@ -15,7 +15,7 @@ require("Funciones/vistaController.php");
         <section class="buttons-container">
             <a class="haptic-button medium">
                 <img src="media/img/new-order.png">
-                <div class="label">Registrar Órden</div>
+                <div class="label">Nueva Órden</div>
             </a>
             <a class="haptic-button medium">
                 <img src="media/img/see-order.png">
