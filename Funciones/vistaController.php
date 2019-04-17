@@ -56,6 +56,8 @@ function showOrdersTable(){
             <tr class="header">
                 <th>ID</th>
                 <th>Estado</th>
+                <th>Prendas</th>
+                <th>Precio</th>
                 <th>Asignado a</th>
                 <th>Cliente</th>
                 <th>Entrada</th>
@@ -68,6 +70,8 @@ function showOrdersTable(){
             <tr class="order pending">
                 <td><span class="label">ID: </span> <a href="">000001</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 2</td>
+                <td class="center"><span class="label">Precio: </span> 10€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
@@ -80,6 +84,8 @@ function showOrdersTable(){
             <tr class="order working">
                 <td><span class="label">ID: </span> <a href="">000002</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name working">En proceso</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 3</td>
+                <td class="center"><span class="label">Precio: </span> 12.50€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
@@ -92,6 +98,8 @@ function showOrdersTable(){
             <tr class="order finished">
                 <td><span class="label">ID: </span> <a href="">000003</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name finished">Terminado</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 5</td>
+                <td class="center"><span class="label">Precio: </span> 52€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
@@ -104,6 +112,8 @@ function showOrdersTable(){
             <tr class="order out">
                 <td><span class="label">ID: </span> <a href="">000004</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name out"> Recogido</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 1</td>
+                <td class="center"><span class="label">Precio: </span> 8€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
@@ -116,6 +126,8 @@ function showOrdersTable(){
             <tr class="order pending">
                 <td><span class="label">ID: </span> <a href="">000005</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 7</td>
+                <td class="center"><span class="label">Precio: </span> 52€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>
@@ -128,6 +140,8 @@ function showOrdersTable(){
             <tr class="order pending">
                 <td><span class="label">ID: </span> <a href="">000006</a></td>
                 <td><span class="label">Estado: </span> <a href="" class="estate-name pending"> Pendiente</a></td>
+                <td class="center"><span class="label">Nº Prendas: </span> 1</td>
+                <td class="center"><span class="label">Precio: </span> 2€</td>
                 <td><span class="label">Asignado a: </span> <a href="">Iván Maldonado</a></td>
                 <td><span class="label">Cliente: </span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="label">Entrada: </span> 17/04/2019</td>

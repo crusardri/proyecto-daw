@@ -427,6 +427,10 @@ table.order-table tr.order > td{
     border: 1px solid transparent;
     border-bottom: 1px solid #ddd;
     padding: 5px;
+    height: 30px;
+}
+table.order-table tr.order > td.center{
+    text-align: center;
 }
 table.order-table tr.order:last-child > td{
     border: 1px solid transparent;
@@ -448,6 +452,7 @@ table.order-table tr.order:hover > td:last-child{
         border: 1px solid #ffd700;
         border-spacing: 0;
         padding: 0;
+        font-size: 0.8em;
     }
     table.order-table .label {
         display: inline-block;
@@ -494,8 +499,8 @@ table.order-table tr.order:hover > td:last-child{
         position: relative;
         max-width: none;
         white-space: normal;
-        line-height: 1.2em;
-        max-height: calc(2.4em - 3px);
+        line-height: 1.1em;
+        max-height: calc(2.2em - 3px);
         text-align: justify;
         background-color: #EEEEEE;
     }
@@ -504,7 +509,7 @@ table.order-table tr.order:hover > td:last-child{
         position: absolute;
         bottom: 0;
         right: 0;
-        height: 1.2em;
+        height: 1.1em;
         width: 50px;
         background: linear-gradient(to left, #EEEEEE 50%, #EEEEEE00 100%);
     }
