@@ -186,6 +186,188 @@ div.showcase.order-showcase > .order-container > a.order-item > div.order-desc:a
     background: linear-gradient(to left, #EEEEEE 50%, #EEEEEE00 100%);
     
 }
+
+
+/* Tabla Ordenes*/
+
+table.order-table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: separate;
+    border-spacing: 0px 3px;
+    padding: 0px 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+    overflow: hidden;
+    font-size: 0.9em;
+}
+
+table.order-table .date{
+    text-align: center;
+}
+table.order-table .desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+table.order-table .label {
+    display: none;
+    font-weight: 600;
+}
+table.order-table tr.header {
+    background-color: #ffd700;
+    box-shadow: 0px -4px 3px 5px rgba(0,0,0,0.2);
+    transform: scale(1.01) translate(0px, -3px);
+}
+table.order-table tr.header-res {
+    display: none;
+    background-color: #ffd700;
+    height: 30px;
+    line-height: 30px;
+}
+table.order-table tr.header-res > th{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+table.order-table tr.header > th {
+    padding: 5px;
+}
+
+table.order-table tr.order > td{
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    height: 30px;
+}
+table.order-table tr.order > td.center{
+    text-align: center;
+}
+table.order-table tr.order:last-child > td{
+    border: 1px solid transparent;
+}
+table.order-table tr.order:hover > td{
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: 0 1px 0 #ddd;
+}
+table.order-table tr.order:hover > td:first-child{
+    border-radius: 3px 0 0 3px;
+}
+table.order-table tr.order:hover > td:last-child{
+    border-radius: 0 3px 3px 0;
+}
+@media (max-width: 1000px){
+    table.order-table {
+        display: block;
+        background-color: rgba(0,0,0,0.1);
+        border: 1px solid #ffd700;
+        border-spacing: 0;
+        padding: 0;
+        font-size: 0.8em;
+    }
+    table.order-table .label {
+        display: inline-block;
+    }
+    table.order-table tr.header {
+        display: none;
+    }
+    table.order-table tr.header-res {
+        display: block;
+    }
+    table.order-table tr.order{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        background-color: #fff;
+        width: calc(100% - 30px);
+        margin: 10px auto;
+        border-left: 10px solid #000;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2); 
+    }
+    table.order-table tr.order.pending {border-color: #e3b7eb;} /* Pendiente/nueva */
+    table.order-table tr.order.working {border-color: #ffcd85;} /* En proceso */
+    table.order-table tr.order.finished {border-color: #d2f5b0;} /* Finalizado */
+    table.order-table tr.order.out {border-color: #c2dfff;} /* Recogido */
+    
+    table.order-table tr.order:hover {
+        background-color: #fff8d4;
+    }
+    table.order-table tr.order > td{
+        border: 0px;
+        background-color: transparent;
+        height: auto;
+    }
+    table.order-table tr.order:hover > td{
+        background-color: transparent;
+        border: 0px;
+        box-shadow: 0 0 0 0;
+        
+    }
+    table.order-table tr.order:last-child > td{
+        border: 0px solid transparent;
+    }
+    table.order-table tr.order > td.desc{
+        position: relative;
+        max-width: none;
+        white-space: normal;
+        line-height: 1.1em;
+        max-height: calc(2.2em - 3px);
+        text-align: justify;
+        background-color: #EEEEEE;
+    }
+    table.order-table tr.order > td.desc:after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 1.1em;
+        width: 50px;
+        background: linear-gradient(to left, #EEEEEE 50%, #EEEEEE00 100%);
+    }
+}
+/* paginador */
+div.paginator {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-basis: 30px;
+    background-color: #fff;
+    align-items: stretch;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2); 
+}
+div.paginator > a.page {
+    margin: 2px;
+    padding: 5px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    min-width: 20px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.05);
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #000;
+}
+div.paginator > a.page:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.15);
+}
+div.paginator > a.page.actual,
+div.paginator > a.page.next, 
+div.paginator > a.page.previous{
+    background-color: #ffd700;
+}
+div.paginator > a.page.next:hover , 
+div.paginator > a.page.previous:hover {
+    background-color: #f5ce00;   
+}
+div.paginator > a.page.disabled {
+    background-color: transparent;
+}
 /* 
 ---------------------------------------------------------------------------------------------
 ---------------------------------- - Barra de navegacion - ---------------------------------- 
@@ -315,12 +497,12 @@ div.orders-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-order" "orders orders";
+    grid-template-areas: "search new-order" "orders orders" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.orders-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "new-order" "orders";
+        grid-template-areas: "search" "new-order" "orders" "paginator";
     }
 }
 div.orders-container .new-order{
@@ -376,141 +558,13 @@ section.orders-container {
     grid-area: orders;
     margin: 0 20px 20px 20px;
 }
-
-
-table.order-table {
-    width: 100%;
-    background-color: #fff;
-    border-collapse: separate;
-    border-spacing: 0px 3px;
-    padding: 0px 5px;
-    border-radius: 5px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
-    overflow: hidden;
-    font-size: 0.9em;
+section.orders-container > div.order-pag{
+    grid-area: paginator;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: calc(100% - 20px);
+    margin: 10px auto;
 }
 
-table.order-table .date{
-    text-align: center;
-}
-table.order-table .desc {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px;
-}
-table.order-table .label {
-    display: none;
-    font-weight: 600;
-}
-table.order-table tr.header {
-    background-color: #ffd700;
-    box-shadow: 0px -4px 3px 5px rgba(0,0,0,0.2);
-    transform: scale(1.01) translate(0px, -3px);
-}
-table.order-table tr.header-res {
-    display: none;
-    background-color: #ffd700;
-    height: 30px;
-    line-height: 30px;
-}
-table.order-table tr.header-res > th{
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-}
-table.order-table tr.header > th {
-    padding: 5px;
-}
 
-table.order-table tr.order > td{
-    border: 1px solid transparent;
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    height: 30px;
-}
-table.order-table tr.order > td.center{
-    text-align: center;
-}
-table.order-table tr.order:last-child > td{
-    border: 1px solid transparent;
-}
-table.order-table tr.order:hover > td{
-    background-color: rgba(0,0,0,0.05);
-    box-shadow: 0 1px 0 #ddd;
-}
-table.order-table tr.order:hover > td:first-child{
-    border-radius: 3px 0 0 3px;
-}
-table.order-table tr.order:hover > td:last-child{
-    border-radius: 0 3px 3px 0;
-}
-@media (max-width: 1000px){
-    table.order-table {
-        display: block;
-        background-color: rgba(0,0,0,0.1);
-        border: 1px solid #ffd700;
-        border-spacing: 0;
-        padding: 0;
-        font-size: 0.8em;
-    }
-    table.order-table .label {
-        display: inline-block;
-    }
-    table.order-table tr.header {
-        display: none;
-    }
-    table.order-table tr.header-res {
-        display: block;
-    }
-    table.order-table tr.order{
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        background-color: #fff;
-        width: calc(100% - 30px);
-        margin: 10px auto;
-        border-left: 10px solid #000;
-        border-radius: 5px;
-        overflow: hidden;
-        box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2); 
-    }
-    table.order-table tr.order.pending {border-color: #e3b7eb;} /* Pendiente/nueva */
-    table.order-table tr.order.working {border-color: #ffcd85;} /* En proceso */
-    table.order-table tr.order.finished {border-color: #d2f5b0;} /* Finalizado */
-    table.order-table tr.order.out {border-color: #c2dfff;} /* Recogido */
-    
-    table.order-table tr.order:hover {
-        background-color: #fff8d4;
-    }
-    table.order-table tr.order:hover > td{
-        background-color: transparent;
-        border: 0px;
-        box-shadow: 0 0 0 0;
-    }
-    table.order-table tr.order > td{
-        border: 0px;
-        background-color: transparent;
-    }
-    table.order-table tr.order:last-child > td{
-        border: 0px solid transparent;
-    }
-    table.order-table tr.order > td.desc{
-        position: relative;
-        max-width: none;
-        white-space: normal;
-        line-height: 1.1em;
-        max-height: calc(2.2em - 3px);
-        text-align: justify;
-        background-color: #EEEEEE;
-    }
-    table.order-table tr.order > td.desc:after{
-        content: "";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 1.1em;
-        width: 50px;
-        background: linear-gradient(to left, #EEEEEE 50%, #EEEEEE00 100%);
-    }
-}

@@ -24,7 +24,12 @@ require("Funciones/vistaController.php");
         </a>
         <section class="orders-container">
             <?php showOrdersTable()?>
+            <div class="order-pag">
+                <?php showPaginator() ?>
+            </div>
         </section>
+        
     </div>
+    
 </body>
 </html>

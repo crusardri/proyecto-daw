@@ -40,5 +40,6 @@ require("Funciones/vistaController.php");
            <?php showOrdersShowcase("Actualizaciones."); ?>
         </section>
     </div>
+    
 </body>
 </html>

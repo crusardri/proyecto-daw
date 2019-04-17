@@ -45,8 +45,6 @@ function showOrdersShowcase($titulo){
     <?php
 }
 
-
-
 function showOrdersTable(){
     ?>
         <table class="order-table">
@@ -153,5 +151,25 @@ function showOrdersTable(){
             </tr>        
         </table>
     
+    <?php
+}
+
+function showPaginator(){
+    ?>
+    <div class="paginator">
+        <a class="page previous" href="">&#60;</a>
+        <a class="page" href="">1</a>
+        <a class="page disabled">...</a>
+        <a class="page" href="">3</a>
+        <a class="page" href="">4</a>
+        <a class="page" href="">5</a>
+        <a class="page actual">6</a>
+        <a class="page" href="">7</a>
+        <a class="page" href="">8</a>
+        <a class="page" href="">9</a>
+        <a class="page disabled">...</a>
+        <a class="page" href="">12</a>
+        <a class="page next" href="">&#62;</a>
+    </div>
     <?php
 }
