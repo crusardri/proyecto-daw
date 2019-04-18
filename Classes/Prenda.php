@@ -4,15 +4,17 @@ class Prenda{
     private $name;
     private $arreglos;
     function __construct($id, $name, $arreglos){
-        //TO DO
+        $this->id = $id;
+        $this->name = $name;
+        $this->arreglos = $arreglos;
     }
     function getId(){
-        //TO DO
+        return $this->id;
     }
     function getName(){
-        //TO DO
+        return $this->name;
     }
     function getArreglos(){
-        //TO DO
+        return $this->arreglos;
     }
 }

@@ -11,48 +11,57 @@ class Order{
     private $items;
     private $observations;
     function __construct($orderID = 0, $user, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations){
-        //TO DO
+        $this->id = $orderID;
+        $this->user = $user;
+        $this->assigned = $assigned;
+        $this->estate = $estate;
+        $this->enterDate = $enterDate;
+        $this->targetDate = $targetDate;
+        $this->finishDate = $finishDate;
+        $this->outDate = $outDate;
+        $this->items = $items;
+        $this->observations = $observations;
     }
     function getOrderID(){
-        //TO DO
+        return $this->orderID;
     }
     function getUser(){
-        //TO DO
+        return $this->user;
     }
     function getAssigneduser(){
-        //TO DO
+        return $this->assigned;
     }
     function getEstate(){
-        //TO DO
+        return $this->estate;
     }
     function getEstateString(){
-        //TO DO
+        return $this->;
     }
     function getEnterDate(){
-        //TO DO
+        return $this->enterDate;
     }
     function getEnterDateString(){
-        //TO DO
+        return $this->;
     }
     function getTargetDate(){
-        //TO DO
-    }
+        return $this->targetDate;
+    }    
     function getTargetDateString(){
-        //TO DO
+        return $this->;
     }
     function getFinishDate(){
-        //TO DO
+        return $this->finishDate;
     }
     function getFinishDateString(){
-        //TO DO
+        return $this->;
     }
     function getOutDate(){
-        //TO DO
+        return $this->outDate;
     }
     function getOrderItems(){
-        //TO DO
+        return $this->items;
     }
     function getObservations(){
-        //TO DO
+        return $this->observations;
     }
 }

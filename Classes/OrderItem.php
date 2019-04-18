@@ -5,18 +5,21 @@ class OrderItem{
     private $price;
     private $description;
     function __construct($prenda, $parreglo, $price, $description){
-        //TO DO
+        $this->prenda = $prenda;
+        $this->parreglo = $arreglo;
+        $this->price = $price;
+        $this->description = $description;
     }
     function getPrenda(){
-        //TO DO
+        return $this->prenda;
     }
     function getArreglo(){
-        //TO DO
+         return $this->parreglo;
     }
     function getPrice(){
-        //TO DO
+         return $this->price;
     }
     function getDescription(){
-        //TO DO
+        return $this->description;
     }
 }

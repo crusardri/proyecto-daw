@@ -4,15 +4,17 @@ class Arreglo{
     private $name;
     private $price;
     function __construct($id, $name, $price){
-        //TO DO
-    }
-    function getName(){
-        //TO DO
+        $this->id = $id;
+        $this->name = $name;
+        $this->price = $price;
     }
     function getId(){
-        //TO DO
+        return $this->id;
+    }
+    function getName(){
+        return $this->name;
     }
     function getPrice(){
-        //TO DO
+        return $this->price;
     }
 }
