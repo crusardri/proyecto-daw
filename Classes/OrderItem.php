@@ -14,7 +14,7 @@ class OrderItem{
         return $this->prenda;
     }
     function getArreglo(){
-         return $this->parreglo;
+         return $this->arreglo;
     }
     function getPrice(){
          return $this->price;
