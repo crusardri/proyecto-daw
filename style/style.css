@@ -629,9 +629,14 @@ table.orders-table tr.order > td:not(:first-child):before{
         width: 100%;
         max-width: none;
         padding-top: 2px;
+        height: auto;
     }
     table.orders-table tr.order > td.hidden {
         display: none;
+    }
+    table.orders-table tr.order > td.desc > span.desc-cont {
+        max-height: calc(3.6em - 3px);
+        
     }
     table.orders-table tr.order > td > span.desc-cont:after,
     table.orders-table tr.order:hover > td > span.desc-cont:after{
