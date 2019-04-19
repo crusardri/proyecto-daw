@@ -264,7 +264,7 @@ function showUsersTable(){
             </tr>
             <tr class="user">
                 <td class="id"><span class="responsive-label">ID</span> <a href="">000003</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Halfonso</a></td>
+                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Halfonso</a></td> 
                 <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box client">Cliente</a></td>
                 <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Halfonso</a></td>
                 <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Fernandez</a></td>

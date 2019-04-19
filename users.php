@@ -11,10 +11,10 @@ require("Funciones/vistaController.php");
 </head>
 <body>
     <?php include("./includes/navbar.inc") ?>
-    <div class="orders-container">
+    <div class="users-container">
         <form>
             <div class="search-box">
-                <input type="text" placeholder="Buscar prenda por ID o Nombre">
+                <input type="text" placeholder="Buscar Usuario por ID o Nombre">
                 <input type="submit" value="Buscar">
             </div>
         </form>
@@ -22,9 +22,9 @@ require("Funciones/vistaController.php");
             <img src="media/img/add-user.png">
             <div class="label">Nuevo Usuario</div>
         </a>
-        <section class="orders-container">
+        <section class="users-container">
             <?php showUsersTable()?>
-            <div class="order-pag">
+            <div class="users-pag">
                 <?php showPaginator() ?>
             </div>
         </section>

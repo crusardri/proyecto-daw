@@ -652,6 +652,41 @@ table.orders-table tr.order > td:not(:first-child):before{
 -------------------------------------------- - user.php - -------------------------------------------- 
 ------------------------------------------------------------------------------------------------------------
 */
+div.users-container {
+    display: grid;
+    margin: auto;
+    display: grid;
+    max-width: 1600px;
+    grid-template-columns: auto 200px;
+    grid-template-areas: "search new-user" "users users" "paginator paginator";
+}
+@media (max-width: 1000px){
+    div.users-container {
+        grid-template-columns: 100%;
+        grid-template-areas: "search" "new-prenda" "prendas prendas" "paginator";
+    }
+}
+div.users-container .new-user{
+    grid-area: new-user;
+    margin: 20px auto 10px;
+}
+div.users-container > form {
+    grid-area: search;
+}
+section.users-container {
+    grid-area: users;
+    margin: 0 20px 20px 20px;
+}
+section.users-container > div.users-pag{
+    grid-area: paginator;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: calc(100% - 20px);
+    margin: 10px auto;
+}
+
+
 table.user-table td.id {width: 50px;}
 table.user-table td.role {width: 100px;}
 table.user-table td.active {width: 50px;}
@@ -667,4 +702,43 @@ table.user-table td.update-date {
     table.user-table td.update-date {
         width: auto;
     }
+}
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - prendas.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+
+div.prendas-container {
+    display: grid;
+    margin: auto;
+    display: grid;
+    max-width: 1600px;
+    grid-template-columns: auto 200px;
+    grid-template-areas: "search new-prenda" "prendas prendas" "paginator paginator";
+}
+@media (max-width: 1000px){
+    div.prendas-container {
+        grid-template-columns: 100%;
+        grid-template-areas: "search" "new-prenda" "prendas" "paginator";
+    }
+}
+div.prendas-container .new-prenda{
+    grid-area: new-prenda;
+    margin: 20px auto 10px;
+}
+div.prendas-container > form {
+    grid-area: search;
+}
+section.prendas-container {
+    grid-area: prendas;
+    margin: 0 20px 20px 20px;
+}
+section.prendas-container > div.prendas-pag{
+    grid-area: paginator;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: calc(100% - 20px);
+    margin: 10px auto;
 }
