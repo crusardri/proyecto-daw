@@ -82,24 +82,35 @@ a.haptic-button.medium {
 
 
 /* Label estado */
-.estate-name {
+.label-box {
     display: inline-block;
     text-align: center;
-    min-width: 80px;
     background-color: rgba(0,0,0,0.1);
     padding: 0 5px;
     border-radius: 5px;
-    box-shadow: 2px 2px 4px -0px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.2);
     color: #000;
 }
-.estate-name:hover {
+.label-box:hover {
     text-decoration: none;
 }
-.estate-name.pending { background-color: #e3b7eb; box-shadow: 0 2px 0 #cc7bda} /* Pendiente/nueva */
-.estate-name.working {background-color: #ffcd85; box-shadow: 0 2px 0 #ffae39} /* En proceso */
-.estate-name.finished {background-color: #d2f5b0; box-shadow: 0 2px 0 #abec6c} /* Finalizado */
-.estate-name.out {background-color: #c2dfff; box-shadow: 0 2px 0 #76b7ff} /* Recogido */
+/*Estados*/
+.label-box.pending { background-color: #e3b7eb; box-shadow: 0 2px 0 #cc7bda; min-width: 80px;} /* Pendiente/nueva */
+.label-box.working {background-color: #ffcd85; box-shadow: 0 2px 0 #ffae39; min-width: 80px;} /* En proceso */
+.label-box.finished {background-color: #d2f5b0; box-shadow: 0 2px 0 #abec6c; min-width: 80px;} /* Finalizado */
+.label-box.out {background-color: #c2dfff; box-shadow: 0 2px 0 #76b7ff; min-width: 80px;} /* Recogido */
 
+
+/*Activo*/
+.label-box.enabled {background-color: #32CD32; box-shadow: 0 2px 0 #228B22; color: #fff; font-weight: 600;} /* Activo */
+.label-box.disabled {background-color: #DA0000; box-shadow: 0 2px 0 #ae0000; color: #fff; font-weight: 600;} /* Desactivado */
+
+
+/*Roles*/
+.label-box.client {background-color: #0080FF; box-shadow: 0 2px 0 #0F52BA; color: #fff;} /* Rol cliente */
+.label-box.employee {background-color: #FC6600; box-shadow: 0 2px 0 #b04700; color: #fff;} /* Rol empleado */
+.label-box.admin {background-color: #Af6EEB; box-shadow: 0 2px 0 #8A2BE2; color: #fff;} /* Rol Admin */
+/* Label Standar */
 
 /* Showcase */
 div.showcase {
@@ -232,6 +243,7 @@ div.paginator > a.page.previous:hover {
 }
 div.paginator > a.page.disabled {
     background-color: transparent;
+    box-shadow: 0 0 0;
 }
 /* Caja de busqueda */
 form > div.search-box {
@@ -276,7 +288,141 @@ form > div.search-box > input[type="submit"]:hover {
     background-color: #ccc;
 }
 
-
+/* Tabla */
+div.table-container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+    margin: 10px auto;
+    overflow: hidden;
+    font-size: 0.9em;
+}
+div.table-container span.responsive-label{
+    display: none;
+    font-weight: 600;
+}
+div.table-container span.responsive-label::after{
+    content: ": ";
+}
+div.table-container > table {
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    width: 100%;
+    margin: -5px auto 2px;
+    overflow: hidden;
+}
+div.table-container > table tr:hover {
+    
+    border-radius: 5px;
+}
+div.table-container > table tr > th {
+    background-color: #ffd700;
+    padding: 5px;
+    height: 25px;
+    box-shadow: 0px 2px 0px #d4b300;
+    font-size: 1em;
+    white-space: nowrap;
+}
+div.table-container > table tr > td {
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    height: 25px;
+    
+}
+div.table-container > table tr:hover > td {
+    background-color: #f2f2f2;
+    box-shadow: 0px 1px 0 #ddd;
+}
+div.table-container > table tr > td:not(:first-child):before{
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    display: inline-block;
+    border-left: 1px solid rgba(0,0,0,0.1);
+    height: calc(100% - 10px);
+}
+div.table-container > table tr:hover > td:not(:first-child):before {
+    border-left: 1px solid rgba(0,0,0,0.2);
+}
+div.table-container > table tr > td:first-child { transform: translate(5px, 0px); padding-right: 10px;}
+div.table-container > table tr > td:last-child { transform: translate(-5px, 0px);}
+div.table-container > table tr > td:nth-last-child(2) { padding-right: 10px; }
+div.table-container > table tr.header-responsive-mobile {display: none}
+div.table-container > table tr:hover > td:last-child {border-radius: 0 5px 5px 0;}
+div.table-container > table tr:hover > td:first-child {border-radius: 5px 0 0 5px;}
+div.table-container > table tr:last-child > td {border-bottom: 1px solid transparent;}
+div.table-container > table tr:last-child:hover > td {border-color: #ddd;}
+div.table-container > table tr > td.a-center {text-align: center;}
+div.table-container > table tr > td.a-left {text-align: left;}
+div.table-container > table tr > td.a-right {text-align: right;}
+@media (max-width: 1000px){
+    div.table-container {
+        border: 1px solid #ffd700;
+        border-radius: 5px;
+        background-color: rgba(0,0,0,0.1);
+    }
+    div.table-container span.responsive-label{
+        display: inline;
+    }
+    div.table-container > table > tbody {
+        display: block;
+    }
+    div.table-container > table tr {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        width: calc(100% - 30px);
+        margin: 5px auto;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2);
+        border-left: 10px solid #ffd700;
+    }
+    div.table-container > table tr:hover{
+        background-color: #fff8d4;
+    }
+    div.table-container > table tr:last-child > td {border-bottom: 0px;}
+    div.table-container > table tr.header-responsive-desktop {
+        display: none;
+        width: 100%;
+        margin-top: 0px;
+        border-left: 0px;
+    }
+    div.table-container > table tr.header-responsive-mobile {
+        display: block;
+        width: 100%;
+        margin-top: 0px;
+        border-left: 0px;
+    }
+    div.table-container > table tr.header-responsive-mobile > th {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.1em;
+        line-height: 25px;
+    }
+    div.table-container > table tr > td:first-child { transform: translate(0px, 0px); padding-right: 5px;}
+    div.table-container > table tr > td:last-child { transform: translate(0px, 0px); padding-left: 5px;}
+    div.table-container > table tr > td {
+        background-color: transparent;
+        border: 0px;
+        height: auto;
+    }
+    div.table-container > table tr:hover > td {
+        background-color: transparent;
+        box-shadow: 0 0 0 transparent;
+        
+    }
+    div.table-container > table tr > td:not(:first-child):before{
+        border-left: 0px solid rgba(0,0,0,0.1);
+    }
+    div.table-container > table tr:hover > td:not(:first-child):before {
+        border-left: 0px solid rgba(0,0,0,0.1);
+    }
+}
 
 /* 
 ---------------------------------------------------------------------------------------------
@@ -435,6 +581,7 @@ section.orders-container > div.order-pag{
     margin: 10px auto;
 }
 
+
 /* Tabla Ordenes*/
 
 table.orders-table tr.pending {}
@@ -454,6 +601,7 @@ table.orders-table tr.order > td.desc > span.desc-cont {
     overflow: hidden;
     text-align: justify;
     max-height: 3.6em;
+    width: 100%;
     line-height: 1.2em;
 }
 table.orders-table tr.order > td > span.desc-cont:after {
@@ -470,6 +618,11 @@ table.orders-table tr.order:hover > td > span.desc-cont:after {
     background-image: linear-gradient(to left, #f2f2f2ff 25%, #f2f2f200 75%);
 }
 table.orders-table tr.order > td.date {text-align: center;}
+table.orders-table tr.order > td:not(:first-child):before{
+    top: 10px;
+    height: calc(100% - 20px);
+}
+
 @media (max-width: 1000px){
     table.orders-table tr.order > td.desc {
         background-color: #ddd;
@@ -488,116 +641,25 @@ table.orders-table tr.order > td.date {text-align: center;}
 
 
 
-div.table-container {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
-    margin: 10px auto;
-    overflow: hidden;
-    font-size: 0.9em;
-}
-div.table-container span.responsive-label{
-    display: none;
-    font-weight: 600;
-}
-div.table-container span.responsive-label::after{
-    content: ": ";
-}
-div.table-container > table {
-    border-collapse: separate;
-    border-spacing: 0px 5px;
-    width: 100%;
-    margin: -5px auto 2px;
-    overflow: hidden;
-}
-div.table-container > table tr:hover {
-    
-    border-radius: 5px;
-}
-div.table-container > table tr > th {
-    background-color: #ffd700;
-    padding: 5px;
-    height: 25px;
-    box-shadow: 0px 2px 0px #d4b300;
-    font-size: 1em;
-    white-space: nowrap;
-}
-div.table-container > table tr > td {
-    border-bottom: 1px solid #ddd;
-    padding: 5px;
-    height: 25px;
-    
-}
-div.table-container > table tr:hover > td {
-    background-color: #f2f2f2;
-    box-shadow: 0px 1px 0 #ddd;
-}
-div.table-container > table tr > td:first-child { transform: translate(5px, 0px); padding-right: 10px;}
-div.table-container > table tr > td:last-child { transform: translate(-5px, 0px); padding-left: 10px;}
-div.table-container > table tr.header-responsive-mobile {display: none}
-div.table-container > table tr:hover > td:last-child {border-radius: 0 5px 5px 0;}
-div.table-container > table tr:hover > td:first-child {border-radius: 5px 0 0 5px;}
-div.table-container > table tr:last-child > td {border-bottom: 1px solid transparent;}
-div.table-container > table tr:last-child:hover > td {border-color: #ddd;}
-div.table-container > table tr > td.a-center {text-align: center;}
-div.table-container > table tr > td.a-left {text-align: left;}
-div.table-container > table tr > td.a-right {text-align: right;}
-@media (max-width: 1000px){
-    div.table-container {
-        border: 1px solid #ffd700;
-        border-radius: 5px;
-        background-color: rgba(0,0,0,0.1);
-    }
-    div.table-container span.responsive-label{
-        display: inline;
-    }
-    div.table-container > table > tbody {
-        display: block;
-    }
-    div.table-container > table tr {
-        position: relative;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        width: calc(100% - 30px);
-        margin: 5px auto;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.2);
-        border-left: 10px solid #ffd700;
-    }
-    div.table-container > table tr:hover{
-        background-color: #fff8d4;
-    }
-    div.table-container > table tr:last-child > td {border-bottom: 0px;}
-    div.table-container > table tr.header-responsive-desktop {
-        display: none;
-        width: 100%;
-        margin-top: 0px;
-        border-left: 0px;
-    }
-    div.table-container > table tr.header-responsive-mobile {
-        display: block;
-        width: 100%;
-        margin-top: 0px;
-        border-left: 0px;
-    }
-    div.table-container > table tr.header-responsive-mobile > th {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-    div.table-container > table tr > td:first-child { transform: translate(0px, 0px); padding-right: 5px;}
-    div.table-container > table tr > td:last-child { transform: translate(0px, 0px); padding-left: 5px;}
-    div.table-container > table tr > td {
-        background-color: transparent;
-        border: 0px;
-        height: auto;
-    }
-    div.table-container > table tr:hover > td {
-        background-color: transparent;
-        box-shadow: 0 0 0 transparent;
-        
-    }
-}
 
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - user.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+table.user-table td.id {width: 50px;}
+table.user-table td.role {width: 100px;}
+table.user-table td.active {width: 50px;}
+table.user-table td.registration-date,
+table.user-table td.update-date {
+    width: 150px;
+}
+@media (max-width: 1000px){
+    table.user-table td.id {width: auto;}
+    table.user-table td.role {width: auto;}
+    table.user-table td.active {width: auto;}
+    table.user-table td.registration-date,
+    table.user-table td.update-date {
+        width: auto;
+    }
+}

@@ -18,9 +18,9 @@ require("Funciones/vistaController.php");
                 <input type="submit" value="Buscar">
             </div>
         </form>
-        <a class="haptic-button medium new-order" >
-            <img src="media/img/new-order.png">
-            <div class="label">Nueva Usuario</div>
+        <a class="haptic-button medium new-user" >
+            <img src="media/img/add-user.png">
+            <div class="label">Nuevo Usuario</div>
         </a>
         <section class="orders-container">
             <?php showUsersTable()?>
