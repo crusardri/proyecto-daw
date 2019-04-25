@@ -46,6 +46,68 @@ function showOrdersShowcase($titulo){
 }
 
 
+function showFixesTable(){
+    ?>
+    <div class="table-container">
+        <table class="fixes-table">
+           <tr class="header-responsive-mobile">
+                <th>Arreglos</th>
+            </tr>
+            <tr class="header-responsive-desktop">
+                <th>ID</th>
+                <th>Arreglo</th>
+                <th>Prenda</th>
+                <th>Precio</th>
+                <th>Activo</th>
+                <th>Creado</th>
+            </tr>
+            <tr>
+                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
+                <td><span class="responsive-label">Prenda</span>Vaquero</td>
+                <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
+                <td><span class="responsive-label">Prenda</span>Vaquero</td>
+                <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
+                <td><span class="responsive-label">Prenda</span>Vaquero</td>
+                <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
+                <td><span class="responsive-label">Prenda</span>Vaquero</td>
+                <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
+                <td><span class="responsive-label">Prenda</span>Vaquero</td>
+                <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+            </tr>           
+        </table>
+    </div>
+    
+    <?php
+}
+
+
 function showOrdersTable(){
     ?>
     <div class="table-container">
