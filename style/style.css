@@ -704,7 +704,7 @@ table.user-table td.update-date {
 }
 /*
 ------------------------------------------------------------------------------------------------------------
--------------------------------------------- - prendas.php - -------------------------------------------- 
+-------------------------------------------- - clothes.php - -------------------------------------------- 
 ------------------------------------------------------------------------------------------------------------
 */
 
@@ -746,6 +746,13 @@ table.clothes-table td.id {width: 60px;}
 table.clothes-table td.num-fixes {width: 100px;}
 table.clothes-table td.active {width: 60px;}
 table.clothes-table td.date {width: 180px; text-align: center;}
+
+@media (max-width: 1000px){
+    table.clothes-table td.id, 
+    table.clothes-table td.num-fixes, 
+    table.clothes-table td.active, 
+    table.clothes-table td.date {width: auto; text-align: left;}
+}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - fixes.php - -------------------------------------------- 
