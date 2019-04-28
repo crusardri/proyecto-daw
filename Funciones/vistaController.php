@@ -7,7 +7,7 @@ function showOrdersShowcase($titulo){
             <a href="" class="order-item pending">
                 <div class="estate pending"></div>
                 <div class="order-info">
-                    <div class="item-id">
+                    <div class="item-id a-center">
                         <span class="label">ID: </span>
                         <span class="content">000001</span>
                     </div>
@@ -62,7 +62,7 @@ function showFixesTable(){
                 <th>Creado</th>
             </tr>
             <tr>
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
                 <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
@@ -108,6 +108,76 @@ function showFixesTable(){
 }
 
 
+function showClothesTable(){
+    ?>
+    <div class="table-container">
+        <table class="clothes-table">
+           <tr class="header-responsive-mobile">
+                <th>Prendas</th>
+            </tr>
+            <tr class="header-responsive-desktop">
+                <th>ID</th>
+                <th>Prenda</th>
+                <th>Nº Arreglos</th>
+                <th>Activo</th>
+                <th>Creado</th>
+                <th>Actualizado</th>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Vaqueros</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>2</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000002</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Jersei</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>1</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000003</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Camisa</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>8</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000004</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Mantel</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>5</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000005</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Pantalon Pana</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>7</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>
+            <tr>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000006</a></td>
+                <td class="clothe"><span class="responsive-label">Prenda</span>Falda</td>
+                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>1</td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
+                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+            </tr>        
+        </table>
+    </div>
+    
+    <?php
+}
+
+
 function showOrdersTable(){
     ?>
     <div class="table-container">
@@ -130,7 +200,7 @@ function showOrdersTable(){
                 <th>Descripción</th>
             </tr>
             <tr class="order pending">
-                <td><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Estado</span> <a href="" class="label-box pending"> Pendiente</a></td>
                 <td class="a-center"><span class="responsive-label">Nº Prendas</span> 2</td>
                 <td class="a-center"><span class="responsive-label">Precio</span> 10€</td>
@@ -237,7 +307,7 @@ function showUsersTable(){
                 <th>Actualizado</th>
             </tr>
             <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Ivan</a></td>
                 <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box admin">Administrador</a></td>
                 <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Iván</a></td>

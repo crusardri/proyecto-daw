@@ -584,7 +584,6 @@ section.orders-container > div.order-pag{
 
 /* Tabla Ordenes*/
 
-table.orders-table tr.pending {}
 table.orders-table tr.order.pending {border-color: #e3b7eb;}
 table.orders-table tr.order.working {border-color: #ffcd85;}
 table.orders-table tr.order.finished {border-color: #d2f5b0;}
@@ -709,32 +708,32 @@ table.user-table td.update-date {
 ------------------------------------------------------------------------------------------------------------
 */
 
-div.prendas-container {
+div.clothes-container {
     display: grid;
     margin: auto;
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-prenda" "prendas prendas" "paginator paginator";
+    grid-template-areas: "search new-clothe" "clothes clothes" "paginator paginator";
 }
 @media (max-width: 1000px){
-    div.prendas-container {
+    div.clothes-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "new-prenda" "prendas" "paginator";
+        grid-template-areas: "search" "new-clothe" "clothes" "paginator";
     }
 }
-div.prendas-container .new-prenda{
-    grid-area: new-prenda;
+div.clothes-container .new-clothe{
+    grid-area: new-clothe;
     margin: 20px auto 10px;
 }
-div.prendas-container > form {
+div.clothes-container > form {
     grid-area: search;
 }
-section.prendas-container {
-    grid-area: prendas;
+section.clothes-container {
+    grid-area: clothes;
     margin: 0 20px 20px 20px;
 }
-section.prendas-container > div.prendas-pag{
+section.clothes-container > div.clothes-pag{
     grid-area: paginator;
     display: flex;
     flex-flow: row nowrap;
@@ -743,6 +742,10 @@ section.prendas-container > div.prendas-pag{
     margin: 10px auto;
 }
 
+table.clothes-table td.id {width: 60px;}
+table.clothes-table td.num-fixes {width: 100px;}
+table.clothes-table td.active {width: 60px;}
+table.clothes-table td.date {width: 180px; text-align: center;}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - fixes.php - -------------------------------------------- 
