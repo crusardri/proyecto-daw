@@ -6,7 +6,7 @@ require("Funciones/vistaController.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Prendas</title>
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
