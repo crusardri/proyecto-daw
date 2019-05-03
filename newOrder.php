@@ -8,19 +8,15 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="form-container new-order">
-        <h1>Nueva órden</h1>
+        
         <form>
+            <h1>Nueva órden</h1>
             <label class="boxed-input id">
                 <div class="text-label">ID</div>
                 <input type="number" value="000001" disabled>
             </label>
-            <label class="boxed-input worker">
-                <div class="text-label">Número de prendas</div>
-                <input type="number" value="3" disabled>
-                <div class="button">Buscar</div>
-            </label>
             
-            
+            <h2>Estado</h2>
             <label class="boxed-radio pending">
                 <input type="radio" name="estate" name="1" checked>
                 <div class="container">

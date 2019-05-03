@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+/*@import url('https://fonts.googleapis.com/css?family=Catamaran:400,600,800');*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
 /* ------------------------------------------------ START ------------------------------------- */
 body {
     font-family: "Open Sans", sans-serif;
     margin: 0;
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff;
+
 }
 
 /* Comun */
@@ -33,8 +36,8 @@ label.boxed-radio > input{
 }
 label.boxed-radio > div.container {
     display: grid;
-    grid-template-areas: "checkbox title" "desc desc";
-    grid-template-columns: 30px auto;
+    grid-template-areas: "checkbox title" "checkbox desc";
+    grid-template-columns: 2.2em auto;
     padding: 10px;
     border-radius: 5px;
     margin: 10px 0px;
@@ -67,8 +70,10 @@ label.boxed-radio > input:checked + div.container > div.radio-checkbox {
 }
 label.boxed-radio > div.container > div.radio-title {
     grid-area: title;
-    font-weight: 600;
-    vertical-align: middle
+    font-weight: 700;
+    vertical-align: text-top;
+    font-family: "Open Sans Condensed";
+    font-size: 1.2em;
 }
 label.boxed-radio > div.container > div.radio-desc {
     margin-top: 5px;
@@ -246,6 +251,7 @@ div.showcase  > div.title {
     font-weight: 600;
     line-height: 20px;
     font-size: 1.1em;
+    font-size: "Open Sans Condensed";
 }
 
 /* ---- Order Showcase ---- */
@@ -541,7 +547,7 @@ div.table-container > table tr > td.a-right {text-align: right;}
     }
 }
 
-/* ---- plantilla formulario ---- */
+/* ---- formulario ---- */
 div.form-container {
     display: grid;
     padding: 10px;
@@ -552,14 +558,12 @@ div.form-container {
     border-radius: 5px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
 }
-div.form-container > h1 {
-    font-size: 1.2em;
-    margin: 0 0 10px 10px;
-}
 div.form-container > form {
     font-size: 0.9em;
     margin: 0 10px;
 }
+div.form-container > form > h1{font-size: 1.3em; font-family: "Open Sans Condensed";}
+div.form-container > form > h2{font-size: 1.2em;  font-family: "Open Sans Condensed";}
 div.form-container > form input {
     font-size: 1em;
     padding: 3px;
@@ -568,8 +572,8 @@ div.form-container > form input {
 }
 div.form-container label.boxed-input {
     border-radius: 5px;
-    background-color: #EEE;
-    border: 1px solid #AAA;
+    background-color: #fff;
+    border: 1px solid #ddd;
     padding: 5px;
     overflow: hidden;
     position: relative;
@@ -579,14 +583,14 @@ div.form-container label.boxed-input > div.text-label {
     display: inline-block;
     padding: 5px 10px;
     position: relative;
-    background-color: #dfdfdf;
+    background-color: #fff;
     left: -5px;
     border-radius: 5px 0 0 5px;
 }
 div.form-container label.boxed-input > div.text-label:after {
     content: "";
     display: inline-block;
-    border-left: 1px solid #AAA;
+    border-left: 1px solid #ddd;
     height: calc(100% - 10px);
     position: absolute;
     top: 5px;
@@ -598,6 +602,7 @@ div.form-container label.boxed-input > input{
     margin-right: -10px;
     position: relative;
     left: -5px;
+    background-color: transparent;
 }
 div.form-container label.boxed-input > div.button{
     display: inline-block;
