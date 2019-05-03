@@ -14,6 +14,7 @@ select {
     font-family: "Open Sans", sans-serif;
     outline: none;
 }
+/*Enlaces*/
 a {
     text-decoration: none;
     color: #0060ac;
@@ -26,7 +27,102 @@ a:focus {
     text-decoration: none;
 }
 
-/* Boton con relieve */
+/* ---- Radio Button With Label ---- */
+label.boxed-radio > input{
+    display: none;
+}
+label.boxed-radio > div.container {
+    display: grid;
+    grid-template-areas: "checkbox title" "desc desc";
+    grid-template-columns: 30px auto;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    background-color: #FFF;
+    border: 1px solid #ddd;
+}
+label.boxed-radio > div.container > div.radio-checkbox {
+    grid-area: checkbox;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 600; 
+    color: transparent;
+}
+label.boxed-radio > input:checked + div.container {
+    background-color: #ffd700;
+    box-shadow: 0 2px 0 #926f1d;
+    border: 1px solid transparent;
+}
+label.boxed-radio > input:checked + div.container > div.radio-checkbox {
+    background-color: #FFF;
+    color: #926f1d;
+    border-color: #926f1d;
+}
+label.boxed-radio > div.container > div.radio-title {
+    grid-area: title;
+    font-weight: 600;
+}
+label.boxed-radio > div.container > div.radio-desc {
+    margin-top: 5px;
+    grid-area: desc;
+    font-size: 0.9em;
+}
+
+/* Activo */
+label.boxed-radio.active > div.container > div.radio-title {color: #32CD32}
+label.boxed-radio.active > input:checked + div.container > div.radio-title {color: #FFF}
+label.boxed-radio.active > input:checked + div.container {background-color: #32CD32; box-shadow: 0 2px 0 #228B22; color: #FFF}
+label.boxed-radio.active > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #32CD32; border-color: #228B22;}
+/* Desactivado */
+label.boxed-radio.disabled > div.container > div.radio-title {color: #DA0000}
+label.boxed-radio.disabled > input:checked + div.container > div.radio-title {color: #FFF}
+label.boxed-radio.disabled > input:checked + div.container {background-color: #DA0000; box-shadow: 0 2px 0 #ae0000; color: #FFF}
+label.boxed-radio.disabled > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #DA0000; border-color: #ae0000;}
+
+/* Estados */
+/* Pendiente */
+label.boxed-radio.pending > div.container > div.radio-title {color: #cc7bda}
+label.boxed-radio.pending > input:checked + div.container > div.radio-title {color: #000}
+label.boxed-radio.pending > input:checked + div.container {background-color: #e3b7eb; box-shadow: 0 2px 0 #cc7bda; color: #000}
+label.boxed-radio.pending > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #cc7bda; border-color: #cc7bda;}
+/* En proceso */
+label.boxed-radio.working > div.container > div.radio-title {color: #ffae39}
+label.boxed-radio.working > input:checked + div.container > div.radio-title {color: #000}
+label.boxed-radio.working > input:checked + div.container {background-color: #ffcd85; box-shadow: 0 2px 0 #ffae39; color: #000}
+label.boxed-radio.working > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #ffae39; border-color: #ffae39;}
+/* Finalizado */
+label.boxed-radio.finished > div.container > div.radio-title {color: #32CD32}
+label.boxed-radio.finished > input:checked + div.container > div.radio-title {color: #000}
+label.boxed-radio.finished > input:checked + div.container {background-color: #d2f5b0; box-shadow: 0 2px 0 #abec6c; color: #000}
+label.boxed-radio.finished > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #abec6c; border-color: #abec6c;}
+/* Recogido */
+label.boxed-radio.out > div.container > div.radio-title {color: #76b7ff}
+label.boxed-radio.out > input:checked + div.container > div.radio-title {color: #000}
+label.boxed-radio.out > input:checked + div.container {background-color: #c2dfff; box-shadow: 0 2px 0 #76b7ff; color: #000}
+label.boxed-radio.out > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color:  #76b7ff; border-color:  #76b7ff;}
+
+/* Usuarios */
+/* Cliente */
+label.boxed-radio.client > div.container > div.radio-title {color: #0F52BA}
+label.boxed-radio.client > input:checked + div.container > div.radio-title {color: #FFF}
+label.boxed-radio.client > input:checked + div.container {background-color: #0080FF; box-shadow: 0 2px 0 #0F52BA; color: #FFF}
+label.boxed-radio.client > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #0F52BA; border-color:  #0F52BA;}
+/* Trabajador */
+label.boxed-radio.employee > div.container > div.radio-title {color: #FC6600}
+label.boxed-radio.employee > input:checked + div.container > div.radio-title {color: #FFF}
+label.boxed-radio.employee > input:checked + div.container {background-color: #FC6600; box-shadow: 0 2px 0 #b04700; color: #FFF}
+label.boxed-radio.employee > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #b04700; border-color:  #b04700;}
+/* Admin */
+label.boxed-radio.admin > div.container > div.radio-title {color: #Af6EEB}
+label.boxed-radio.admin > input:checked + div.container > div.radio-title {color: #FFF}
+label.boxed-radio.admin > input:checked + div.container {background-color: #Af6EEB; box-shadow: 0 2px 0 #8A2BE2; color: #FFF}
+label.boxed-radio.admin > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #8A2BE2; border-color:  #8A2BE2;}
+
+/* --- Boton con relieve --- */
 a.button {
     display: inline-block;
     font-size: 0.7em;
