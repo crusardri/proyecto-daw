@@ -15,7 +15,62 @@
                 <div class="text-label">ID</div>
                 <input type="number" value="000001" disabled>
             </label>
+            <!-- User Info -->
+            <br>
+            <div class="form-col-50">
+                <h3>Cliente</h3>
+                <div class="field-set">
+                    <div class="info-set">
+                        <div class="form-info-title">Identificador</div>
+                        <div class="form-info-data">000001</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre de usuario</div>
+                        <div class="form-info-data">Halfonso</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre</div>
+                        <div class="form-info-data">Halfonso</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Apellidos</div>
+                        <div class="form-info-data">Fernandez</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Correo Electronico</div>
+                        <div class="form-info-data">gmail@halfonso.com</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Telefono</div>
+                        <div class="form-info-data">689966332</div>
+                    </div>
+                    <div class="button">Cambiar</div>
+                </div>
+            </div>
+            <div class="form-col-50">
+                <h3>Empleado</h3>
+                <div class="field-set">
+                    <div class="info-set">
+                        <div class="form-info-title">Identificador</div>
+                        <div class="form-info-data">000002</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre de usuario</div>
+                        <div class="form-info-data">Ivan</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre</div>
+                        <div class="form-info-data">Iván</div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Apellidos</div>
+                        <div class="form-info-data">Maldonado</div>
+                    </div>
+                    <div class="button">Cambiar</div>
+                </div>
+            </div>
             
+            <!-- Estados -->
             <h2>Estado</h2>
             <label class="boxed-radio pending">
                 <input type="radio" name="estate" name="1" checked>
