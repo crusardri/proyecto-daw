@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
 /* ------------------------------------------------ START ------------------------------------- */
 body {
@@ -6,12 +5,6 @@ body {
     margin: 0;
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff;
-}
-body.modalwindow{
-    font-family: "Lato", sans-serif;
-    margin: 0;
-    background-image: none;
-    background-color: #FFF;
 }
 /* Comun */
 input,
@@ -34,6 +27,10 @@ a:focus {
 }
 
 /* ---- Radio Button With Label ---- */
+label.boxed-radio {
+    display: block;
+    margin-top: 10px;
+}
 label.boxed-radio > input{
     display: none;
 }
@@ -43,7 +40,7 @@ label.boxed-radio > div.container {
     grid-template-columns: 2.2em auto;
     padding: 10px;
     border-radius: 5px;
-    margin: 10px 0px;
+    margin: 0px;
     background-color: #FFF;
     border: 1px solid #ddd;
     cursor: pointer;
@@ -89,42 +86,42 @@ label.boxed-radio > input:checked + div.container > div.radio-desc {
 
 /* Activo */
 label.boxed-radio.active > div.container > div.radio-title {color: #32CD32}
+label.boxed-radio.active > input:checked + div.container {background-color: #32CD32; box-shadow: 0 2px 0 #228B22; color: #FFF}
 label.boxed-radio.active > input:checked + div.container > div.radio-title {color: #FFF}
 label.boxed-radio.active > input:checked + div.container > div.radio-desc {color: #FFF}
-label.boxed-radio.active > input:checked + div.container {background-color: #32CD32; box-shadow: 0 2px 0 #228B22; color: #FFF}
 label.boxed-radio.active > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #32CD32; border-color: #228B22;}
 /* Desactivado */
 label.boxed-radio.disabled > div.container > div.radio-title {color: #DA0000}
+label.boxed-radio.disabled > input:checked + div.container {background-color: #DA0000; box-shadow: 0 2px 0 #ae0000; color: #FFF}
 label.boxed-radio.disabled > input:checked + div.container > div.radio-title {color: #FFF}
 label.boxed-radio.disabled > input:checked + div.container > div.radio-desc {color: #FFF}
-label.boxed-radio.disabled > input:checked + div.container {background-color: #DA0000; box-shadow: 0 2px 0 #ae0000; color: #FFF}
 label.boxed-radio.disabled > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #DA0000; border-color: #ae0000;}
 
 /* Estados */
 /* Pendiente */
 label.boxed-radio.pending > div.container > div.radio-title {color: #cc7bda}
-label.boxed-radio.pending > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.pending > input:checked + div.container {background-color: #e3b7eb; box-shadow: 0 2px 0 #cc7bda; color: #000}
+label.boxed-radio.pending > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.pending > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #cc7bda; border-color: #cc7bda;}
 /* En proceso */
 label.boxed-radio.working > div.container > div.radio-title {color: #ffae39}
-label.boxed-radio.working > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.working > input:checked + div.container {background-color: #ffcd85; box-shadow: 0 2px 0 #ffae39; color: #000}
+label.boxed-radio.working > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.working > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #ffae39; border-color: #ffae39;}
 /* Finalizado */
 label.boxed-radio.finished > div.container > div.radio-title {color: #32CD32}
-label.boxed-radio.finished > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.finished > input:checked + div.container {background-color: #d2f5b0; box-shadow: 0 2px 0 #abec6c; color: #000}
+label.boxed-radio.finished > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.finished > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #abec6c; border-color: #abec6c;}
 /* Recogido */
 label.boxed-radio.out > div.container > div.radio-title {color: #76b7ff}
-label.boxed-radio.out > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.out > input:checked + div.container {background-color: #c2dfff; box-shadow: 0 2px 0 #76b7ff; color: #000}
+label.boxed-radio.out > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.out > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color:  #76b7ff; border-color:  #76b7ff;}
 /* Cancelado */
 label.boxed-radio.canceled > div.container > div.radio-title {color: #ff3434}
-label.boxed-radio.canceled > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.canceled > input:checked + div.container {background-color: #Ff8080; box-shadow: 0 2px 0 #ff3434; color: #000}
+label.boxed-radio.canceled > input:checked + div.container > div.radio-title {color: #000}
 label.boxed-radio.canceled > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color:  #ff3434; border-color:  #ff3434;}
 
 
@@ -132,21 +129,21 @@ label.boxed-radio.canceled > input:checked + div.container > div.radio-checkbox 
 /* Usuarios */
 /* Cliente */
 label.boxed-radio.client > div.container > div.radio-title {color: #0F52BA}
+label.boxed-radio.client > input:checked + div.container {background-color: #0080FF; box-shadow: 0 2px 0 #0F52BA; color: #FFF}
 label.boxed-radio.client > input:checked + div.container > div.radio-title {color: #FFF}
 label.boxed-radio.client > input:checked + div.container > div.radio-desc {color: #FFF}
-label.boxed-radio.client > input:checked + div.container {background-color: #0080FF; box-shadow: 0 2px 0 #0F52BA; color: #FFF}
 label.boxed-radio.client > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #0F52BA; border-color:  #0F52BA;}
 /* Trabajador */
 label.boxed-radio.employee > div.container > div.radio-title {color: #FC6600}
+label.boxed-radio.employee > input:checked + div.container {background-color: #FC6600; box-shadow: 0 2px 0 #b04700; color: #FFF}
 label.boxed-radio.employee > input:checked + div.container > div.radio-title {color: #FFF}
 label.boxed-radio.employee > input:checked + div.container > div.radio-desc {color: #FFF}
-label.boxed-radio.employee > input:checked + div.container {background-color: #FC6600; box-shadow: 0 2px 0 #b04700; color: #FFF}
 label.boxed-radio.employee > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #b04700; border-color:  #b04700;}
 /* Admin */
 label.boxed-radio.admin > div.container > div.radio-title {color: #Af6EEB}
+label.boxed-radio.admin > input:checked + div.container {background-color: #Af6EEB; box-shadow: 0 2px 0 #8A2BE2; color: #FFF}
 label.boxed-radio.admin > input:checked + div.container > div.radio-title {color: #FFF}
 label.boxed-radio.admin > input:checked + div.container > div.radio-desc {color: #FFF}
-label.boxed-radio.admin > input:checked + div.container {background-color: #Af6EEB; box-shadow: 0 2px 0 #8A2BE2; color: #FFF}
 label.boxed-radio.admin > input:checked + div.container > div.radio-checkbox {background-color: #FFF; color: #8A2BE2; border-color:  #8A2BE2;}
 
 /* --- Boton con relieve --- */
@@ -683,6 +680,49 @@ div.form-container div.field-set > div.button {
 div.form-container div.field-set > div.button:hover {
     background-color: #ffe34d;
 }
+/* ---- MODAL BOX ----*/
+div.modal-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+}
+div.modal-box > div.modal-box-content {
+    position: absolute;
+    top: calc(50% - 300px);
+    left: calc(50% - 200px);
+    height: 600px;
+    width: 400px;
+    padding: 0px 5px 5px 5px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+}
+div.modal-box > div.modal-box-content > h1.modal-box-title{
+    position: absolute;
+    width: 100%;
+    right: 0;
+    margin: 0;
+    padding: 5px 0;
+    background-color: #ffd700;
+    border-radius: 10px 10px 0 0px;
+    text-align: center;
+    font-size: 1.2em;
+}
+div.modal-box > div.modal-box-content > div.modal-box-close {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 1.4em;
+    font-weight: 700;
+    line-height: 1em;
+    text-align: center;
+    cursor: pointer;
+    width: 1.2em;
+    height: 1.2em;
+}
 /* 
 ---------------------------------------------------------------------------------------------
 ---------------------------------- - Barra de navegacion - ---------------------------------- 
@@ -799,6 +839,10 @@ div.worker-container > .all-orders {
 div.worker-container > .updates {
     grid-area: updates;
 }
+
+
+
+
 
 /*
 ------------------------------------------------------------------------------------------------------------
@@ -1020,7 +1064,6 @@ table.clothes-table td.date {width: 180px; text-align: center;}
 */
 
 div.fixes-container {
-    display: grid;
     margin: auto;
     display: grid;
     max-width: 1600px;
@@ -1064,4 +1107,37 @@ table.fixes-table td.date {width: 200px;}
     table.fixes-table td.date {
         width: auto;
     }
+}
+
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - order.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+
+div.form-container.order > form{
+    display: grid;
+    grid-template-columns: calc(50% - 10px) 50%;
+    grid-template-areas: "info info" "client employee" "estate estate";
+    grid-gap: 10px;
+}
+div.form-container.order div.order-info {grid-area: info}
+div.form-container.order div.client-info{grid-area: client}
+div.form-container.order div.employee-info{grid-area: employee}
+div.form-container.order div.estate-container{
+    grid-area: estate;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between
+}
+div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10px auto 5px;}
+div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
+div.form-container.order div.estate-container > label.boxed-radio.full-width{flex-basis: 100%;}
+@media(max-width: 1000px){
+    div.form-container.order > form{
+        grid-template-columns: 100%;
+        grid-template-areas: "info" "client" "employee" "estate";
+        grid-gap: 0px;
+    }
+    div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
 }
