@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nueva Orden</title>
+    <script src="js/main.js"></script>
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
