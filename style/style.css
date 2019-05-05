@@ -5,6 +5,7 @@ body {
     margin: 0;
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff;
+    font-size: 
 }
 /* Comun */
 input,
@@ -567,18 +568,6 @@ div.form-container > form {
     font-size: 0.9em;
     margin: 0 10px;
 }
-div.form-container div.form-col-50{
-    width: calc(50% - 20px);
-    display: inline-block;
-    margin: 5px 9px;
-}
-@media (max-width: 1000px){
-    div.form-container div.form-col-50{
-        display: block;
-        width: auto;
-        margin: 5px auto;
-    }
-}
 div.form-container > form h1{font-size: 1.4em;}
 div.form-container > form h2{font-size: 1.3em;}
 div.form-container > form h3{font-size: 1.2em; margin: 5px auto}
@@ -652,6 +641,17 @@ div.form-container div.field-set{
     flex-flow: row wrap;
     justify-content: space-around;    
     align-items: stretch;
+    padding-top: 1em;
+    margin-top: 1.5em;
+}
+div.form-container div.field-set > h3{
+    position: absolute;
+    left: 20px;
+    top: calc(0% - 1.2em + 2px);
+    background-color: #FFF;
+    border: 1px solid #ddd;
+    padding: 2px 5px;
+    border-radius: 5px;
 }
 div.form-container div.field-set > div.info-set{
     padding: 5px 10px;
@@ -695,17 +695,14 @@ div.modal-box > div.modal-box-content {
     left: calc(50% - 200px);
     height: 600px;
     width: 400px;
-    padding: 0px 5px 5px 5px;
     background-color: #FFF;
     border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0,0,0,0.3);
 }
 div.modal-box > div.modal-box-content > h1.modal-box-title{
-    position: absolute;
     width: 100%;
-    right: 0;
-    margin: 0;
     padding: 5px 0;
+    margin: 0;
     background-color: #ffd700;
     border-radius: 10px 10px 0 0px;
     text-align: center;
@@ -722,6 +719,10 @@ div.modal-box > div.modal-box-content > div.modal-box-close {
     cursor: pointer;
     width: 1.2em;
     height: 1.2em;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body {
+    height: calc(100% - 2.2em - 10px);
+    padding: 5px;
 }
 /* 
 ---------------------------------------------------------------------------------------------

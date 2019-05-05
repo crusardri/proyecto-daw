@@ -21,8 +21,8 @@
             </div>      
             <!-- User Info -->
             <div class="client-info">
-                <h3>Cliente</h3>
                 <div class="field-set">
+                <h3>Cliente</h3>
                     <div class="info-set">
                         <div class="form-info-title">Identificador</div>
                         <div class="form-info-data">000001</div>
@@ -51,8 +51,8 @@
                 </div>
             </div>
             <div class="employee-info">
-                <h3>Empleado</h3>
                 <div class="field-set">
+                <h3>Empleado</h3>
                     <div class="info-set">
                         <div class="form-info-title">Identificador</div>
                         <div class="form-info-data">000002</div>
