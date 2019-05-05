@@ -1,20 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-/*@import url('https://fonts.googleapis.com/css?family=Catamaran:400,600,800');*/
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
 /* ------------------------------------------------ START ------------------------------------- */
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Lato", sans-serif;
     margin: 0;
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff;
-
 }
-
+body.modalwindow{
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    background-image: none;
+    background-color: #FFF;
+}
 /* Comun */
 input,
 textarea,
 select {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Lato", sans-serif;
     outline: none;
 }
 /*Enlaces*/
@@ -72,7 +75,6 @@ label.boxed-radio > div.container > div.radio-title {
     grid-area: title;
     font-weight: 700;
     vertical-align: text-top;
-    font-family: "Open Sans Condensed";
     font-size: 1.2em;
 }
 label.boxed-radio > div.container > div.radio-desc {
@@ -161,7 +163,6 @@ a.button {
     border-left: 1px solid #a78c00;
     border-bottom: 3px solid #a78c00;
     border-radius: 5px;
-    font-family: "Open Sans";
 }
 a.button:hover{
     background-color: #eee;
@@ -252,7 +253,6 @@ div.showcase  > div.title {
     font-weight: 600;
     line-height: 20px;
     font-size: 1.1em;
-    font-family: "Open Sans Condensed";
 }
 
 /* ---- Order Showcase ---- */
@@ -453,7 +453,6 @@ div.table-container > table tr > th {
     box-shadow: 0px 2px 0px #d4b300;
     font-size: 1.2em;
     white-space: nowrap;
-    font-family: "Open Sans Condensed";
 }
 div.table-container > table tr > td {
     position: relative;
@@ -583,9 +582,9 @@ div.form-container div.form-col-50{
         margin: 5px auto;
     }
 }
-div.form-container > form h1{font-size: 1.4em; font-family: "Open Sans Condensed";}
-div.form-container > form h2{font-size: 1.3em;  font-family: "Open Sans Condensed";}
-div.form-container > form h3{font-size: 1.2em;  font-family: "Open Sans Condensed"; margin: 5px auto}
+div.form-container > form h1{font-size: 1.4em;}
+div.form-container > form h2{font-size: 1.3em;}
+div.form-container > form h3{font-size: 1.2em; margin: 5px auto}
 div.form-container > form input {
     font-size: 1em;
     padding: 3px;
@@ -660,7 +659,7 @@ div.form-container div.field-set{
 div.form-container div.field-set > div.info-set{
     padding: 5px 10px;
     flex-grow: 2;
-    flex-basis: 200px;
+    min-width: 200px;
 }
 div.form-container div.field-set > div.info-set > div.form-info-title{
     font-weight: 700;

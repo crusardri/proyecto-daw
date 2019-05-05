@@ -69,7 +69,7 @@
                     <div class="button">Cambiar</div>
                 </div>
             </div>
-            
+             
             <!-- Estados -->
             <h2>Estado</h2>
             <label class="boxed-radio pending">
