@@ -4,8 +4,7 @@ body {
     font-family: "Lato", sans-serif;
     margin: 0;
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
-    background-color: #fff;
-    font-size: 
+    background-color: #fff; 
 }
 /* Comun */
 input,
@@ -657,8 +656,12 @@ div.form-container div.field-set > h3{
 }
 div.form-container div.field-set > div.info-set{
     padding: 5px 10px;
-    flex-grow: 2;
+    flex-grow: 1;
     min-width: 200px;
+}
+div.form-container div.field-set > div.info-set.hidden{
+    padding: 0px 10px;
+    height: 0px;
 }
 div.form-container div.field-set > div.info-set > div.form-info-title{
     font-weight: 700;
@@ -698,7 +701,7 @@ div.modal-box > div.modal-box-content {
     top: calc(50% - 300px);
     left: calc(50% - 200px);
     height: 600px;
-    width: 400px;
+    width: 500px;
     background-color: #FFF;
     border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0,0,0,0.3);
@@ -749,10 +752,41 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-sea
     padding: 3px 5px;
     border-bottom: 1px solid #DDD;
     cursor: pointer;
+    display: flex;
+    flex-flow: row wrap;
 }
 div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result:hover {
     background-color: rgba(0,0,0,0.05)
 }
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span {
+    display: inline-block;
+    position: relative;
 
-
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.name {
+    width: 185px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.user {min-width:130px; margin-right: 5px}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.user:after {
+    display: block;
+    content: "";
+    position: absolute;
+    height: calc(100% - 6px);
+    top: 3px;
+    right: 0;
+    border-left: 1px solid #ddd;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.role {min-width:120px; margin-left: auto; font-size: 0.9em; height: 1.4em; line-height: 1.4em}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.role:after {
+    display: block;
+    content: "";
+    position: absolute;
+    height: calc(100% - 6px);
+    top: 3px;
+    left: -5px;
+    border-left: 1px solid #ddd;
+}
 

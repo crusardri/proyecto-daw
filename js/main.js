@@ -2,26 +2,32 @@ var users = {
     000001: {
         id: "0001",
         name: "Iván",
-        surname: "Maldonado",
+        surname: "Maldonado Fernandez",
         username: "Ivan",
         email: "ivan@dondedal.es",
-        phone: "918283748"
+        phone: "918283748",
+        role: "Administrador",
+        roleClass: "admin"
     },
     000002: {
         id: "0002",
         name: "Halfonso",
-        surname: "Fernandez",
+        surname: "Fernandez Zapatero",
         username: "Halfonso",
         email: "gmail@halfonso.com",
-        phone: "918253248"
+        phone: "918253248",
+        role: "Cliente",
+        roleClass: "client"
     },
     000003: {
         id: "0003",
         name: "Halfredo",
-        surname: "Pelayo",
+        surname: "Pelayo Pelayette",
         username: "Halfredo",
         email: "hotmail@halfredo.es",
-        phone: "689663322"
+        phone: "689663322",
+        role: "Empleado",
+        roleClass: "employee"
     },
 };
 /*
@@ -59,7 +65,7 @@ function showUsers(users, type){
     }
     Object.keys(users).forEach((k)=>{
         let user = users[k];
-        let $tag = $("<div class='user-search-result'>"+user.id+ " " + user.username + " " + user.name + " " + user.surname + "</div>");
+        let $tag = $("<div class='user-search-result'><span class='user'>" +user.username + "#" + user.id + "</span> <span class='name'>" + user.name + " " + user.surname + "</span><span class='role label-box "+user.roleClass+"'>"+user.role+"</span></div>");
         $tag.data("user", user);
         $tag.on("click", function(e){
             changeUserInfo($(this).data("user"));

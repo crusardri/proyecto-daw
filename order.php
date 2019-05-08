@@ -18,7 +18,7 @@
                 <h1>Nueva órden</h1>
                 <label class="boxed-input id">
                     <div class="text-label">ID</div>
-                    <input type="number" value="0001" disabled>
+                    <input type="number" value="000001" disabled>
                 </label>
             </div>      
             <!-- User Info -->
@@ -46,6 +46,7 @@
                         <div class="form-info-title">Telefono</div>
                         <div class="form-info-data"><input type="number" value="689521302" id="client-phone" name="client-phone" disabled></div>
                     </div>
+                    <div class="info-set hidden"></div>
                     <div class="button" id="search-client">Cambiar</div>
                 </div>
             </div>
@@ -114,7 +115,13 @@
                     </div>
                 </label>
             </div>
-            
+            <div class="order-items-container">
+                <h2>Prendas</h2>
+                <div class="button" id="new-order-item">Añadir Prenda</div>
+                <div class="order-items">
+                    <div class="no-order-items">No hay prendas registradas.</div>
+                </div>
+            </div>
         </form>
     </div>
 </body>
