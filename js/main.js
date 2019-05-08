@@ -1,6 +1,6 @@
 var users = {
     000001: {
-        id: "000001",
+        id: "0001",
         name: "Iván",
         surname: "Maldonado",
         username: "Ivan",
@@ -8,7 +8,7 @@ var users = {
         phone: "918283748"
     },
     000002: {
-        id: "000002",
+        id: "0002",
         name: "Halfonso",
         surname: "Fernandez",
         username: "Halfonso",
@@ -16,7 +16,7 @@ var users = {
         phone: "918253248"
     },
     000003: {
-        id: "000003",
+        id: "0003",
         name: "Halfredo",
         surname: "Pelayo",
         username: "Halfredo",
@@ -29,22 +29,20 @@ var users = {
 */
 function changeClientInfo(user){
     $("#client-id").val(user.id);
-    $("#client-username").val(user.username);
+    $("#client-username").val(user.username + "#" + user.id);
     $("#client-name").val(user.name);
     $("#client-surname").val(user.surname);
     $("#client-email").val(user.email);
     $("#client-phone").val(user.phone);
-    console.log("Client")
 }
 /*
 * Modifica los valores de los inputs del fieldset de empleado
 */
 function changeEmployeeInfo(user){
     $("#employee-id").val(user.id);
-    $("#employee-username").val(user.username);
+    $("#employee-username").val(user.username + "#" +user.id);
     $("#employee-name").val(user.name);
     $("#employee-surname").val(user.surname);
-    console.log("Empleado")
 }
 /*
 * Muestra los usuarios en la ventana modal de busqueda de usuarios

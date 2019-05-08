@@ -18,36 +18,33 @@
                 <h1>Nueva órden</h1>
                 <label class="boxed-input id">
                     <div class="text-label">ID</div>
-                    <input type="number" value="000001" disabled>
+                    <input type="number" value="0001" disabled>
                 </label>
             </div>      
             <!-- User Info -->
             <div class="client-info">
                 <div class="field-set" id="client-infoset">
                 <h3>Cliente</h3>
+                    <input type="hidden" value="0001" id="client-id" name="client-id" disabled>
                     <div class="info-set">
-                        <div class="form-info-title">Identificador</div>
-                        <div class="form-info-data"><input type="number" value="000001" id="client-id" disabled></div>
-                    </div>
-                    <div class="info-set">
-                        <div class="form-info-title">Nombre de usuario</div>
-                        <div class="form-info-data"><input type="text" value="Halfonso" id="client-username" disabled></div>
+                        <div class="form-info-title">Usuario</div>
+                        <div class="form-info-data"><input type="text" value="Halfonso#0002" id="client-username" name="client-username" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre</div>
-                        <div class="form-info-data"><input type="text" value="Halfonso" id="client-name" disabled></div>
+                        <div class="form-info-data"><input type="text" value="Halfonso" id="client-name" name="client-name" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Apellidos</div>
-                        <div class="form-info-data"><input type="text" value="Fernandez" id="client-surname" disabled></div>
+                        <div class="form-info-data"><input type="text" value="Fernandez" id="client-surname" name="client-surname" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Correo Electronico</div>
-                        <div class="form-info-data"><input type="text" value="gmail@halfonso.com" id="client-email" disabled></div>
+                        <div class="form-info-data"><input type="text" value="gmail@halfonso.com" id="client-email" name="client-email" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Telefono</div>
-                        <div class="form-info-data"><input type="number" value="689521302" id="client-phone" disabled></div>
+                        <div class="form-info-data"><input type="number" value="689521302" id="client-phone" name="client-phone" disabled></div>
                     </div>
                     <div class="button" id="search-client">Cambiar</div>
                 </div>
@@ -55,21 +52,18 @@
             <div class="employee-info" id="employee-infoset">
                 <div class="field-set">
                 <h3>Empleado</h3>
+                    <input type="hidden" value="0001" id="employee-id" name="employee-id" disabled>
                     <div class="info-set">
-                        <div class="form-info-title">Identificador</div>
-                        <div class="form-info-data"><input type="number" value="000002" id="employee-id" disabled></div>
-                    </div>
-                    <div class="info-set">
-                        <div class="form-info-title">Nombre de usuario</div>
-                        <div class="form-info-data"><input type="text" value="Ivan" id="employee-username" disabled></div>
+                        <div class="form-info-title">Usuario</div>
+                        <div class="form-info-data"><input type="text" value="Ivan#0001" id="employee-username" name="employee-username" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre</div>
-                        <div class="form-info-data"><input type="text" value="Iván" id="employee-name" disabled></div>
+                        <div class="form-info-data"><input type="text" value="Iván" id="employee-name" name="employee-name" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Apellidos</div>
-                        <div class="form-info-data"><input type="text" value="Maldonado" id="employee-surname" disabled></div>
+                        <div class="form-info-data"><input type="text" value="Maldonado" id="employee-surname" name="employee-surname" disabled></div>
                     </div>
                     <div class="button" id="search-employee">Cambiar</div>
                 </div>
