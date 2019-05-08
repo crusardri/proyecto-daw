@@ -83,13 +83,17 @@ $(window).ready(()=>{
     })
 })
 /*
-* Cierra la ventana modal
+* Cierra la ventana modal con un fadeout
 */
 function closeModalBox(){
-    $("div.modal-box").remove();
+    $("div.modal-box").css("opacity", "0");
+    setTimeout(()=>{
+        $("div.modal-box").remove();
+    }, 200)
+    
 }
 /*
-* Abre la ventan modal de busqueda de usuario por Ajax
+* Abre la ventan modal de busqueda de usuario por Ajax con un FadeIn
 */
 function modalBoxSearchUser(userType){
     if(userType == 1){
@@ -112,6 +116,9 @@ function modalBoxSearchUser(userType){
             </div>\
         </div>\
     </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1")
+    }, 100)
     
     $("div.modal-box-content").on("click", (e)=>{
         e.stopPropagation();
