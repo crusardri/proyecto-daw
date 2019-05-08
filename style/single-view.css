@@ -1,0 +1,32 @@
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - order.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+
+div.form-container.order > form{
+    display: grid;
+    grid-template-columns: calc(50% - 10px) 50%;
+    grid-template-areas: "info info" "client employee" "estate estate";
+    grid-gap: 10px;
+}
+div.form-container.order div.order-info {grid-area: info}
+div.form-container.order div.client-info{grid-area: client}
+div.form-container.order div.employee-info{grid-area: employee}
+div.form-container.order div.estate-container{
+    grid-area: estate;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between
+}
+div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10px auto 5px;}
+div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
+div.form-container.order div.estate-container > label.boxed-radio.full-width{flex-basis: 100%;}
+@media(max-width: 1000px){
+    div.form-container.order > form{
+        grid-template-columns: 100%;
+        grid-template-areas: "info" "client" "employee" "estate";
+        grid-gap: 0px;
+    }
+    div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
+}

@@ -6,6 +6,8 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/single-view.css">
 </head>
 <body>
     <?php include("./includes/navbar.inc") ?>

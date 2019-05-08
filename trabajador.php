@@ -8,6 +8,8 @@ require("Funciones/vistaController.php");
     <meta charset="UTF-8">
     <title>Trabajador</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/views.css">
 </head>
 <body>
     <?php include("./includes/navbar.inc") ?>
