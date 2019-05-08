@@ -23,53 +23,53 @@
             </div>      
             <!-- User Info -->
             <div class="client-info">
-                <div class="field-set">
+                <div class="field-set" id="client-infoset">
                 <h3>Cliente</h3>
                     <div class="info-set">
                         <div class="form-info-title">Identificador</div>
-                        <div class="form-info-data">000001</div>
+                        <div class="form-info-data"><input type="number" value="000001" id="client-id" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre de usuario</div>
-                        <div class="form-info-data">Halfonso</div>
+                        <div class="form-info-data"><input type="text" value="Halfonso" id="client-username" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre</div>
-                        <div class="form-info-data">Halfonso</div>
+                        <div class="form-info-data"><input type="text" value="Halfonso" id="client-name" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Apellidos</div>
-                        <div class="form-info-data">Fernandez</div>
+                        <div class="form-info-data"><input type="text" value="Fernandez" id="client-surname" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Correo Electronico</div>
-                        <div class="form-info-data">gmail@halfonso.com</div>
+                        <div class="form-info-data"><input type="text" value="gmail@halfonso.com" id="client-email" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Telefono</div>
-                        <div class="form-info-data">689966332</div>
+                        <div class="form-info-data"><input type="number" value="689521302" id="client-phone" disabled></div>
                     </div>
                     <div class="button" id="search-client">Cambiar</div>
                 </div>
             </div>
-            <div class="employee-info">
+            <div class="employee-info" id="employee-infoset">
                 <div class="field-set">
                 <h3>Empleado</h3>
                     <div class="info-set">
                         <div class="form-info-title">Identificador</div>
-                        <div class="form-info-data">000002</div>
+                        <div class="form-info-data"><input type="number" value="000002" id="employee-id" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre de usuario</div>
-                        <div class="form-info-data">Ivan</div>
+                        <div class="form-info-data"><input type="text" value="Ivan" id="employee-username" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Nombre</div>
-                        <div class="form-info-data">Iván</div>
+                        <div class="form-info-data"><input type="text" value="Iván" id="employee-name" disabled></div>
                     </div>
                     <div class="info-set">
                         <div class="form-info-title">Apellidos</div>
-                        <div class="form-info-data">Maldonado</div>
+                        <div class="form-info-data"><input type="text" value="Maldonado" id="employee-surname" disabled></div>
                     </div>
                     <div class="button" id="search-employee">Cambiar</div>
                 </div>
