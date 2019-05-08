@@ -456,8 +456,10 @@ div.table-container > table tr > td {
     position: relative;
     border-bottom: 1px solid #ddd;
     padding: 5px;
-    height: 25px;
-    
+    height: 25px; 
+}div.table-container > table tr > td > span,
+div.table-container > table tr > td > a{
+    display: inline-block;
 }
 div.table-container > table tr:hover > td {
     background-color: #f2f2f2;
@@ -723,6 +725,31 @@ div.modal-box > div.modal-box-content > div.modal-box-close {
 div.modal-box > div.modal-box-content > div.modal-box-body {
     height: calc(100% - 2.2em - 10px);
     padding: 5px;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body div.search-box {
+    margin-top: 5px;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form{
+    position: relative;
+    /*outline: 1px solid red;*/
+    height: calc(100% - 20px);
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form >div.user-search-results{
+    position: relative;
+    width: calc(100% - 20px);
+    height: calc(100% - 60px);
+    margin: auto;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    overflow: hidden;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result{
+    padding: 3px 5px;
+    border-bottom: 1px solid #DDD;
+    cursor: pointer;
+}
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result:hover {
+    background-color: rgba(0,0,0,0.05)
 }
 
 

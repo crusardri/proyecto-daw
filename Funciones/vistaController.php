@@ -239,11 +239,11 @@ function showOrdersTable(){
                 <td class="a-center"><span class="responsive-label">Precio</span> 10€</td>
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
-                <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
-                <td class="date hidden"><span class="responsive-label">Terminado</span> -</td>
-                <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Entrada</span> <span>17/04/2019 13:00</span></span></td>
+                <td class="date"><span class="responsive-label">Previsto</span><span>20/04/2019 13:00</span></td>
+                <td class="date hidden"><span class="responsive-label">Terminado</span><span>-</span></td>
+                <td class="date hidden"><span class="responsive-label">Entregado</span><span>-</span></td>
+                <td class="date"><span class="responsive-label">Actualizado</span><span>17/04/2019 13:00</span></td>
                 <td class="desc"><span class="desc-cont">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></td>
             </tr>
             <tr class="order canceled">
