@@ -1,0 +1,26 @@
+.user-panel {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+}
+
+
+#register-panel {
+    top: calc(50vh - 300px);
+    height: 600px;
+}
+@media (max-height: 600px){
+    #register-panel {
+        top: 0;
+    }
+}
+@media (max-width: 500px){
+    #register-panel {
+        width: 100%;
+    }
+}
