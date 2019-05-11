@@ -19,7 +19,7 @@ class User{
         $this->telephone = $telephone;
         $this->name = $name;
         $this->registeredDate = new DateTime($this->registeredDate);
-        $this->updateDate = new DateTime($this->updateDate);;
+        $this->updateDate = new DateTime($this->updateDate);
         $this->active = $active;
     }
     function getId(){
@@ -42,12 +42,12 @@ class User{
     }
     function getRegisteredDate(){
         return $this->registeredDate;
-        }
+    }
     function getRegisteredDateString(){
         $date = $this->registeredDate;
         $date->format('d-m-Y H:i:s');
         return $this->registeredDate;
-        }
+    }
     function getUpdateDate(){   
         return $this->updateDate;
         }       
