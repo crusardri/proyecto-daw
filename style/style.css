@@ -13,6 +13,19 @@ select {
     font-family: "Lato", sans-serif;
     outline: none;
 }
+input.input-submit-button{
+    border: 0px;
+    border-radius: 5px;
+    background-color: #ffd700;
+    padding: 3px 5px;
+    color: #000;
+    margin: 10px auto;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+input.input-submit-button:hover{
+    background-color: #ffe34d;
+}
 /*Enlaces*/
 a {
     text-decoration: none;
@@ -25,7 +38,122 @@ a:focus {
     outline: 2px solid #0060ac;
     text-decoration: none;
 }
-
+/* ---- contenedor input ---- */
+div.input-set {
+    position: relative;
+    margin: 20px 10px;
+    padding: 15px 10px 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+div.input-set > div.label {
+    position: absolute;
+    top: calc(-0.7em - 3px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+/* ---- Boxed-input-description ---- */
+label.boxed-input-description{
+    width: 100%;
+}
+label.boxed-input-description > label.boxed-input{
+    position: relative;
+    display: flex;
+    z-index: 100;
+}
+label.boxed-input-description > div.input-box-desc{
+    width: 100%;
+    color: #555;
+    font-size: 0.8em;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+label.boxed-input-description > div.input-box-msg{
+    position: relative;
+    top: -10px;
+    padding: 7px 10px 2px;
+    border-radius: 0 0 5px 5px;
+    font-weight: 600;
+    color: #FFF;
+    font-size: 0.8em;
+    margin-bottom: -7px;
+}
+label.boxed-input-description > div.input-box-msg.error{
+    background-color: #DA0000;
+    box-shadow: 0 2px 0 #ae0000;
+}
+label.boxed-input-description > div.input-box-msg.success{
+    background-color: #32CD32;
+    box-shadow: 0 2px 0 #228B22;
+}
+/* ---- Boxed Input ---- */
+label.boxed-input {
+    position: relative;
+    display: inline-flex;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 5px;
+    overflow: hidden;
+    margin: 5px 0px 5px 0;
+}
+label.boxed-input input{
+    position: relative;
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+label.boxed-input > div.text-label {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 10px;
+    position: relative;
+    left: -5px;
+    margin: -5px auto;
+    border-radius: 5px 0 0 5px;
+    border-right: 1px solid #ddd;
+     background-color: #f6f6f6;
+}
+label.boxed-input > div.text-label > span {
+    font-size: 0.8em;
+}
+label.boxed-input > div.text-label.mandatory > span {
+    margin-right: 5px;
+}
+label.boxed-input > div.text-label.mandatory:after{
+    content: "*";
+    color: #D90000;
+    font-weight: 600;
+}
+label.boxed-input > div.input-container {
+    flex-grow: 2;
+    height: 100%;
+}
+label.boxed-input > div.button{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 5px;
+    border-radius: 0 5px 5px 0;
+    right: -5px;
+    cursor: pointer;
+    margin: -5px auto;
+    border-left: 1px solid #ddd;
+    transition: all 0.1s;
+}
+label.boxed-input > div.button > span{
+    font-size: 0.8em;
+}
+label.boxed-input > div.button:hover{
+    background-color: #eee;
+}
 /* ---- Radio Button With Label ---- */
 label.boxed-radio {
     display: block;
@@ -578,61 +706,7 @@ div.form-container > form input {
     border: 0;
     background-color: transparent;
 }
-div.form-container label.boxed-input {
-    border-radius: 5px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 5px;
-    overflow: hidden;
-    position: relative;
-    margin: 5px 10px 5px 0;
-}
-div.form-container label.boxed-input > div.text-label {
-    display: inline-block;
-    padding: 5px 10px;
-    position: relative;
-    background-color: #fff;
-    left: -5px;
-    border-radius: 5px 0 0 5px;
-}
-div.form-container label.boxed-input > div.text-label:after {
-    content: "";
-    display: inline-block;
-    border-left: 1px solid #ddd;
-    height: calc(100% - 10px);
-    position: absolute;
-    top: 5px;
-    right: 0px;
-}
-div.form-container label.boxed-input > input{
-    margin-left: 0px;
-    padding-left: 5px;
-    margin-right: -10px;
-    position: relative;
-    left: -5px;
-    background-color: transparent;
-}
-div.form-container label.boxed-input > div.button{
-    display: inline-block;
-    position: relative;
-    background-color: #dfdfdf;
-    padding: 5px;
-    border-radius: 0 5px 5px 0;
-    right: -5px;
-    cursor: pointer;
-}
-div.form-container label.boxed-input > div.button:hover{
-    background-color: #ccc;
-}
-div.form-container label.boxed-input > div.button:after {
-    content: "";
-    display: inline-block;
-    border-left: 1px solid #AAA;
-    height: calc(100% - 10px);
-    position: absolute;
-    top: 5px;
-    left: 0px;
-}
+
 
 div.form-container div.field-set{
     position: relative;

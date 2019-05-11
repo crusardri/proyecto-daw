@@ -16,9 +16,11 @@
         <form>
             <div class="order-info">
                 <h1>Nueva órden</h1>
-                <label class="boxed-input id">
-                    <div class="text-label">ID</div>
-                    <input type="number" value="000001" disabled>
+                <label class="boxed-input" id="username">
+                    <div class="text-label mandatory"><span>ID</span></div>
+                    <div class="input-container">
+                        <input type="text" value="000001" disabled>
+                    </div>
                 </label>
             </div>      
             <!-- User Info -->

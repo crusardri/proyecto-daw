@@ -1,6 +1,10 @@
+#user-cp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 .user-panel {
-    position: relative;
-    display: block;
     background-color: #fff;
     margin: auto;
     width: 100%;
@@ -8,13 +12,55 @@
     border-radius: 5px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
 }
-
+#register {
+    display: block;
+    width: 100px;
+    margin: 10px auto;
+    cursor: pointer;
+}
+div.user-panel-header {
+    text-align: center;
+    padding: 10px;
+}
+div.user-panel-header > h1 {
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+div.user-panel-header > div.main-text {
+    font-size: 1em;
+    font-weight: 600;
+}
+div.user-panel-header > div.sub-text {
+    font-size: 0.8em;
+}
+div.user-panel-header > div.msg {
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 3px 5px;
+}
+div.user-panel-header > div.msg.error{
+    background-color: #DA0000;
+    box-shadow: 0 2px 0 #ae0000;
+}
+div.user-panel-header > div.msg.success{
+    background-color: #32CD32;
+    box-shadow: 0 2px 0 #228B22;
+}
 
 #register-panel {
-    top: calc(50vh - 300px);
-    height: 600px;
+    top: calc(50vh - 350px);
 }
-@media (max-height: 600px){
+#sesion-info .text-label {
+    width: 120px;
+}
+#personal-info .text-label {
+    width: 60px;
+}
+@media (max-height: 700px){
     #register-panel {
         top: 0;
     }
