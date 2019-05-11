@@ -4,11 +4,13 @@ class Prenda{
     private $name;
     private $arreglos;
     private $creationDate;
-    function __construct($id, $name, $arreglos, $creationDate){
+    private $active;
+    function __construct($id, $name, $arreglos, $creationDate, $active = true){
         $this->id = $id;
         $this->name = $name;
         $this->arreglos = $arreglos;
         $this->creationDate = new DateTime($this->creationDate);
+        $this->active = $active;
     }
     function getId(){
         return $this->id;
@@ -26,5 +28,8 @@ class Prenda{
         $date = $this->creationDate;
         $date->format('d-m-Y H:i:s');   
         return $this->creationDate;
+    }
+    function getActive(){
+        return $this->active;
     }
 }
