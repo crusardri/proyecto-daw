@@ -10,7 +10,8 @@ class Order{
     private $outDate;
     private $items;
     private $observations;
-    function __construct($orderID = 0, $user, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations){
+    private $updateDate;
+    function __construct($orderID = 0, $user, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations, $updateDate){
         $this->id = $orderID;
         $this->user = $user;
         $this->assigned = $assigned;
@@ -21,6 +22,7 @@ class Order{
         $this->outDate = $outDate;
         $this->items = $items;
         $this->observations = $observations;
+        $this->updateDate = new DateTime($this->updateDate);
     }
     function getOrderID(){
         return $this->orderID;
@@ -63,5 +65,13 @@ class Order{
     }
     function getObservations(){
         return $this->observations;
+    }
+    function getUpdateDate(){   
+        return $this->updateDate;
+    }       
+    function getUpdateDateString(){    
+        $date = $this->updateDate;
+        $date->format('d-m-Y H:i:s');   
+        return $this->updateDate;
     }
 }
