@@ -76,7 +76,7 @@ function showUsers(users, type){
         //console.log(user);
     });
 }
-$(window).ready(()=>{
+$(document).ready(()=>{
     /*Animacion focus boxed-input*/
     $(".boxed-input input").on("focus", function(){
         $(this).parents("label.boxed-input").toggleClass("focussed", true);

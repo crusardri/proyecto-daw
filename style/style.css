@@ -22,9 +22,14 @@ input.input-submit-button{
     margin: 10px auto;
     font-weight: 700;
     transition: all 0.2s;
+    cursor: pointer;
 }
 input.input-submit-button:hover{
     background-color: #ffe34d;
+}
+input.input-submit-button:disabled{
+    background-color: #DDD;
+    cursor: no-drop;
 }
 /*Enlaces*/
 a {
@@ -515,8 +520,8 @@ form > div.search-box {
     justify-content: center;
     align-items: stretch;
     width: calc(100% - 40px);
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
-    border-radius: 50px;
+    box-shadow: 0 2px 0px 0px #BBB;
+    border-radius: 5px;
     border: 1px solid #ddd;
     overflow: hidden;
 }
@@ -700,7 +705,7 @@ div.form-container {
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
 }
 div.form-container > form {
-    font-size: 0.9em;
+    font-size: 1em;
     margin: 0 10px;
 }
 div.form-container > form h1{font-size: 1.4em;}

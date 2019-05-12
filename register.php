@@ -10,6 +10,7 @@ require("Funciones/vistaController.php");
     <link rel="stylesheet" href="style/usercp.css">
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/user-cp.js"></script>
 </head>
 <body id="user-cp">
     <div class="user-panel" id="register-panel">
@@ -17,9 +18,9 @@ require("Funciones/vistaController.php");
            <h1>Registrate</h1>
            <div class="main-text">Crea una cuenta para ver tus órdenes.</div>
            <div class="sub-text">¿Tienes una cuenta? <a href="login.php">Inicia sesión</a></div>
-           <div class="msg error">Se ha producido un error.</div>
+           <!--<div class="msg error">Se ha producido un error.</div>-->
        </div>
-        <form action="register.php" method="post">
+        <form action="register.php" method="post" id="register-form">
             <div class="input-set" id="sesion-info">
                 <div class="label">Datos de inicio de sesión</div>
                 <label class="boxed-input-description">
@@ -30,7 +31,6 @@ require("Funciones/vistaController.php");
                         </div>
                         <div class="button"><span>Comprobar</span></div>
                     </label>
-                    <div class="input-box-msg success">Nombre de usuario disponible.</div>
                     <div class="input-box-desc">El nombre de tu cuenta nueva de usuario.</div>
                 </label>
                 <label class="boxed-input-description">
@@ -41,27 +41,24 @@ require("Funciones/vistaController.php");
                         </div>
                         <div class="button"><span>Comprobar</span></div>
                     </label>
-                    <div class="input-box-msg success">El correo electrónico está disponible.</div>
                     <div class="input-box-desc">Tu correo electronico.</div>
                 </label>
                 <label class="boxed-input-description">
                     <label class="boxed-input" id="password">
                         <div class="text-label mandatory"><span>Contraseña</span></div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="password">
                         </div>
                     </label>
-                    <div class="input-box-msg error">La contraseña debe contener al menos 6 caracteres.</div>
                     <div class="input-box-desc">Contraseña de tu nueva cuenta de usuario.</div>
                 </label>
                 <label class="boxed-input-description">
-                    <label class="boxed-input" id="password">
+                    <label class="boxed-input" id="repeat-password">
                         <div class="text-label mandatory"><span>Confirmar Contr.</span></div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="password">
                         </div>
                     </label>
-                    <div class="input-box-msg error">La contraseña debe coincidir.</div>
                     <div class="input-box-desc">Confirmar contraseña.</div>
                 </label>
             </div>
