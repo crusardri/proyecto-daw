@@ -4,9 +4,9 @@ class OrderItem{
     private $arreglo;
     private $price;
     private $description;
-    function __construct($prenda, $parreglo, $price, $description){
+    function __construct($prenda, $arreglo, $price, $description){
         $this->prenda = $prenda;
-        $this->parreglo = $arreglo;
+        $this->arreglo = $arreglo;
         $this->price = $price;
         $this->description = $description;
     }
