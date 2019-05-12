@@ -77,6 +77,13 @@ function showUsers(users, type){
     });
 }
 $(window).ready(()=>{
+    /*Animacion focus boxed-input*/
+    $(".boxed-input input").on("focus", function(){
+        $(this).parents("label.boxed-input").toggleClass("focussed", true);
+    })
+    $(".boxed-input input").on("focusout", function(){
+        $(this).parents("label.boxed-input").toggleClass("focussed", false);
+    })
     $("#search-client").on("click", ()=>{
         modalBoxSearchUser();
         showUsers(users);

@@ -8,6 +8,8 @@ require("Funciones/vistaController.php");
     <title>Nueva Cuenta</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/usercp.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body id="user-cp">
     <div class="user-panel" id="register-panel">
