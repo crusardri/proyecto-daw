@@ -196,7 +196,23 @@ class Controller implements IConnectable {
     * @return Arreglo
     */
     public static function getArreglo($arregloId){
-        //TO DO
+        $db = Connection::connect();
+        $sql = "SELECT * FROM clothes_fixes WHERE fix_id = :fix_id";
+        $stmt = $db->stmt_init();
+        $stmt->prepare($sql);
+        $arreglo = array();
+
+        $stmt->bindParam(':fix_id', $arregloId, PDO::PARAM_INT);
+        
+        while($row = $stmt->fetch()){
+            $arregloObject = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
+            array_push($arreglo, $arregloObject);
+        }
+        
+        $stmt->close();
+        $db->close();
+
+        return $arreglo;
     }
     /**
     * Devuelve todos los arreglos de una prenda por ID
