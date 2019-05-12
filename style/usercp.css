@@ -12,7 +12,7 @@
     border-radius: 5px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
 }
-#register {
+#register, #login {
     display: block;
     width: 150px;
     margin: 10px auto;
@@ -61,6 +61,9 @@ div.user-panel-header > div.msg.success{
 }
 #personal-info .text-label {
     width: 60px;
+}
+#login-info .text-label {
+    width: 80px;
 }
 @media (max-height: 700px){
     #register-panel {
