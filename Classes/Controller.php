@@ -17,7 +17,7 @@ class Controller implements IConnectable {
     */
     public static function getOrder($orderID){
         $db = Connection::connect();
-        $sql = "SELECT * FROM orders WHERE order_id = ?";
+        $sql = "SELECT * FROM orders WHERE order_id = :orderID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
         $stmt->execute();
@@ -37,7 +37,7 @@ class Controller implements IConnectable {
     }
     private static function getOrderItems($orderID){
         $db = Connection::connect();
-        $sql = "SELECT * FROM order_items WHERE order_item_id = ?";
+        $sql = "SELECT * FROM order_items WHERE order_item_id = :orderID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
         $stmt->execute();
@@ -149,7 +149,22 @@ class Controller implements IConnectable {
     * @return Prenda 
     */
     public static function getPrenda($prendaId){
-        //TO DO
+        $db = Connection::connect();
+        $sql = "SELECT * FROM clothes WHERE id = :clothesID";
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindParam(':clothesID', $prendaID, PDO::PARAM_INT);
+        $stmt->execute();
+        $prendas = array();
+        
+        while($row = $stmt->fetch()){
+          $prenda = new Prenda($row['CLOTHE_NAME'], $row['ACTIVE']);
+          array_push($prendas, $prenda);
+        }
+        $stmt->close();
+        $db->close();
+
+        return $prenda;
         
     }
     /**
