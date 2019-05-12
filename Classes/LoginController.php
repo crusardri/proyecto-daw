@@ -49,7 +49,21 @@ class LoginController implements IConnectable {
     * @return int -1 si algo ha ido mal
     */
     public function changeEmail($newEmail){
-        //TO DO
+        $userID = $user->getID();
+        $db = Connection::connect();
+        $sql = "UPDATE users SET email = :email WHERE id = :userID";
+        $stmt = $db->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->bindParam(':emailUser', $newEmail);
+        $stmt->bindParam(':userID', $userID);
+        $dbsuccess = $stmt->execute();
+        $stmt->close();
+        $db->close();
+        if($dbsuccess){
+            $user->setEmail($newEmail);
+            return 0;
+        }
+        return -1;
     }
     /**
     * Registra un usuario en la base de datos
