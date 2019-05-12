@@ -11,15 +11,15 @@ class Order{
     private $items;
     private $observations;
     private $updateDate;
-    function __construct($orderID = 0, $user, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations, $updateDate){
+    function __construct($orderID = 0, $user,$assigned, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations, $updateDate){
         $this->id = $orderID;
         $this->user = $user;
         $this->assigned = $assigned;
         $this->estate = $estate;
-        $this->enterDate = $enterDate;
-        $this->targetDate = $targetDate;
-        $this->finishDate = $finishDate;
-        $this->outDate = $outDate;
+        $this->enterDate = new DateTime($this->enterDate);
+        $this->targetDate = new DateTime($this->targetDate);
+        $this->finishDate = new DateTime($this->finishDate);
+        $this->outDate = new DateTime($this->outDate);
         $this->items = $items;
         $this->observations = $observations;
         $this->updateDate = new DateTime($this->updateDate);
@@ -36,28 +36,36 @@ class Order{
     function getEstate(){
         return $this->estate;
     }
-    function getEstateString(){
-        return $this->;
-    }
     function getEnterDate(){
         return $this->enterDate;
     }
     function getEnterDateString(){
-        return $this->;
+        $date = $this->enterDate;
+        $date->format('d-m-Y H:i:s');   
+        return $this->enterDate;
     }
     function getTargetDate(){
         return $this->targetDate;
     }    
     function getTargetDateString(){
-        return $this->;
+        $date = $this->targetDate;
+        $date->format('d-m-Y H:i:s');   
+        return $this->targetDate;
     }
     function getFinishDate(){
         return $this->finishDate;
     }
     function getFinishDateString(){
-        return $this->;
+        $date = $this->finishDate;
+        $date->format('d-m-Y H:i:s');   
+        return $this->finishDate;
     }
     function getOutDate(){
+        return $this->outDate;
+    }
+    function getOutDateString(){
+        $date = $this->outDate;
+        $date->format('d-m-Y H:i:s');   
         return $this->outDate;
     }
     function getOrderItems(){
