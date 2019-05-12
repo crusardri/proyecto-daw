@@ -265,6 +265,27 @@ class Controller implements IConnectable {
     * @return int -1 Si algo ha fallado
     */
     public static function editOrder($order){
-        //TO DO
+        $db = Connection::connect();
+       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID"; WHERE order_id = :orderID";
+       $stmt = $db->prepare($sql);
+
+       $stmt->bindParam(':order_id', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':start_timestamp', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':limit_timestamp', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':end_timestamp', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':out_timestamp', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':observations', $order, PDO::PARAM_STR);
+       $stmt->bindParam(':update_timestamp', $order, PDO::PARAM_INT);
+      
+       $stmt->execute();
+
+       if (!stmt()){
+            $resultado = -1;
+            return $resultado;
+       } else {
+            return $resultado;
+       }
+       $stmt->close();
+       $db->close();
     }
 }
