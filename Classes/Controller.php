@@ -16,7 +16,41 @@ class Controller implements IConnectable {
     * @return null si no existe
     */
     public static function getOrder($orderID){
-        //TO DO
+        $db = Connection::connect();
+        $sql = "SELECT * FROM orders WHERE order_id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
+        $stmt->execute();
+        $orderArray = array();
+        
+        while($row = $stmt->fetch()){
+            $orderObject = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+            array_push($orderArray, $orderObject);
+        }
+
+        $orderItemsArray = getOrderItems($orderID);
+        $order = new order($orderArray, $orderItemsArray);
+        $stmt->close();
+        $db->close();
+
+        return $order;
+    }
+    private static function getOrderItems($orderID){
+        $db = Connection::connect();
+        $sql = "SELECT * FROM order_items WHERE order_item_id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
+        $stmt->execute();
+        $orderItemsArray = array();
+        
+        while($row = $stmt->fetch()){
+          $orderItems = new order_Items($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+          array_push($orderItemsArray, $orderItems);
+        }
+        $stmt->close();
+        $db->close();
+
+        return $orderItemsArray;
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
