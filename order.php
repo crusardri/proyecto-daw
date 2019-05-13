@@ -80,43 +80,48 @@
             <!-- Estados -->
             <div class="estate-container">
                <h2>Estado</h2>
-                <label class="boxed-radio pending">
+                <label class="boxed-radio estate pending">
                     <input type="radio" name="estate" name="1" checked>
                     <div class="container">
                         <div class="radio-checkbox">&#x2713;</div>
                         <div class="radio-title">Pendiente</div>
+                        <div class="radio-date">13/05/2019 - 23:36:24</div>
                         <div class="radio-desc">La orden ha sido recibida y esta en espera.</div>
                     </div>
                 </label>
-                <label class="boxed-radio working">
+                <label class="boxed-radio working estate">
                     <input type="radio" name="estate" name="1">
                     <div class="container">
                         <div class="radio-checkbox">&#x2713;</div>
                         <div class="radio-title">En proceso</div>
+                        <div class="radio-date">13/05/2019 - 23:36:24</div>
                         <div class="radio-desc">La orden esta realizandose.</div>
                     </div>
                 </label>
-                <label class="boxed-radio finished">
+                <label class="boxed-radio finished estate">
                     <input type="radio" name="estate" name="1">
                     <div class="container">
                         <div class="radio-checkbox">&#x2713;</div>
                         <div class="radio-title">Finalizado</div>
+                        <div class="radio-date">13/05/2019 - 23:36:24</div>
                         <div class="radio-desc">La orden ha sido terminada y esta pendiente de recogida.</div>
                     </div>
                 </label>
-                <label class="boxed-radio out">
+                <label class="boxed-radio out estate">
                     <input type="radio" name="estate" name="1">
                     <div class="container">
                         <div class="radio-checkbox">&#x2713;</div>
                         <div class="radio-title">Entregado</div>
+                        <div class="radio-date">13/05/2019 - 23:36:24</div>
                         <div class="radio-desc">La orden ha sido recogida.</div>
                     </div>
                 </label>
-                <label class="boxed-radio canceled full-width">
+                <label class="boxed-radio canceled full-width estate">
                     <input type="radio" name="estate" name="1">
                     <div class="container">
                         <div class="radio-checkbox">&#x2713;</div>
                         <div class="radio-title">Cancelado</div>
+                        <div class="radio-date">13/05/2019 - 23:36:24</div>
                         <div class="radio-desc">La orden ha sido cancelada.</div>
                     </div>
                 </label>

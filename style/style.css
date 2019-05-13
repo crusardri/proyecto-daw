@@ -251,7 +251,12 @@ label.boxed-radio > div.container > div.radio-desc {
 label.boxed-radio > input:checked + div.container > div.radio-desc {
     color: #000;
 }
-
+/* radio-box estate*/
+label.boxed-radio.estate > div.container{
+    grid-template-areas: "checkbox title date" "checkbox desc desc";
+    grid-template-columns: 2.2em auto 11em;
+}
+label.boxed-radio.estate > div.container > div.radio-date {grid-area: date; font-weight: 600;}
 /* Activo */
 label.boxed-radio.active > div.container > div.radio-title {color: #32CD32}
 label.boxed-radio.active > input:checked + div.container {background-color: #32CD32; box-shadow: 0 2px 0 #228B22; color: #FFF}
