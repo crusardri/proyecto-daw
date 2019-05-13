@@ -54,7 +54,7 @@ div.order-items-container > div.order-items > div.order-item{
     max-width: 100%;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin: 5px auto;
+    margin: 20px auto;
     padding: 10px;
 }
 div.order-items-container > div.order-items > div.order-item > label.clothe{
