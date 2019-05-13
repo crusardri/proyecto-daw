@@ -212,12 +212,19 @@ label.boxed-radio > div.container {
     background-color: #FFF;
     border: 1px solid #ddd;
     cursor: pointer;
+    transition: border-color 0.1s, box-shadow 0.1s;
 }
+label.boxed-radio:hover > div.container{
+    border-color: #0060ac;
+    box-shadow: 0 0 0 1px #0060ac;
+}
+
 label.boxed-radio > input:checked + div.container {
     background-color: #ffd700;
     box-shadow: 0 2px 0 #926f1d;
     border: 1px solid transparent;
     cursor: inherit;
+    transition: border-color 0s, box-shadow 0s;
 }
 label.boxed-radio > div.container > div.radio-checkbox {
     grid-area: checkbox;
