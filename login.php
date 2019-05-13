@@ -17,7 +17,7 @@ require("Funciones/vistaController.php");
        <div class="user-panel-header">
            <h1>Iniciar sesión</h1>
            <div class="main-text">Inicia sesión para ver tus órdenes.</div>
-           <div class="sub-text">¿No tienes una cuenta? <a href="login.php">Registrate</a></div>
+           <div class="sub-text">¿No tienes una cuenta? <a href="register.php">Registrate</a></div>
            <div class="msg error">Usuario o contraseña incorrecta.</div>
        </div>
         <form action="login.php" method="post" id="login-form">
