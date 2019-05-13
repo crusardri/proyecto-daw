@@ -30,6 +30,40 @@ var users = {
         roleClass: "employee"
     },
 };
+var clothes = {
+    1: {
+        id: 1,
+        name: "vaqueros",
+        fixes: 3
+    },
+    2: {
+        id: 2,
+        name: "blusa",
+        fixes: 3
+    },
+    3: {
+        id: 3,
+        name: "abrigo",
+        fixes: 3
+    },
+}
+var fixes = {
+    1: {
+        id: 1,
+        name: "bajo",
+        price: 10
+    },
+    2: {
+        id: 2,
+        name: "ensanchado",
+        price: 20
+    },
+    3: {
+        id: 3,
+        name: "arreglo",
+        price: 5
+    }
+}
 /*
 * Modifica los valores de los inputs del fieldset de Cliente
 */
@@ -65,32 +99,59 @@ function showUsers(users, type){
     }
     Object.keys(users).forEach((k)=>{
         let user = users[k];
-        let $tag = $("<div class='user-search-result'><span class='user'>" +user.username + "#" + user.id + "</span> <span class='name'>" + user.name + " " + user.surname + "</span><span class='role label-box "+user.roleClass+"'>"+user.role+"</span></div>");
+        let $tag = $("<div class='user modal-search-result'><span class='user'>" +user.username + "#" + user.id + "</span> <span class='name'>" + user.name + " " + user.surname + "</span><span class='role label-box "+user.roleClass+"'>"+user.role+"</span></div>");
         $tag.data("user", user);
         $tag.on("click", function(e){
             changeUserInfo($(this).data("user"));
             closeModalBox();
         })
-        $tag.appendTo("div.user-search-results");
+        $tag.appendTo("div.modal-search-results.users");
         //console.log($tag.data("user"))
         //console.log(user);
     });
 }
+
+/*
+* Muestra las prendas en la ventana modal de busqueda de prendas
+*/
+function showClothes(){
+    console.log(clothes);
+    Object.keys(clothes).forEach((k)=>{
+        let clothe = clothes[k];
+        let $tag = $("<div class='clothes modal-search-result'><span class='clothe-name'>" +clothe.name + "</span><span class='clothe-num-fixes'> Arreglos: " + clothe.fixes + "</span></div>");
+        $tag.data("clothe", clothe);
+        $tag.on("click", function(e){
+            showFixes();
+            closeModalBox();
+        })
+        $tag.appendTo("div.modal-search-results.clothes");
+        //console.log($tag.data("user"))
+        //console.log(user);
+    });
+}
+
 $(document).ready(()=>{
     /*Animacion focus boxed-input*/
-    $(".boxed-input input").on("focus", function(){
-        $(this).parents("label.boxed-input").toggleClass("focussed", true);
+    $(".boxed-input input, label.description-box textarea").on("focus", function(){
+        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);
     })
-    $(".boxed-input input").on("focusout", function(){
-        $(this).parents("label.boxed-input").toggleClass("focussed", false);
+    $(".boxed-input input, label.description-box textarea").on("focusout", function(){
+        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
     })
+    //Abrir ventana modal busqueda cliente
     $("#search-client").on("click", ()=>{
-        modalBoxSearchUser();
+        modalBox("Buscar Cliente", showSearchUserForm);
         showUsers(users);
     })
+    //Abrir ventana modal busqueda trabajador
     $("#search-employee").on("click", ()=>{
-        modalBoxSearchUser(1);
+        modalBox("Buscar Trabajador", showSearchUserForm);
         showUsers(users, 1);
+    })
+    //Abrir ventana modal busqueda prenda
+    $("#new-order-item").on("click", ()=>{
+        modalBox("Añadir Prenda", showClothesSearchForm);
+        showClothes();
     })
 })
 /*
@@ -106,25 +167,14 @@ function closeModalBox(){
 /*
 * Abre la ventan modal de busqueda de usuario por Ajax con un FadeIn
 */
-function modalBoxSearchUser(userType){
-    if(userType == 1){
-        modalTitle = "Buscar Empleado";
-    } else {
-        modalTitle = "Buscar Cliente";
-    }
+function modalBox(title, callback){
     $("<div class='modal-box search-user'>\
         <div class='modal-box-content'>\
-            <h1 class='modal-box-title'>"+modalTitle+"</h1>\
+            <h1 class='modal-box-title'>"+title+"</h1>\
             <div class='modal-box-close'>x</div>\
-            <div class='modal-box-body'>\
-                <form>\
-                    <div class='search-box'>\
-                        <input type='text' placeholder='Buscar usuario por nombre, apellidos o ID'>\
-                        <input type='submit' value'Buscar'>\
-                    </div>\
-                    <div class='user-search-results'></div>\
-                </form>\
-            </div>\
+            <div class='modal-box-body'>"+
+            callback()+
+            "</div>\
         </div>\
     </div>").appendTo("body");
     setTimeout(()=>{
@@ -136,7 +186,26 @@ function modalBoxSearchUser(userType){
     })
     $("div.modal-box, div.modal-box-close").on("click", function(e){
         closeModalBox();
-
     })
     
+}
+
+function showSearchUserForm(){
+    return "<form>\
+        <div class='search-box'>\
+            <input type='text' placeholder='Buscar usuario por nombre, apellidos o ID'>\
+            <input type='submit' value'Buscar'>\
+        </div>\
+        <div class='modal-search-results users'></div>\
+    </form>"
+}
+
+function showClothesSearchForm(){
+    return "<form>\
+        <div class='search-box'>\
+            <input type='text' placeholder='Buscar prenda por ID o Nombre'>\
+            <input type='submit' value'Buscar'>\
+        </div>\
+        <div class='modal-search-results clothes'></div>\
+    </form>"
 }

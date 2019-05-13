@@ -186,9 +186,9 @@
             <!-- Descripcion -->
             <div class="order-description-container" id="order-description">
                 <h2>Descripción</h2>
-                <label class="description-box order-item-description">
+                <label class="description-box">
                     <div class="header">Descripción del pedido</div>
-                    <textarea name="order-item-description"></textarea>
+                    <textarea name="order-description"></textarea>
                 </label>
             </div>
             <!-- Botones -->

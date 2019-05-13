@@ -113,17 +113,17 @@ div.order-buttons > input.input-submit-button:after {
     clear:both;
 }
 /* Ventana Modal Buscar usuarios */
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.name {
+div.modal-box div.modal-search-results > div.modal-search-result > span.name {
     width: 185px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.user {
+div.modal-box div.modal-search-result > span.user {
     min-width:130px;
     margin-right: 5px
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.user:after {
+div.modal-box div.modal-search-result > span.user:after {
     display: block;
     content: "";
     position: absolute;
@@ -132,14 +132,14 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-sea
     right: 0;
     border-left: 1px solid #ddd;
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.role {
+div.modal-box div.modal-search-results > div.modal-search-result > span.role {
     min-width:120px; 
     margin-left: auto; 
     font-size: 0.9em; 
     height: 1.4em; 
     line-height: 1.4em
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span.role:after {
+div.modal-box div.modal-search-results > div.modal-search-result > span.role:after {
     display: block;
     content: "";
     position: absolute;

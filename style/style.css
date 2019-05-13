@@ -96,6 +96,15 @@ label.boxed-input-description > div.input-box-msg.success{
     box-shadow: 0 2px 0 #228B22;
 }
 /* ---- Description Box ----*/
+label.description-box {
+    box-shadow: 0 0 0 2px transparent;
+    border-radius: 5px;
+    transition: box-shadow 0.1s;
+}
+label.description-box.focussed{
+    box-shadow: 0 0 0 2px #0060ac;
+    border-color: #0060ac;
+} 
 label.description-box > div.header{
     border: 1px solid #ddd;
     border-bottom: 0;
@@ -111,6 +120,7 @@ label.description-box > textarea{
     min-height: 50px;
     border: 1px solid #ddd;
     border-radius: 0 0 5px 5px;
+    margin-bottom: -3px;
 }
 /* ---- Boxed Input ---- */
 label.boxed-input {
@@ -123,6 +133,8 @@ label.boxed-input {
     overflow: hidden;
     margin: 5px 0px 5px 0;
     user-select: none;
+    box-shadow: 0 0 0 1px transparent;
+    transition: box-shadow 0.1s;
 }
 label.boxed-input input{
     position: relative;
@@ -846,7 +858,7 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form{
     /*outline: 1px solid red;*/
     height: calc(100% - 20px);
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form >div.user-search-results{
+div.modal-box > div.modal-box-content > div.modal-box-body > form >div.modal-search-results{
     position: relative;
     width: calc(100% - 20px);
     height: calc(100% - 60px);
@@ -855,17 +867,17 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form >div.user-sear
     border-radius: 5px;
     overflow: hidden;
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result{
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.modal-search-results > div.modal-search-result{
     padding: 3px 5px;
     border-bottom: 1px solid #DDD;
     cursor: pointer;
     display: flex;
     flex-flow: row wrap;
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result:hover {
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.modal-search-results > div.modal-search-result:hover {
     background-color: rgba(0,0,0,0.05)
 }
-div.modal-box > div.modal-box-content > div.modal-box-body > form > div.user-search-results > div.user-search-result > span {
+div.modal-box > div.modal-box-content > div.modal-box-body > form > div.modal-search-results > div.modal-search-result > span {
     display: inline-block;
     position: relative;
 }
