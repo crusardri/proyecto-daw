@@ -121,7 +121,59 @@
                 <h2>Prendas</h2>
                 <div class="button" id="new-order-item">Añadir Prenda</div>
                 <div class="order-items">
-                    <div class="no-order-items">No hay prendas registradas.</div>
+                    <!--<div class="no-order-items">No hay prendas registradas.</div>-->
+                    <div class="order-item">
+                        <input type="hidden" value="1" name="order-item-id">
+                        <input type="hidden" value="1" name="clothe-id">
+                        <input type="hidden" value="1" name="fix-id">
+                        <label class="boxed-input clothe">
+                            <div class="text-label"><span>Prenda</span></div>
+                            <div class="input-container">
+                                <input type="text" value="Vaquero" disabled>
+                            </div>
+                        </label>
+                        <label class="boxed-input fix">
+                            <div class="text-label"><span>Arreglo</span></div>
+                            <div class="input-container">
+                                <input type="text" value="Bajo" disabled>
+                            </div>
+                        </label>
+                        <label class="boxed-input price">
+                            <div class="text-label"><span>Precio</span></div>
+                            <div class="input-container">
+                                <input type="number" value="10">
+                            </div>
+                        </label>
+                        <label class="order-item-description">
+                        <div class="header">Observaciones</div>
+                        <textarea name="order-item-description">Descripcion del pedido</textarea></label>
+                    </div>
+                    <div class="order-item">
+                        <input type="hidden" value="1" name="order-item-id">
+                        <input type="hidden" value="1" name="clothe-id">
+                        <input type="hidden" value="1" name="fix-id">
+                        <label class="boxed-input clothe">
+                            <div class="text-label"><span>Prenda</span></div>
+                            <div class="input-container">
+                                <input type="text" value="Vaquero" disabled>
+                            </div>
+                        </label>
+                        <label class="boxed-input fix">
+                            <div class="text-label"><span>Arreglo</span></div>
+                            <div class="input-container">
+                                <input type="text" value="Bajo" disabled>
+                            </div>
+                        </label>
+                        <label class="boxed-input price">
+                            <div class="text-label"><span>Precio</span></div>
+                            <div class="input-container">
+                                <input type="number" value="10">
+                            </div>
+                        </label>
+                        <label class="order-item-description">
+                        <div class="header">Observaciones</div>
+                        <textarea name="order-item-description"></textarea></label>
+                    </div>
                 </div>
             </div>
         </form>

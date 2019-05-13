@@ -26,10 +26,10 @@ div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10p
 div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
 div.form-container.order div.estate-container > label.boxed-radio.full-width{flex-basis: 100%;}
 /* Order Items */
-div.form-container.order div.order-items-container {
+div.order-items-container {
     position: relative;
 }
-div.form-container.order div.order-items-container > div.order-items > div.no-order-items{
+div.order-items-container > div.order-items > div.no-order-items{
     height: 10em;
     text-align: center;
     line-height: 10em;
@@ -37,8 +37,49 @@ div.form-container.order div.order-items-container > div.order-items > div.no-or
     border-radius: 5px;
     color: #777;
 }
+div.order-items-container > div.order-items > div.order-item{
+    display: grid;
+    grid-template-areas: "clothe fix price" "description description description";
+    grid-template-columns: auto auto 150px;
+    grid-column-gap: 5px;
+    grid-row-gap: 0px;
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px;
+}
+div.order-items-container > div.order-items > div.order-item > label.clothe{
+    grid-area: clothe;
+}
+div.order-items-container > div.order-items > div.order-item > label.fix{
+    grid-area: fix;
+}
+div.order-items-container > div.order-items > div.order-item > label.price{
+    grid-area: price;
+}
+div.order-items-container > div.order-items > div.order-item > label.order-item-description {
+    grid-area: description;
+}
+
+div.order-items-container > div.order-items > div.order-item > label.order-item-description > div.header{
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background-color: #f6f6f6;
+    padding: 5px;
+    font-size: 0.9em;
+}
+div.order-items-container > div.order-items > div.order-item > label.order-item-description > textarea{
+    width: calc(100% - 12px);
+    resize: vertical;
+    padding: 5px;
+    min-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 5px 5px;
+}
 /* Boton Añadir Prenda */
-div.form-container.order div.order-items-container > div.button {
+div.order-items-container > div.button {
     position: absolute;
     right: 0em;
     top: 1em;
@@ -49,7 +90,7 @@ div.form-container.order div.order-items-container > div.button {
     transition: background-color 0.2s;
     cursor: pointer;
 }
-div.form-container.order div.order-items-container > div.button:hover{
+div.order-items-container > div.button:hover{
     background-color: #ffe34d;
 }
 /* Ventana Modal Buscar usuarios */
