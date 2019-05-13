@@ -95,6 +95,23 @@ label.boxed-input-description > div.input-box-msg.success{
     background-color: #32CD32;
     box-shadow: 0 2px 0 #228B22;
 }
+/* ---- Description Box ----*/
+label.description-box > div.header{
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background-color: #f6f6f6;
+    padding: 5px;
+    font-size: 0.9em;
+}
+label.description-box > textarea{
+    width: calc(100% - 12px);
+    resize: vertical;
+    padding: 5px;
+    min-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 5px 5px;
+}
 /* ---- Boxed Input ---- */
 label.boxed-input {
     position: relative;
@@ -711,7 +728,8 @@ div.form-container > form {
 div.form-container > form h1{font-size: 1.4em;}
 div.form-container > form h2{font-size: 1.3em;}
 div.form-container > form h3{font-size: 1.2em; margin: 5px auto}
-div.form-container > form input {
+div.form-container > form input[type="text"],
+div.form-container > form input[type="number"]{
     font-size: 1em;
     padding: 3px;
     border: 0;

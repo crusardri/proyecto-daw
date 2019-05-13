@@ -22,6 +22,12 @@
                         <input type="text" value="000001" disabled>
                     </div>
                 </label>
+                <label class="boxed-input" id="update-date">
+                    <div class="text-label"><span>Fecha de actualizacion</span></div>
+                    <div class="input-container">
+                        <input type="text" value="13/05/2019 13:03:24" disabled>
+                    </div>
+                </label>
             </div>      
             <!-- User Info -->
             <div class="client-info">
@@ -71,9 +77,7 @@
                     <div class="button" id="search-employee">Cambiar</div>
                 </div>
             </div>
-             
             <!-- Estados -->
-            
             <div class="estate-container">
                <h2>Estado</h2>
                 <label class="boxed-radio pending">
@@ -117,6 +121,7 @@
                     </div>
                 </label>
             </div>
+            <!-- Order Items -->
             <div class="order-items-container">
                 <h2>Prendas</h2>
                 <div class="button" id="new-order-item">Añadir Prenda</div>
@@ -144,9 +149,10 @@
                                 <input type="number" value="10">
                             </div>
                         </label>
-                        <label class="order-item-description">
+                        <label class="description-box order-item-description">
                         <div class="header">Observaciones</div>
-                        <textarea name="order-item-description">Descripcion del pedido</textarea></label>
+                            <textarea name="order-item-description">Descripcion del pedido</textarea>
+                        </label>
                     </div>
                     <div class="order-item">
                         <input type="hidden" value="1" name="order-item-id">
@@ -170,11 +176,24 @@
                                 <input type="number" value="10">
                             </div>
                         </label>
-                        <label class="order-item-description">
+                        <label class="description-box order-item-description">
                         <div class="header">Observaciones</div>
-                        <textarea name="order-item-description"></textarea></label>
+                            <textarea name="order-item-description"></textarea>
+                        </label>
                     </div>
                 </div>
+            </div>
+            <!-- Descripcion -->
+            <div class="order-description-container" id="order-description">
+                <h2>Descripción</h2>
+                <label class="description-box order-item-description">
+                    <div class="header">Descripción del pedido</div>
+                    <textarea name="order-item-description"></textarea>
+                </label>
+            </div>
+            <!-- Botones -->
+            <div class="order-buttons">
+                <input type="submit" value="Crear orden" class="input-submit-button">
             </div>
         </form>
     </div>
