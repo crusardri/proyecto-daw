@@ -19,7 +19,7 @@ class Controller implements IConnectable {
         $db = Connection::connect();
         $sql = "SELECT * FROM orders WHERE order_id = :orderID";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
+        $stmt->bindParam(':orderID', $orderID);
         $stmt->execute();
         
         while($row = $stmt->fetch()){
@@ -37,7 +37,7 @@ class Controller implements IConnectable {
         $db = Connection::connect();
         $sql = "SELECT * FROM order_items WHERE order_item_id = :orderID";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
+        $stmt->bindParam(':orderID', $orderID);
         $stmt->execute();
         
         while($row = $stmt->fetch()){
@@ -57,7 +57,21 @@ class Controller implements IConnectable {
     */
     public static function getOrders($page = 1, $itemsPerPage = 10){
         $page = $page -1;
-        //TO DO
+        $db = Connection::connect();
+        $sql = "SELECT * FROM orders LIMIT ?,?";
+        $stmt = $db->stmt_init();
+        $stmt->prepare($sql);
+        $startFromItem = $page * $itemsPerPage;
+        $stmt->bind_param(":startFromItem", $startFromItem);
+        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+
+        while($row = $stmt->fetch()){
+            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+          }
+          $stmt->close();
+          $db->close();
+  
+          return $order;
         
     }
     /**
@@ -149,7 +163,7 @@ class Controller implements IConnectable {
         $sql = "SELECT * FROM clothes WHERE clothes_id = :clothesID";
         $stmt = $db->prepare($sql);
         
-        $stmt->bindParam(':clothesID', $prendaID, PDO::PARAM_INT);
+        $stmt->bindParam(':clothesID', $prendaID);
         $stmt->execute();
         
         while($row = $stmt->fetch()){
@@ -194,7 +208,7 @@ class Controller implements IConnectable {
         $sql = "SELECT * FROM clothes_fixes WHERE fix_id = :fix_id";
         $stmt = $db->stmt_init();
         $stmt->prepare($sql);
-        $stmt->bindParam(':fix_id', $arregloId, PDO::PARAM_INT);
+        $stmt->bindParam(':fix_id', $arregloId);
         
         while($row = $stmt->fetch()){
             $arreglo = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
@@ -228,13 +242,13 @@ class Controller implements IConnectable {
         $sql = "INSERT INTO orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) VALUES (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
         $stmt = $db->prepare($sql);
  
-        $stmt->bindParam(':order_id', $order, PDO::PARAM_INT);
-        $stmt->bindParam(':start_timestamp', $order, PDO::PARAM_INT);
-        $stmt->bindParam(':limit_timestamp', $order, PDO::PARAM_INT);
-        $stmt->bindParam(':end_timestamp', $order, PDO::PARAM_INT);
-        $stmt->bindParam(':out_timestamp', $order, PDO::PARAM_INT);
-        $stmt->bindParam(':observations', $order, PDO::PARAM_STR);
-        $stmt->bindParam(':update_timestamp', $order, PDO::PARAM_INT);
+        $stmt->bindParam(':order_id', $order);
+        $stmt->bindParam(':start_timestamp', $order);
+        $stmt->bindParam(':limit_timestamp', $order);
+        $stmt->bindParam(':end_timestamp', $order);
+        $stmt->bindParam(':out_timestamp', $order);
+        $stmt->bindParam(':observations', $order);
+        $stmt->bindParam(':update_timestamp', $order);
  
         $stmt->execute();
  
@@ -258,13 +272,13 @@ class Controller implements IConnectable {
        $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
        $stmt = $db->prepare($sql);
 
-       $stmt->bindParam(':order_id', $order, PDO::PARAM_INT);
-       $stmt->bindParam(':start_timestamp', $order, PDO::PARAM_INT);
-       $stmt->bindParam(':limit_timestamp', $order, PDO::PARAM_INT);
-       $stmt->bindParam(':end_timestamp', $order, PDO::PARAM_INT);
-       $stmt->bindParam(':out_timestamp', $order, PDO::PARAM_INT);
-       $stmt->bindParam(':observations', $order, PDO::PARAM_STR);
-       $stmt->bindParam(':update_timestamp', $order, PDO::PARAM_INT);
+       $stmt->bindParam(':order_id', $order);
+       $stmt->bindParam(':start_timestamp', $order);
+       $stmt->bindParam(':limit_timestamp', $order);
+       $stmt->bindParam(':end_timestamp', $order);
+       $stmt->bindParam(':out_timestamp', $order);
+       $stmt->bindParam(':observations', $order);
+       $stmt->bindParam(':update_timestamp', $order);
       
        $stmt->execute();
 
