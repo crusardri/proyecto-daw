@@ -40,7 +40,7 @@ class LoginController implements IConnectable {
     public function changePassword($oldPassword, $newPassword){
         $db = $this::connect();
         $db = Connection::connect();
-        $sql = "UPDATE users SET hashed_password = :newPass WHERE hashed_password = :oldPass";
+        $sql = "UPDATE users SET hashed_password = :newPass WHERE :oldPass = hashed_password";
         $stmt = $db->stmt_init();
         $stmt->prepare($sql);
         $stmt->bindParam(':newPass', $newPassword);
@@ -48,11 +48,9 @@ class LoginController implements IConnectable {
         $stmt->execute();
 
         if (!stmt()){
-            $resultado = -1;
-            return $resultado;
+            return -1;
        } else {
-            $resultado = 0;
-            return $resultado;
+            return 0;
        }
        $stmt->close();
        $db->close();
@@ -67,19 +65,22 @@ class LoginController implements IConnectable {
     public function changeEmail($newEmail){
         $userID = $user->getID();
         $db = Connection::connect();
-        $sql = "UPDATE users SET email = :email WHERE id = :userID";
+        $sql = "UPDATE users SET email = :email WHERE user_id = :userID";
         $stmt = $db->stmt_init();
         $stmt->prepare($sql);
         $stmt->bindParam(':emailUser', $newEmail);
         $stmt->bindParam(':userID', $userID);
         $dbsuccess = $stmt->execute();
-        $stmt->close();
-        $db->close();
+        
         if($dbsuccess){
             $user->setEmail($newEmail);
             return 0;
+        } else {
+            return -1;
         }
-        return -1;
+        
+        $stmt->close();
+        $db->close();
     }
     /**
     * Registra un usuario en la base de datos
