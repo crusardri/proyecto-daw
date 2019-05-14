@@ -172,7 +172,7 @@ label.boxed-input > div.text-label.mandatory:after{
 }
 label.boxed-input > div.input-container {
     flex-grow: 2;
-    height: calc(100% - 5px );
+    height: calc(100% - 7px );
 }
 label.boxed-input > div.button{
     display: inline-flex;
