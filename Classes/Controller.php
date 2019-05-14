@@ -21,11 +21,9 @@ class Controller implements IConnectable {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
         $stmt->execute();
-        $orderArray = array();
         
         while($row = $stmt->fetch()){
-            $orderObject = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-            array_push($orderArray, $orderObject);
+            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
         }
 
         $orderItemsArray = getOrderItems($orderID);
@@ -41,16 +39,14 @@ class Controller implements IConnectable {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':orderID', $orderID, PDO::PARAM_INT);
         $stmt->execute();
-        $orderItemsArray = array();
         
         while($row = $stmt->fetch()){
           $orderItems = new order_Items($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-          array_push($orderItemsArray, $orderItems);
         }
         $stmt->close();
         $db->close();
 
-        return $orderItemsArray;
+        return $orderItems;
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
@@ -150,16 +146,14 @@ class Controller implements IConnectable {
     */
     public static function getPrenda($prendaId){
         $db = Connection::connect();
-        $sql = "SELECT * FROM clothes WHERE id = :clothesID";
+        $sql = "SELECT * FROM clothes WHERE clothes_id = :clothesID";
         $stmt = $db->prepare($sql);
         
         $stmt->bindParam(':clothesID', $prendaID, PDO::PARAM_INT);
         $stmt->execute();
-        $prendas = array();
         
         while($row = $stmt->fetch()){
           $prenda = new Prenda($row['CLOTHE_NAME'], $row['ACTIVE']);
-          array_push($prendas, $prenda);
         }
         $stmt->close();
         $db->close();
@@ -200,15 +194,11 @@ class Controller implements IConnectable {
         $sql = "SELECT * FROM clothes_fixes WHERE fix_id = :fix_id";
         $stmt = $db->stmt_init();
         $stmt->prepare($sql);
-        $arreglo = array();
-
         $stmt->bindParam(':fix_id', $arregloId, PDO::PARAM_INT);
         
         while($row = $stmt->fetch()){
-            $arregloObject = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
-            array_push($arreglo, $arregloObject);
+            $arreglo = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
         }
-        
         $stmt->close();
         $db->close();
 
@@ -249,10 +239,9 @@ class Controller implements IConnectable {
         $stmt->execute();
  
         if (!stmt()){
-             $resultado = -1;
-             return $resultado;
+             return -1;
         } else {
-             return $resultado;
+             return 0;
         }
         $stmt->close();
         $db->close();
@@ -265,8 +254,8 @@ class Controller implements IConnectable {
     * @return int -1 Si algo ha fallado
     */
     public static function editOrder($order){
-        $db = Connection::connect();
-       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID"; WHERE order_id = :orderID";
+       $db = Connection::connect();
+       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
        $stmt = $db->prepare($sql);
 
        $stmt->bindParam(':order_id', $order, PDO::PARAM_INT);
@@ -280,10 +269,9 @@ class Controller implements IConnectable {
        $stmt->execute();
 
        if (!stmt()){
-            $resultado = -1;
-            return $resultado;
+            return -1;
        } else {
-            return $resultado;
+            return 0
        }
        $stmt->close();
        $db->close();
