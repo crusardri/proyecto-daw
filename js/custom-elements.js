@@ -57,7 +57,30 @@ $(document).ready(()=>{
     $(document).on("click", ()=>{
         closeSelectDropdown();
     })
+    // Select personalidado estado ordenes
     customSelect("#order-estate-filter", (elem)=>{
+        let elemClass = $(elem).attr("data-class");
+        let elemStyle = $(elem).attr("data-style");
+        let elemText = $(elem).text();    
+        return $("<span>", {
+            "class": "label-box " + elemClass || null,
+            text: elemText,
+            "style": elemStyle
+        })
+    });
+    // Select personalizado estado activo
+    customSelect("#active-filter", (elem)=>{
+        let elemClass = $(elem).attr("data-class");
+        let elemStyle = $(elem).attr("data-style");
+        let elemText = $(elem).text();    
+        return $("<span>", {
+            "class": "label-box " + elemClass || null,
+            text: elemText,
+            "style": elemStyle
+        })
+    });
+    // Select personalizado rol
+    customSelect("#role-filter", (elem)=>{
         let elemClass = $(elem).attr("data-class");
         let elemStyle = $(elem).attr("data-style");
         let elemText = $(elem).text();    

@@ -1,35 +1,56 @@
 /* Contenedor Filtros */
 section.item-filters {
+    position: relative;
     display: flex;
     flex-flow: row wrap;
-    margin: 0 20px;
+    margin: 10px 20px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
     border-radius: 5px;
     background-color: #fff;
-    padding: 5px 10px;
+    padding: 20px 10px;
+}
+section.item-filters > h1 {
+    position: absolute;
+    top: -0.7em;
+    left: 0.6em;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0.1em 0.5em;
+    font-size: 1.2em;
+    margin: 0;
+    border: 1px solid #ddd;
+    
 }
 section.item-filters > label {
-    margin: auto 10px;
+    margin: 5px 10px;
 }
 /* ---- custom select filters ---- */
-/* Estados ordenes*/
-div.custom-select.order-estate-filter{
+/* Estados ordenes - activo - roles */
+div.custom-select.labeled, div.custom-select{
     width: 125px;
 }
-div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option{
+div.custom-select.labeled.role-filter{width: 150px;}
+div.custom-select.labeled > .custom-select-dropdown > div.custom-select-option
+{
     padding: 5px 0;
     margin: 10px 0;
     text-align: center;
     line-height: normal;
 }
-div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option span.label-box {
+div.custom-select.labeled > .custom-select-dropdown > div.custom-select-option span.label-box{
     position: relative;
     top: -1px;
     line-height: 25px;
+    width: 100px;
 }
-div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:first-child {margin-top: 0px}
-div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:last-child {margin-bottom: 0px}
-div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:after {
+div.custom-select.labeled.role-filter > .custom-select-dropdown > div.custom-select-option span.label-box {width: 110px;}
+div.custom-select.labeled > .custom-select-dropdown > div.custom-select-option:first-child{
+    margin-top: 0px
+}
+div.custom-select.labeled > .custom-select-dropdown > div.custom-select-option:last-child{
+    margin-bottom: 0px
+}
+div.custom-select.labeled > .custom-select-dropdown > div.custom-select-option:after{
     bottom: -5px;
 }
 /* Estados ordenes*/
@@ -209,7 +230,7 @@ div.users-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-user" "filters new-order" "users users" "paginator paginator";
+    grid-template-areas: "search new-user" "filters new-user" "users users" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.users-container {
