@@ -12,6 +12,7 @@ require("Funciones/vistaController.php");
     <link rel="stylesheet" href="style/views.css">
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/custom-elements.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <?php include("./includes/navbar.inc") ?>
@@ -30,8 +31,8 @@ require("Funciones/vistaController.php");
             <h1>Filtros</h1>
             <label class="boxed-select" id="order-estate-filter">
                 <div>Estado</div>
-                <select data-class="order-estate-filter">
-                    <option value="-1" data-style="width: 80px;"> Todos </option>
+                <select data-class="labeled">
+                    <option value="-1"> Todos </option>
                     <option value="0" data-class="pending">Pendiente</option>
                     <option value="1" data-class="working">En proceso</option>
                     <option value="2" data-class="finished">Finalizado</option>
@@ -40,22 +41,23 @@ require("Funciones/vistaController.php");
                 </select>
             </label>
             <label class="boxed-select" id="order-by-filter">
-                <div>Ordenar por: </div>
+                <div>Ordenar por</div>
                 <select data-class="order-by-filter">
-                    <option value="0">Fecha entrada</option>
-                    <option value="1">Fecha inicio</option>
-                    <option value="2">Fecha finalizado</option>
-                    <option value="3">Fecha salida</option>
-                    <option value="4">Fecha cancelado</option>
-                    <option value="5">Fecha actualizacion</option>
-                    <option value="6">Cliente</option>
-                    <option value="7">Trabajador</option>
-                    <option value="8">Precio</option>
-                    <option value="9">Número prendas</option>
+                    <option value="0">ID</option>
+                    <option value="1">Fecha entrada</option>
+                    <option value="2">Fecha inicio</option>
+                    <option value="3">Fecha finalizado</option>
+                    <option value="4">Fecha salida</option>
+                    <option value="5">Fecha cancelado</option>
+                    <option value="6">Fecha actualizacion</option>
+                    <option value="7">Cliente</option>
+                    <option value="8">Trabajador</option>
+                    <option value="9">Precio</option>
+                    <option value="10">Número prendas</option>
                 </select>
             </label>
             <label class="boxed-select" id="order-direction-filter">
-                <div>Orden: </div>
+                <div>Orden</div>
                 <select data-class="order-direction-filter">
                     <option value="0">Ascendente</option>
                     <option value="1">Descendente</option>
