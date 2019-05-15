@@ -25,7 +25,7 @@ require("Funciones/vistaController.php");
                 <div class="label">Datos de inicio de sesión</div>
                 <label class="boxed-input-description">
                     <label class="boxed-input" id="username">
-                        <div class="text-label mandatory"><span>Usuario</span></div>
+                        <div class="text-label mandatory"><span>Nombre de usuario</span></div>
                         <div class="input-container">
                             <input type="text">
                         </div>
