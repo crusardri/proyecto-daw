@@ -64,6 +64,7 @@ class Controller implements IConnectable {
         $startFromItem = $page * $itemsPerPage;
         $stmt->bind_param(":startFromItem", $startFromItem);
         $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+        $order = array();
 
         while($row = $stmt->fetch()){
             $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
@@ -84,7 +85,23 @@ class Controller implements IConnectable {
     */
     public static function getOrdersByDescription($page = 1, $itemsPerPage = 10, $description){
         $page = $page -1;
-        //TO DO
+        $db = Connection::connect();
+        $sql = "SELECT * FROM order_items LIMIT ?,? WHERE :descripcion = description";
+        $stmt = $db->stmt_init();
+        $stmt->prepare($sql);
+        $startFromItem = $page * $itemsPerPage;
+        $stmt->bind_param(":startFromItem", $startFromItem);
+        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+        $stmt->bind_param(":descripcion", $description);
+        $order = array();
+
+        while($row = $stmt->fetch()){
+            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+          }
+          $stmt->close();
+          $db->close();
+  
+          return $order;
         
     }
     /**
@@ -136,8 +153,23 @@ class Controller implements IConnectable {
     */
     public static function getOrdersByAssignedWorkerId($page = 1, $itemsPerPage = 10, $workerId){
         $page = $page -1;
-        //TO DO
-        
+        $db = Connection::connect();
+        $sql = "SELECT * FROM orders LIMIT :startFromItem, :itemsPerPage WHERE :workerID = worker_id";
+        $stmt = $db->stmt_init();
+        $stmt->prepare($sql);
+        $startFromItem = $page * $itemsPerPage;
+        $stmt->bind_param(":startFromItem", $startFromItem);
+        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+        $stmt->bind_param(":workerID", $workerId);
+        $order = array();
+
+        while($row = $stmt->fetch()){
+             $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+          }
+          $stmt->close();
+          $db->close();
+  
+          return $order;
     }
     /**
     * Devuelve todas las ordenes que coincida con el nombre de un trabajador
