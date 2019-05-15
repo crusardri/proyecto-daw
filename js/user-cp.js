@@ -147,7 +147,7 @@ function checkUsernameAvailability(){
 function checkEmailAvailability(){
     let email = $("#email input").val();
     $("#email .button > span").text("Comprobando");
-    if(checkUsername()){
+    if(checkEmail()){
         if(!checkAjaxEmailAvailability(email)){
             generateMsg("#email", "El Correo Electrónico no esta disponible.");
             $("#email .button > span").text("Comprobar");
