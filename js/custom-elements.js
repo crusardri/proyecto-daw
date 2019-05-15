@@ -2,6 +2,7 @@
 function closeSelectDropdown(){
     $(".custom-select-dropdown").addClass("hidden");
     $(".custom-select-dropdown").parent().removeClass("selected");
+    $(".custom-select-dropdown").parent().parent().removeClass("selected");
 }
 function customSelect(selector, callback = (o)=>$(o).text()){
     let select = $(selector + " > select")
@@ -46,6 +47,7 @@ function customSelect(selector, callback = (o)=>$(o).text()){
         closeSelectDropdown();
         selectDropdown.removeClass("hidden");
         selectDropdown.parent().addClass("selected");
+        selectDropdown.parent().parent().addClass("selected");
     })
     /* Parar propagacion ocultar los contenedores de opciones de los custom-selects */
     $(selector).on("click", (e)=>{

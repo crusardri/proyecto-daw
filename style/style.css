@@ -117,6 +117,11 @@ label.boxed-select {
     height: 30px;
     border-radius: 5px;
     /*overflow: hidden;*/
+    transition: border 0.1s, box-shadow 0.1s;
+}
+label.boxed-select.selected {
+    border-color: #0060ac;
+    box-shadow: 0 0 0 1px #0060ac;
 }
 label.boxed-select > div {
     line-height: 30px;
