@@ -332,12 +332,14 @@ table.fixes-table td.active {width: 30px;}
 table.fixes-table td.id {width: 80px;}
 table.fixes-table td.price {width: 50px;}
 table.fixes-table td.date {width: 200px;}
-
+table.fixes-table td.toogle {width: 100px; text-align: center;}
+table.fixes-table td.toogle > a{width: 80px;}
 @media (max-width: 1000px){
     table.fixes-table td.active,
     table.fixes-table td.id,
     table.fixes-table td.price,
-    table.fixes-table td.date {
+    table.fixes-table td.date,
+    table.fixes-table td.toogle{
         width: auto;
     }
 }
