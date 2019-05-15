@@ -52,7 +52,8 @@ class Controller implements IConnectable {
 
                return $orderItems;
             }
-        return null;        
+        }
+            return null;        
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
@@ -77,12 +78,11 @@ class Controller implements IConnectable {
                 while($row = $stmt->fetch()){
                     $o = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
                     array_push($orders, $o);
+
+                    return $orders;
                 }
-          $stmt->close();
-          $db->close();
-  
-          return $orders;
-        
+            }
+        }
     }
     /**
     * Devuelve todas las ordenes que coincida parte de la descripcion
@@ -163,21 +163,20 @@ class Controller implements IConnectable {
     * @return Prenda 
     */
     public static function getPrenda($prendaId){
-        $db = Connection::connect();
-        $sql = "SELECT * FROM clothes WHERE clothes_id = :clothesID";
+        $db = $this->connect();
+        $sql = "SELECT * FROM CLOTHES WHERE CLOTHES_ID = :clothesID";
         $stmt = $db->prepare($sql);
         
         $stmt->bindParam(':clothesID', $prendaID);
-        $stmt->execute();
-        
-        while($row = $stmt->fetch()){
-          $prenda = new Prenda($row['CLOTHE_NAME'], $row['ACTIVE']);
-        }
-        $stmt->close();
-        $db->close();
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+               $prenda = new Prenda($row['CLOTHE_NAME'], $row['ACTIVE']);
 
-        return $prenda;
-        
+               return $prenda;
+            }
+        } else {
+            return null;
+        }
     }
     /**
     * Devuelve todas las prendas limitadas por pagina
@@ -208,19 +207,20 @@ class Controller implements IConnectable {
     * @return Arreglo
     */
     public static function getArreglo($arregloId){
-        $db = Connection::connect();
+        $db = $this->connect();
         $sql = "SELECT * FROM clothes_fixes WHERE fix_id = :fix_id";
-        $stmt = $db->stmt_init();
-        $stmt->prepare($sql);
+        $stmt = $db->prepare($sql);
         $stmt->bindParam(':fix_id', $arregloId);
         
-        while($row = $stmt->fetch()){
-            $arreglo = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
-        }
-        $stmt->close();
-        $db->close();
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                $arreglo = new Clothes_Fixes($row['PRICE'], $row['ACTIVE']);
 
-        return $arreglo;
+               return $arreglo;
+            }
+        } else {
+            return null;
+        }
     }
     /**
     * Devuelve todos los arreglos de una prenda por ID
@@ -242,7 +242,7 @@ class Controller implements IConnectable {
     * @return int -1 Si algo ha fallado
     */
     public static function createOrder($order){
-        $db = Connection::connect();
+        $db = $this->connect();
         $sql = "INSERT INTO orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) VALUES (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
         $stmt = $db->prepare($sql);
  
@@ -261,8 +261,6 @@ class Controller implements IConnectable {
         } else {
              return 0;
         }
-        $stmt->close();
-        $db->close();
     }
     /**
     * Edita una orden
@@ -272,7 +270,7 @@ class Controller implements IConnectable {
     * @return int -1 Si algo ha fallado
     */
     public static function editOrder($order){
-       $db = Connection::connect();
+       $db = $this->connect();
        $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
        $stmt = $db->prepare($sql);
 
@@ -291,7 +289,5 @@ class Controller implements IConnectable {
        } else {
             return 0
        }
-       $stmt->close();
-       $db->close();
     }
 }
