@@ -1,3 +1,16 @@
+/* Botones de la orden */
+div.form-buttons {
+    grid-area: buttons;
+}
+div.form-buttons > input.input-submit-button{
+    padding: 10px;
+    float: right;
+    font-size: 1em;
+}
+div.form-buttons > input.input-submit-button:after {
+    clear:both;
+}
+
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - order.php - -------------------------------------------- 
@@ -101,18 +114,7 @@ div.order-items-container div.button {
 div.order-items-container div.button:hover{
     background-color: #ffe34d;
 }
-/* Botones de la orden */
-div.order-buttons {
-    grid-area: buttons;
-}
-div.order-buttons > input.input-submit-button{
-    padding: 10px;
-    float: right;
-    font-size: 1em;
-}
-div.order-buttons > input.input-submit-button:after {
-    clear:both;
-}
+
 /* Ventana Modal Buscar usuarios */
 div.modal-box div.modal-search-results > div.modal-search-result > span.name {
     width: 185px;
@@ -160,3 +162,103 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
     div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
 }
 
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - user.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+div.form-container.user {
+    display: grid;
+    grid-template-areas: "data data" "account password" "personal personal" "active active" "role role" "submit submit";
+    grid-template-columns: 50% 50%;
+}
+div.form-container.user .form-buttons {
+    flex-basis: 100%;
+    align-self: flex-end;
+}
+#user-info-container {
+    grid-area: data;
+}
+#user-info-container > div{
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 10px;
+}
+#account-info-container {
+    grid-area: account;
+}
+#account-info-container > div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px 10px 5px;
+}
+#account-info-container > div > label{
+    flex-basis: 100%;
+}
+/* Cambiar contraseña */
+#change-password-container {
+    grid-area: password;
+}
+#change-password-container > div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px 10px 5px;
+}
+#change-password-container > div > label{
+    flex-basis: 100%;
+}
+
+/* Informacion personal*/
+#personal-info-container {
+    grid-area: personal;
+}
+#personal-info-container > div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px 10px 5px;
+}
+#personal-info-container > div > label{
+    flex-basis: 100%;
+}
+
+/* Form activo*/
+#active-form {
+    grid-area: active;
+}
+/* Form roles*/
+#role-form {
+    grid-area: role;
+}
+#active-form > div,
+#role-form > div{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+#active-form > div > label,
+#role-form > div > label{
+    flex-basis: calc(50% - 5px);
+}
+#role-form > div > label:last-child{
+    flex-basis: 100%;
+}
+@media(max-width: 1000px){
+    div.form-container.user{
+        grid-template-columns: 100%;
+        grid-template-areas: "data" "account" "password" "personal" "active" "role" "submit";
+        grid-gap: 0px;
+        
+    }
+    #active-role-form > div.active-container > div > label,
+    #active-role-form > div.role-container > div > label{
+            flex-basis: 100%;
+    }
+}
