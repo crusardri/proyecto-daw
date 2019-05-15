@@ -12,10 +12,6 @@
             <div class="label">Prendas</div>
         </a>
         <a class="menu-item" href="#">
-            <img src="media/img/arreglos.png">
-            <div class="label">Arreglos</div>
-        </a>
-        <a class="menu-item" href="#">
             <img src="media/img/users.png">
             <div class="label">Usuarios</div>
         </a>
