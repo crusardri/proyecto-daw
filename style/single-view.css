@@ -262,3 +262,82 @@ div.form-container.user .form-buttons {
             flex-basis: 100%;
     }
 }
+/*
+------------------------------------------------------------------------------------------------------------
+-------------------------------------------- - clothe.php - -------------------------------------------- 
+------------------------------------------------------------------------------------------------------------
+*/
+div.form-container.clothe {
+    display: grid;
+    grid-template-areas: "info" "active" "fixes";
+    grid-template-columns: 100%;
+}
+#clothe-info-container {
+    grid-area: info;
+}
+#clothe-info-container > div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: space-between;
+}
+#clothe-info-container > div > label{
+    flex-basis: 300px;
+    flex-grow: 2;
+    margin: 5px;
+}
+#clothe-info-container > div > :last-child{
+    flex-basis: 100%;
+    padding: 0 5px;
+}
+#active-container {
+    grid-area: active;
+}
+#active-container > div{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-between;
+}
+#active-container > div > label{
+    flex-basis: calc(50% - 5px);
+}
+#fixes-table{
+    grid-area: fixes;
+}
+#fixes-table tr{
+    box-shadow: none;
+}
+#fixes-table .table-container{
+    box-shadow: none;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+#fixes-table .table-container th{
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+}
+#fixes-table .table-container tr{
+    border: 1px solid #ddd;
+}
+@media(max-width: 1000px){
+    #active-container > div > label{
+        flex-basis: 100%;
+    }
+}
+
+/* tabla */
+table.fixes-table td.active {width: 30px;}
+table.fixes-table td.id {width: 80px;}
+table.fixes-table td.price {width: 50px;}
+table.fixes-table td.date {width: 200px;}
+
+@media (max-width: 1000px){
+    table.fixes-table td.active,
+    table.fixes-table td.id,
+    table.fixes-table td.price,
+    table.fixes-table td.date {
+        width: auto;
+    }
+}

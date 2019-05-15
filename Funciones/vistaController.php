@@ -89,7 +89,6 @@ function showFixesTable(){
             <tr class="header-responsive-desktop">
                 <th>ID</th>
                 <th>Arreglo</th>
-                <th>Prenda</th>
                 <th>Precio</th>
                 <th>Activo</th>
                 <th>Creado</th>
@@ -97,7 +96,6 @@ function showFixesTable(){
             <tr>
                 <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
-                <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
                 <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
@@ -105,7 +103,6 @@ function showFixesTable(){
             <tr>
                 <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
-                <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
                 <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
@@ -113,7 +110,6 @@ function showFixesTable(){
             <tr>
                 <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
-                <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
                 <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
@@ -121,7 +117,6 @@ function showFixesTable(){
             <tr>
                 <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
-                <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
                 <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
@@ -129,7 +124,6 @@ function showFixesTable(){
             <tr>
                 <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
                 <td><span class="responsive-label">Arreglo</span>Bajo pantalon</td>
-                <td><span class="responsive-label">Prenda</span>Vaquero</td>
                 <td class="price a-center"><span class="responsive-label">Precio</span>10€</td>
                 <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
@@ -239,7 +233,7 @@ function showOrdersTable(){
                 <td class="a-center"><span class="responsive-label">Precio</span> 10€</td>
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
-                <td class="date"><span class="responsive-label">Entrada</span> <span>17/04/2019 13:00</span></span></td>
+                <td class="date"><span class="responsive-label">Entrada</span> <span>17/04/2019 13:00</span></td>
                 <td class="date"><span class="responsive-label">Previsto</span><span>20/04/2019 13:00</span></td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span><span>-</span></td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span><span>-</span></td>
