@@ -132,6 +132,7 @@ function showClothes(){
 }
 
 $(document).ready(()=>{
+    $("body > *").css("opacity", "1");
     /*Animacion focus boxed-input*/
     $(".boxed-input input, label.description-box textarea").on("focus", function(){
         $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);

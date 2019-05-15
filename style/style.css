@@ -6,6 +6,10 @@ body {
     background-image: url("./../media/img/bg/dotnoise-light-grey.png");
     background-color: #fff; 
 }
+body > *{
+    opacity: 0;
+    transition: opacity 0.1s;
+}
 /* Comun */
 input,
 textarea,
@@ -122,6 +126,7 @@ label.boxed-select > div:first-child {
     padding-left: 5px;
     padding-right: 5px;
     border-right: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
     background-color: #f6f6f6;
 }
 label.boxed-select > select {
