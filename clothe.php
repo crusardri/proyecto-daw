@@ -17,7 +17,7 @@
         <form id="clothe-info-container">
             <h1>Prenda</h1>
             <div class="field-set" id="clothe-infoset">
-            <h3>Datos Cuenta</h3>
+            <h3>Datos Prenda</h3>
                <label class="boxed-input" id="clothe-id">
                     <div class="text-label"><span>ID</span></div>
                     <div class="input-container">
@@ -71,7 +71,7 @@
             </div>
             
             <div class="form-buttons">
-                <input type="submit" value="Cambiar estado" class="input-submit-button">
+                <input type="submit" value="Actualizar estado" class="input-submit-button">
             </div>
         </form>
         <!-- Tabla Arreglos -->
