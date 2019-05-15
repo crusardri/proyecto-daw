@@ -3,7 +3,7 @@ function closeSelectDropdown(){
     $(".custom-select-dropdown").addClass("hidden");
     $(".custom-select-dropdown").parent().removeClass("selected");
 }
-function customSelect(selector, callback){
+function customSelect(selector, callback = (o)=>$(o).text()){
     let select = $(selector + " > select")
     let options = $(selector + " > select > option");
     let selectDropdown = $("<div>", {"class": "custom-select-dropdown hidden"})
@@ -67,7 +67,6 @@ $(document).ready(()=>{
             "style": elemStyle
         })
     });
-    customSelect("#order-by-filter", (elem)=>{
-        return $(elem).text();    
-    });
+    customSelect("#order-by-filter");
+    customSelect("#order-direction-filter");
 });

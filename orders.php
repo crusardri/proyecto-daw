@@ -27,6 +27,7 @@ require("Funciones/vistaController.php");
             <div class="label">Nueva Órden</div>
         </a>
         <section class="item-filters">
+            <h1>Filtros</h1>
             <label class="boxed-select" id="order-estate-filter">
                 <div>Estado</div>
                 <select data-class="order-estate-filter">
@@ -51,6 +52,13 @@ require("Funciones/vistaController.php");
                     <option value="7">Trabajador</option>
                     <option value="8">Precio</option>
                     <option value="9">Número prendas</option>
+                </select>
+            </label>
+            <label class="boxed-select" id="order-direction-filter">
+                <div>Orden: </div>
+                <select data-class="order-direction-filter">
+                    <option value="0">Ascendente</option>
+                    <option value="1">Descendente</option>
                 </select>
             </label>
         </section>
