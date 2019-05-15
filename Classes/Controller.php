@@ -16,37 +16,43 @@ class Controller implements IConnectable {
     * @return null si no existe
     */
     public static function getOrder($orderID){
-        $db = Connection::connect();
-        $sql = "SELECT * FROM orders WHERE order_id = :orderID";
+        $db = $this->connect();
+        $sql = "SELECT * FROM ORDERS as O, ORDER_ESTATES as OE WHERE ORDER_ID = :orderID";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':orderID', $orderID);
-        $stmt->execute();
-        
-        while($row = $stmt->fetch()){
-            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+        $stmt->bindParam(":orderID", $orderID);
+
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                $orderItems = $this->getOrderItems();
+                $order = new Order($row["O.ORDER_ID"], $row["O.CLIENT_ID"], $row["O.WORKER_ID"], new Estate($row["OE.ESTATE_ID"], $row["OE.ESTATE_NAME"], $row["OE.ESATE_CSS_CLASS"]), $row["O.START_TIMESTAMP"], $row["O.WORKING_TIMESTAMP"],$row["O.END_TIMESTAMP"],$row["O.OUT_TIMESTAMP"],$row["O.CANCEL_TIMESTAMP"], $row["O.OBSERVATIONS"], $ROW["O.UPDATE_TIMESTAMP"], $orderItems);
+
+                return $order;
+            }
         }
-
-        $orderItemsArray = getOrderItems($orderID);
-        $order = new order($orderArray, $orderItemsArray);
-        $stmt->close();
-        $db->close();
-
-        return $order;
+        return null;
     }
+    /**
+    * Devuelve un array de objetos de OrderItems
+    * @param int orderId ID de la orden
+    *
+    * @return null si no existe
+    * @return Order[] Array de ordenes
+    */
     private static function getOrderItems($orderID){
-        $db = Connection::connect();
-        $sql = "SELECT * FROM order_items WHERE order_item_id = :orderID";
+        $orders = array();
+        $db = $this->connect();
+        $sql = "SELECT * FROM ORDERS_ITEMS WHERE ORDER_ITEM_ID = :orderID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':orderID', $orderID);
-        $stmt->execute();
         
-        while($row = $stmt->fetch()){
-          $orderItems = new order_Items($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-        }
-        $stmt->close();
-        $db->close();
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+               $orderItems = new Order_Item($row["START_TIMESTAMP"], $row["LIMIT_TIMESTAMP"], $row['END_TIMESTAMP'], $row["OUT_TIMESTAMP"], $row["OBSERVATIONS"], $row["UPDATE_TIMESTAMP"]);
+               array_push($orders, $orderItems);
 
-        return $orderItems;
+               return $orderItems;
+            }
+        return null;        
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
@@ -56,23 +62,26 @@ class Controller implements IConnectable {
     * @return Order[] Array de ordenes
     */
     public static function getOrders($page = 1, $itemsPerPage = 10){
+        $orders = array();
         $page = $page -1;
-        $db = Connection::connect();
-        $sql = "SELECT * FROM orders LIMIT ?,?";
-        $stmt = $db->stmt_init();
-        $stmt->prepare($sql);
+        $db = $this->connect();
+        $sql = "SELECT * FROM orders LIMIT :startFromItem, :itemsPerPage";
+        $stmt = $db->prepare($sql);
+      
         $startFromItem = $page * $itemsPerPage;
         $stmt->bind_param(":startFromItem", $startFromItem);
         $stmt->bind_param(":itemsPerPage", $itemsPerPage);
-        $order = array();
-
-        while($row = $stmt->fetch()){
-            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-          }
+        
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                while($row = $stmt->fetch()){
+                    $o = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
+                    array_push($orders, $o);
+                }
           $stmt->close();
           $db->close();
   
-          return $order;
+          return $orders;
         
     }
     /**
@@ -83,26 +92,7 @@ class Controller implements IConnectable {
     *
     * @return Order[] Array de ordenes
     */
-    public static function getOrdersByDescription($page = 1, $itemsPerPage = 10, $description){
-        $page = $page -1;
-        $db = Connection::connect();
-        $sql = "SELECT * FROM order_items LIMIT ?,? WHERE :descripcion = description";
-        $stmt = $db->stmt_init();
-        $stmt->prepare($sql);
-        $startFromItem = $page * $itemsPerPage;
-        $stmt->bind_param(":startFromItem", $startFromItem);
-        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
-        $stmt->bind_param(":descripcion", $description);
-        $order = array();
-
-        while($row = $stmt->fetch()){
-            $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-          }
-          $stmt->close();
-          $db->close();
-  
-          return $order;
-        
+    public static function getOrdersByDescription($page = 1, $itemsPerPage = 10, $description){  
     }
     /**
     * Devuelve todas las ordenes que coincida con parte del nombre de un cliente
@@ -152,24 +142,6 @@ class Controller implements IConnectable {
     * @return Order[] Array de ordenes
     */
     public static function getOrdersByAssignedWorkerId($page = 1, $itemsPerPage = 10, $workerId){
-        $page = $page -1;
-        $db = Connection::connect();
-        $sql = "SELECT * FROM orders LIMIT :startFromItem, :itemsPerPage WHERE :workerID = worker_id";
-        $stmt = $db->stmt_init();
-        $stmt->prepare($sql);
-        $startFromItem = $page * $itemsPerPage;
-        $stmt->bind_param(":startFromItem", $startFromItem);
-        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
-        $stmt->bind_param(":workerID", $workerId);
-        $order = array();
-
-        while($row = $stmt->fetch()){
-             $order = new orders($row['START_TIMESTAMP'], $row['LIMIT_TIMESTAMP'], $row['END_TIMESTAMP'], $row['OUT_TIMESTAMP'], $row['OBSERVATIONS'], $row['UPDATE_TIMESTAMP']);
-          }
-          $stmt->close();
-          $db->close();
-  
-          return $order;
     }
     /**
     * Devuelve todas las ordenes que coincida con el nombre de un trabajador
