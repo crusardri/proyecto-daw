@@ -64,6 +64,7 @@ var fixes = {
         price: 5
     }
 }
+
 /*
 * Modifica los valores de los inputs del fieldset de Cliente
 */

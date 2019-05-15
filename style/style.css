@@ -31,6 +31,68 @@ input.input-submit-button:disabled{
     background-color: #DDD;
     cursor: no-drop;
 }
+
+/* ---- CUSTOM SELECT ---- */
+div.custom-select {
+    position: relative;
+    user-select: none;
+    padding-left: 10px;
+    cursor:pointer;
+}
+div.custom-select:after {
+    content: "";
+    background-image: url(../media/img/select-arrow-down.png);
+    background-position: center center;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    height: 100%;
+    border-left: 1px solid #ddd;
+}
+div.custom-select.selected:after{
+    background-image: url(../media/img/select-arrow-up.png);
+}
+div.custom-select > .custom-select-dropdown{
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    left: -1px;
+    background-color: #fff;
+    padding: 3px 5px;
+    width: 100%;
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 0 3px 5px -3px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+div.custom-select > .custom-select-dropdown.hidden {
+    display: none;
+}
+div.custom-select > .custom-select-dropdown > div.custom-select-option{
+    position: relative;
+    padding: 0 5px;
+    margin: 5px 0;
+    cursor: pointer;    
+}
+div.custom-select > .custom-select-dropdown > div.custom-select-option:hover{
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 5px;
+}
+div.custom-select > .custom-select-dropdown > div.custom-select-option:first-child{margin-top: 0px}
+div.custom-select > .custom-select-dropdown > div.custom-select-option:last-child{margin-bottom: 0px}
+div.custom-select > .custom-select-dropdown > div.custom-select-option:after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+div.custom-select > .custom-select-dropdown > div.custom-select-option:last-child:after{content: none}
 /*Enlaces*/
 a {
     text-decoration: none;
@@ -42,6 +104,31 @@ a:hover {
 a:focus {
     outline: 2px solid #0060ac;
     text-decoration: none;
+}
+/* ---- Boxed-select ----*/
+label.boxed-select {
+    display: flex;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    height: 30px;
+    border-radius: 5px;
+    /*overflow: hidden;*/
+}
+label.boxed-select > div {
+    line-height: 30px;
+}
+label.boxed-select > div:first-child {
+    padding: 0px 5px 0 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-right: 1px solid #ddd;
+    background-color: #f6f6f6;
+}
+label.boxed-select > select {
+    border: 0;
+    font-size: 1em;
+    padding-bottom: 1px;
+    display: none;
 }
 /* ---- contenedor input ---- */
 div.input-set {
@@ -385,10 +472,10 @@ a.haptic-button.medium {
 .label-box {
     display: inline-block;
     text-align: center;
-    background-color: rgba(0,0,0,0.1);
+    background-color: #ccc;
     padding: 0 5px;
     border-radius: 5px;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 0 #aaa;
     color: #000;
 }
 .label-box:hover {
@@ -554,7 +641,7 @@ div.paginator > a.page.disabled {
     box-shadow: 0 0 0;
 }
 /* ---- Caja de busqueda ---- */
-form > div.search-box {
+.search-box {
     margin: 20px auto 10px;
     display: flex;
     flex-flow: row nowrap;
@@ -567,7 +654,7 @@ form > div.search-box {
     overflow: hidden;
 }
 
-form > div.search-box > input[type="text"] {
+.search-box > input[type="text"] {
     flex-grow: 1;
     height: 30px;
     padding: 5px 0 5px 10px;
@@ -575,15 +662,15 @@ form > div.search-box > input[type="text"] {
     border: 0px;
     transition: all 0.2s;
 }
-form > div.search-box > input[type="text"]::placeholder {
+.search-box > input[type="text"]::placeholder {
     color: #000;
     font-size: 0.8em;
     line-height: 30px;
 }
-form > div.search-box > input[type="text"]:hover {
+.search-box > input[type="text"]:hover {
     background-color: #eee;
 }
-form > div.search-box > input[type="submit"] {
+.search-box > input[type="submit"] {
     border: 0px;
     flex-shrink: 1;
     background-color: #ddd;
@@ -592,7 +679,7 @@ form > div.search-box > input[type="submit"] {
     transition: all 0.2s;
     padding-right: 10px;
 }
-form > div.search-box > input[type="submit"]:hover {
+.search-box > input[type="submit"]:hover {
     background-color: #ccc;
 }
 

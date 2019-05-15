@@ -1,3 +1,47 @@
+/* Contenedor Filtros */
+section.item-filters {
+    display: flex;
+    margin: 0 20px;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 10px;
+}
+/* ---- custom select filters ---- */
+/* Estados ordenes*/
+div.custom-select.order-estate-filter{
+    width: 125px;
+}
+div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option{
+    padding: 5px 0;
+    margin: 10px 0;
+    text-align: center;
+    line-height: normal;
+}
+div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option span.label-box {
+    position: relative;
+    top: -1px;
+    line-height: 25px;
+}
+div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:first-child {margin-top: 0px}
+div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:last-child {margin-bottom: 0px}
+div.custom-select.order-estate-filter > .custom-select-dropdown > div.custom-select-option:after {
+    bottom: -5px;
+}
+/* Estados ordenes*/
+div.custom-select.order-by-filter{
+    width: 180px;
+    
+}
+div.custom-select.order-by-filter > .custom-select-dropdown > div.custom-select-option{
+    padding: 0px 5px;
+    margin: 5px 0;
+}
+div.custom-select.order-by-filter > .custom-select-dropdown > div.custom-select-option:first-child {margin-top: 0px}
+div.custom-select.order-by-filter > .custom-select-dropdown > div.custom-select-option:last-child {margin-bottom: 0px}
+div.custom-select.order-by-filter > .custom-select-dropdown > div.custom-select-option:after {
+    bottom: -3px;
+}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - Trabajador.php - -------------------------------------------- 
@@ -52,12 +96,12 @@ div.orders-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-order" "orders orders" "paginator paginator";
+    grid-template-areas: "search new-order" "filters new-order" "orders orders" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.orders-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "new-order" "orders" "paginator";
+        grid-template-areas: "search" "filters" "new-order" "orders" "paginator";
     }
 }
 div.orders-container .new-order{
@@ -157,12 +201,12 @@ div.users-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-user" "users users" "paginator paginator";
+    grid-template-areas: "search new-user" "filters new-order" "users users" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.users-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "new-user" "users" "paginator";
+        grid-template-areas: "search" "filters" "new-user" "users" "paginator";
     }
 }
 div.users-container .new-user{
@@ -214,12 +258,12 @@ div.clothes-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-clothe" "clothes clothes" "paginator paginator";
+    grid-template-areas: "search new-clothe" "filters new-clothe" "clothes clothes" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.clothes-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "new-clothe" "clothes" "paginator";
+        grid-template-areas: "search" "filters" "new-clothe" "clothes" "paginator";
     }
 }
 div.clothes-container .new-clothe{

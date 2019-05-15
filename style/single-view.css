@@ -45,6 +45,7 @@ div.order-items-container > div.order-items > div.no-order-items{
     border-radius: 5px;
     color: #777;
 }
+
 div.order-items-container > div.order-items > div.order-item{
     display: grid;
     grid-template-areas: "clothe fix price" "description description description";
