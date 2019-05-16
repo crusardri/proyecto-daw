@@ -197,7 +197,7 @@
                 </label>
             </div>
             <!-- Botones -->
-            <div class="order-buttons">
+            <div class="form-buttons">
                 <input type="submit" value="Crear orden" class="input-submit-button">
             </div>
         </form>
