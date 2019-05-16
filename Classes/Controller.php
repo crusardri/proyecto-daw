@@ -243,7 +243,7 @@ class Controller implements IConnectable {
     */
     public static function createOrder($order){
         $db = $this->connect();
-        $sql = "INSERT INTO orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) VALUES (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
+        $sql = "INSERT INTO orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) VALUES (:start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
         $stmt = $db->prepare($sql);
  
         $stmt->bindParam(':order_id', $order);
@@ -254,12 +254,14 @@ class Controller implements IConnectable {
         $stmt->bindParam(':observations', $order);
         $stmt->bindParam(':update_timestamp', $order);
  
-        $stmt->execute();
- 
-        if (!stmt()){
-             return -1;
-        } else {
-             return 0;
+        if($stmt->execute()){
+            if (!stmt()){
+                return -1;
+            } else {
+                return 0;
+            } else {
+                return null;
+            }
         }
     }
     /**
@@ -271,7 +273,7 @@ class Controller implements IConnectable {
     */
     public static function editOrder($order){
        $db = $this->connect();
-       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:order_id, :start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
+       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
        $stmt = $db->prepare($sql);
 
        $stmt->bindParam(':order_id', $order);
@@ -282,12 +284,14 @@ class Controller implements IConnectable {
        $stmt->bindParam(':observations', $order);
        $stmt->bindParam(':update_timestamp', $order);
       
-       $stmt->execute();
-
-       if (!stmt()){
-            return -1;
-       } else {
-            return 0
-       }
+       if($stmt->execute()){
+          if (!stmt()){
+              return -1;
+          } else {
+              return 0;
+          } else {
+              return null;
+          }
+        }
     }
 }
