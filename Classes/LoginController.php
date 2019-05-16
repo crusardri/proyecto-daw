@@ -20,7 +20,19 @@ class LoginController implements IConnectable {
     */
     public function login($username, $password){
         $db = $this::connect();
-        //TO DO
+        $db = Connection::connect();
+        $user = $this->getUserByName($username);
+        if(isset($user)){
+            if($user->checkPassword($password)){
+                $_SESSION["userID"] = $user->getID();
+                return 0;
+            }else {
+                return -1;
+            }
+            return 2;
+        } else {
+            return 1;
+        }
     }
     /**
     * Borra el ID de usuario de la sesión
