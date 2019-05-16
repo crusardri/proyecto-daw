@@ -10,6 +10,8 @@ require("Funciones/vistaController.php");
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/views.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <?php include("./includes/navbar.inc") ?>
