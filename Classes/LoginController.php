@@ -38,7 +38,8 @@ class LoginController implements IConnectable {
     * Borra el ID de usuario de la sesión
     */
     public function logout(){
-        //TO DO
+        session_start();
+        session_destroy();
     }
     /**
     * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
