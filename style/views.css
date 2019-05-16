@@ -306,6 +306,7 @@ section.clothes-container {
     grid-area: clothes;
     margin: 0 20px 20px 20px;
 }
+
 section.clothes-container > div.clothes-pag{
     grid-area: paginator;
     display: flex;

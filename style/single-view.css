@@ -305,6 +305,11 @@ div.form-container.clothe {
 #fixes-table{
     grid-area: fixes;
 }
+#fixes-table .form-buttons:after{
+    clear:both;
+    content: " ";
+    display: block;
+}
 #fixes-table tr{
     box-shadow: none;
 }
