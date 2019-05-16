@@ -24,7 +24,7 @@ require("Funciones/vistaController.php");
             </div>
         </form>
         <a class="haptic-button medium new-clothe" >
-            <img src="media/img/add-user.png">
+            <img src="media/img/new-clothe.png">
             <div class="label">Nueva Prenda</div>
         </a>
         <section class="item-filters">
