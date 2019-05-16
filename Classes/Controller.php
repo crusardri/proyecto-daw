@@ -255,12 +255,9 @@ class Controller implements IConnectable {
         $stmt->bindParam(':update_timestamp', $order);
  
         if($stmt->execute()){
-            if (!stmt()){
-                return -1;
+             return 0;
             } else {
-                return 0;
-            } else {
-                return null;
+             return -1;
             }
         }
     }
