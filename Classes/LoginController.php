@@ -50,23 +50,30 @@ class LoginController implements IConnectable {
     * @return int 1 si la contraseña antigua no funciona
     * @return int -1 si algo ha fallado
     */
-    public function changePassword($oldPassword, $newPassword){
-        $db = $this->connect(); 
-        $sql = "UPDATE users SET hashed_password = :newPass WHERE :oldPass = hashed_password";
-        $stmt = $db->stmt_init();
-        $stmt->prepare($sql);
-        $stmt->bindParam(':newPass', $newPassword);
-        $stmt->bindParam(':oldPass', $oldPassword);
-        if($stmt->execute()){
-            $user->setPassword($newPassword);
-            return 0;
+    public function changePassword($oldPassword, $newPassword, $user){
+        if($user->checkPassword($actualPassword)){
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            $userID = $user->getID();
+            $db = $this->connect(); 
+            $sql = "UPDATE users SET hashed_password = :newPass WHERE user_id = :userId";
+            $stmt->prepare($sql);
+            $stmt->bindParam(':newPass', $newPassword);
+            $stmt->bindParam(':oldPass', $oldPassword);
+
+            if($stmt->execute()){
+                $user->setPassword($hashedPassword);
+                return 0;
+            } else {
+                return -1;
+            }
         } else {
-            return -1;
+            return 1;
         }
 
        $stmt->close();
        $db->close();
     }
+
     /**
     * Cambia el email del usuario por uno nuevo
     * @param String $newString El nuevo email
