@@ -51,20 +51,19 @@ class LoginController implements IConnectable {
     * @return int -1 si algo ha fallado
     */
     public function changePassword($oldPassword, $newPassword){
-        $db = $this::connect();
-        $db = Connection::connect();
+        $db = $this->connect(); 
         $sql = "UPDATE users SET hashed_password = :newPass WHERE :oldPass = hashed_password";
         $stmt = $db->stmt_init();
         $stmt->prepare($sql);
         $stmt->bindParam(':newPass', $newPassword);
         $stmt->bindParam(':oldPass', $oldPassword);
-        $stmt->execute();
-
-        if (!stmt()){
-            return -1;
-       } else {
+        if($stmt->execute()){
+            $user->setPassword($newPassword);
             return 0;
-       }
+        } else {
+            return -1;
+        }
+
        $stmt->close();
        $db->close();
     }
