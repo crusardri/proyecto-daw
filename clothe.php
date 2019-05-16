@@ -77,7 +77,7 @@
         <!-- Tabla Arreglos -->
         <div id="fixes-table">
             <div class="form-buttons">
-                <input type="submit" value="Añadir Prenda" class="input-submit-button">
+                <input type="submit" value="Añadir Arreglo" class="input-submit-button">
             </div>
             <?php showFixesTable(); ?>
         </div>
