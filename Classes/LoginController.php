@@ -110,6 +110,29 @@ class LoginController implements IConnectable {
     * @return int -1 si algo ha fallado
     */
     public function registerUser($userName, $password, $email, $role = "user"){
-        //TO DO   
-    }
+        if (strlen($username) < 4){
+            return 1;
+        } elseif($this->checkUsername($username)){
+            return 2;
+        } elseif(strlen($password) < 6){
+            return 3;
+        }elseif(empty($email)){
+            return 4;
+        }elseif($this->checkEmail($email)){
+            return 5;
+        }else{
+            $db = $this->connect(); 
+            $sql = "INSERT INTO users (username, hashed_password, email) VALUES (:usuario, :contrasena, :email)";
+            $stmt = $db->prepare($sql);
+        
+            $stmt->bind_param(":usuario", $userName);
+            $stmt->bind_param(":contrasena", $password);
+            $stmt->bind_param(":email", $email);
+            if($stmt->execute()){
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }  
 }
