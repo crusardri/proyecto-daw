@@ -30,7 +30,7 @@ function showOrdersShowcase($titulo){
                         <span class="content">14/04/2019</span>
                     </div>
                     <div class="item-id">
-                        <span class="label">Previsto: </span>
+                        <span class="label">Inicio: </span>
                         <span class="content">17/04/2019</span>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ function showOrdersShowcase($titulo){
                         <span class="content">14/04/2019</span>
                     </div>
                     <div class="item-id">
-                        <span class="label">Previsto: </span>
+                        <span class="label">Inicio: </span>
                         <span class="content">17/04/2019</span>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ function showOrdersTable(){
                 <th>Asignado a</th>
                 <th>Cliente</th>
                 <th>Entrada</th>
-                <th>Previsto</th>
+                <th>Inicio</th>
                 <th>Terminado</th>
                 <th>Entregado</th>
                 <th>Actualizado</th>
@@ -240,7 +240,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> <span>17/04/2019 13:00</span></td>
-                <td class="date"><span class="responsive-label">Previsto</span><span>20/04/2019 13:00</span></td>
+                <td class="date"><span class="responsive-label">Inicio</span><span>20/04/2019 13:00</span></td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span><span>-</span></td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span><span>-</span></td>
                 <td class="date"><span class="responsive-label">Actualizado</span><span>17/04/2019 13:00</span></td>
@@ -254,7 +254,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span> -</td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
@@ -268,7 +268,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span> -</td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 18/04/2019 13:00</td>
@@ -282,7 +282,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date"><span class="responsive-label">Terminado</span> 19/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 19/04/2019 13:00</td>
@@ -296,7 +296,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span> 19/04/2019 13:00</td>
                 <td class="date"><span class="responsive-label">Entregado</span> 20/04/2019 13:00</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 20/04/2019 13:00</td>
@@ -310,7 +310,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span> -</td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
@@ -324,7 +324,7 @@ function showOrdersTable(){
                 <td><span class="responsive-label">Asignado a</span> <a href="">Iván Maldonado</a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="">Halfonso Fernández</a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Previsto</span> 20/04/2019 13:00</td>
+                <td class="date"><span class="responsive-label">Inicio</span> 20/04/2019 13:00</td>
                 <td class="date hidden"><span class="responsive-label">Terminado</span> -</td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span> -</td>
                 <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
