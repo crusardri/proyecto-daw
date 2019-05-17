@@ -1,11 +1,30 @@
 <?php 
+session_start();
 require("Funciones/vistaController.php");
+require("classes/LoginController.php");
+require("classes/UserController.php");
+$loginController = new LoginController();
+$Controller = new UserController();
+/*
+* Se comprueba si ya se ha iniciado sesión
+*/
+if(isset($SESSION["userID"])){
+    $user = $UserController->getUser($_SESSION["userID"]); //Obtiene el usuario
+    //Redirecciona al usuario a su panel correspondiente dependiendo del rol
+    $role = $user->getRole();
+    if($role->getId() == 1 || $role->getId() == 2){
+        header("location: employee.php");
+    }else {
+        header("location: client.php");
+    }
+}
+if(isset($_POST[""]))
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nueva Cuenta</title>
+    <title>Registrarse</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/usercp.css">
     <script src="js/jquery-3.4.1.min.js"></script>

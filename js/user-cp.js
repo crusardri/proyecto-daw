@@ -49,7 +49,24 @@ function checkUsernameLenght(username){
 * @return boolean false     si no esta disponible
 */
 function checkAjaxUsernameAvailability(username){
-  return !testUsers.some((x)=>{return x.toLowerCase() == username.toLowerCase()}); 
+  //return !testUsers.some((x)=>{return x.toLowerCase() == username.toLowerCase()}); 
+    return new Promise((resolve, reject)=>{
+        $.ajax({
+            url: "Classes/UserController.php",
+            method: "GET",
+            data: {check_username: username},
+            dataType: "html"
+        }).done((d)=>{
+            console.log("terminado");
+            console.log(d);
+            if(d == "DISPONIBLE"){
+                resolve(true);
+            }else{
+                resolve(false);
+            }
+        })
+    })
+  
 }
 /**
 * Hace un Ajax contra el servidor y comprueba si el email esta disponible
@@ -59,7 +76,23 @@ function checkAjaxUsernameAvailability(username){
 * @return boolean false     si no esta disponible
 */
 function checkAjaxEmailAvailability(email){
-    return !testEmail.some((x)=>{return x.toLowerCase() == email.toLowerCase()})
+    //return !testEmail.some((x)=>{return x.toLowerCase() == email.toLowerCase()})
+    return new Promise((resolve, reject)=>{
+        $.ajax({
+            url: "Classes/UserController.php",
+            method: "GET",
+            data: {check_email: email},
+            dataType: "html"
+        }).done((d)=>{
+            console.log("terminado");
+            console.log(d);
+            if(d == "DISPONIBLE"){
+                resolve(true);
+            }else{
+                resolve(false);
+            }
+        })
+    })
 }
 /**
 * Comprueba si la longitud de la contraseña tiene 6 caracteres o mas
@@ -127,15 +160,15 @@ function checkUsernameAvailability(){
     let username = $("#username input").val();
     $("#username .button > span").text("Comprobando");
     if(checkUsername()){
-        setTimeout(function(){
-        if(!checkAjaxUsernameAvailability(username)){
-            generateMsg("#username", "El nombre de usuario no esta disponible.");
+        checkAjaxUsernameAvailability(username).then((r)=>{
+            if(r){
+                generateMsg("#username", "El nombre de usuario esta disponible.", true);
+            } else {
+                generateMsg("#username", "El nombre de usuario no esta disponible.");
+            }
             $("#username .button > span").text("Comprobar");
-        } else {
-            generateMsg("#username", "El nombre de usuario esta disponible.", true);
-            $("#username .button > span").text("Comprobar");
-        }
-        },1000)
+        })
+        
     }else {
         $("#username .button > span").text("Comprobar");
     }
@@ -148,13 +181,14 @@ function checkEmailAvailability(){
     let email = $("#email input").val();
     $("#email .button > span").text("Comprobando");
     if(checkEmail()){
-        if(!checkAjaxEmailAvailability(email)){
-            generateMsg("#email", "El Correo Electrónico no esta disponible.");
+        checkAjaxEmailAvailability(email).then((r)=>{
+            if(r){
+                generateMsg("#email", "El Correo Electrónico esta disponible.", true);
+            } else {
+                generateMsg("#email", "El Correo Electrónico no esta disponible.");
+            }
             $("#email .button > span").text("Comprobar");
-        } else {
-            generateMsg("#email", "El Correo Electrónico esta disponible.", true);
-            $("#email .button > span").text("Comprobar");
-        }
+        });
     }else {
         $("#email .button > span").text("Comprobar");
     }
