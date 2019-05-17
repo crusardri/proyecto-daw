@@ -57,8 +57,6 @@ function checkAjaxUsernameAvailability(username){
             data: {check_username: username},
             dataType: "html"
         }).done((d)=>{
-            console.log("terminado");
-            console.log(d);
             if(d == "DISPONIBLE"){
                 resolve(true);
             }else{
@@ -84,8 +82,6 @@ function checkAjaxEmailAvailability(email){
             data: {check_email: email},
             dataType: "html"
         }).done((d)=>{
-            console.log("terminado");
-            console.log(d);
             if(d == "DISPONIBLE"){
                 resolve(true);
             }else{

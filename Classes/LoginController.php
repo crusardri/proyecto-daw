@@ -18,7 +18,7 @@ class LoginController {
     * @return int -1 si algo ha fallado
     */
     public function login($username, $password){
-        return 0;
+        return -1;
     }
     /**
     * Borra la sesión
@@ -37,7 +37,7 @@ class LoginController {
     * @return int -1 si algo ha fallado
     */
     public function changePassword($oldPassword, $newPassword, $user){
-        return 0;
+        return -1;
     }
 
     /**
@@ -49,7 +49,7 @@ class LoginController {
     * @return int -1 si algo ha ido mal
     */
     public function changeEmail($newEmail){
-        return 0;
+        return -1;
     }
     /**
     * Registra un usuario en la base de datos
@@ -59,7 +59,7 @@ class LoginController {
     * @param String $name El nombre del usuario
     * @param String $surname El apellido del usuario
     * @param String $phone El telefono del usuario
-    * @param String $role El Rol del usuario
+    * @param String $role El ID del Rol del usuario
     *
     * @return int 0 Si todo ha ido bien
     * @return int 1 Si el nombre de usuario tiene menos de 4 caracteres
@@ -71,6 +71,6 @@ class LoginController {
     * @return int -1 si algo ha fallado
     */
     public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
-        return 0;
+        return -1;
     }  
 }
