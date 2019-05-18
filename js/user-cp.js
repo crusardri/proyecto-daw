@@ -1,7 +1,3 @@
-var testEmail = ["test@test.test", "ivan@maldonado.es", "gmail@halfonso.com"]
-var testUsers = ["test", "ivan", "halfonso"]
-
-
 
 /**
 * Crea un mensaje debajo de un boxed-input
@@ -57,6 +53,7 @@ function checkAjaxUsernameAvailability(username){
             data: {check_username: username},
             dataType: "html"
         }).done((d)=>{
+            console.log(d)
             if(d == "DISPONIBLE"){
                 resolve(true);
             }else{
@@ -82,6 +79,7 @@ function checkAjaxEmailAvailability(email){
             data: {check_email: email},
             dataType: "html"
         }).done((d)=>{
+            console.log(d)
             if(d == "DISPONIBLE"){
                 resolve(true);
             }else{

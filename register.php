@@ -1,8 +1,10 @@
 <?php 
 session_start();
 //require("Funciones/vistaController.php");
+require("Classes/User.php");
 require("Classes/LoginController.php");
 require("Classes/UserController.php");
+
 /*
 * Se comprueba si ya se ha iniciado sesión
 */

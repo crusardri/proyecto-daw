@@ -1,5 +1,5 @@
 <?php
-require_once("Classes/User.php");
+
 class UserController {
     /**
     * Devuelve una conexion a la Base de datos
