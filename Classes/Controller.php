@@ -186,8 +186,28 @@ class Controller implements IConnectable {
     * @return Prenda[]  
     */
     public static function getPrendas($page = 1, $itemsPerPage = 10){
+        $prendas = array();
         $page = $page -1;
-        //TO DO
+        $db = $this->connect();
+        $sql = "SELECT * FROM CLOTHES LIMIT :startFromItem, :itemsPerPage";
+        $stmt = $db->prepare($sql);
+
+        $startFromItem = $page * $itemsPerPage;
+        $stmt->bind_param(":startFromItem", $startFromItem);
+        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+        
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                while($row = $stmt->fetch()){
+                    $ropa = new Clothes ();
+                    array_push($prendas, $ropa);
+
+                    return $prendas;
+                }
+            }
+        } else {
+            return null; 
+        }
     }
     /**
     * Devuelve todas las prendas que coincidan con un nombre
@@ -255,10 +275,9 @@ class Controller implements IConnectable {
         $stmt->bindParam(':update_timestamp', $order);
  
         if($stmt->execute()){
-             return 0;
-            } else {
-             return -1;
-            }
+              return 0;
+        } else {
+              return -1;
         }
     }
     /**
@@ -269,26 +288,22 @@ class Controller implements IConnectable {
     * @return int -1 Si algo ha fallado
     */
     public static function editOrder($order){
-       $db = $this->connect();
-       $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
-       $stmt = $db->prepare($sql);
-
-       $stmt->bindParam(':order_id', $order);
-       $stmt->bindParam(':start_timestamp', $order);
-       $stmt->bindParam(':limit_timestamp', $order);
-       $stmt->bindParam(':end_timestamp', $order);
-       $stmt->bindParam(':out_timestamp', $order);
-       $stmt->bindParam(':observations', $order);
-       $stmt->bindParam(':update_timestamp', $order);
-      
-       if($stmt->execute()){
-          if (!stmt()){
-              return -1;
-          } else {
-              return 0;
-          } else {
-              return null;
-          }
-        }
+        $db = $this->connect();
+        $sql = "UPDATE orders (START_TIMESTAMP, LIMIT_TIMESTAMP, END_TIMESTAMP, OUT_TIMESTAMP, OBSERVATIONS, UPDATE_TIMESTAMP) (:start_timestamp, :limit_timestamp, :end_timestamp, :observations, :update_timestamp) WHERE order_id = :orderID";
+        $stmt = $db->prepare($sql);
+ 
+        $stmt->bindParam(':order_id', $order);
+        $stmt->bindParam(':start_timestamp', $order);
+        $stmt->bindParam(':limit_timestamp', $order);
+        $stmt->bindParam(':end_timestamp', $order);
+        $stmt->bindParam(':out_timestamp', $order);
+        $stmt->bindParam(':observations', $order);
+        $stmt->bindParam(':update_timestamp', $order);
+       
+        if($stmt->execute()){
+               return 0;
+         } else {
+               return -1;
+         }
     }
 }
