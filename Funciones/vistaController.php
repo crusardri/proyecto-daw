@@ -1,11 +1,8 @@
 <?php
-require_once("Classes/UserController.php");
 /**
 * Muestra por pantalla un menu de filtros de roles de usuario
 */
-function showUserRoleFilters(){
-    $userController = new UserController();
-    $rs = $userController->getRoles();
+function showUserRoleFilters($rs){
     ?>
     <select data-class="labeled role-filter" name="userRole">
         <option value="-1">Todos</option>
@@ -407,22 +404,73 @@ function showOrdersTable(){
 }
 
 
-function showPaginator(){
+function showPaginator($baseURL, $actualPage, $totalItems, $urlParams, $itemsPerPage = 20){
+    $totalPages = ceil($totalItems / $itemsPerPage);
+    $paginatorFillPages = 4;
+    if($totalPages > 1){
+        ?>
+        <div class="paginator">
+        <?php
+        //Pagina atras
+        if($actualPage > 1){
+            $urlParams["page"] = $actualPage - 1;
+            ?>
+            <a class="page previous" href="<?=$baseURL . http_build_query($urlParams)?>">&#60;</a>
+            <?php
+        }
+        //Primera página
+        if($actualPage > 1){
+            $urlParams["page"] = 1;
+            ?>
+            <a class="page" href="<?=$baseURL . http_build_query($urlParams)?>"><?=$urlParams["page"]?></a>
+            <?php
+        }
+        //Separador
+        if($actualPage > $paginatorFillPages + 2){
+            ?>
+            <a class="page disabled">...</a>
+            <?php
+        }
+        //Paginas anteriores
+        for($i = $paginatorFillPages; $i > 0; $i--){
+            $urlParams["page"] = $actualPage - $i;
+            if($urlParams["page"] > 1){  
+            ?> 
+            <a class="page" href="<?=$baseURL . http_build_query($urlParams)?>"><?=$urlParams["page"]?></a>
+            <?php
+            }
+        }
+        //Página actual
+        ?>
+        <a class="page actual"><?=$actualPage?></a>
+        <?php
+        //Páginas posteriores
+        for($i = 0; $i < $paginatorFillPages; $i++){
+            $urlParams["page"] = $actualPage + $i + 1;
+            if($urlParams["page"] < $totalPages){
+            ?> 
+            <a class="page" href="<?=$baseURL . http_build_query($urlParams)?>"><?=$urlParams["page"]?></a>
+            <?php
+            }
+        }
+        //Separador
+        if($actualPage < $totalPages -  $paginatorFillPages - 1){
+            ?>
+            <a class="page disabled">...</a>
+            <?php
+        }
+        //Pagina adelante
+        if($actualPage < $totalPages){
+            $urlParams["page"] = $actualPage + 1;
+            ?>
+            <a class="page next" href="<?=$baseURL . http_build_query($urlParams)?>">&#62;</a>
+            <?php
+        }
+        ?>
+        </div>
+        <?php
+    }
     ?>
-    <div class="paginator">
-        <a class="page previous" href="">&#60;</a>
-        <a class="page" href="">1</a>
-        <a class="page disabled">...</a>
-        <a class="page" href="">3</a>
-        <a class="page" href="">4</a>
-        <a class="page" href="">5</a>
-        <a class="page actual">6</a>
-        <a class="page" href="">7</a>
-        <a class="page" href="">8</a>
-        <a class="page" href="">9</a>
-        <a class="page disabled">...</a>
-        <a class="page" href="">12</a>
-        <a class="page next" href="">&#62;</a>
-    </div>
     <?php
+    
 }

@@ -2,6 +2,8 @@
 session_start();
 require_once("Funciones/vistaController.php");
 require_once("Classes/UserController.php");
+require_once("Classes/User.php");
+require_once("Classes/Role.php");
 
 
 $userController = new UserController(); //Controlador de usuarios
@@ -13,15 +15,19 @@ if(isset($_SESSION["userID"])){
     $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
     $role = $user->getRole(); //Obtener rol
     if($role->getID() == 0){ //Comprobar rol
-        //header("location: client.php"); //Si cliente, a client.php
-        echo "Role 0";
+        header("location: client.php"); //Si cliente, a client.php
+        //echo "Role 0";
     }
 } else {
-    //header("location: login.php"); //Si no tiene sesion iniciada, va al login.
-    echo "Not Login in";
+    header("location: login.php"); //Si no tiene sesion iniciada, va al login.
+    //echo "Not Login in";
 }
-
+$roles = $userController->getRoles();
 $users = $userController->getUsers(null,null,null,null);
+$totalUsers = $userController->getTotalUsers(null,null,null,null);
+if(isset($_GET["page"])){$page = $_GET["page"];}else{$page = 1;}//Declarar página
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +58,7 @@ $users = $userController->getUsers(null,null,null,null);
             <h1>Filtros</h1>
             <label class="boxed-select" id="role-filter">
                 <div>Rol</div>
-                    <?=showUserRoleFilters()?>
+                    <?=showUserRoleFilters($roles)?>
             </label>
             <label class="boxed-select" id="active-filter">
                 <div>Estado</div>
@@ -84,7 +90,7 @@ $users = $userController->getUsers(null,null,null,null);
         <section class="users-container">
             <?php showUsersTable($users)?>
             <div class="users-pag">
-                <?php showPaginator() ?>
+                <?php showPaginator("users.php?", $page, 1000, $_GET) ?>
             </div>
         </section>
         
