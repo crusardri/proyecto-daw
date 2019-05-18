@@ -459,6 +459,13 @@ function showPaginator($baseURL, $actualPage, $totalItems, $urlParams, $itemsPer
             <a class="page disabled">...</a>
             <?php
         }
+        //Ultima página
+        if($actualPage < $totalPages){
+            $urlParams["page"] = $totalPages;
+            ?>
+            <a class="page" href="<?=$baseURL . http_build_query($urlParams)?>"><?=$urlParams["page"]?></a>
+            <?php
+        }
         //Pagina adelante
         if($actualPage < $totalPages){
             $urlParams["page"] = $actualPage + 1;

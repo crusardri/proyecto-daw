@@ -1,9 +1,9 @@
 <?php 
 session_start();
-require("Classes/User.php");
-require("Classes/Role.php");
-require("Classes/LoginController.php");
-require("Classes/UserController.php");
+require_once("Classes/User.php");
+require_once("Classes/Role.php");
+require_once("Classes/LoginController.php");
+require_once("Classes/UserController.php");
 $loginController = new LoginController();
 $userController = new UserController();
 

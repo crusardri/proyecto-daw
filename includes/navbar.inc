@@ -17,6 +17,6 @@
         </a>
         <a class="menu-item user" href="#">
             <div class="user-avatar">IM</div>
-            <div class="username">Iván Maldonado</div>
+            <div class="username"><?=$user->getName()." ".$user->getSurname()?></div>
         </a>
     </nav>
