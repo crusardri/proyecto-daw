@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require("Classes/User.php");
 require("Classes/LoginController.php");
 require("Classes/UserController.php");
 $loginController = new LoginController();
