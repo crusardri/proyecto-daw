@@ -39,17 +39,15 @@ class UserController {
         //TO DO
     }
     /**
-    * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
+    * Consulta en la base de datos y devuelve el total de usuarios que coincida con los filtros.
     * @param int $roleFilter                Especifica que usuarios mostrar por rol
     * @param int $estateFilter              Especifica el estado del usuario
     * @param int $orderByFilter             Especifica el tipo de ordenacion de usuarios
     * @param int $orderDirectionFilter      Especifica la direccion de ordenacion
-    * @param int $page                      Especifica la pagina que se va a visualizar
-    * @param int $itemsPerPage              Especifica la cantidad de usuarios que apareceran por página.
     *
     * @return User[]                        Array de usuarios
     */
-    public function getTotalUsers($roleFilter, $estateFilter){
+    public function getTotalUsers($roleFilter = -1, $estateFilter = -1){
         
     }
     /**
