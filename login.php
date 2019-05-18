@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require("Classes/User.php");
+require("Classes/Role.php");
 require("Classes/LoginController.php");
 require("Classes/UserController.php");
 $loginController = new LoginController();
@@ -34,7 +35,7 @@ if(isset($_POST["login"])){
     
     switch ($loginController->login($username, $password)){
         case 0:
-            $user = $controller->getUser($_SESSION["userID"]);
+            $user = $userController->getUser($_SESSION["userID"]);
             $role = $user->getRole();
             if($role->getID() == 0){
                 header("location: client.php");

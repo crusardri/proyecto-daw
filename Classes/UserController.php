@@ -40,15 +40,17 @@ class UserController {
     }
     /**
     * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
-    * @param int $page              Especifica la pagina que se va a visualizar
-    * @param int $itemsPerPage      Especifica la cantidad de usuarios por pagina
-    * @param String $name           Especifica la cantidad de usuarios por pagina
-    * @return User[]                Array de usuarios
+    * @param int $roleFilter                Especifica que usuarios mostrar por rol
+    * @param int $estateFilter              Especifica el estado del usuario
+    * @param int $orderByFilter             Especifica el tipo de ordenacion de usuarios
+    * @param int $orderDirectionFilter      Especifica la direccion de ordenacion
+    * @param int $page                      Especifica la pagina que se va a visualizar
+    * @param int $itemsPerPage              Especifica la cantidad de usuarios que apareceran por página.
+    *
+    * @return User[]                        Array de usuarios
     */
-    public function getUsersByName($page = 1, $itemsPerPage = 10, $name){
-        $db = $this::connect();
-        $page = $page - 1;
-        //TO DO
+    public function getTotalUsers($roleFilter, $estateFilter){
+        
     }
     /**
     * Consulta en la base de datos si el nombre de usuario esta disponible
