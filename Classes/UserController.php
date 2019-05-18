@@ -16,8 +16,20 @@ class UserController implements IConnectable {
     * @Return User Un usuario completo
     */
     public function getUser($id){
-        $db = $this::connect();
-        //TO DO
+        $db = $this->connect();
+        $sql = "SELECT * FROM Users WHERE USER_ID = :userID";
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindParam(':userID', $id);
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+               $user = new User();
+
+               return $user;
+            }
+        } else {
+            return null;
+        }
     }
     /**
     * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
@@ -26,9 +38,28 @@ class UserController implements IConnectable {
     * @return User[] Array de usuarios
     */
     public function getUsers($page = 1, $itemsPerPage = 10){
-        $db = $this::connect();
-        $page = $page - 1;
-        //TO DO
+        $users = array();
+        $page = $page -1;
+        $db = $this->connect();
+        $sql = "SELECT * FROM USERS LIMIT :startFromItem, :itemsPerPage";
+        $stmt = $db->prepare($sql);
+
+        $startFromItem = $page * $itemsPerPage;
+        $stmt->bind_param(":startFromItem", $startFromItem);
+        $stmt->bind_param(":itemsPerPage", $itemsPerPage);
+        
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                while($row = $stmt->fetch()){
+                    $u = new User ();
+                    array_push($users, $u);
+
+                    return $users;
+                }
+            }
+        } else {
+            return null; 
+        }
     }
     /**
     * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
