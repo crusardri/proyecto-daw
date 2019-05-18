@@ -8,10 +8,11 @@ class User{
     private $role;
     private $telephone;
     private $name;
+    private $surname;
     private $registeredDate;
     private $updateDate;
     private $active;
-    function __construct($id = 0, $username, $password = null, $email, $role, $telephone, $name, $registeredDate, $updateDate, $active = true){
+    function __construct($id = 0, $username, $password = null, $email, $role, $telephone, $name, $surname, $registeredDate, $updateDate, $active = true){
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
@@ -19,8 +20,8 @@ class User{
         $this->role = $role;
         $this->telephone = $telephone;
         $this->name = $name;
-        $this->registeredDate = new DateTime($this->registeredDate);
-        $this->updateDate = new DateTime($this->updateDate);
+        //$this->registeredDate = new DateTime($this->registeredDate);
+        //$this->updateDate = new DateTime($this->updateDate);
         $this->active = $active;
     }
     function getId(){
@@ -45,17 +46,19 @@ class User{
         return $this->registeredDate;
     }
     function getRegisteredDateString(){
-        $date = $this->registeredDate;
+        /*$date = $this->registeredDate;
         $date->format('d-m-Y H:i:s');
-        return $this->registeredDate;
+        return $this->registeredDate;*/
+        return "17/04/2019 12:38";
     }
     function getUpdateDate(){   
         return $this->updateDate;
         }       
     function getUpdateDateString(){    
-        $date = $this->updateDate;
+        /*$date = $this->updateDate;
         $date->format('d-m-Y H:i:s');   
-        return $this->updateDate;
+        return $this->updateDate;*/
+        return "17/04/2019 12:38";
         }
     function getActive(){
         return $this->active;
@@ -65,5 +68,8 @@ class User{
             return true;
         }
         return false;
+    }
+    function getSurname(){
+        return "APELLIDOS";
     }
 }

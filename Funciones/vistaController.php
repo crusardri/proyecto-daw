@@ -1,4 +1,76 @@
 <?php
+require_once("Classes/UserController.php");
+/**
+* Muestra por pantalla un menu de filtros de roles de usuario
+*/
+function showUserRoleFilters(){
+    $userController = new UserController();
+    $rs = $userController->getRoles();
+    ?>
+    <select data-class="labeled role-filter" name="userRole">
+        <option value="-1">Todos</option>
+        <?php
+            foreach($rs as $r){
+            ?>
+        <option value="<?=$r->getID()?>" data-class="<?=$r->getCssClass()?>" ><?=$r->getName()?></option>
+            <?php
+            }
+        ?>
+    </select>
+    <?php
+}
+/**
+* Muestra la tabla de usuarios
+*/
+function showUsersTable(){
+    $userController = new UserController();
+    $users = $userController->getUsers(null,null,null,null);
+    ?>
+    
+    <div class="table-container">
+        <table class="user-table">
+           <tr class="header-responsive-mobile">
+                <th>Usuarios</th>
+            </tr>
+            <tr class="header-responsive-desktop">
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Registrado</th>
+                <th>Activo</th>
+                <th>Actualizado</th>
+            </tr>
+            <?php 
+                foreach($users as $user){
+                    $role = $user->getRole();
+                    ?>
+            <tr class="user">
+                <td class="id a-center"><span class="responsive-label">ID</span><a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getID()?></a></td>
+                <td class="username"><span class="responsive-label">Usuario</span> <a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getUsername()?></a></td>
+                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box <?=$role->getCssClass()?>"><?=$role->getName()?></a></td>
+                <td class="name"><span class="responsive-label">Nombre</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getName()?></a></td>
+                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getSurname()?></a></td>
+                <td class="email"><span class="responsive-label">Correo</span><a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getEmail()?></a></td>
+                <td class="registration-date date a-center"><span class="responsive-label">Registro</span><span><?=$user->getRegisteredDateString()?></span></td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box <?=$user->getActive()?"enabled":"disabled"?>"><?=$user->getActive()?"Si":"No"?></a></td>
+                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span><span><?=$user->getUpdateDateString()?></span></td>
+            </tr>
+                    <?php
+                }
+            ?>
+            
+        </table>
+    </div>
+    
+    <?php
+}
+
+/**
+* Mostrar tabla de ordenes
+*/
 function showOrdersShowcase($titulo){
     ?>
     <div class="showcase order-showcase">
@@ -330,128 +402,6 @@ function showOrdersTable(){
                 <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
                 <td class="desc"><span class="desc-cont">Lorem ipsum dolor sit amet</span></td>
             </tr>        
-        </table>
-    </div>
-    
-    <?php
-}
-function showUsersTable(){
-    ?>
-    <div class="table-container">
-        <table class="user-table">
-           <tr class="header-responsive-mobile">
-                <th>Usuarios</th>
-            </tr>
-            <tr class="header-responsive-desktop">
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Rol</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Correo</th>
-                <th>Registrado</th>
-                <th>Activo</th>
-                <th>Actualizado</th>
-            </tr>
-            <tr class="user">
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Ivan</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box admin">Administrador</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Iván</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Maldonado</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> ivanmaldonado@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000002</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Eustaquio</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box employee">Empleado</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href="">Eustaquio</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="">Martinez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> eustaquio@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000003</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Halfonso</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box client">Cliente</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Halfonso</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Fernandez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> gmail@halfonso.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Ivan</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box admin">Administrador</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Iván</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Maldonado</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> ivanmaldonado@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000002</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Eustaquio</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box employee">Empleado</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href="">Eustaquio</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="">Martinez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> eustaquio@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000003</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Halfonso</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box client">Cliente</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Halfonso</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Fernandez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> gmail@halfonso.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000001</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Ivan</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box admin">Administrador</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Iván</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Maldonado</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> ivanmaldonado@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000002</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Eustaquio</a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box employee">Empleado</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href="">Eustaquio</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="">Martinez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> eustaquio@dondedal.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
-            <tr class="user">
-                <td class="id"><span class="responsive-label">ID</span> <a href="">000003</a></td>
-                <td class="username"><span class="responsive-label">Usuario</span> <a href=""> Halfonso</a></td> 
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box client">Cliente</a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href=""> Halfonso</a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href=""> Fernandez</a></td>
-                <td class="email"><span class="responsive-label">Correo</span> gmail@halfonso.com</td>
-                <td class="registration-date date a-center"><span class="responsive-label">Registro</span> 17/04/2019 12:38</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="update-date date a-center"><span class="responsive-label">Actualizado</span> 17/04/2019 12:38</td>
-            </tr>
         </table>
     </div>
     

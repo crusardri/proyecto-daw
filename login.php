@@ -1,6 +1,5 @@
 <?php 
 session_start();
-require("Funciones/vistaController.php");
 require("Classes/LoginController.php");
 require("Classes/UserController.php");
 $loginController = new LoginController();

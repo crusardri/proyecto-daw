@@ -31,12 +31,7 @@ require("Funciones/vistaController.php");
             <h1>Filtros</h1>
             <label class="boxed-select" id="role-filter">
                 <div>Rol</div>
-                <select data-class="labeled role-filter">
-                    <option value="-1"> Todos </option>
-                    <option value="0" data-class="client" >Cliente</option>
-                    <option value="1" data-class="employee">Empleado</option>
-                    <option value="2" data-class="admin">Administrador</option>
-                </select>
+                    <?=showUserRoleFilters()?>
             </label>
             <label class="boxed-select" id="active-filter">
                 <div>Estado</div>
