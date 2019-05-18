@@ -1,5 +1,5 @@
 <?php
-require("Classes/Role.php");
+require_once("Classes/Role.php");
 class User{
     private $id;
     private $username;

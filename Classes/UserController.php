@@ -1,4 +1,5 @@
 <?php
+require_once("Classes/User.php");
 class UserController {
     /**
     * Devuelve una conexion a la Base de datos
@@ -13,7 +14,8 @@ class UserController {
     */
     public function getUser($id){
         //TO DO
-        return null;
+        return new User(1, "Iván", "password", "iván@don-dedal.com", new Role(1, "Empleado", "employee"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true);
+        //return null;
     }
     /**
     * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
@@ -88,3 +90,7 @@ if(isset($_GET["check_email"])){
         echo "NO DISPONIBLE";
     }
 }
+/*$test = new UserController();
+echo "<pre>";
+var_dump($test->getUser(0));
+echo "</pre>";*/

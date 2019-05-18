@@ -1,21 +1,21 @@
 <?php 
 session_start();
 require("Funciones/vistaController.php");
-require("classes/LoginController.php");
-require("classes/UserController.php");
+require("Classes/LoginController.php");
+require("Classes/UserController.php");
 $loginController = new LoginController();
-$Controller = new UserController();
+$userController = new UserController();
+
 /*
 * Se comprueba si ya se ha iniciado sesión
 */
-if(isset($SESSION["userID"])){
-    $user = $UserController->getUser($_SESSION["userID"]); //Obtiene el usuario
-    //Redirecciona al usuario a su panel correspondiente dependiendo del rol
-    $role = $user->getRole();
-    if($role->getId() == 1 || $role->getId() == 2){
-        header("location: employee.php");
-    }else {
-        header("location: client.php");
+if(isset($_SESSION["userID"])){
+    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
+    $role = $user->getRole(); //Obtener rol
+    if($role->getID() == 0){ //Comprobar rol
+        header("location: client.php"); //Si cliente, a client.php
+    }elseif($role->getID() == 1 || $role->getID() == 2){
+        header("location: employee.php"); //Si empleado o administrador, a employee.php
     }
 }
 /*
@@ -34,11 +34,17 @@ if(isset($_POST["login"])){
     
     switch ($loginController->login($username, $password)){
         case 0:
+            $user = $controller->getUser($_SESSION["userID"]);
+            $role = $user->getRole();
+            if($role->getID() == 0){
+                header("location: client.php");
+            }elseif($role->getID() == 1 || $role->getID() == 2){
+                header("location: employee.php");
+            }
             break;
-            header("location: employee.php");
         case 1:
         case 2:
-            $infoMSG = "El nombre de usuario o la contraseña no es correcto";
+            $infoMSG = "El nombre de usuario o la contraseña no es correcto.";
             break;
         case -1:
             $infoMSG = "Algo ha fallado al intentar iniciar sesión. Intentalo de nuevo.";

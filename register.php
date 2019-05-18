@@ -1,8 +1,25 @@
 <?php 
+session_start();
 require("Funciones/vistaController.php");
 require("Classes/LoginController.php");
-//var_dump($_POST);
-$loginController = new LoginController();
+require("Classes/UserController.php");
+/*
+* Se comprueba si ya se ha iniciado sesión
+*/
+$userController = new UserController(); //Controlador de usuario
+$loginController = new LoginController(); //Controlador de Login
+if(isset($_SESSION["userID"])){
+    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
+    $role = $user->getRole(); //Obtener rol
+    if($role->getID() == 0){ //Comprobar rol
+        header("location: client.php"); //Si cliente, a client.php
+    }elseif($role->getID() == 1 || $role->getID() == 2){
+        header("location: employee.php"); //Si empleado o administrador, a employee.php
+    }
+}
+/*
+* Manejador registro
+*/
 if(isset($_POST["username"])){
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -10,7 +27,7 @@ if(isset($_POST["username"])){
     $name = $_POST["name"];
     $surname = $_POST["surname"];
     $phone = $_POST["phone"];
-    switch ($loginController->registerUser($username, $password, $email, $name, $surname, $phone);){
+    switch ($loginController->registerUser($username, $password, $email, $name, $surname, $phone)){
         case 0:
             header("location: login.php?success");
             break;

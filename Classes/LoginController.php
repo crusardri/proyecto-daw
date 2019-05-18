@@ -18,13 +18,13 @@ class LoginController {
     * @return int -1 si algo ha fallado
     */
     public function login($username, $password){
-        return -1;
+        $_SESSION["userID"] = 1;
+        return 0;
     }
     /**
     * Borra la sesión
     */
     public function logout(){
-        session_start();
         session_destroy();
     }
     /**
