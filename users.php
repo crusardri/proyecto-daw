@@ -1,6 +1,27 @@
-<?php 
-require("Funciones/vistaController.php");
+<?php
+session_start();
+require_once("Funciones/vistaController.php");
+require_once("Classes/UserController.php");
 
+
+$userController = new UserController(); //Controlador de usuarios
+
+/*
+* Se comprueba si ya se ha iniciado sesión y si tiene rol cliente, o no ha iniciado sesion, redirecciona a otra pagina.
+*/
+if(isset($_SESSION["userID"])){
+    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
+    $role = $user->getRole(); //Obtener rol
+    if($role->getID() == 0){ //Comprobar rol
+        //header("location: client.php"); //Si cliente, a client.php
+        echo "Role 0";
+    }
+} else {
+    //header("location: login.php"); //Si no tiene sesion iniciada, va al login.
+    echo "Not Login in";
+}
+
+$users = $userController->getUsers(null,null,null,null);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +82,7 @@ require("Funciones/vistaController.php");
             </label>
         </section>
         <section class="users-container">
-            <?php showUsersTable()?>
+            <?php showUsersTable($users)?>
             <div class="users-pag">
                 <?php showPaginator() ?>
             </div>

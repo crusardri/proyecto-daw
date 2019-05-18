@@ -22,9 +22,7 @@ function showUserRoleFilters(){
 /**
 * Muestra la tabla de usuarios
 */
-function showUsersTable(){
-    $userController = new UserController();
-    $users = $userController->getUsers(null,null,null,null);
+function showUsersTable($users){
     ?>
     
     <div class="table-container">
