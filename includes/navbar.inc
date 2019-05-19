@@ -6,24 +6,24 @@ if(isset($_GET["logout"])){
 }
 ?>
     <nav class="top-header">
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="employee.php">
             <img src="media/img/inicio.png">
             <div class="label">Inicio</div>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="orders.php">
             <img src="media/img/order.png">
             <div class="label">Órdenes</div>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="clothes.php">
             <img src="media/img/prendas.png">
             <div class="label">Prendas</div>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="users.php">
             <img src="media/img/users.png">
             <div class="label">Usuarios</div>
         </a>
         <a class="menu-item user" href="?logout">
-            <div class="user-avatar">IM</div>
-            <div class="username"><?=$user->getName()." ".$user->getSurname()?></div>
+            <div class="user-avatar"><?=substr($sessionUser->getName(), 0,1) . substr($sessionUser->getSurname(), 0,1)?></div>
+            <div class="username"><?=$sessionUser->getName()." ".$sessionUser->getSurname()?></div>
         </a>
     </nav>

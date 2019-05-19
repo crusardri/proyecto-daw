@@ -14,7 +14,7 @@ class UserController {
     */
     public function getUser($id){
         //TO DO
-        return new User(1, "Iván", "password", "iván@don-dedal.com", new Role(1, "Empleado", "employee"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true);
+        return new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Empleado", "employee"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true);
         //return null;
     }
     /**
@@ -42,8 +42,6 @@ class UserController {
     * Consulta en la base de datos y devuelve el total de usuarios que coincida con los filtros.
     * @param int $roleFilter                Especifica que usuarios mostrar por rol
     * @param int $estateFilter              Especifica el estado del usuario
-    * @param int $orderByFilter             Especifica el tipo de ordenacion de usuarios
-    * @param int $orderDirectionFilter      Especifica la direccion de ordenacion
     *
     * @return int                           Numero total de usuarios segun filtros
     */

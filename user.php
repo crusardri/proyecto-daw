@@ -1,8 +1,9 @@
+<?php require_once("ViewControllers/userViewController.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Usuario</title>
+    <title><?=$title?></title>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="style/style.css">
@@ -13,72 +14,17 @@
     <?php include("./includes/navbar.inc") ?>
     <div class="form-container user">
         <div id="user-info-container">
-            <h1>Usuario</h1>
+            <h1><?=$title?></h1>
             <div>
-            <label class="boxed-input" id="username">
-                <div class="text-label"><span>ID</span></div>
-                <div class="input-container">
-                    <input type="text" value="000001" disabled>
-                </div>
-            </label>
-            <label class="boxed-input" id="register-date">
-                <div class="text-label"><span>Fecha de registro</span></div>
-                <div class="input-container">
-                    <input type="text" value="13/05/2019 13:03:24" disabled>
-                </div>
-            </label>
-            <label class="boxed-input" id="update-date">
-                <div class="text-label"><span>Fecha de actualizacion</span></div>
-                <div class="input-container">
-                    <input type="text" value="13/05/2019 13:03:24" disabled>
-                </div>
-            </label>
+                <?=showIdField()?>
+                <?=showRegisterDateField()?>
+                <?=showUpdateDateField()?>
             </div>
         </div>   
         <!-- Datos Cuenta -->
-        <form id="account-info-container">
-            <div class="field-set" id="client-infoset">
-            <h3>Datos Cuenta</h3>
-                <label class="boxed-input" id="username">
-                    <div class="text-label"><span>Nombre de usuario</span></div>
-                    <div class="input-container">
-                        <input type="text" value="Ivan" disabled>
-                    </div>
-                </label>
-                <label class="boxed-input" id="email">
-                    <div class="text-label"><span>Correo Electronico</span></div>
-                    <div class="input-container">
-                        <input type="text" value="ivanmaldonado@dondedal.es">
-                    </div>
-                </label>
-                <div class="form-buttons">
-                    <input type="submit" value="Cambiar Correo" class="input-submit-button">
-                </div>
-            </div>
-            
-        </form>
+        <?php showAccountDataForm() ?>
         <!-- Datos Usuario -->
-        <form id="change-password-container">
-            <div class="field-set" id="change-password">
-            <h3>Cambiar contraseña</h3>
-                <label class="boxed-input" id="password">
-                    <div class="text-label"><span>Contraseña nueva</span></div>
-                    <div class="input-container">
-                        <input type="password">
-                    </div>
-                </label>
-                <label class="boxed-input" id="repeat-password">
-                    <div class="text-label"><span>Repetir contraseña</span></div>
-                    <div class="input-container">
-                        <input type="password">
-                    </div>
-                </label>
-                <div class="form-buttons">
-                    <input type="submit" value="Cambiar contraseña" class="input-submit-button">
-                </div>
-            </div>
-            
-        </form>
+        <?php showPasswordForm() ?>
         <!-- Datos Personales -->
         <form id="personal-info-container">
             <div class="field-set" id="personal-info-infoset">

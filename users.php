@@ -26,10 +26,10 @@
                 </div>
             </label>
             <h1>Filtros</h1>
-            <?=showRoleFilter($role, $userRoleFilter);?>
-            <?=showStateFilter($state);?>
-            <?=showOrderByFilter($orderBy);?>
-            <?=showOrderDirectionFilter($orderDirection);?>
+            <?=showRoleFilter();?>
+            <?=showStateFilter();?>
+            <?=showOrderByFilter();?>
+            <?=showOrderDirectionFilter();?>
             <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear">
             <input type="submit" class="input-submit-button" value="Filtrar" style="margin-left: 0;">
         </form>

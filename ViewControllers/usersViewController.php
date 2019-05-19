@@ -5,21 +5,23 @@
 *
 */
 session_start();
-require_once("ViewControllers/vistaController.php");
 require_once("Controllers/LoginController.php");
 require_once("Controllers/UserController.php");
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
-
+require_once("ViewControllers/vistaController.php");
 
 $userController = new UserController(); //Controlador de usuarios
 $loginControler = new LoginController(); //Controlador de sesion
 
+$sessionUser; //Usuario dueño de la sesion
+$sessionUserRole; //Rol del usuario dueño de la sesion
+
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
-    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
-    $role = $user->getRole(); //Obtener rol
-    if($role->getID() == 0){ //Comprobar rol
+    $sessionUser = $userController->getUser($_SESSION["userID"]); //Obtener usuario
+    $sessionUserRole = $sessionUser->getRole(); //Obtener rol
+    if($sessionUserRole->getID() == 0){ //Comprobar rol
         header("location: client.php"); //Si cliente, a client.php
         //echo "Role 0";
     }
@@ -27,6 +29,7 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
     //echo "Not Login in";
 }
+
 //Asignar valores filtros
 $page = 1;
 $search = "";
@@ -50,7 +53,8 @@ $users = $userController->getUsers($userRoleFilter,$state,$orderBy,$orderDirecti
 $totalUsers = $userController->getTotalUsers($userRoleFilter,$state,$orderBy,$orderDirection); //Obtenemos los usuarios totales
 
 
-function showOrderByFilter($orderBy){
+function showOrderByFilter(){
+    global $orderBy;
     ?>
     <label class="boxed-select" id="order-by-filter">
         <div>Ordenar por</div>
@@ -71,7 +75,8 @@ function showOrderByFilter($orderBy){
 *
 * @param integer $orderDirection            Tipo de filtro
 */
-function showStateFilter($state){
+function showStateFilter(){
+    global $state;
     ?>
     <label class="boxed-select" id="active-filter">
         <div>Estado</div>
@@ -88,7 +93,9 @@ function showStateFilter($state){
 *
 * @param integer $orderDirection            Tipo de filtro
 */
-function showRoleFilter($roles, $userRoleFilter){
+function showRoleFilter(){
+    global $roles; 
+    global $userRoleFilter;
     ?>
     <label class="boxed-select" id="role-filter">
         <div>Rol</div>
@@ -110,7 +117,8 @@ function showRoleFilter($roles, $userRoleFilter){
 *
 * @param integer $orderDirection            Tipo de filtro
 */
-function showOrderDirectionFilter($orderDirection){
+function showOrderDirectionFilter(){
+    global $orderDirection;
     ?>
     <label class="boxed-select" id="order-direction-filter">
         <div>Orden</div>
@@ -126,7 +134,8 @@ function showOrderDirectionFilter($orderDirection){
 *
 * @param $users Users[]             Array de usuarios
 */
-function showUsersTable($users){
+function showUsersTable(){
+    global $users;
     ?>
     
     <div class="table-container">
@@ -150,7 +159,7 @@ function showUsersTable($users){
                     $role = $user->getRole();
                     ?>
             <tr class="user">
-                <td class="id a-center"><span class="responsive-label">ID</span><a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getID()?></a></td>
+                <td class="id a-center"><span class="responsive-label">ID</span><a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=str_pad($user->getID(), 4, "0", STR_PAD_LEFT)?></a></td>
                 <td class="username"><span class="responsive-label">Usuario</span> <a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getUsername()?></a></td>
                 <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box <?=$role->getCssClass()?>"><?=$role->getName()?></a></td>
                 <td class="name"><span class="responsive-label">Nombre</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getName()?></a></td>
