@@ -26,38 +26,12 @@
                 </div>
             </label>
             <h1>Filtros</h1>
-            <label class="boxed-select" id="role-filter">
-                <div>Rol</div>
-                    <?=showUserRoleFilters($roles, $userRoleFilter)?>
-            </label>
-            <label class="boxed-select" id="active-filter">
-                <div>Estado</div>
-                <select data-class="labeled" name="state">
-                    <option value="-1">Todos</option>
-                    <option value="0" data-class="enabled" <?=$state == 0 ? "selected" : "" ?>>Activado</option>
-                    <option value="1" data-class="disabled" <?=$state == 1 ? "selected" : "" ?>>Desactivado</option>
-                </select>
-            </label>
-            <label class="boxed-select" id="order-by-filter">
-                <div>Ordenar por</div>
-                <select data-class="order-by-filter" name="orderBy">
-                    <option value="-1">Ninguno</option>
-                    <option value="0" <?=$orderBy == 0 ? "selected" : ""?>>ID</option>
-                    <option value="1" <?=$orderBy == 1 ? "selected" : ""?>>Nombre</option>
-                    <option value="2" <?=$orderBy == 2 ? "selected" : ""?>>Numero Arreglos</option>
-                    <option value="3" <?=$orderBy == 3 ? "selected" : ""?>>Activo</option>
-                    <option value="4" <?=$orderBy == 4 ? "selected" : ""?>>Fecha creación</option>
-                    <option value="5" <?=$orderBy == 5 ? "selected" : ""?>>Fecha actualización</option>
-                </select>
-            </label>
-            <label class="boxed-select" id="order-direction-filter">
-                <div>Orden</div>
-                <select data-class="order-direction-filter" name="orderDirection">
-                    <option value="0" <?=$orderDirection == 0 ? "selected" : ""?>>Ascendente</option>
-                    <option value="1" <?=$orderDirection == 1 ? "selected" : ""?>>Descendente</option>
-                </select>
-            </label>
-            <input type="submit" class="input-submit-button" value="Filtrar">
+            <?=showRoleFilter($role, $userRoleFilter);?>
+            <?=showStateFilter($state);?>
+            <?=showOrderByFilter($orderBy);?>
+            <?=showOrderDirectionFilter($orderDirection);?>
+            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear">
+            <input type="submit" class="input-submit-button" value="Filtrar" style="margin-left: 0;">
         </form>
         <section class="users-container">
             <?php showUsersTable($users)?>
