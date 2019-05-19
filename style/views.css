@@ -1,15 +1,16 @@
+
 /* Contenedor Filtros */
-section.item-filters {
+.item-filters {
     position: relative;
     display: flex;
     flex-flow: row wrap;
-    margin: 10px 20px;
+    margin: 20px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
     border-radius: 5px;
     background-color: #fff;
     padding: 20px 10px;
 }
-section.item-filters > h1 {
+.item-filters > h1 {
     position: absolute;
     top: -0.7em;
     left: 0.6em;
@@ -21,8 +22,12 @@ section.item-filters > h1 {
     border: 1px solid #ddd;
     
 }
-section.item-filters > label {
+.item-filters > label {
     margin: 5px 10px;
+}
+.item-filters > input.input-submit-button {
+    margin-left: auto;
+    margin-right: 10px;
 }
 /* ---- custom select filters ---- */
 /* Estados ordenes - activo - roles */

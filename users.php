@@ -8,9 +8,7 @@ require_once("Classes/Role.php");
 
 $userController = new UserController(); //Controlador de usuarios
 
-/*
-* Se comprueba si ya se ha iniciado sesión y si tiene rol cliente, o no ha iniciado sesion, redirecciona a otra pagina.
-*/
+//Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
     $role = $user->getRole(); //Obtener rol
@@ -22,10 +20,23 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
     //echo "Not Login in";
 }
-$roles = $userController->getRoles();
-$users = $userController->getUsers(null,null,null,null);
-$totalUsers = $userController->getTotalUsers(null,null,null,null);
-if(isset($_GET["page"])){$page = $_GET["page"];}else{$page = 1;}//Declarar página
+$page = 1;
+$search = "";
+$userRoleFilter = -1;
+$state = -1;
+$orderBy = -1;
+$orderDirection = -1;
+if(isset($_GET["page"]))            {$page = (int) $_GET["page"];}
+if(isset($_GET["search"]))          {$search = $_GET["search"];}
+if(isset($_GET["userRole"]))        {$userRoleFilter = (int) $_GET["userRole"];}
+if(isset($_GET["state"]))           {$state = (int) $_GET["state"];}
+if(isset($_GET["orderBy"]))         {$orderBy = (int) $_GET["orderBy"];}
+if(isset($_GET["orderDirection"]))  {$orderDirection = (int) $_GET["orderDirection"];}
+
+$roles = $userController->getRoles(); //Obtenemos todos los roles disponibles para los filtros
+$users = $userController->getUsers($userRoleFilter,$state,$orderBy,$orderDirection, $page); //Obtenemos los usuarios
+$totalUsers = $userController->getTotalUsers($userRoleFilter,$state,$orderBy,$orderDirection); //Obtenemos los usuarios totales
+
 
 
 ?>
@@ -44,53 +55,55 @@ if(isset($_GET["page"])){$page = $_GET["page"];}else{$page = 1;}//Declarar pági
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="users-container">
-        <form>
-            <div class="search-box">
-                <input type="text" placeholder="Buscar Usuario por ID o Nombre">
-                <input type="submit" value="Buscar">
-            </div>
-        </form>
         <a class="haptic-button medium new-user" >
             <img src="media/img/add-user.png">
             <div class="label">Nuevo Usuario</div>
         </a>
-        <section class="item-filters">
+        <form class="item-filters">
+           <label class="boxed-input searchbox">
+                <div class="text-label"><span>Buscar</span></div>
+                <div class="input-container">
+                    <input type="text" placeholder="Buscar usuario por ID, Nombre de usuario, Correo, Nombre, Apellidos, o Teléfono " name="search" value="<?=$search?>">
+                </div>
+            </label>
             <h1>Filtros</h1>
             <label class="boxed-select" id="role-filter">
                 <div>Rol</div>
-                    <?=showUserRoleFilters($roles)?>
+                    <?=showUserRoleFilters($roles, $userRoleFilter)?>
             </label>
             <label class="boxed-select" id="active-filter">
                 <div>Estado</div>
-                <select data-class="labeled">
-                    <option value="-1"> Todos </option>
-                    <option value="0" data-class="enabled" >Activado</option>
-                    <option value="1" data-class="disabled">Desactivado</option>
+                <select data-class="labeled" name="state">
+                    <option value="-1">Todos</option>
+                    <option value="0" data-class="enabled" <?=$state == 0 ? "selected" : "" ?>>Activado</option>
+                    <option value="1" data-class="disabled" <?=$state == 1 ? "selected" : "" ?>>Desactivado</option>
                 </select>
             </label>
             <label class="boxed-select" id="order-by-filter">
                 <div>Ordenar por</div>
-                <select data-class="order-by-filter">
-                    <option value="0">ID</option>
-                    <option value="1">Nombre</option>
-                    <option value="2">Numero Arreglos</option>
-                    <option value="3">Activo</option>
-                    <option value="4">Fecha creación</option>
-                    <option value="5">Fecha actualización</option>
+                <select data-class="order-by-filter" name="orderBy">
+                    <option value="-1">Ninguno</option>
+                    <option value="0" <?=$orderBy == 0 ? "selected" : ""?>>ID</option>
+                    <option value="1" <?=$orderBy == 1 ? "selected" : ""?>>Nombre</option>
+                    <option value="2" <?=$orderBy == 2 ? "selected" : ""?>>Numero Arreglos</option>
+                    <option value="3" <?=$orderBy == 3 ? "selected" : ""?>>Activo</option>
+                    <option value="4" <?=$orderBy == 4 ? "selected" : ""?>>Fecha creación</option>
+                    <option value="5" <?=$orderBy == 5 ? "selected" : ""?>>Fecha actualización</option>
                 </select>
             </label>
             <label class="boxed-select" id="order-direction-filter">
                 <div>Orden</div>
-                <select data-class="order-direction-filter">
-                    <option value="0">Ascendente</option>
-                    <option value="1">Descendente</option>
+                <select data-class="order-direction-filter" name="orderDirection">
+                    <option value="0" <?=$orderDirection == 0 ? "selected" : ""?>>Ascendente</option>
+                    <option value="1" <?=$orderDirection == 1 ? "selected" : ""?>>Descendente</option>
                 </select>
             </label>
-        </section>
+            <input type="submit" class="input-submit-button" value="Filtrar">
+        </form>
         <section class="users-container">
             <?php showUsersTable($users)?>
             <div class="users-pag">
-                <?php showPaginator("users.php?", $page, 1000, $_GET) ?>
+                <?php showPaginator("users.php?", $page, $totalUsers, $_GET) ?>
             </div>
         </section>
         

@@ -1,15 +1,18 @@
 <?php
 /**
 * Muestra por pantalla un menu de filtros de roles de usuario
+*
+* @param $rs Role[]     Array de roles
+* @param $sf int        Selección actual
 */
-function showUserRoleFilters($rs){
+function showUserRoleFilters($rs, $sf){
     ?>
     <select data-class="labeled role-filter" name="userRole">
         <option value="-1">Todos</option>
         <?php
             foreach($rs as $r){
             ?>
-        <option value="<?=$r->getID()?>" data-class="<?=$r->getCssClass()?>" ><?=$r->getName()?></option>
+        <option value="<?=$r->getID()?>" data-class="<?=$r->getCssClass()?>" <?=$sf == $r->getID() ? "selected" : "" ?>><?=$r->getName()?></option>
             <?php
             }
         ?>

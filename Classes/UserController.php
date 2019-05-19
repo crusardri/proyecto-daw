@@ -28,7 +28,7 @@ class UserController {
     *
     * @return User[]                        Array de usuarios
     */
-    public function getUsers($roleFilter, $estateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 10){
+    public function getUsers($roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
         $page = $page - 1;
         $users = array(
             new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Administrador", "admin"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true),
@@ -45,10 +45,10 @@ class UserController {
     * @param int $orderByFilter             Especifica el tipo de ordenacion de usuarios
     * @param int $orderDirectionFilter      Especifica la direccion de ordenacion
     *
-    * @return User[]                        Array de usuarios
+    * @return int                           Numero total de usuarios segun filtros
     */
     public function getTotalUsers($roleFilter = -1, $estateFilter = -1){
-        
+        return 1000;
     }
     /**
     * Consulta en la base de datos si el nombre de usuario esta disponible
