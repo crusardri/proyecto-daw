@@ -1,3 +1,10 @@
+<?php
+//Cerramos sesion
+if(isset($_GET["logout"])){
+    $loginController->logout();
+    header("location: login.php");
+}
+?>
     <nav class="top-header">
         <a class="menu-item" href="#">
             <img src="media/img/inicio.png">
@@ -15,7 +22,7 @@
             <img src="media/img/users.png">
             <div class="label">Usuarios</div>
         </a>
-        <a class="menu-item user" href="#">
+        <a class="menu-item user" href="?logout">
             <div class="user-avatar">IM</div>
             <div class="username"><?=$user->getName()." ".$user->getSurname()?></div>
         </a>

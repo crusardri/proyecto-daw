@@ -27,7 +27,7 @@ input.input-submit-button{
     font-weight: 700;
     transition: all 0.2s;
     cursor: pointer;
-    height: 30px;
+    /*height: 30px;*/
     font-size: 1em;
 }
 input.input-submit-button:hover{
