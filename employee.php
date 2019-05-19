@@ -1,7 +1,7 @@
 <?php 
 session_start(); //Iniciamos la sesion
 //Importamos las dependencias
-require_once("Funciones/vistaController.php");
+require_once("controladorVista/vistaController.php");
 require_once("Classes/LoginController.php");
 require_once("Classes/UserController.php");
 require_once("Classes/Controller.php");
@@ -17,7 +17,10 @@ require_once("Classes/Clothe.php");
 $userController = new UserController(); //Controlador de usuario
 $loginController = new LoginControlleR(); //Controlador de Login
 $controller = new Controller(); //El controlador principal
-
+//Cerramos sesion
+if(isset($_GET["logout"])){
+    $loginController->logout();
+}
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
@@ -28,6 +31,7 @@ if(isset($_SESSION["userID"])){
 } else {
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
