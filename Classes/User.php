@@ -60,7 +60,7 @@ class User{
         return $this->updateDate;*/
         return "17/04/2019 12:38";
         }
-    function getActive(){
+    function isActive(){
         return $this->active;
     }
     function checkPassword(){

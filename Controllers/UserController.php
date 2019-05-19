@@ -14,7 +14,10 @@ class UserController {
     */
     public function getUser($id){
         //TO DO
-        return new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Empleado", "employee"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true);
+        $roles = $this->getRoles();
+        $genericTimestamp = new DateTime();
+        $genericTimestamp = $genericTimestamp->getTimeStamp();
+        return new User(1, "Iván", "password", "iván@don-dedal.com", $roles[2], "918273849", "Iván", "Maldonado Fernández", $genericTimestamp, $genericTimestamp, true);
         //return null;
     }
     /**
@@ -30,10 +33,12 @@ class UserController {
     */
     public function getUsers($roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
         $page = $page - 1;
+        $genericTimestamp = new DateTime();
+        $genericTimestamp = $genericTimestamp->getTimeStamp();
         $users = array(
-            new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Administrador", "admin"), "918273849", "Iván", "Maldonado Fernández", new DateTime(), new DateTime(), true),
-            new User(2, "Sergio", "password", "gmail@sergio.com", new Role(1, "Empleado", "employee"), "902202122", "Sergio", "Barragán Llorente", new DateTime(), new DateTime(), false),
-            new User(3, "Jhoseph", "password", "un@correo.com", new Role(0, "Cliente", "client"), "689412369", "Jhoseph", "Andre García Segovia", new DateTime(), new DateTime(), true)
+            new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Administrador", "admin", "El usuario puede generar y modificar órdenes, y registrar y modificar usuarios de cualquier rol."), "918273849", "Iván", "Maldonado Fernández", $genericTimestamp, $genericTimestamp, true),
+            new User(2, "Sergio", "password", "gmail@sergio.com", new Role(1, "Empleado", "employee", "El usuario puede generar y modificar órdenes, como registrar y modificar clientes."), "902202122", "Sergio", "Barragán Llorente", $genericTimestamp, $genericTimestamp, false),
+            new User(3, "Jhoseph", "password", "un@correo.com", new Role(0, "Cliente", "client", "El usuario puede ver sus órdenes y editar su perfil."), "689412369", "Jhoseph", "Andre García Segovia", $genericTimestamp, $genericTimestamp, true)
         );
         return $users;
         //TO DO
@@ -84,9 +89,9 @@ class UserController {
     */
     public function getRoles(){
         $roles = array(
-            new Role("0", "Client", "client"),
-            new Role("1", "Empleado", "employee"),
-            new Role("2", "Administrador", "admin")
+            new Role("0", "Client", "client", "El usuario puede ver sus órdenes y editar su perfil."),
+            new Role("1", "Empleado", "employee", "El usuario puede generar y modificar órdenes, como registrar y modificar clientes."),
+            new Role("2", "Administrador", "admin", "El usuario puede generar y modificar órdenes, y registrar y modificar usuarios de cualquier rol.")
         );
         return $roles;
     }

@@ -166,7 +166,7 @@ function showUsersTable(){
                 <td class="surname"><span class="responsive-label">Apellidos</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getSurname()?></a></td>
                 <td class="email"><span class="responsive-label">Correo</span><a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getEmail()?></a></td>
                 <td class="registration-date date a-center"><span class="responsive-label">Registro</span><span><?=$user->getRegisteredDateString()?></span></td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box <?=$user->getActive()?"enabled":"disabled"?>"><?=$user->getActive()?"Si":"No"?></a></td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box <?=$user->isActive()?"enabled":"disabled"?>"><?=$user->isActive()?"Si":"No"?></a></td>
                 <td class="update-date date a-center"><span class="responsive-label">Actualizado</span><span><?=$user->getUpdateDateString()?></span></td>
             </tr>
                     <?php

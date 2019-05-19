@@ -14,7 +14,7 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="users-container">
-        <a class="haptic-button medium new-user" >
+        <a class="haptic-button medium new-user" href="user.php?newUser=" >
             <img src="media/img/add-user.png">
             <div class="label">Nuevo Usuario</div>
         </a>

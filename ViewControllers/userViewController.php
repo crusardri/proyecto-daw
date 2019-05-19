@@ -17,6 +17,7 @@ $sessionUser; //Usuario dueño de la sesion
 $sessionUserRole; //Rol del usuario dueño de la sesion
 
 $title; //Titulo de la ventana
+$roles = $userController->getRoles(); //Todos los roles
 
 $user; //Usuario a consultar
 $userRole; //Rol del usuario a consultar
@@ -141,16 +142,14 @@ function showRegisterDateField(){
     global $employee;
     global $admin;
     global $user;
-    if($edit && ($employee || $admin)){
-        ?>
-        <label class="boxed-input" id="register-date">
-            <div class="text-label"><span>Fecha de registro</span></div>
-            <div class="input-container">
-                <input type="text" value="<?=$user->getRegisteredDateString()?>" disabled>
-            </div>
-        </label>
-        <?php
-    }
+    ?>
+    <label class="boxed-input" id="register-date">
+        <div class="text-label"><span>Fecha de registro</span></div>
+        <div class="input-container">
+            <input type="text" value="<?=$user->getRegisteredDateString()?>" disabled>
+        </div>
+    </label>
+    <?php
 }
 /**
 * Muestra el campo Fecha Actualizacion si esta editando, y es Empleado o Administrador
@@ -161,15 +160,15 @@ function showUpdateDateField(){
     global $employee;
     global $admin;
     global $user;
-    if($edit && ($employee || $admin)){
-        ?>
-        <label class="boxed-input" id="update-date">
-            <div class="text-label"><span>Fecha de actualización</span></div>
-            <div class="input-container">
-                <input type="text" value="<?=$user->getUpdateDateString()?>" disabled>
-            </div>
-        </label>
-        <?php
+    if($employee || $admin){
+    ?>
+    <label class="boxed-input" id="update-date">
+        <div class="text-label"><span>Fecha de actualización</span></div>
+        <div class="input-container">
+           <input type="text" value="<?=$user->getUpdateDateString()?>" disabled>
+        </div>
+    </label>
+    <?php
     }
 }
 /**
@@ -185,52 +184,52 @@ function showAccountDataForm(){
     
     if($edit){
     ?>
-        <form id="account-info-container" method="post" action="user.php?id=<?=$user->getID()?>">
-            <input type="hidden" name="id" value="<?=$user->getID()?>">
-            <input type="hidden" name="changeEmail">
-            <div class="field-set" id="client-infoset">
-            <h3>Datos Cuenta</h3>
-                <label class="boxed-input" id="username">
-                    <div class="text-label"><span>Nombre de usuario</span></div>
-                    <div class="input-container">
-                        <input type="text" value="<?=$user->getUsername()?>" disabled>
-                    </div>
-                </label>
-                <label class="boxed-input" id="email">
-                    <div class="text-label"><span>Correo Electronico</span></div>
-                    <div class="input-container">
-                        <input type="text" value="<?=$user->getEmail()?>" name="email">
-                    </div>
-                </label>
-                <div class="form-buttons">
-                    <input type="submit" value="Cambiar Correo" class="input-submit-button">
+    <form id="account-info-container" method="post" action="user.php?id=<?=$user->getID()?>">
+        <input type="hidden" name="id" value="<?=$user->getID()?>">
+        <input type="hidden" name="changeEmail">
+        <div class="field-set" id="client-infoset">
+        <h3>Datos Cuenta</h3>
+            <label class="boxed-input" id="username">
+                <div class="text-label"><span>Nombre de usuario</span></div>
+                <div class="input-container">
+                    <input type="text" value="<?=$user->getUsername()?>" disabled>
                 </div>
-            </div>   
-        </form>
+            </label>
+            <label class="boxed-input" id="email">
+                <div class="text-label"><span>Correo Electronico</span></div>
+                <div class="input-container">
+                    <input type="text" value="<?=$user->getEmail()?>" name="email">
+                </div>
+            </label>
+            <div class="form-buttons">
+                <input type="submit" value="Cambiar Correo" class="input-submit-button">
+            </div>
+        </div>   
+    </form>
         <?php
     }elseif($register){
         ?>
-        <form id="account-info-container" method="post" action="user.php?newUser">
-            <input type="hidden" name="changeEmail">
-            <div class="field-set" id="client-infoset">
-            <h3>Datos Cuenta</h3>
-                <label class="boxed-input" id="username">
-                    <div class="text-label"><span>Nombre de usuario</span></div>
-                    <div class="input-container">
-                        <input type="text" >
-                    </div>
-                </label>
-                <label class="boxed-input" id="email">
-                    <div class="text-label"><span>Correo Electronico</span></div>
-                    <div class="input-container">
-                        <input type="text" name="email">
-                    </div>
-                </label>
-                <div class="form-buttons">
-                    <input type="submit" value="Cambiar Correo" class="input-submit-button">
+        <div class="field-set" id="client-infoset">
+        <h3>Datos Cuenta</h3>
+            <label class="boxed-input" id="username">
+                <div class="text-label"><span>Nombre de usuario</span></div>
+                <div class="input-container">
+                    <input type="text" name="">
                 </div>
-            </div>   
-        </form>
+            </label>
+            <label class="boxed-input" id="email">
+                <div class="text-label"><span>Correo Electronico</span></div>
+                <div class="input-container">
+                    <input type="text" name="email">
+                </div>
+            </label>
+            <label class="boxed-input" id="password">
+                <div class="text-label"><span>Contraseña</span></div>
+                <div class="input-container">
+                    <input type="password" name="password">
+                </div>
+            </label>
+        </div>   
         <?php
     }
 }
@@ -270,7 +269,7 @@ function showPasswordForm(){
                 <label class="boxed-input mandatory" id="password">
                     <div class="text-label"><span>Contraseña nueva</span></div>
                     <div class="input-container">
-                        <input type="password">
+                        <input type="password" name="password">
                     </div>
                 </label>
                 <?php 
@@ -279,7 +278,7 @@ function showPasswordForm(){
                 <label class="boxed-input mandatory" id="repeatPassword">
                     <div class="text-label"><span>Repetir Contraseña</span></div>
                     <div class="input-container">
-                        <input type="password" name="newPassword"> 
+                        <input type="password" name="repPassword"> 
                     </div>
                 </label>
                     <?php
@@ -291,19 +290,178 @@ function showPasswordForm(){
             </div>
         </form>
     <?php
-    }elseif($register && ($employee || $admin)){//Si es un registro nuevo
+    }
+}
+
+/**
+* Muestra formulario datos personales
+*/
+function showPersonalInfoForm(){
+    global $edit;
+    global $register;
+    global $register;
+    global $client;
+    global $employee;
+    global $admin;
+    global $user;
+   
+    
+    if($edit){
     ?>
-        <div id="change-password-container">
-            <div class="field-set">
-            <h3>Contraseña</h3>
-                <label class="boxed-input mandatory" id="password">
-                    <div class="text-label"><span>Contraseña</span></div>
-                    <div class="input-container">
-                        <input type="password">
-                    </div>
-                </label>
+    <form id="personal-info-container">
+        <div class="field-set" id="personal-info-infoset">
+            <h3>Datos personales</h3>
+            <label class="boxed-input" id="username">
+                <div class="text-label"><span>Nombre</span></div>
+                <div class="input-container">
+                    <input type="text" name="name" value="<?=$user->getName()?>">
+                </div>
+            </label>
+            <label class="boxed-input" id="surname">
+                <div class="text-label"><span>Apellidos</span></div>
+                <div class="input-container">
+                    <input type="text" name="surname" value="<?=$user->getSurname()?>">
+                </div>
+            </label>
+            <label class="boxed-input" id="phone">
+                <div class="text-label"><span>Teléfono</span></div>
+                <div class="input-container">
+                    <input type="number" name="phone" value="<?=$user->getTelephone()?>">
+                </div>
+            </label>
+            <div class="form-buttons">
+                <input type="submit" value="Cambiar datos" class="input-submit-button">
             </div>
         </div>
+    </form>
+    <?php
+    }elseif($register){
+    ?>
+    <div class="field-set" id="personal-info-infoset">
+        <h3>Datos personales</h3>
+        <label class="boxed-input" id="username">
+            <div class="text-label"><span>Nombre</span></div>
+            <div class="input-container">
+                <input type="text" name="name">
+            </div>
+        </label>
+        <label class="boxed-input" id="surname">
+            <div class="text-label"><span>Apellidos</span></div>
+            <div class="input-container">
+                <input type="text" name="surname">
+            </div>
+        </label>
+        <label class="boxed-input" id="phone">
+            <div class="text-label"><span>Teléfono</span></div>
+            <div class="input-container">
+                <input type="number" name="phone">
+            </div>
+        </label>
+    </div>
+    <?php    
+    }
+}
+/**
+* Muestra los roles de usuario
+*/
+function showRoleForm(){
+    global $edit;
+    global $register;
+    global $register;
+    global $client;
+    global $employee;
+    global $admin;
+    global $user;
+    global $roles;
+    $userRole = $user->getRole();
+    
+    if($edit && ($admin || $employee)){
+    ?>
+    <form id="role-form" action="user.php?id=<?=$user->getID()?>" method="post">
+        <h2>Rol</h2>
+        <div>
+            
+            <?php
+            if($admin){
+                foreach($roles as $role){
+                ?>
+        <label class="boxed-radio <?=$role->getCssClass()?>">
+            <input type="radio" name="role" value="<?=$role->getID()?>" <?=$userRole->getID() == $role->getID() ? "checked" : ""?>>
+            <div class="container">
+                <div class="radio-checkbox">&#x2713;</div>
+                <div class="radio-title"><?=$role->getName()?></div>
+                <div class="radio-desc"><?=$role->getDescription()?></div>
+            </div>
+        </label>
+                <?php
+                }
+            }elseif($employee){
+                ?>
+        <label class="boxed-radio <?=$userRole->getCssClass()?>">
+            <input type="radio" name="role" value="<?=$userRole->getID()?>" checked>
+            <div class="container">
+                <div class="radio-checkbox">&#x2713;</div>
+                <div class="radio-title"><?=$userRole->getName()?></div>
+                <div class="radio-desc"><?=$userRole->getDescription()?></div>
+            </div>
+        </label>
+                <?php
+            }
+            ?>
+        </div>
+        <?php 
+        if($admin){
+            ?>
+        <div class="form-buttons">
+            <input type="submit" value="Cambiar Rol" class="input-submit-button">
+        </div>
+            <?php
+        }
+        ?>
+        
+    </form>
     <?php
     }
+}
+/**
+* Muestra el formulario de estado de usuario
+*/
+function showUserStateForm(){
+    global $edit;
+    global $register;
+    global $register;
+    global $client;
+    global $employee;
+    global $admin;
+    global $user;
+    
+    if($edit && ($employee || $admin)){
+    ?>
+    <form id="active-form">
+        <h2>Estado</h2>
+        <div>
+            <label class="boxed-radio active">
+                <input type="radio" name="active" value="1" <?=$user->isActive()?"checked":""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Activado</div>
+                    <div class="radio-desc">El usuario puede iniciar sesión y utilizar la aplicación con normalidad, aparecerá en las listas</div>
+                </div>
+            </label>
+            <label class="boxed-radio disabled">
+                <input type="radio" name="active" value="0" <?=!$user->isActive()?"checked":""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Desactivado</div>
+                    <div class="radio-desc">El usuario esta desactivado, no podrá iniciar sesión, ni aparecerá en las listas, pero se mantendrá en la Base de datos para consulta.</div>
+                </div>
+            </label>
+        </div>
+        <div class="form-buttons">
+            <input type="submit" value="Cambiar estado" class="input-submit-button">
+        </div>
+    </form>
+    <?php
+    }
+    
 }
