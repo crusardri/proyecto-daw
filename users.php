@@ -1,12 +1,14 @@
 <?php
 session_start();
-require_once("Funciones/vistaController.php");
+require_once("controladorVista/vistaController.php");
+require_once("Classes/LoginController.php");
 require_once("Classes/UserController.php");
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
 
 
 $userController = new UserController(); //Controlador de usuarios
+$loginControler = new LoginController(); //Controlador de sesion
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
@@ -20,6 +22,7 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
     //echo "Not Login in";
 }
+//Asignar valores filtros
 $page = 1;
 $search = "";
 $userRoleFilter = -1;
@@ -33,6 +36,7 @@ if(isset($_GET["state"]))           {$state = (int) $_GET["state"];}
 if(isset($_GET["orderBy"]))         {$orderBy = (int) $_GET["orderBy"];}
 if(isset($_GET["orderDirection"]))  {$orderDirection = (int) $_GET["orderDirection"];}
 
+//Obtencion de datos
 $roles = $userController->getRoles(); //Obtenemos todos los roles disponibles para los filtros
 $users = $userController->getUsers($userRoleFilter,$state,$orderBy,$orderDirection, $page); //Obtenemos los usuarios
 $totalUsers = $userController->getTotalUsers($userRoleFilter,$state,$orderBy,$orderDirection); //Obtenemos los usuarios totales
