@@ -512,12 +512,15 @@ function showUserStateForm(){
     <?php
     }elseif($register &&($employee || $admin)){
         global $active;
+        if(!isset($active) || !empty($active)){
+            $active = 1;
+        }
         ?>
     <div id="active-form">
         <h2>Estado</h2>
         <div>
             <label class="boxed-radio active">
-                <input type="radio" name="active" value="1" <?=isset($active) && $active == 1 ? "checked" : ""?>>
+                <input type="radio" name="active" value="1" <?=$active == 1 ? "checked" : ""?>>
                 <div class="container">
                     <div class="radio-checkbox">&#x2713;</div>
                     <div class="radio-title">Activado</div>
@@ -525,7 +528,7 @@ function showUserStateForm(){
                 </div>
             </label>
             <label class="boxed-radio disabled">
-                <input type="radio" name="active" value="0" <?=isset($active) && $active == 0 ? "checked" : ""?>>
+                <input type="radio" name="active" value="0" <?=$active == 0 ? "checked" : ""?>>
                 <div class="container">
                     <div class="radio-checkbox">&#x2713;</div>
                     <div class="radio-title">Desactivado</div>
