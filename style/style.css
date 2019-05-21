@@ -11,6 +11,7 @@ body > *{
     transition: opacity 0.1s;
 }
 /* Comun */
+
 input,
 textarea,
 select {
@@ -37,7 +38,24 @@ input.input-submit-button:disabled{
     background-color: #DDD;
     cursor: no-drop;
 }
-
+/* Mensajes */
+div.msg {
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 3px 5px;
+    text-align: center;
+}
+div.msg.error{
+    background-color: #DA0000;
+    box-shadow: 0 2px 0 #ae0000;
+}
+div.msg.success{
+    background-color: #32CD32;
+    box-shadow: 0 2px 0 #228B22;
+}
 /* ---- CUSTOM SELECT ---- */
 div.custom-select {
     position: relative;

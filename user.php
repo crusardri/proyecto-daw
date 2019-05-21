@@ -39,9 +39,14 @@
     }elseif($register){
         ?>
     <div class="form-container new-user">
-        <form>
-            <div id="user-info-container">
+        <form method="post" action="user.php?newUser=">
+            <div id="header">
                 <h1><?=$title?></h1>
+                <?php
+                if(isset($errorMSG)){
+                    ?><div class="msg error"><?=$errorMSG?></div><?php
+                }
+                ?>
             </div>   
             <!-- Datos Cuenta -->
             <?php showAccountDataForm() ?>
@@ -53,7 +58,11 @@
             <?php showUserStateForm() ?>
             <!-- Estados -->
             <?php showRoleForm()?>  
+            <div class="form-buttons">
+                <input type="submit" value="Registrar Usuario" class="input-submit-button" name="registerUser">
+            </div>
         </form>
+        
     </div>    
         <?php
     }

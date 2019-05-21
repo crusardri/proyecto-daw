@@ -30,7 +30,7 @@ $edit = false; //Modo Editar
 $register = false; //Modo nuevo registro
 
 echo "<pre>";
-
+var_dump($_POST);
 /**
 * Comprueba que este la sesion iniciada y obtiene el usuario y el rol, si no lo esta te devuelve a login.php
 */
@@ -81,6 +81,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 */
 if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
     $user = $userController->getUser($_GET["id"]);
+    $userRole = $user->getRole();
     echo "Soy Admin/Empleado y puedo ver cualquier usuario";
 }elseif($edit && $client && $sessionUser->getID() == $_GET["id"]){ //Si esta editando, es cliente y esta consultando su misma ID
     $user = $userController->getUser($_GET["id"]);
@@ -105,12 +106,45 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
 }
 
-/*if(isset($_GET["id"]) && empty($_GET["ID"])){
-    header("location:users.php"); //Si la ID esta vacia redirije a Users.php
-}elseif(isset($_GET["id"]) && empty($_GET["ID"])){
-    
+/**
+ * Registrar Usuario
+ * Solo si eres admin o empleado
+ */
+if(isset($_POST["registerUser"]) && ($admin || $employee)){
+    $username =     isset($_POST["username"]) ?     $_POST["username"] : null;
+    $email =        isset($_POST["email"]) ?        $_POST["email"] : null;
+    $password =     isset($_POST["password"]) ?     $_POST["password"] : null;
+    $name =         isset($_POST["name"]) ?         $_POST["name"] : null;
+    $surname =      isset($_POST["surname"]) ?      $_POST["surname"] : "";
+    $phone =        isset($_POST["phone"]) ?        $_POST["phone"] : "";
+    $role =         isset($_POST["role"]) ?         $_POST["role"] : 0;
+    $active =       isset($_POST["active"]) ?       $_POST["active"] : 0;
+    switch ($userController->registerUserAdminPanel($username, $password, $email, $name, $surname, $phone, $role, $active)){
+        case 0:
+            header("location: login.php?success");
+            break;
+        case 1:
+            $errorMSG = "El nombre de usuario debe tener al menos 4 carácteres.";
+            break;
+        case 2: 
+            $errorMSG = "El nombre de usuario ya esta registrado.";
+            break;
+        case 3:
+            $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
+            break;
+        case 4:
+            $errorMSG = "El correo electrónico no es válido.";
+            break;
+        case 5: 
+            $errorMSG = "El correo electrónico está registrado.";
+            break;
+        case 6:
+            $errorMSG = "No has rellenado el campo \"nombre\".";
+            break;
+        case -1: 
+            $errorMSG = "Algo ha fallado al intentar registrar al  usuario. Intentalo de nuevo.";
+    }
 }
-*/
 
 /**
 * Muestra el campo UserID si esta editando, y es Empleado o Administrador
@@ -137,11 +171,7 @@ function showIDField(){
 * Muestra el campo de Fecha de registro si esta editando, y es Empleado o Administrador
 */
 function showRegisterDateField(){
-    global $edit;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
+    global $edit, $client, $employee, $admin, $user;
     ?>
     <label class="boxed-input" id="register-date">
         <div class="text-label"><span>Fecha de registro</span></div>
@@ -155,11 +185,7 @@ function showRegisterDateField(){
 * Muestra el campo Fecha Actualizacion si esta editando, y es Empleado o Administrador
 */
 function showUpdateDateField(){
-    global $edit;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
+    global $edit, $client, $employee, $admin, $user;
     if($employee || $admin){
     ?>
     <label class="boxed-input" id="update-date">
@@ -175,13 +201,7 @@ function showUpdateDateField(){
 * Muestra el formulario informacion de la cuenta
 */
 function showAccountDataForm(){
-    global $edit;
-    global $client;
-    global $register;
-    global $employee;
-    global $admin;
-    global $user;
-    
+    global $edit, $client, $register, $employee, $admin, $user;
     if($edit){
     ?>
     <form id="account-info-container" method="post" action="user.php?id=<?=$user->getID()?>">
@@ -208,19 +228,20 @@ function showAccountDataForm(){
     </form>
         <?php
     }elseif($register){
+        global $username, $email;
         ?>
-        <div class="field-set" id="client-infoset">
+        <div class="field-set" id="account-info">
         <h3>Datos Cuenta</h3>
             <label class="boxed-input" id="username">
                 <div class="text-label"><span>Nombre de usuario</span></div>
                 <div class="input-container">
-                    <input type="text" name="">
+                    <input type="text" name="username" value="<?=isset($username)?$username:""?>">
                 </div>
             </label>
             <label class="boxed-input" id="email">
                 <div class="text-label"><span>Correo Electronico</span></div>
                 <div class="input-container">
-                    <input type="text" name="email">
+                    <input type="text" name="email" value="<?=isset($email)?$email:""?>">
                 </div>
             </label>
             <label class="boxed-input" id="password">
@@ -238,13 +259,7 @@ function showAccountDataForm(){
 * Muestra formulario sobre la contraseña
 */
 function showPasswordForm(){
-    global $edit;
-    global $register;
-    global $register;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
+    global $edit, $register, $register, $client, $employee, $admin, $user;
     
     if($edit){
     ?>
@@ -336,25 +351,26 @@ function showPersonalInfoForm(){
     </form>
     <?php
     }elseif($register){
+        global $name, $surname, $phone;
     ?>
-    <div class="field-set" id="personal-info-infoset">
+    <div class="field-set" id="personal-info">
         <h3>Datos personales</h3>
         <label class="boxed-input" id="username">
             <div class="text-label"><span>Nombre</span></div>
             <div class="input-container">
-                <input type="text" name="name">
+                <input type="text" name="name" value="<?=isset($name)?$name:""?>">
             </div>
         </label>
         <label class="boxed-input" id="surname">
             <div class="text-label"><span>Apellidos</span></div>
             <div class="input-container">
-                <input type="text" name="surname">
+                <input type="text" name="surname" value="<?=isset($surname)?$surname:""?>">
             </div>
         </label>
         <label class="boxed-input" id="phone">
             <div class="text-label"><span>Teléfono</span></div>
             <div class="input-container">
-                <input type="number" name="phone">
+                <input type="number" name="phone" value="<?=isset($phone)?$phone:""?>">
             </div>
         </label>
     </div>
@@ -365,22 +381,17 @@ function showPersonalInfoForm(){
 * Muestra los roles de usuario
 */
 function showRoleForm(){
-    global $edit;
-    global $register;
-    global $register;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
-    global $roles;
-    $userRole = $user->getRole();
+    global $edit, $register, $register, $client, $employee, $admin, $user, $roles, $userRole;
+    if($userRole){
+        $userRole = $user->getRole();
+    }
+    
     
     if($edit && ($admin || $employee)){
     ?>
     <form id="role-form" action="user.php?id=<?=$user->getID()?>" method="post">
         <h2>Rol</h2>
         <div>
-            
             <?php
             if($admin){
                 foreach($roles as $role){
@@ -421,21 +432,61 @@ function showRoleForm(){
         
     </form>
     <?php
+    }elseif($register && ($admin || $employee)){
+        global $role;
+        if(isset($role)){
+            $activeRole = $role;
+        }else {
+            $activeRole = 0;
+        }
+        ?>
+    <div id="role-form">
+        <h2>Rol</h2>
+        <div> 
+        <?php
+            if($admin){
+                foreach($roles as $role){
+                ?>
+        <label class="boxed-radio <?=$role->getCssClass()?>">
+            <input type="radio" name="role" value="<?=$role->getID()?>" <?=$role->getID() == $activeRole ? "checked" : ""?>>
+            <div class="container">
+                <div class="radio-checkbox">&#x2713;</div>
+                <div class="radio-title"><?=$role->getName()?></div>
+                <div class="radio-desc"><?=$role->getDescription()?></div>
+            </div>
+        </label>
+                <?php
+                }
+            }elseif($employee){
+                ?>
+        <label class="boxed-radio <?=$userRole->getCssClass()?>">
+            <input type="radio" name="role" value="<?=$userRole->getID()?>" checked>
+            <div class="container">
+                <div class="radio-checkbox">&#x2713;</div>
+                <div class="radio-title"><?=$userRole->getName()?></div>
+                <div class="radio-desc"><?=$userRole->getDescription()?></div>
+            </div>
+        </label>
+                <?php
+            }
+            ?>
+        </div>
+        <?php 
+        if($admin){
+            ?>
+    </div>
+            <?php
+        }
     }
 }
+
 /**
 * Muestra el formulario de estado de usuario
 */
 function showUserStateForm(){
-    global $edit;
-    global $register;
-    global $register;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
-    
-    if($edit && ($employee || $admin)){
+    global $edit, $register, $register, $client, $employee, $admin, $user, $sessionUserRole, $userRole;
+    //Es editar, eres empleado o admin, y el rango de usuario de la sesion sea igual o superior al rango del usuario a editar
+    if($edit && ($employee || $admin) && ($sessionUserRole->getID() >= $userRole->getID()) ){
     ?>
     <form id="active-form">
         <h2>Estado</h2>
@@ -457,10 +508,32 @@ function showUserStateForm(){
                 </div>
             </label>
         </div>
-        <div class="form-buttons">
-            <input type="submit" value="Cambiar estado" class="input-submit-button">
-        </div>
     </form>
+    <?php
+    }elseif($register &&($employee || $admin)){
+        global $active;
+        ?>
+    <div id="active-form">
+        <h2>Estado</h2>
+        <div>
+            <label class="boxed-radio active">
+                <input type="radio" name="active" value="1" <?=isset($active) && $active == 1 ? "checked" : ""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Activado</div>
+                    <div class="radio-desc">El usuario puede iniciar sesión y utilizar la aplicación con normalidad, aparecerá en las listas</div>
+                </div>
+            </label>
+            <label class="boxed-radio disabled">
+                <input type="radio" name="active" value="0" <?=isset($active) && $active == 0 ? "checked" : ""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Desactivado</div>
+                    <div class="radio-desc">El usuario esta desactivado, no podrá iniciar sesión, ni aparecerá en las listas, pero se mantendrá en la Base de datos para consulta.</div>
+                </div>
+            </label>
+        </div>
+    </div>
     <?php
     }
     

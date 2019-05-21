@@ -262,6 +262,43 @@ div.form-container.user .form-buttons {
             flex-basis: 100%;
     }
 }
+
+
+/* ----- registrar usuario ------ */
+div.form-container.new-user form{
+    display: grid;
+    grid-template-areas: "header header" "account info" "active active" "role role" "submit submit";
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 10px;
+}
+div.form-container.new-user  #header {
+    grid-area: header;
+}
+div.form-container.new-user #account-info {
+    grid-area: account;
+    display: flex;
+    flex-flow: column;
+}
+div.form-container.new-user #personal-info {
+    grid-area: info;
+    display: flex;
+    flex-flow: column;
+}
+div.form-container.new-user #account-info > label,
+div.form-container.new-user #personal-info > label {
+    flex-basis: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.form-container.new-user #active-form {
+    grid-area: active;
+}
+div.form-container.new-user #role-form {
+    grid-area: role;
+}
+div.form-container.new-user form > .form-buttons{
+    grid-area: submit;
+}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - clothe.php - -------------------------------------------- 

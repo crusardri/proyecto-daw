@@ -95,6 +95,29 @@ class UserController {
         );
         return $roles;
     }
+    /**
+    * Registra un usuario en la base de datos desde el panel de control
+    * @param String $username Nombre de usuario
+    * @param String $password Contraseña del usuario (Se debe crear el Hash de la contraseña)
+    * @param String $email El email del usuario
+    * @param String $name El nombre del usuario
+    * @param String $surname El apellido del usuario
+    * @param String $phone El telefono del usuario
+    * @param int $role El ID del Rol del usuario
+    * @param int $active Si el usuario esta activado
+    *
+    * @return int 0 Si todo ha ido bien
+    * @return int 1 Si el nombre de usuario tiene menos de 4 caracteres
+    * @return int 2 si el nombre de usuario ya esta registrado
+    * @return int 3 si la contraseña tiene menos de 6 caracteres
+    * @return int 4 si el correo no es valido
+    * @return int 5 si el correo ya esta registrado
+    * @return int 6 si falta el nombre
+    * @return int -1 si algo ha fallado
+    */
+    public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
+        return -1;
+    }  
 }
 //Ajax Get Username
 if(isset($_GET["check_username"])){
