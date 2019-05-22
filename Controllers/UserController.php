@@ -117,7 +117,20 @@ class UserController {
     */
     public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
         return -1;
-    }  
+    }
+    /**
+     * Cambia el correo electronico de un usuario desde el panel de control
+     * @param int $userID               ID de usuario a cambiar el correo
+     * @param String $email             Nuevo Email de usuario
+     * 
+     * @return int 0                    Si todo ha ido bien
+     * @return int 1                    Si el correo electronico no es valido
+     * @return int 2                    Si el correo electronico ya esta en uso
+     * @return int -1                   Si algo ha fallado
+     */  
+    public function changeEmail($userID, $email){
+        return -1;
+    }
 }
 //Ajax Get Username
 if(isset($_GET["check_username"])){

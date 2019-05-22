@@ -145,6 +145,37 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
             $errorMSG = "Algo ha fallado al intentar registrar al  usuario. Intentalo de nuevo.";
     }
 }
+/**
+ * Cambiar correo
+ */
+if($isset($_POST["changeEmail"])){
+    $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
+    $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
+    //Si es un cliente, y es su mismo usuario
+    //Si es un empleado, es su usuario o el usuario a editar es de un rol inferior
+    //Si eres administrador
+    if($clientAuthorize || $employeeAuthorize || $admin){
+        switch ($userController->changeEmail($user->getID(), $email)){
+            case 0:
+                $successMSG = "Correo electrónico cambiado con exito";
+                break;
+            case 1:
+                $errorMSG = "El correo electrónico parece no estar bien formado.";
+                break;
+            case 2: 
+                $errorMSG = "El correo electrónico está en uso por otro usuario.";
+                break;
+            case -1: 
+                $errorMSG = "Algo ha fallado al intentar cambiar el correo electrónico. Intentalo de nuevo.";
+                break;
+        }  
+    }else {
+        $errorMSG = "No estas autorizado para cambiar el correo a este usuario";
+    }
+}
+
+
+
 
 /**
 * Muestra el campo UserID si esta editando, y es Empleado o Administrador

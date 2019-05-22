@@ -18,6 +18,11 @@
     <div class="form-container user">
         <div id="user-info-container">
             <h1><?=$title?></h1>
+            <?php
+            if(isset($errorMSG)){
+                ?><div class="msg error"><?=$errorMSG?></div><?php
+            }
+            ?>
             <div>
                 <?=showIdField()?>
                 <?=showRegisterDateField()?>
