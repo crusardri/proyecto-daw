@@ -17,19 +17,36 @@ $loginControler = new LoginController(); //Controlador de sesion
 $sessionUser; //Usuario dueño de la sesion
 $sessionUserRole; //Rol del usuario dueño de la sesion
 
+$client = false;
+$employee = false;
+$admin = false;
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     $sessionUser = $userController->getUser($_SESSION["userID"]); //Obtener usuario
     $sessionUserRole = $sessionUser->getRole(); //Obtener rol
-    if($sessionUserRole->getID() == 0){ //Comprobar rol
-        header("location: client.php"); //Si cliente, a client.php
-        //echo "Role 0";
-    }
+    
 } else {
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
     //echo "Not Login in";
 }
+//Obtencion tipo usuario
+if($sessionUserRole->getID() == 0){
+    $client = true;
+}elseif($sessionUserRole->getID() == 1){
+    $employee = true;
+}elseif($sessionUserRole->getID() == 2){
+    $admin = true;
+}
 
+//Si no es un empleado o admin, a Client.php
+if(!($employee || $admin)){
+    header("location: client.php");
+}
+
+if($sessionUserRole->getID() == 0){ //Comprobar rol
+    header("location: client.php"); //Si cliente, a client.php
+    //echo "Role 0";
+}
 //Asignar valores filtros
 $page = 1;
 $search = "";
