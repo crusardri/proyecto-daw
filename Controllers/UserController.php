@@ -1,12 +1,19 @@
 <?php
 
 class UserController {
+    private $ajax; //Si es una consulta Ajax (cambio localizacion DDBB)
+    public function __construct($ajax = false){
+        $this->ajax = $ajax;
+    }
     /**
     * Devuelve una conexion a la Base de datos
     *
     * @return PDO                           Conexion a la base de datos completa.
     */
     private function connect(){
+        if($this->ajax()){
+            return new PDO("sqlite:../.data/data.db");
+        }
         return new PDO("sqlite:.data/data.db");
     }
     /**
@@ -117,7 +124,7 @@ class UserController {
     */
     public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
         return 0;
-    }  
+    } 
     /**
     * Registra un usuario en la base de datos desde el panel de control
     * @param String $username           Nombre de usuario
@@ -165,6 +172,7 @@ class UserController {
     *
     * @return int 0                     Todo ha ido bien
     * @return int 1                     La contraseña no tiene al menos 6 caracteres
+    * @return int 2                     Si la contraseña no coincide
     * @return int -1                    Algo ha fallado
     */
     public function changePasswordAdmin($newPassword, $user){
