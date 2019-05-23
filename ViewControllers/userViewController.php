@@ -5,13 +5,11 @@
 *
 */
 session_start();
-require_once("Controllers/LoginController.php");
 require_once("Controllers/UserController.php");
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
 
 $userController = new UserController(); //Controlador de usuarios
-$loginControler = new LoginController(); //Controlador de sesion
 
 $sessionUser; //Usuario dueño de la sesion
 $sessionUserRole; //Rol del usuario dueño de la sesion
@@ -179,16 +177,21 @@ if(isset($_POST["changeEmail"])){
  */
 if(isset($_POST["changePassword"])){
     $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
+    $sameUser = $sessionUser->getID() == $user->getID();
     $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
     if($clientAuthorize){
         switch ($userController->changePasswordClient($user->getID(), $oldPassword, $newPassword)){
-            case(0):
+            case 0:
                 session_destroy();
                 session_start();
                 $_SESSION["changePasswordSuccess"] = true;
                 header("location: login.php");
                 break;
-            case(1):
+            case 1:
+                $errorMSG = "La contraseña anterior no es correcta.";
+                break;
+            case 2:
+                $errorMSG = "La contraseña debe tener al menos 6 carácteres";
 
         }
     }

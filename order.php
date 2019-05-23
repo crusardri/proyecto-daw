@@ -2,7 +2,6 @@
 session_start(); //Iniciamos la sesion
 //Importamos las dependencias
 require_once("Funciones/vistaController.php");
-require_once("Classes/LoginController.php");
 require_once("Classes/UserController.php");
 require_once("Classes/Controller.php");
 require_once("Classes/User.php");
@@ -15,7 +14,6 @@ require_once("Classes/Clothe.php");
 
 //Iniciamos los controladores 
 $userController = new UserController(); //Controlador de usuario
-$loginController = new LoginControlleR(); //Controlador de Login
 $controller = new Controller(); //El controlador principal
 
 //Comprobamos si ha iniciado sesión y el rol que tiene

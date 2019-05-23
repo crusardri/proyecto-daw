@@ -1,7 +1,7 @@
 <?php
 //Cerramos sesion
 if(isset($_GET["logout"])){
-    $loginController->logout();
+    $userController->logout();
     header("location: login.php");
 }
 ?>

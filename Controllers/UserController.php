@@ -3,14 +3,15 @@
 class UserController {
     /**
     * Devuelve una conexion a la Base de datos
-    * @return PDO Conexion a la base de datos completa.
+    *
+    * @return PDO                           Conexion a la base de datos completa.
     */
     private function connect(){
         return new PDO("sqlite:.data/data.db");
     }
     /**
     * Consulta en la base de datos un usuario por ID y devuelve un objeto de clase Usuario
-    * @Return User  Un usuario completo
+    * @return User                          Usuario completo
     */
     public function getUser($id){
         //TO DO
@@ -45,10 +46,10 @@ class UserController {
     }
     /**
     * Consulta en la base de datos y devuelve el total de usuarios que coincida con los filtros.
-    * @param int $roleFilter                Especifica que usuarios mostrar por rol
-    * @param int $estateFilter              Especifica el estado del usuario
+    * @param int $roleFilter            Especifica que usuarios mostrar por rol
+    * @param int $estateFilter          Especifica el estado del usuario
     *
-    * @return int                           Numero total de usuarios segun filtros
+    * @return int                       Numero total de usuarios segun filtros
     */
     public function getTotalUsers($roleFilter = -1, $estateFilter = -1){
         return 1000;
@@ -56,9 +57,9 @@ class UserController {
     /**
     * Consulta en la base de datos si el nombre de usuario esta disponible
     *
-    * @param String $username       Nombre de usuario
+    * @param String $username           Nombre de usuario
     *
-    * @return boolean               Devuelve true si esta disponible, false si esta registrado
+    * @return boolean                   Devuelve true si esta disponible, false si esta registrado
     */
     public function checkUsername($username){
         $result = rand(0,1);
@@ -71,9 +72,9 @@ class UserController {
     /**
     * Consulta en la base de datos si el correo electronico esta disponible
     *
-    * @param String $email          Nombre de usuario
+    * @param String $email              Nombre de usuario
     *
-    * @return boolean               Devuelve true si esta disponible, false si esta registrado
+    * @return boolean                   Devuelve true si esta disponible, false si esta registrado
     */
     public function checkEmail($email){
         $result = rand(0,1);
@@ -85,7 +86,7 @@ class UserController {
     /**
     * Consulta en la base de datos y devuelve un array de usuarios
     *
-    * @return Role[] Roles       Array de roles de usuario
+    * @return Role[] Roles              Array de roles de usuario
     */
     public function getRoles(){
         $roles = array(
@@ -96,37 +97,60 @@ class UserController {
         return $roles;
     }
     /**
-    * Registra un usuario en la base de datos desde el panel de control
-    * @param String $username   Nombre de usuario
-    * @param String $password   Contraseña del usuario (Se debe crear el Hash de la contraseña)
-    * @param String $email      El email del usuario
-    * @param String $name       El nombre del usuario
-    * @param String $surname    El apellido del usuario
-    * @param String $phone      El telefono del usuario
-    * @param int $role          El ID del Rol del usuario
-    * @param int $active        Si el usuario esta activado
+    * Registra un usuario en la base de datos
+    * @param String $username           Nombre de usuario
+    * @param String $password           Contraseña del usuario (Se debe crear el Hash de la contraseña)
+    * @param String $email              Email del usuario
+    * @param String $name               Nombre del usuario
+    * @param String $surname            Apellido del usuario
+    * @param String $phone              Telefono del usuario
+    * @param String $role               ID del Rol del usuario
     *
-    * @return int 0             Todo ha ido bien
-    * @return int 1             El nombre de usuario tiene menos de 4 caracteres
-    * @return int 2             El nombre de usuario ya esta registrado
-    * @return int 3             La contraseña tiene menos de 6 caracteres
-    * @return int 4             El correo no es valido
-    * @return int 5             El correo ya esta registrado
-    * @return int 6             Falta el nombre
-    * @return int -1            Si algo ha fallado
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     Nombre de usuario tiene menos de 4 caracteres
+    * @return int 2                     Nombre de usuario ya esta registrado
+    * @return int 3                     Contraseña tiene menos de 6 caracteres
+    * @return int 4                     Correo no es valido
+    * @return int 5                     Correo ya esta registrado
+    * @return int 6                     Falta el nombre
+    * @return int -1                    Algo ha fallado
+    */
+    public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
+        return -1;
+    }  
+    /**
+    * Registra un usuario en la base de datos desde el panel de control
+    * @param String $username           Nombre de usuario
+    * @param String $password           Contraseña del usuario (Se debe crear el Hash de la contraseña)
+    * @param String $email              El email del usuario
+    * @param String $name               El nombre del usuario
+    * @param String $surname            El apellido del usuario
+    * @param String $phone              El telefono del usuario
+    * @param int $role                  El ID del Rol del usuario
+    * @param int $active                Si el usuario esta activado
+    *
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     El nombre de usuario tiene menos de 4 caracteres
+    * @return int 2                     El nombre de usuario ya esta registrado
+    * @return int 3                     La contraseña tiene menos de 6 caracteres
+    * @return int 4                     El correo no es valido
+    * @return int 5                     El correo ya esta registrado
+    * @return int 6                     Falta el nombre
+    * @return int -1                    Si algo ha fallado
     */
     public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
         return -1;
     }
     /**
     * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
-    * @param String $oldPassword    La contraseña antigua
-    * @param String $newPassword    La nueva contraseña
-    * @param User $user             Usuario
+    * @param String $oldPassword        La contraseña antigua
+    * @param String $newPassword        La nueva contraseña
+    * @param User $user                 Usuario
 
-    * @return int 0                 Todo ha ido bien
-    * @return int 1                 La contraseña antigua no es correcta
-    * @return int -1                Algo ha fallado
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     La contraseña antigua no es correcta
+    * @return int 2                     La contraseña no tiene al menos 6 caracteres
+    * @return int -1                    Algo ha fallado
     */
     public function changePasswordClient($oldPassword, $newPassword, $user){
         return -1;
@@ -134,11 +158,12 @@ class UserController {
 
     /**
     * Cambia la contraseña de un usuario.
-    * @param String $newPassword La nueva contraseña
-    * @param User $user             Usuario
+    * @param String $newPassword        Nueva contraseña
+    * @param User $user                 Usuario
     *
-    * @return int 0                 Todo ha ido bien
-    * @return int -1                Algo ha fallado
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     La contraseña no tiene al menos 6 caracteres
+    * @return int -1                    Algo ha fallado
     */
     public function changePasswordAdmin($newPassword, $user){
         return -1;
@@ -155,6 +180,26 @@ class UserController {
      */  
     public function changeEmail($userID, $email){
         return -1;
+    }
+    /**
+    * Consulta en la base de datos si el nombre del usuario y el Hash de la contraseña coincide en la base de datos y añade la ID de usuario a la sesion
+    * @param String $username           Nombre de usuario
+    * @param String $password           Contraseña en texto plano
+    * 
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     Usuario no esta en la base de datos
+    * @return int 2                     Contraseña no es correcta
+    * @return int -1                    Algo ha fallado
+    */
+    public function login($username, $password){
+        $_SESSION["userID"] = 1;
+        return 0;
+    }
+    /**
+    * Borra la sesión
+    */
+    public function logout(){
+        session_destroy();
     }
 }
 //Ajax Get Username

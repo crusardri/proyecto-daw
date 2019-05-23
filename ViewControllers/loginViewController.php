@@ -7,10 +7,8 @@
 session_start();
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
-require_once("Controllers/LoginController.php");
 require_once("Controllers/UserController.php");
 
-$loginController = new LoginController();//Controlador Login
 $userController = new UserController();//Controlador Usuario
 
 /*
@@ -39,7 +37,7 @@ if(isset($_POST["login"])){
     $username = $_POST["username"];
     $password = $_POST["password"];
     
-    switch ($loginController->login($username, $password)){
+    switch ($userController->login($username, $password)){
         case 0:
             $user = $userController->getUser($_SESSION["userID"]);
             $role = $user->getRole();

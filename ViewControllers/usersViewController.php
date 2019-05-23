@@ -5,14 +5,12 @@
 *
 */
 session_start();
-require_once("Controllers/LoginController.php");
 require_once("Controllers/UserController.php");
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
 require_once("ViewControllers/vistaController.php");
 
 $userController = new UserController(); //Controlador de usuarios
-$loginControler = new LoginController(); //Controlador de sesion
 
 $sessionUser; //Usuario dueño de la sesion
 $sessionUserRole; //Rol del usuario dueño de la sesion

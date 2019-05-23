@@ -7,14 +7,12 @@
 session_start();
 //require("Funciones/vistaController.php");
 require_once("Classes/User.php");
-require_once("Controllers/LoginController.php");
 require_once("Controllers/UserController.php");
 
 /*
 * Se comprueba si ya se ha iniciado sesión
 */
 $userController = new UserController(); //Controlador de usuario
-$loginController = new LoginController(); //Controlador de Login
 if(isset($_SESSION["userID"])){
     $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
     $role = $user->getRole(); //Obtener rol
@@ -34,7 +32,7 @@ if(isset($_POST["username"])){
     $name = $_POST["name"];
     $surname = $_POST["surname"];
     $phone = $_POST["phone"];
-    switch ($loginController->registerUser($username, $password, $email, $name, $surname, $phone)){
+    switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone)){
         case 0:
             header("location: login.php?success");
             break;
