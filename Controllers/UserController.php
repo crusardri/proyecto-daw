@@ -116,7 +116,7 @@ class UserController {
     * @return int -1                    Algo ha fallado
     */
     public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
-        return -1;
+        return 0;
     }  
     /**
     * Registra un usuario en la base de datos desde el panel de control
@@ -145,15 +145,17 @@ class UserController {
     * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
     * @param String $oldPassword        La contraseña antigua
     * @param String $newPassword        La nueva contraseña
+    * @param String $repeatPassword     La nueva contraseña
     * @param User $user                 Usuario
-
+    *
     * @return int 0                     Todo ha ido bien
     * @return int 1                     La contraseña antigua no es correcta
     * @return int 2                     La contraseña no tiene al menos 6 caracteres
+    * @return int 3                     La contraseña no coincide
     * @return int -1                    Algo ha fallado
     */
-    public function changePasswordClient($oldPassword, $newPassword, $user){
-        return -1;
+    public function changePasswordClient($oldPassword, $newPassword, $repeatPassword, $user){
+        return 0;
     }
 
     /**
@@ -167,6 +169,19 @@ class UserController {
     */
     public function changePasswordAdmin($newPassword, $user){
         return -1;
+    }
+    /**
+    * Cambia la información personal de un usuario
+    * @param String $name               Nombre del usuario
+    * @param String $surname            Apellidos del usuario
+    * @param String $phone              Telefono del usuario
+    *
+    * @return int 0                     Todo ha ido bien
+    * @return int 1                     Si el nombre esta vacio
+    * @return int -1                    Algo ha fallado
+    */
+    public function changePersonalInfo($name, $surname, $phone){
+        return 0;
     }
     /**
      * Cambia el correo electronico de un usuario desde el panel de control

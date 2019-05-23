@@ -34,7 +34,8 @@ if(isset($_POST["username"])){
     $phone = $_POST["phone"];
     switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone)){
         case 0:
-            header("location: login.php?success");
+            $_SESSION["registerSuccess"] = true;
+            header("location: login.php");
             break;
         case 1:
             $errorMSG = "El nombre de usuario debe tener al menos 4 carácteres.";

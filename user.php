@@ -21,6 +21,8 @@
             <?php
             if(isset($errorMSG)){
                 ?><div class="msg error"><?=$errorMSG?></div><?php
+            }elseif(isset($successMSG)){
+                ?><div class="msg success"><?=$successMSG?></div><?php
             }
             ?>
             <div>
@@ -50,6 +52,8 @@
                 <?php
                 if(isset($errorMSG)){
                     ?><div class="msg error"><?=$errorMSG?></div><?php
+                }elseif(isset($successMSG)){
+                    ?><div class="msg success"><?=$successMSG?></div><?php
                 }
                 ?>
             </div>   

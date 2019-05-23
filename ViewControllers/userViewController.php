@@ -27,8 +27,8 @@ $admin = false; //Es admin
 $edit = false; //Modo Editar
 $register = false; //Modo nuevo registro
 
-echo "<pre>";
-var_dump($_POST);
+//echo "<pre>";
+//var_dump($_POST);
 /**
 * Comprueba que este la sesion iniciada y obtiene el usuario y el rol, si no lo esta te devuelve a login.php
 */
@@ -47,13 +47,13 @@ if(isset($_SESSION["userID"])){
 */
 if($sessionUserRole->getID() == 0){//Si es un cliente
     $client = true;
-    echo "Soy un Cliente\n";
+    //echo "Soy un Cliente\n";
 }elseif($sessionUserRole->getID() == 1){ //Si es un empleado
     $employee = true;
-    echo "Soy un Empleado\n";
+    //echo "Soy un Empleado\n";
 }elseif($sessionUserRole->getID() == 2){ //Si es administrador
     $admin = true;
-    echo "Soy un Administrador\n";
+    //echo "Soy un Administrador\n";
 }
 
 /**
@@ -61,15 +61,15 @@ if($sessionUserRole->getID() == 0){//Si es un cliente
 */
 //Setear Modo
 if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarado y no es vacio, editara un usuario
-    echo "Estoy Editando un usuario\n";
+    //echo "Estoy Editando un usuario\n";
     $edit = true;
     $title = "Editar usuario: ";
 }elseif(isset($_GET["newUser"])){//Si el parametro newUser esta declarado, creara un usuario
     $register = true;
     $title = "Crear usuario";
-    echo "Estoy creando un usuario nuevo\n";
+    //echo "Estoy creando un usuario nuevo\n";
 }else { //Si no a empleado.php 
-    //header("Location: employee.php");
+    header("Location: employee.php");
 }
 
 
@@ -80,10 +80,10 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
     $user = $userController->getUser($_GET["id"]);
     $userRole = $user->getRole();
-    echo "Soy Admin/Empleado y puedo ver cualquier usuario";
+    //echo "Soy Admin/Empleado y puedo ver cualquier usuario";
 }elseif($edit && $client && $sessionUser->getID() == $_GET["id"]){ //Si esta editando, es cliente y esta consultando su misma ID
     $user = $userController->getUser($_GET["id"]);
-    echo "Soy cliente, estoy editando, y la ID que estoy consultando es la misma que la mia";
+    //echo "Soy cliente, estoy editando, y la ID que estoy consultando es la misma que la mia";
 }else {
     //header("location: employee.php");
 }
@@ -91,7 +91,7 @@ if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
 if($edit){
     $title = $title . $user->getUsername();
 }
-echo "</pre>";
+//echo "</pre>";
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
@@ -152,7 +152,7 @@ if(isset($_POST["changeEmail"])){
     //Si es un empleado, es su usuario o el usuario a editar es de un rol inferior
     //Si eres administrador
     if($clientAuthorize || $employeeAuthorize || $admin){
-        switch ($userController->changeEmail($email, $user)){
+        switch ($userController->changeEmail($_POST["email"], $user)){
             case 0:
                 $successMSG = "Correo electrónico cambiado con exito";
                 break;
@@ -182,12 +182,12 @@ if(isset($_POST["changePassword"])){
     if(isset($_POST["oldPassword"])){
         $oldPassword = $_POST["oldPassword"];       //Contraseña antigua
     }
-    if(isset($_POST["repeatPassword"])){
-        $repeatPassword = $_POST["repeatPassword"]; //Repetir Contraseña
+    if(isset($_POST["repPassword"])){
+        $repeatPassword = $_POST["repPassword"]; //Repetir Contraseña
     }
     //Si eres un cliente o es tu cuenta
-    if($clientAuthorize || $user->getID() == $sessionUser->getID()){
-        switch ($userController->changePasswordClient($oldPassword, $newPassword, $user)){
+    if($client || $user->getID() == $sessionUser->getID()){
+        switch ($userController->changePasswordClient($oldPassword, $password, $repeatPassword, $user)){
             case 0:
                 session_destroy();
                 session_start();
@@ -209,7 +209,7 @@ if(isset($_POST["changePassword"])){
         }
     //Si es un empleado autorizado, o Administrador
     }elseif($employeeAuthorize || $admin){
-        switch ($userController->changePasswordAdmin($newPassword, $user)){
+        switch ($userController->changePasswordAdmin($password, $user)){
             case 0:
                 session_destroy();
                 session_start();
@@ -222,6 +222,28 @@ if(isset($_POST["changePassword"])){
             case -1: 
                 $errorMSG = "Algo  ha fallado al cambiar la contraseña.";
                 break;
+        }
+    }else {
+        $errorMSG = "No estas autorizado para cambiar la contraseña.";
+    }
+}
+
+/**
+ * Cambiar informacion personal
+ */
+if(isset($_POST["changePersonalInfo"])){
+    switch($userController->changePersonalInfo($_POST["name"], $_POST["surname"], $_POST["phone"])){
+        case 0: {
+            $successMSG = "Informacion personal actualizada.";
+            break;
+        }
+        case 1: {
+            $errorMSG = "\"Nombre\" es un campo obligatorio.";
+            break;
+        }
+        case -1: {
+            $errorMSG = "Algo ha fallado al intentar actualizar la informacion de usuario.";
+            break;
         }
     }
 }
@@ -343,7 +365,7 @@ function showPasswordForm(){
     
     if($edit){
     ?>
-        <form id="change-password-container" method="user.php?id=<?=$user->getID()?>">
+        <form id="change-password-container" method="post" action="user.php?id=<?=$user->getID()?>">
             <div class="field-set" id="change-password">
             <input type="hidden" name="id" value="<?=$user->getID()?>">
             <input type="hidden" name="changePassword">
@@ -392,18 +414,13 @@ function showPasswordForm(){
 * Muestra formulario datos personales
 */
 function showPersonalInfoForm(){
-    global $edit;
-    global $register;
-    global $register;
-    global $client;
-    global $employee;
-    global $admin;
-    global $user;
-   
+    global $edit, $register, $register, $client, $employee, $admin, $user, $sessionUser;
     
-    if($edit){
+    //Si editas, y eres admin, empleado o Cliente y tu ID es igual a la del usuario a consultar
+    if($edit && ($admin || $employee ||($client || $user->getID() == $sessionUser->getID()))){
     ?>
-    <form id="personal-info-container">
+    <form id="personal-info-container" action="user.php?id=<?=$user->getID()?>" method="post">
+        <input type="hidden" name="changePersonalInfo">
         <div class="field-set" id="personal-info-infoset">
             <h3>Datos personales</h3>
             <label class="boxed-input" id="username">
@@ -430,7 +447,8 @@ function showPersonalInfoForm(){
         </div>
     </form>
     <?php
-    }elseif($register){
+    //Si estas registrando y eres admin o empleado
+    }elseif($register && ($admin || $employee)){
         global $name, $surname, $phone;
     ?>
     <div class="field-set" id="personal-info">

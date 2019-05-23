@@ -24,10 +24,19 @@ if(isset($_SESSION["userID"])){
     }
 }
 /*
-* Comprobar que viene del login
+* Comprobar que viene de register
 */
-if(isset($_GET["success"])){
+if(isset($_SESSION["registerSuccess"]) && $_SESSION["registerSuccess"]){
+    unset($_SESSION["registerSuccess"]);
     $infoMSG = "Se ha registrado con éxito, ahora puede iniciar sesión.";
+    $msgCssClass = "success";
+}
+/**
+ * Comprobar que ha cambiado la contraseña desde el panel de control
+ */
+if(isset($_SESSION["changePasswordSuccess"]) && $_SESSION["changePasswordSuccess"]){
+    unset($_SESSION["changePasswordSuccess"]);
+    $infoMSG = "Ha cambiado su contraseña con exito.";
     $msgCssClass = "success";
 }
 /*
