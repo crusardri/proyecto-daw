@@ -87,7 +87,6 @@ if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
 }else {
     //header("location: employee.php");
 }
-    
 
 if($edit){
     $title = $title . $user->getUsername();
@@ -176,11 +175,19 @@ if(isset($_POST["changeEmail"])){
  * Cambiar contraseña
  */
 if(isset($_POST["changePassword"])){
-    $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
     $sameUser = $sessionUser->getID() == $user->getID();
     $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
-    if($clientAuthorize){
-        switch ($userController->changePasswordClient($user->getID(), $oldPassword, $newPassword)){
+    
+    $password = $_POST["password"];                 //Contraseña nueva
+    if(isset($_POST["oldPassword"])){
+        $oldPassword = $_POST["oldPassword"];       //Contraseña antigua
+    }
+    if(isset($_POST["repeatPassword"])){
+        $repeatPassword = $_POST["repeatPassword"]; //Repetir Contraseña
+    }
+    //Si eres un cliente o es tu cuenta
+    if($clientAuthorize || $user->getID() == $sessionUser->getID()){
+        switch ($userController->changePasswordClient($oldPassword, $newPassword, $user)){
             case 0:
                 session_destroy();
                 session_start();
@@ -191,8 +198,30 @@ if(isset($_POST["changePassword"])){
                 $errorMSG = "La contraseña anterior no es correcta.";
                 break;
             case 2:
-                $errorMSG = "La contraseña debe tener al menos 6 carácteres";
-
+                $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
+                break;
+            case 3:
+                $errorMSG = "Las contraseñas no coinciden.";
+                break;
+            case -1: 
+                $errorMSG = "Algo  ha fallado al cambiar la contraseña.";
+                break;
+        }
+    //Si es un empleado autorizado, o Administrador
+    }elseif($employeeAuthorize || $admin){
+        switch ($userController->changePasswordAdmin($newPassword, $user)){
+            case 0:
+                session_destroy();
+                session_start();
+                $_SESSION["changePasswordSuccess"] = true;
+                header("location: login.php");
+                break;
+            case 1:
+                $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
+                break;
+            case -1: 
+                $errorMSG = "Algo  ha fallado al cambiar la contraseña.";
+                break;
         }
     }
 }
@@ -310,7 +339,7 @@ function showAccountDataForm(){
 * Muestra formulario sobre la contraseña
 */
 function showPasswordForm(){
-    global $edit, $register, $register, $client, $employee, $admin, $user;
+    global $edit, $register, $register, $client, $employee, $admin, $user, $sessionUser;
     
     if($edit){
     ?>
@@ -320,7 +349,7 @@ function showPasswordForm(){
             <input type="hidden" name="changePassword">
             <h3>Cambiar contraseña</h3>
                 <?php 
-                if($client){ //Si es un cliente, require el campo "Contraseña antigua"
+                if($client || $user->getID() == $sessionUser->getID()){ //Si es un cliente o es tu cuenta, require el campo "Contraseña antigua"
                     ?>
                 <label class="boxed-input mandatory" id="old-password">
                     <div class="text-label"><span>Contraseña actual</span></div>
@@ -339,7 +368,7 @@ function showPasswordForm(){
                     </div>
                 </label>
                 <?php 
-                if($client){ //Si es un cliente, require el campo "Repetir contraseña;
+                if($client || $user->getID() == $sessionUser->getID()){ //Si es un cliente o es tu cuenta, require el campo "Repetir contraseña" ;
                     ?>
                 <label class="boxed-input mandatory" id="repeatPassword">
                     <div class="text-label"><span>Repetir Contraseña</span></div>
@@ -432,13 +461,13 @@ function showPersonalInfoForm(){
 * Muestra los roles de usuario
 */
 function showRoleForm(){
-    global $edit, $register, $register, $client, $employee, $admin, $user, $roles, $userRole;
+    global $edit, $register, $register, $client, $employee, $admin, $user, $roles, $userRole, $sessionUser;
     if($userRole){
         $userRole = $user->getRole();
     }
     
     
-    if($edit && ($admin || $employee)){
+    if($edit && ($admin || $employee) && $user->getID() != $sessionUser->getID()){
     ?>
     <form id="role-form" action="user.php?id=<?=$user->getID()?>" method="post">
         <h2>Rol</h2>
@@ -472,7 +501,7 @@ function showRoleForm(){
             ?>
         </div>
         <?php 
-        if($admin){
+        if($admin && $user->getID() != $sessionUser->getID()){
             ?>
         <div class="form-buttons">
             <input type="submit" value="Cambiar Rol" class="input-submit-button">
@@ -535,9 +564,9 @@ function showRoleForm(){
 * Muestra el formulario de estado de usuario
 */
 function showUserStateForm(){
-    global $edit, $register, $register, $client, $employee, $admin, $user, $sessionUserRole, $userRole;
-    //Es editar, eres empleado o admin, y el rango de usuario de la sesion sea igual o superior al rango del usuario a editar
-    if($edit && ($employee || $admin) && ($sessionUserRole->getID() >= $userRole->getID()) ){
+    global $edit, $register, $register, $client, $employee, $admin, $sessionUser, $user, $sessionUserRole, $userRole;
+    //Es editar, eres empleado o admin, el rango de usuario de la sesion sea igual o superior al rango del usuario a editar y no es tu cuenta
+    if($edit && ($employee || $admin) && ($sessionUserRole->getID() >= $userRole->getID() && $user->getID() != $sessionUser->getID()) ){
     ?>
     <form id="active-form">
         <h2>Estado</h2>
@@ -561,7 +590,7 @@ function showUserStateForm(){
         </div>
     </form>
     <?php
-    }elseif($register &&($employee || $admin)){
+    }elseif($register && ($employee || $admin)){
         global $active;
         if(!isset($active) || !empty($active)){
             $active = 1;
