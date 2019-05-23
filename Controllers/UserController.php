@@ -97,25 +97,50 @@ class UserController {
     }
     /**
     * Registra un usuario en la base de datos desde el panel de control
-    * @param String $username Nombre de usuario
-    * @param String $password Contraseña del usuario (Se debe crear el Hash de la contraseña)
-    * @param String $email El email del usuario
-    * @param String $name El nombre del usuario
-    * @param String $surname El apellido del usuario
-    * @param String $phone El telefono del usuario
-    * @param int $role El ID del Rol del usuario
-    * @param int $active Si el usuario esta activado
+    * @param String $username   Nombre de usuario
+    * @param String $password   Contraseña del usuario (Se debe crear el Hash de la contraseña)
+    * @param String $email      El email del usuario
+    * @param String $name       El nombre del usuario
+    * @param String $surname    El apellido del usuario
+    * @param String $phone      El telefono del usuario
+    * @param int $role          El ID del Rol del usuario
+    * @param int $active        Si el usuario esta activado
     *
-    * @return int 0 Si todo ha ido bien
-    * @return int 1 Si el nombre de usuario tiene menos de 4 caracteres
-    * @return int 2 si el nombre de usuario ya esta registrado
-    * @return int 3 si la contraseña tiene menos de 6 caracteres
-    * @return int 4 si el correo no es valido
-    * @return int 5 si el correo ya esta registrado
-    * @return int 6 si falta el nombre
-    * @return int -1 si algo ha fallado
+    * @return int 0             Todo ha ido bien
+    * @return int 1             El nombre de usuario tiene menos de 4 caracteres
+    * @return int 2             El nombre de usuario ya esta registrado
+    * @return int 3             La contraseña tiene menos de 6 caracteres
+    * @return int 4             El correo no es valido
+    * @return int 5             El correo ya esta registrado
+    * @return int 6             Falta el nombre
+    * @return int -1            Si algo ha fallado
     */
     public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
+        return -1;
+    }
+    /**
+    * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
+    * @param String $oldPassword    La contraseña antigua
+    * @param String $newPassword    La nueva contraseña
+    * @param User $user             Usuario
+
+    * @return int 0                 Todo ha ido bien
+    * @return int 1                 La contraseña antigua no es correcta
+    * @return int -1                Algo ha fallado
+    */
+    public function changePasswordClient($oldPassword, $newPassword, $user){
+        return -1;
+    }
+
+    /**
+    * Cambia la contraseña de un usuario.
+    * @param String $newPassword La nueva contraseña
+    * @param User $user             Usuario
+    *
+    * @return int 0                 Todo ha ido bien
+    * @return int -1                Algo ha fallado
+    */
+    public function changePasswordAdmin($newPassword, $user){
         return -1;
     }
     /**

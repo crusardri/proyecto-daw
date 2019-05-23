@@ -119,7 +119,7 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
     $phone =        isset($_POST["phone"]) ?        $_POST["phone"] : "";
     $role =         isset($_POST["role"]) ?         $_POST["role"] : 0;
     $active =       isset($_POST["active"]) ?       $_POST["active"] : 0;
-    switch ($userController->registerUserAdminPanel($username, $password, $email, $name, $surname, $phone, $role, $active)){
+    switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone, $role, $active)){
         case 0:
             header("location: login.php?success");
             break;
@@ -148,14 +148,14 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
 /**
  * Cambiar correo
  */
-if($isset($_POST["changeEmail"])){
+if(isset($_POST["changeEmail"])){
     $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
     $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
     //Si es un cliente, y es su mismo usuario
     //Si es un empleado, es su usuario o el usuario a editar es de un rol inferior
     //Si eres administrador
     if($clientAuthorize || $employeeAuthorize || $admin){
-        switch ($userController->changeEmail($user->getID(), $email)){
+        switch ($userController->changeEmail($email, $user)){
             case 0:
                 $successMSG = "Correo electrónico cambiado con exito";
                 break;
@@ -174,8 +174,25 @@ if($isset($_POST["changeEmail"])){
     }
 }
 
+/**
+ * Cambiar contraseña
+ */
+if(isset($_POST["changePassword"])){
+    $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
+    $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
+    if($clientAuthorize){
+        switch ($userController->changePasswordClient($user->getID(), $oldPassword, $newPassword)){
+            case(0):
+                session_destroy();
+                session_start();
+                $_SESSION["changePasswordSuccess"] = true;
+                header("location: login.php");
+                break;
+            case(1):
 
-
+        }
+    }
+}
 
 /**
 * Muestra el campo UserID si esta editando, y es Empleado o Administrador
