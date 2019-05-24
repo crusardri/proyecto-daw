@@ -18,6 +18,10 @@ $sessionUserRole; //Rol del usuario dueño de la sesion
 $client = false;
 $employee = false;
 $admin = false;
+
+//Filtros ventana
+$filters = ["ID", "Nombre de Usuario", "Rol", "Nombre", "Apellidos", "Correo", "Activo", "Fecha de registro", "Fecha actualización"];
+
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     $sessionUser = $userController->getUser($_SESSION["userID"]); //Obtener usuario
@@ -64,49 +68,11 @@ if(isset($_GET["clear"])){
 }
 //Obtencion de datos
 $roles = $userController->getRoles(); //Obtenemos todos los roles disponibles para los filtros
-$users = $userController->getUsers($userRoleFilter,$state,$orderBy,$orderDirection, $page); //Obtenemos los usuarios
-$totalUsers = $userController->getTotalUsers($userRoleFilter,$state,$orderBy,$orderDirection); //Obtenemos los usuarios totales
+$users = $userController->getUsers($search, $userRoleFilter,$state,$orderBy,$orderDirection, $page); //Obtenemos los usuarios
+$totalUsers = $userController->getTotalUsers($search, $userRoleFilter,$state); //Obtenemos los usuarios totales
 
-
-function showOrderByFilter(){
-    global $orderBy;
-    ?>
-    <label class="boxed-select" id="order-by-filter">
-        <div>Ordenar por</div>
-        <select data-class="order-by-filter" name="orderBy">
-            <option value="-1">Ninguno</option>
-            <option value="0" <?=$orderBy == 0 ? "selected" : ""?>>ID</option>
-            <option value="1" <?=$orderBy == 1 ? "selected" : ""?>>Nombre</option>
-            <option value="2" <?=$orderBy == 2 ? "selected" : ""?>>Numero Arreglos</option>
-            <option value="3" <?=$orderBy == 3 ? "selected" : ""?>>Activo</option>
-            <option value="4" <?=$orderBy == 4 ? "selected" : ""?>>Fecha creación</option>
-            <option value="5" <?=$orderBy == 5 ? "selected" : ""?>>Fecha actualización</option>
-        </select>
-    </label>
-    <?php
-}
-/**
-* Muestra el Select del filtro de estado
-*
-* @param integer $orderDirection            Tipo de filtro
-*/
-function showStateFilter(){
-    global $state;
-    ?>
-    <label class="boxed-select" id="active-filter">
-        <div>Estado</div>
-        <select data-class="labeled" name="state">
-            <option value="-1">Todos</option>
-            <option value="0" data-class="enabled" <?=$state == 0 ? "selected" : "" ?>>Activado</option>
-            <option value="1" data-class="disabled" <?=$state == 1 ? "selected" : "" ?>>Desactivado</option>
-        </select>
-    </label>
-    <?php
-}
 /**
 * Muestra el Select del filtro order-direction
-*
-* @param integer $orderDirection            Tipo de filtro
 */
 function showRoleFilter(){
     global $roles; 
@@ -127,27 +93,9 @@ function showRoleFilter(){
     </label>
     <?php
 }
-/**
-* Muestra el Select del filtro order-direction
-*
-* @param integer $orderDirection            Tipo de filtro
-*/
-function showOrderDirectionFilter(){
-    global $orderDirection;
-    ?>
-    <label class="boxed-select" id="order-direction-filter">
-        <div>Orden</div>
-        <select data-class="order-direction-filter" name="orderDirection">
-            <option value="0" <?=$orderDirection == 0 ? "selected" : ""?>>Ascendente</option>
-            <option value="1" <?=$orderDirection == 1 ? "selected" : ""?>>Descendente</option>
-        </select>
-    </label>
-    <?php
-}
+
 /**
 * Muestra la tabla de usuarios
-*
-* @param $users Users[]             Array de usuarios
 */
 function showUsersTable(){
     global $users;

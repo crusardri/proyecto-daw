@@ -10,35 +10,35 @@ class Controller {
     }
     /**
     * Devuelve una unica orden
-    * @param int orderId ID de la orden
+    * @param int orderId                ID de la orden
     *
-    * @return Order si la ha encontrado
-    * @return null si no existe
+    * @return Order                     si la ha encontrado
+    * @return null                      si no existe
     */
-    public static function getOrder($orderID){
+    public function getOrder($orderID){
         return null;
     }
     /**
     * Devuelve un array de objetos de OrderItems
-    * @param int orderId ID de la orden
+    * @param int                        orderId ID de la orden
     *
-    * @return null si no existe
-    * @return Order[] Array de ordenes
+    * @return null                      si no existe
+    * @return Order[]                   Array de ordenes
     */
-    private static function getOrderItems($orderID){
+    private function getOrderItems($orderID){
         return null;       
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
-    * @param String $searchString   Cadena de texto a buscar
-    * @param int $showEstate        ID del estado de la orden que se mostrarán
-    * @param int $orderBy           Tipo de ordenacion por clolumna
-    * @param int $page              Especifica la pagina que se va a visualizar
-    * @param int $itemsPerPage      Especifica la cantidad de usuarios por pagina
+    * @param String $searchString       Cadena de texto a buscar
+    * @param int $showEstate            ID del estado de la orden que se mostrarán
+    * @param int $orderBy               Tipo de ordenacion por clolumna
+    * @param int $page                  Especifica la pagina que se va a visualizar
+    * @param int $itemsPerPage          Especifica la cantidad de usuarios por pagina
     *
     * @return Order[] Array de ordenes
     */
-    public static function getOrders($searchString, $showEstate, $orderBy, $orderDirection, $page = 1, $itemsPerPage = 10){
+    public function getOrders($searchString, $showEstate, $orderBy, $orderDirection, $page = 1, $itemsPerPage = 10){
         //Columna a filtrar
         switch ($orderBy) {
             case 0:
@@ -88,67 +88,77 @@ class Controller {
         return array();
     }
 
+    /**
+     * Consulta en la base de datos y devuelve una prenda
+     * @param int $clotheID                 ID de la prenda a consultar
+     * 
+     * @return Clothe                       Objeto de la clase Clothe
+     * @return null                         Si no ha encontrado la prenda
+     */
+    public function getClothe($clotheID){
+        $date = new DateTime();
+        $timestamp = $date->getTimestamp();
+        return new Clothe(1, "Vaquero", 10, Controller::getNumFixes, Controller::getFixes(1), $timestamp, $timestamp, true);
+    }
+    /**
+     * Consulta en la base de datos y trae información de las prendas segun filtros y página
+     * @param String $searchString          Cádena a buscar
+     * @param int $stateFilter              Filtro de estado
+     * @param int $orderByFilter            Filtro Ordenar por
+     * @param int $orderDirectionFilter     Filtro direccion de ordenación
+     * @param int $page                     Página a consultar
+     * @param int $itemsPerPage             Cantidad de prendas a mostrar por página
+     * 
+     * @return Clothe[]                     Array de Prendas
+     */
+    public function getClothes($searchString, $stateFilter, $orderByFilter, $orderDirectionFilter, $page, $itemsPerPage = 20){
+        $page = $page -1;
+        $timestamp = time();
+        $clothes = [
+            new Clothe(1, "Vaquero", $this->getNumFixes(1), $this->getFixes(1), $timestamp, $timestamp, true),
+            new Clothe(2, "Blusa", $this->getNumFixes(2), $this->getFixes(2), $timestamp, $timestamp, true),
+            new Clothe(3, "Camisa", $this->getNumFixes(3), $this->getFixes(3), $timestamp, $timestamp, false),
+            new Clothe(4, "Mercedes Benz", $this->getNumFixes(4), $this->getFixes(4), $timestamp, $timestamp, true)
+        ];
+        return $clothes;
+    }
+    /**
+     * Consulta en la base de datos y trae el número total de prendas segun filtros.
+     * @param String $searchString          Cádena a buscar
+     * @param int $stateFilter              Filtro de estado
+     * @param int $orderByFilter            Filtro Ordenar por
+     * @param int $orderDirectionFilter     Filtro direccion de ordenación
+     * 
+     * @return int                          Número de prendas segun filtros
+     */
+    public static function getTotalClothes($searchString = "", $stateFilter = -1){
+        $page = $page -1;
+    }
+    /**
+     * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
+     * @param int $clotheId             ID de la prenda a consultar
+     * 
+     * @return Fix[]                    Array de prendas
+     */
+    private function getFixes($clotheID){
+        $date = new DateTime();
+        $timestamp = time();
+        $fixes = [
+            new Fix(1, 1, "Bajo", 10.5, $timestamp, $timestamp, true),
+            new Fix(2, 1, "Ensanchar", 12.5, $timestamp, $timestamp, true),
+            new Fix(3, 1, "Bragueta", 8.5, $timestamp, $timestamp, true),
+            new Fix(4, 1, "Bolsillo", 10.5, $timestamp, $timestamp, true)
+        ];
 
-    /**
-    * Devuelve una prenda
-    * @param int $prendaId ID de la prenda
-    *
-    * @return Prenda 
-    */
-    public static function getPrenda($prendaId){
-        return null;
+        return $fixes;
     }
     /**
-    * Devuelve todas las prendas limitadas por pagina
-    * @param int $page Especifica la pagina que se va a visualizar
-    * @param int $itemsPerPage Especifica la cantidad de usuarios por pagina
-    *
-    * @return Prenda[]  
-    */
-    public static function getPrendas($page = 1, $itemsPerPage = 10){
-        $page = $page -1;
-        return null;
-        //TO DO
-    }
-    /**
-    * Devuelve un arreglo por ID
-    * 
-    * @return Arreglo
-    */
-    public static function getArreglo($arregloId){
-        return null;
-    }
-    /**
-    * Devuelve todos los arreglos de una prenda por ID
-    * @param int $page Especifica la pagina que se va a visualizar
-    * @param int $itemsPerPage Especifica la cantidad de arreglos por pagina
-    * @param int $prendaId ID de una prenda
-    *
-    * @return Arreglos[]  
-    */
-    public static function getArreglosByPrendaId($page = 1, $itemsPerPage = 10, $prendaId){
-        $page = $page -1;
-        //TO DO
-        return 0;
-    }
-    /**
-    * Registra una nueva orden
-    * @param Order $order La orden 
-    *
-    * @return int 0 Si todo ha ido bien
-    * @return int -1 Si algo ha fallado
-    */
-    public static function createOrder($order){
-        return 0;
-    }
-    /**
-    * Edita una orden
-    * @param Order $order La orden 
-    *
-    * @return int 0 Si todo ha ido bien
-    * @return int -1 Si algo ha fallado
-    */
-    public static function editOrder($order){
-       return 0;
+     * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
+     * @param int $clotheId             ID de la prenda a consultar
+     * 
+     * @return int                      Número de prendas encontradas
+     */
+    private function getNumFixes($clotheId){
+        return 10;
     }
 }

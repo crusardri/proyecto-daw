@@ -1,5 +1,63 @@
 <?php
 
+/**
+ * Muestra el select Ordenar por
+ * 
+ * @param String[] $filters             Array de filtros
+ */
+function showOrderByFilter($filters){
+    global $orderBy;
+    ?>
+    <label class="boxed-select" id="order-by-filter">
+        <div>Ordenar por</div>
+        <select data-class="order-by-filter" name="orderBy">
+            <option value="-1">Ninguno</option>
+            <?php
+            for($i = 0; $i < sizeof($filters); $i++){
+                ?>
+            <option value="<?=$i?>" <?=$orderBy == $i ? "selected" : ""?>><?=$filters[$i]?></option>
+                <?php
+            }  
+            
+            ?>         
+        </select>
+    </label>
+    <?php
+}
+
+/**
+* Muestra el Select del filtro de estado
+*/
+function showStateFilter(){
+    global $state;
+    ?>
+    <label class="boxed-select" id="active-filter">
+        <div>Estado</div>
+        <select data-class="labeled" name="state">
+            <option value="-1">Todos</option>
+            <option value="0" data-class="enabled" <?=$state == 0 ? "selected" : "" ?>>Activado</option>
+            <option value="1" data-class="disabled" <?=$state == 1 ? "selected" : "" ?>>Desactivado</option>
+        </select>
+    </label>
+    <?php
+}
+
+/**
+* Muestra el Select del filtro order-direction
+*/
+function showOrderDirectionFilter(){
+    global $orderDirection;
+    ?>
+    <label class="boxed-select" id="order-direction-filter">
+        <div>Orden</div>
+        <select data-class="order-direction-filter" name="orderDirection">
+            <option value="0" <?=$orderDirection == 0 ? "selected" : ""?>>Ascendente</option>
+            <option value="1" <?=$orderDirection == 1 ? "selected" : ""?>>Descendente</option>
+        </select>
+    </label>
+    <?php
+}
+
 
 /**
 * Mostrar tabla de ordenes
@@ -139,76 +197,6 @@ function showFixesTable(){
                 <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
                 <td class="toogle"><a href="" class="label-box disabled">Desactivar</a></td>
             </tr>           
-        </table>
-    </div>
-    
-    <?php
-}
-
-
-function showClothesTable(){
-    ?>
-    <div class="table-container">
-        <table class="clothes-table">
-           <tr class="header-responsive-mobile">
-                <th>Prendas</th>
-            </tr>
-            <tr class="header-responsive-desktop">
-                <th>ID</th>
-                <th>Prenda</th>
-                <th>Nº Arreglos</th>
-                <th>Activo</th>
-                <th>Creado</th>
-                <th>Actualizado</th>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000001</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Vaqueros</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>2</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000002</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Jersei</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>1</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000003</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Camisa</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>8</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000004</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Mantel</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>5</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000005</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Pantalon Pana</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>7</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box enabled">Si</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>
-            <tr>
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="">000006</a></td>
-                <td class="clothe"><span class="responsive-label">Prenda</span>Falda</td>
-                <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span>1</td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box disabled">No</a></td>
-                <td class="date"><span class="responsive-label">Creado</span> 17/04/2019 13:00</td>
-                <td class="date"><span class="responsive-label">Actualizado</span> 17/04/2019 13:00</td>
-            </tr>        
         </table>
     </div>
     
