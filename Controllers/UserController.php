@@ -11,7 +11,7 @@ class UserController {
     * @return PDO                           Conexion a la base de datos completa.
     */
     private function connect(){
-        if($this->ajax()){
+        if($this->ajax){
             return new PDO("sqlite:../.data/data.db");
         }
         return new PDO("sqlite:.data/data.db");
