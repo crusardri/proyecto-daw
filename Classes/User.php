@@ -21,10 +21,10 @@ class User{
         $this->telephone = $telephone;
         $this->name = $name;
         $registeredDateOb = new DateTime();
-        $registeredDateOb->getTimestamp($registeredDate);
+        $registeredDateOb->setTimestamp($registeredDate);
         $this->registeredDate = $registeredDateOb;
         $updateDateOb = new DateTime();
-        $updateDateOb->getTimestamp($updateDate);
+        $updateDateOb->setTimestamp($updateDate);
         $this->updateDate = $updateDateOb;
         $this->active = $active;
     }
