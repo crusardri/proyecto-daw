@@ -84,11 +84,19 @@ class UserController {
     * @return boolean                   Devuelve true si esta disponible, false si esta registrado
     */
     public function checkEmail($email){
-        $result = rand(0,1);
-        if($result == 0) {
-            return false;
-        }
-        return true;
+        $db = $this->connect(); 
+        $sql = "SELECT COUNT(EMAIL) AS total FROM USERS WHERE EMAIL = :email";
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindParam(':email', $email);
+        if($stmt->execute()){
+            if($result = $stmt->fetch()){
+                if((int)$result["total"] == 0){
+                    return true;
+                } 
+            }
+        }  
+        return false; 
     }
     /**
     * Consulta en la base de datos y devuelve un array de usuarios
