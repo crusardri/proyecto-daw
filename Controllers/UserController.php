@@ -196,6 +196,38 @@ class UserController {
     * @return int -1                    Si algo ha fallado
     */
     public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
+        if (strlen($userName) < 4){
+            return 1;
+        } elseif($this->checkUsername($userName)){
+            return 2;
+        } elseif(strlen($password) < 6){
+            return 3;
+        }elseif(empty($email)){
+            return 4;
+        }elseif($this->checkEmail($email)){
+            return 5;
+        }elseif(empty($userName)){
+            return 6;
+        }else{
+            $db = $this->connect(); 
+            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
+            $stmt = $db->prepare($sql);
+            
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+        
+            $stmt->bindParam(":usuario", $userName);
+            $stmt->bindParam(":contrasena", $passwordHash);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":nombre", $name);
+            $stmt->bindParam(":surname", $surname);
+            $stmt->bindParam(":phone", $phone);
+            $stmt->bindParam(":rol", $role);
+            $stmt->bindParam(":registeredDate", time());
+            $stmt->bindParam(":updateDate", time());
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
