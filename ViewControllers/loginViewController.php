@@ -69,7 +69,7 @@ if(isset($_POST["login"])){
         case 4:
             $infoMSG = "El usuario no está habilitado.";
             break;
-        case -1:
+        default:
             $infoMSG = "Algo ha fallado al intentar iniciar sesión. Intentalo de nuevo.";
             break;
     }

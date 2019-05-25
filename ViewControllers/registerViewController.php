@@ -55,7 +55,7 @@ if(isset($_POST["username"])){
         case 6:
             $errorMSG = "No has rellenado el campo \"nombre\".";
             break;
-        case -1: 
+        default: 
             $errorMSG = "Algo ha fallado al intentar registrarte. Intentalo de nuevo.";
     }
 }
