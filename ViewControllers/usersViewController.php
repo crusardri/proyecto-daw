@@ -26,7 +26,6 @@ $filters = ["ID", "Nombre de Usuario", "Rol", "Nombre", "Apellidos", "Correo", "
 if(isset($_SESSION["userID"])){
     $sessionUser = $userController->getUser($_SESSION["userID"]); //Obtener usuario
     $sessionUserRole = $sessionUser->getRole(); //Obtener rol
-    
 } else {
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
     //echo "Not Login in";
@@ -45,10 +44,6 @@ if(!($employee || $admin)){
     header("location: client.php");
 }
 
-if($sessionUserRole->getID() == 0){ //Comprobar rol
-    header("location: client.php"); //Si cliente, a client.php
-    //echo "Role 0";
-}
 //Asignar valores filtros
 $page = 1;
 $search = "";
