@@ -69,11 +69,20 @@ class UserController {
     * @return boolean                   Devuelve true si esta disponible, false si esta registrado
     */
     public function checkUsername($username){
-        $result = rand(0,1);
-        if($result == 0) {
-            return false;
-        }
-        return true;
+        $db = $this->connect(); 
+        $sql = "SELECT COUNT(username) AS total FROM USERS WHERE USERNAME = :username";
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':username', $username);
+
+        if($stmt->execute()){
+            if($result = $stmt->fetch()){
+                if((int)$result['total'] == 0){
+                     return true;
+                } 
+            }
+        }  
+        return false;  
     }
     
     /**
