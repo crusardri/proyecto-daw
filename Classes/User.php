@@ -52,7 +52,7 @@ class User{
     /**
      * Obtiene una cadena de texto de la fecha de registro del usuario
      * 
-     * @return String               //Fecha de registro
+     * @return String                       Fecha de registro
      */
     function getRegisteredDateString(){
         $date = $this->registeredDate;
@@ -64,7 +64,7 @@ class User{
     /**
      * Obtiene una cadena de texto de la fecha de actualización del usuario
      * 
-     * @return String               //Fecha de actualización
+     * @return String                       Fecha de actualización
      */
     function getUpdateDateString(){    
         $date = $this->updateDate;
@@ -73,8 +73,8 @@ class User{
     /**
      * Especifica si el usuario esta habilitado o deshabilitado
      * 
-     * @return boolean true             //Si esta habilitado
-     * @return boolean false            //Si esta deshabilitado
+     * @return boolean true                 Si esta habilitado
+     * @return boolean false                Si esta deshabilitado
      */
     function isActive(){
         return $this->active;

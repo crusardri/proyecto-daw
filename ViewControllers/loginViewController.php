@@ -57,14 +57,17 @@ if(isset($_POST["login"])){
             }
             break;
         case 1:
-            $infoMSG = "Debes completar el campo \"Nombre de usuario\"";
+            $infoMSG = "Debes completar el campo \"Nombre de usuario\".";
             break;
         case 2:
-            $infoMSG = "Debes de completar el campo \"Contraseña\"";
+            $infoMSG = "Debes de completar el campo \"Contraseña\".";
             break;
         case 3:
+        case 5:
+            $infoMSG = "El nombre de usuario o la contraseña no es correcto.";
+            break;
         case 4:
-            $infoMSG = "El nombre de usuario o la contraseña no es correcto";
+            $infoMSG = "El usuario no está habilitado.";
             break;
         case -1:
             $infoMSG = "Algo ha fallado al intentar iniciar sesión. Intentalo de nuevo.";

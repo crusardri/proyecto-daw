@@ -267,7 +267,8 @@ class UserController {
     * @return int 1                     Falta por rellenar el campo Usuario
     * @return int 2                     Falta por rellenar el campo Contraseña
     * @return int 3                     El usuario no está en la base de datos
-    * @return int 4                     La contraseña no coincide con la base de datos
+    * @return int 4                     El usuario está deshabilitado
+    * @return int 5                     La contraseña no coincide con la base de datos
     * @return int -1                    Algo ha fallado
     */
     public function login($username, $password){
