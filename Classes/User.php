@@ -93,6 +93,6 @@ class User{
         return false;
     }
     function getSurname(){
-        return "APELLIDOS";
+        return $this->surname;
     }
 }
