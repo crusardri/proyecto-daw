@@ -12,7 +12,7 @@ class User{
     private $registeredDate;    //Fecha de registro del usuario
     private $updateDate;        //Fecha de actualizacion del usuario
     private $active;            //Si el usuario esta activo o deshabiltiado
-    function __construct($id = 0, $username, $password = null, $email, $role, $telephone, $name, $surname, $registeredDate, $updateDate, $active = true){
+    function __construct($id = 0, $username, $password = null, $email, $role, $telephone, $name, $surname, $registeredDate, $updateDate, $active = 0){
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
@@ -20,6 +20,7 @@ class User{
         $this->role = $role;
         $this->telephone = $telephone;
         $this->name = $name;
+        $this->surname = $surname;
         $registeredDateOb = new DateTime();
         $registeredDateOb->setTimestamp($registeredDate);
         $this->registeredDate = $registeredDateOb;
@@ -77,7 +78,10 @@ class User{
      * @return boolean false                Si esta deshabilitado
      */
     function isActive(){
-        return $this->active;
+        if($this->active == 1){
+            return true;
+        }
+        return false;
     }
     /**
      * Comprueba si una cadena de texto es igual a la contraseña del usuario
