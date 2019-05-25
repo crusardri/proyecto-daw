@@ -156,11 +156,6 @@ class UserController {
             $db = $this->connect(); 
             $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
             $stmt = $db->prepare($sql);
-
-
-            $formatedRegisterDateString = new User($id = 0, $userName, $password = null, $email, $role, $phone, $name, $surname, $registeredDate =null, $updateDate =null, $active = true);
-            $formatedregisteredDate = $formatedRegisterDateString -> getRegisteredDateString();
-            $formatedupdateDate = $formatedRegisterDateString -> getUpdateDateString();
             
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
         
@@ -171,14 +166,15 @@ class UserController {
             $stmt->bindParam(":surname", $surname);
             $stmt->bindParam(":phone", $phone);
             $stmt->bindParam(":rol", $role);
-            $stmt->bindParam(":registeredDate", $formatedregisteredDate);
-            $stmt->bindParam(":updateDate", $formatedupdateDate);
+            $stmt->bindParam(":registeredDate", time());
+            $stmt->bindParam(":updateDate", time());
             if($stmt->execute()){
                 return 0;
             }
         }
         return -1;
     } 
+    
     /**
     * Registra un usuario en la base de datos desde el panel de control
     * @param String $username           Nombre de usuario
