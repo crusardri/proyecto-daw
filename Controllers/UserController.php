@@ -140,7 +140,44 @@ class UserController {
     * @return int -1                    Algo ha fallado
     */
     public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
-        return 0;
+        if (strlen($userName) < 4){
+            return 1;
+        } elseif($this->checkUsername($userName)){
+            return 2;
+        } elseif(strlen($password) < 6){
+            return 3;
+        }elseif(empty($email)){
+            return 4;
+        }elseif($this->checkEmail($email)){
+            return 5;
+        }elseif(empty($userName)){
+            return 6;
+        }else{
+            $db = $this->connect(); 
+            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
+            $stmt = $db->prepare($sql);
+
+
+            $formatedRegisterDateString = new User($id = 0, $userName, $password = null, $email, $role, $phone, $name, $surname, $registeredDate =null, $updateDate =null, $active = true);
+            $formatedregisteredDate = $formatedRegisterDateString -> getRegisteredDateString();
+            $formatedupdateDate = $formatedRegisterDateString -> getUpdateDateString();
+            
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+        
+            $stmt->bindParam(":usuario", $userName);
+            $stmt->bindParam(":contrasena", $passwordHash);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":nombre", $name);
+            $stmt->bindParam(":surname", $surname);
+            $stmt->bindParam(":phone", $phone);
+            $stmt->bindParam(":rol", $role);
+            $stmt->bindParam(":registeredDate", $formatedregisteredDate);
+            $stmt->bindParam(":updateDate", $formatedupdateDate);
+            if($stmt->execute()){
+                return 0;
+            }
+        }
+        return -1;
     } 
     /**
     * Registra un usuario en la base de datos desde el panel de control
