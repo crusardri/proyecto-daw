@@ -300,8 +300,36 @@ class UserController {
     * @return int -1                    Algo ha fallado
     */
     public function login($username, $password){
-        $_SESSION["userID"] = 1;
-        return 0;
+        if (empty($username)){
+            return 1;
+        } elseif(empty($password)){
+            return 2;
+        } else {
+            $db = $this->connect(); 
+            $sql = "SELECT * FROM USERS AS U, USER_ROLES AS R WHERE lower(USERNAME) = lower(:username) AND U.ROLE_ID = R.ROLE_ID";
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindParam(':username', $username);
+
+            if($stmt->execute()){
+                if($row = $stmt->fetch()){
+                    $user = new User($row["USER_ID"], $row["USERNAME"],$row["HASHED_PASSWORD"], $row["EMAIL"], new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]), $row["PHONE"], $row["NAME"], $row["SURNAME"], $row["REGISTER_TIMESTAMP"], $row["UPDATE_TIMESTAMP"], $row["ACTIVE"]);
+                    if(!$user->isActive()){
+                        return 4;
+                    } 
+                    if(!$user->checkPassword($password)){
+                        return 5;
+                    }
+                    
+                    $_SESSION["userID"] = $row[0];
+                    return 0;
+                } else {
+                    return 3;
+                }     
+            } else {
+                return -1;
+            }
+        } 
     }
     /**
     * Borra la sesión
