@@ -149,7 +149,13 @@ function showClotheFixes(){
             <div class="elem creation-date"><?=$fix->getCreationDateString()?></div>
             <div class="elem update-date"><?=$fix->getUpdateDateString()?></div>
             <div class="elem buttons">
-                <button class="table-button disable" name="disable"><div class="hint-box">Desactivar arreglo</div></button>
+            <?php
+                if($fix->isActive()){
+                    ?><button class="table-button disable" name="disable"><div class="hint-box">Desactivar arreglo</div></button><?php
+                }else {
+                    ?><button class="table-button enable" name="disable"><div class="hint-box">Activar arreglo</div></button><?php
+                }
+            ?>
                 <button class="table-button edit" name="edit"><div class="hint-box">Editar arreglo</div></button>
             </div>
         </form>
