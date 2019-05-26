@@ -148,13 +148,13 @@ class UserController {
     public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
         if (strlen($userName) < 4){
             return 1;
-        } elseif($this->checkUsername($userName)){
+        } elseif(!$this->checkUsername($userName)){
             return 2;
         } elseif(strlen($password) < 6){
             return 3;
         }elseif(empty($email)){
             return 4;
-        }elseif($this->checkEmail($email)){
+        }elseif(!$this->checkEmail($email)){
             return 5;
         }elseif(empty($userName)){
             return 6;
