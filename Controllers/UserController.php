@@ -21,11 +21,17 @@ class UserController {
     * @return User                          Usuario completo
     */
     public function getUser($id){
-        //TO DO
-        $roles = $this->getRoles();
-        $genericTimestamp = time();
-        return new User(1, "Iván", "password", "iván@don-dedal.com", $roles[2], "918273849", "Iván", "Maldonado Fernández", $genericTimestamp, $genericTimestamp, true);
-        //return null;
+        $db = $this->connect(); 
+        $sql = "SELECT * FROM USERS AS U, USER_ROLES AS R WHERE USER_ID = :userID AND U.ROLE_ID = R.ROLE_ID";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':userID', $id);
+
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+               return new User($row["USER_ID"], $row["USERNAME"], $row["HASHED_PASSWORD"], $row["EMAIL"], new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]), $row["PHONE"], $row["NAME"], $row["SURNAME"], $row["REGISTER_TIMESTAMP"], $row["UPDATE_TIMESTAMP"], $row["ACTIVE"]);
+            }
+        } 
+        return null;
     }
     /**
     * Consulta en la base de datos y devuelve todos los usuarios comprendidos en un rango.
