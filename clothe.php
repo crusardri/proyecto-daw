@@ -1,4 +1,4 @@
-<?php include("./Funciones/vistaController.php")?>
+<?php include("ViewControllers/clotheViewController.php")?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,41 +13,8 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="form-container clothe">  
-        <!-- Datos Cuenta -->
-        <form id="clothe-info-container">
-            <h1>Prenda</h1>
-            <div class="field-set" id="clothe-infoset">
-            <h3>Datos Prenda</h3>
-               <label class="boxed-input" id="clothe-id">
-                    <div class="text-label"><span>ID</span></div>
-                    <div class="input-container">
-                        <input type="text" value="000001" disabled>
-                    </div>
-                </label>
-                <label class="boxed-input" id="clothe-name">
-                    <div class="text-label"><span>Nombre Prenda</span></div>
-                    <div class="input-container">
-                        <input type="text" value="Vaqueros">
-                    </div>
-                </label>
-                <label class="boxed-input" id="create-date">
-                    <div class="text-label"><span>Fecha de creacion</span></div>
-                    <div class="input-container">
-                        <input type="text" value="13/05/2019 13:03:24" disabled>
-                    </div>
-                </label>
-                <label class="boxed-input" id="update-date">
-                    <div class="text-label"><span>Fecha de actualizacion</span></div>
-                    <div class="input-container">
-                        <input type="text" value="13/05/2019 13:03:24" disabled>
-                    </div>
-                </label>
-                <div class="form-buttons">
-                    <input type="submit" value="Cambiar Nombre" class="input-submit-button">
-                </div>
-            </div>
-            
-        </form>
+        <!-- Datos Prenda -->
+        <?=showClotheInfoForm()?>
         <!-- Estados -->
         <form id="active-container">
             <h2>Estado</h2>
@@ -79,7 +46,7 @@
             <div class="form-buttons">
                 <input type="submit" value="Añadir Arreglo" class="input-submit-button">
             </div>
-            <?php showFixesTable(); ?>
+            <?php showClotheFixes(); ?>
         </div>
     </div>
 </body>

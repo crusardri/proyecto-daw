@@ -12,8 +12,15 @@
     <script src="js/main.js"></script>
 </head>
 <body>
-    <?php include("./includes/navbar.inc") ?>
+    <?php include("./includes/navbar.inc");?>
     <div class="users-container">
+    <?php
+    if(isset($errorMSG)){
+        ?><div class="msg error"><?=$errorMSG?></div><?php
+    }elseif(isset($successMSG)){
+        ?><div class="msg success"><?=$successMSG?></div><?php
+    }
+    ?>
         <a class="haptic-button medium new-user" href="user.php?newUser=" >
             <img src="media/img/add-user.png">
             <div class="label">Nuevo Usuario</div>

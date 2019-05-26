@@ -96,9 +96,8 @@ class Controller {
      * @return null                         Si no ha encontrado la prenda
      */
     public function getClothe($clotheID){
-        $date = new DateTime();
-        $timestamp = $date->getTimestamp();
-        return new Clothe(1, "Vaquero", 10, Controller::getNumFixes, Controller::getFixes(1), $timestamp, $timestamp, true);
+        $timestamp = time();
+        return new Clothe(1, "Vaquero", Controller::getNumFixes(1), Controller::getFixes(1), $timestamp, $timestamp, true);
     }
     /**
      * Consulta en la base de datos y trae información de las prendas segun filtros y página
@@ -132,7 +131,7 @@ class Controller {
      * @return int                          Número de prendas segun filtros
      */
     public static function getTotalClothes($searchString = "", $stateFilter = -1){
-        $page = $page -1;
+        return 1000;
     }
     /**
      * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
@@ -141,15 +140,13 @@ class Controller {
      * @return Fix[]                    Array de prendas
      */
     private function getFixes($clotheID){
-        $date = new DateTime();
         $timestamp = time();
         $fixes = [
             new Fix(1, 1, "Bajo", 10.5, $timestamp, $timestamp, true),
             new Fix(2, 1, "Ensanchar", 12.5, $timestamp, $timestamp, true),
-            new Fix(3, 1, "Bragueta", 8.5, $timestamp, $timestamp, true),
+            new Fix(3, 1, "Bragueta", 8.5, $timestamp, $timestamp, false),
             new Fix(4, 1, "Bolsillo", 10.5, $timestamp, $timestamp, true)
         ];
-
         return $fixes;
     }
     /**
@@ -159,6 +156,6 @@ class Controller {
      * @return int                      Número de prendas encontradas
      */
     private function getNumFixes($clotheId){
-        return 10;
+        return 4;
     }
 }

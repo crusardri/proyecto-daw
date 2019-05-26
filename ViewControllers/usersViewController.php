@@ -24,11 +24,15 @@ $filters = ["ID", "Nombre de Usuario", "Rol", "Nombre", "Apellidos", "Correo", "
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
-    $sessionUser = $userController->getUser($_SESSION["userID"]); //Obtener usuario
-    $sessionUserRole = $sessionUser->getRole(); //Obtener rol
-} else {
-    header("location: login.php"); //Si no tiene sesion iniciada, va al login.
-    //echo "Not Login in";
+    //Obtener USuario
+    $sessionUser = $userController->getUser($_SESSION["userID"]);
+    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+        session_destroy();
+        header("location: login.php");
+    }
+    $sessionUserRole = $sessionUser->getRole();
+}else {
+    header("location: login.php");
 }
 //Obtencion tipo usuario
 if($sessionUserRole->getID() == 0){
@@ -65,6 +69,17 @@ if(isset($_GET["clear"])){
 $roles = $userController->getRoles(); //Obtenemos todos los roles disponibles para los filtros
 $users = $userController->getUsers($search, $userRoleFilter,$state,$orderBy,$orderDirection, $page); //Obtenemos los usuarios
 $totalUsers = $userController->getTotalUsers($search, $userRoleFilter,$state); //Obtenemos los usuarios totales
+
+//Gestion de errores de User
+if(isset($_SESSION["unknownUser"])){
+    unset($_SESSION["unknownUser"]);
+    $errorMSG = "No se encuentra ese usuario.";
+}elseif(isset($_SESSION["registerSuccess"])){
+    unset($_SESSION["registerSuccess"]);
+    $successMSG = "Usuario registrado con éxito.";
+}
+
+
 
 /**
 * Muestra el Select del filtro order-direction

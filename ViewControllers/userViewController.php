@@ -35,6 +35,10 @@ $register = false; //Modo nuevo registro
 if(isset($_SESSION["userID"])){
     //Obtener USuario
     $sessionUser = $userController->getUser($_SESSION["userID"]);
+    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+        session_destroy();
+        header("location: login.php");
+    }
     $sessionUserRole = $sessionUser->getRole();
 }else {
     header("location: login.php");
@@ -79,6 +83,10 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 */
 if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
     $user = $userController->getUser($_GET["id"]);
+    if(is_null($user)){//Si el usuario no existe
+        $_SESSION["unknownUser"] = true;
+        header("location: users.php");
+    }
     $userRole = $user->getRole();
     //echo "Soy Admin/Empleado y puedo ver cualquier usuario";
 }elseif($edit && $client && $sessionUser->getID() == $_GET["id"]){ //Si esta editando, es cliente y esta consultando su misma ID
@@ -118,6 +126,7 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
     $active =       isset($_POST["active"]) ?       $_POST["active"] : 0;
     switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone, $role, $active)){
         case 0:
+            $_SESSION["registerSuccess"] = true;
             header("location: login.php?success");
             break;
         case 1:

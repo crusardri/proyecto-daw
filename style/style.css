@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
 /* ------------------------------------------------ START ------------------------------------- */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 body {
     font-family: "Lato", sans-serif;
     margin: 0;
@@ -452,7 +457,7 @@ label.boxed-radio.admin > input:checked + div.container > div.radio-checkbox {ba
 
 /* --- Boton con relieve --- */
 a.button {
-    display: inline-block;
+    /*display: inline-block;*/
     font-size: 0.7em;
     text-decoration: none;
     float: right;
@@ -936,6 +941,15 @@ div.form-container div.field-set > div.button {
 div.form-container div.field-set > div.button:hover {
     background-color: #ffe34d;
 }
+@media (max-width: 850px){
+    div.form-container {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border-radius: 0;
+    }
+}
 /* ---- MODAL BOX ----*/
 div.modal-box {
     position: fixed;
@@ -1019,3 +1033,108 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form > div.modal-se
 }
 
 
+/* -------------- Table-Like-Container -------------------- */
+div.table-like-container {
+    width: 100%;
+}
+div.table-like-container > .item {
+    box-sizing: border-box;
+    display: flex;
+    align-content: stretch;
+    justify-content: flex-start;
+    width: calc(100% - 20px);
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    margin: 5px 10px;
+}
+div.table-like-container > .item:hover {
+    background-color: #f2f2f2;
+    box-shadow: 0px 1px 0 #ddd;
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
+}
+div.table-like-container > .item:last-child{
+    border-bottom: 0px;
+}
+div.table-like-container > .item.header {
+    font-weight: 600;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    margin: 0;
+    width: 100%;
+}
+
+div.table-like-container > .item.header:hover{
+    background-color: transparent;
+}
+div.table-like-container > .item.header > .elem {
+    border-left: 1px solid #ddd;
+}
+div.table-like-container > .item.header > .elem:first-child {
+    border-left: 0px;
+}
+div.table-like-container > .item > .elem {
+    padding: 0px 5px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+div.table-like-container > .item > .elem > button {
+    position: relative;
+    display: inline-block;
+    border: 0;
+    background-color: rgba(0,0,0,0.8);
+    margin-left: 5px;
+    border-radius: 3px;
+    color: #fff;
+    padding: 10px;
+    line-height: 1em;
+    transition: background-color 0.1s, color 0.1s;
+    cursor: pointer;
+}
+div.table-like-container > .item > .elem > button:hover{
+    background-color: rgba(0,0,0,0.2);
+    color: #000;
+}
+div.table-like-container > .item > .elem > button > div.hint-box{
+    display: none;
+    position: absolute;
+    border-radius: 5px;
+    bottom: calc(100% + 5px);
+    right: 50%;
+    background-color: #333;
+    transform: translateX(50%);
+    color: #fff;
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+div.table-like-container > .item > .elem > button > div.hint-box:after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    border-left: 5px solid #333;
+    border-bottom: 5px solid #333;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+    transform: rotate(-45deg) translate(-25%, -25%);
+}
+div.table-like-container > .item > .elem > button:hover > div.hint-box{
+    display: block;
+}
+div.table-like-container > .item.no-items {
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 5px;
+    height: 100px;
+    color: #777;
+}
+div.table-like-container > .item.no-items:hover {
+    background-color: transparent;
+    box-shadow: none;
+    
+}

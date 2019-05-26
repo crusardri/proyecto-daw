@@ -29,6 +29,9 @@ class Clothe{
     function getNumFixes(){
         return $this->numFixes;
     }
+    function getFixes(){
+        return $this->fixes;
+    }
     function getArreglos(){
         return $this->fixes;
     }

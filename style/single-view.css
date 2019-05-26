@@ -370,6 +370,7 @@ div.form-container.clothe {
 }
 
 /* tabla */
+/*
 table.fixes-table td.active {width: 30px;}
 table.fixes-table td.id {width: 80px;}
 table.fixes-table td.price {width: 50px;}
@@ -383,5 +384,109 @@ table.fixes-table td.toogle > a{width: 80px;}
     table.fixes-table td.date,
     table.fixes-table td.toogle{
         width: auto;
+    }
+}
+*/
+div.table-like-container.fixes {
+    width: calc(100% + 20px);
+    position: relative;
+    left: -10px;
+}
+
+div.table-like-container.fixes > .item > .elem > input{
+    border: 0;
+    -webkit-appearance: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+div.table-like-container.fixes > .item > .elem > input:focus{
+    box-shadow: 0 0 0 2px #0060ac;
+}
+div.table-like-container.fixes > .item:hover > .elem > input{
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+div.table-like-container.fixes > .item:hover > .elem > input:disabled{
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+div.table-like-container.fixes > .item > .elem.id{
+    flex-basis: 50px;
+    min-width: 50px;
+    text-align: center;
+}
+div.table-like-container.fixes > .item > .elem.id > input {
+    width: 100%;
+}
+div.table-like-container.fixes > .item.header > .elem.id{
+    flex-basis: 50px;
+    padding-left: 20px;
+    text-align: left;
+}
+div.table-like-container.fixes > .item > .elem.name{
+    /*flex-basis: calc(60% - 100px);*/
+    flex-grow: 2;
+    min-width: 100px;
+}
+div.table-like-container.fixes > .item.header > .elem.name{
+    /*flex-basis: calc(60% - 110px);*/
+    flex-grow: 2;
+    min-width: 100px;
+}
+div.table-like-container.fixes > .item > .elem.price{
+    flex-basis:80px;
+    min-width: 80px;
+}
+div.table-like-container.fixes > .item > .elem.price > input {
+    text-align: right;
+    width: calc(100% - 22px);
+    padding: 5px 2px 5px 0;
+}
+div.table-like-container.fixes > .item > .elem.active{
+    flex-basis:100px;
+    min-width: 100px;
+    justify-content: center;
+}
+div.table-like-container.fixes > .item > .elem.creation-date,
+div.table-like-container.fixes > .item > .elem.update-date{
+    flex-basis:180px;
+    min-width: 180px;
+}
+div.table-like-container.fixes > .item > .elem.buttons{
+    justify-content: flex-end;
+    border-left: 1px solid transparent;
+    flex-basis: 100px;
+}
+div.table-like-container.fixes > .item > .elem.buttons > button{
+    visibility: hidden;
+    padding: 0;
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+}
+div.table-like-container.fixes > .item:hover > .elem.buttons > button{
+    visibility: visible;
+}
+div.table-like-container.fixes > .item > .elem.buttons > button.edit{background-image: url(../media/img/edit-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.edit:hover{background-color: #0060ac}
+div.table-like-container.fixes > .item > .elem.buttons > button.enable{background-image: url(../media/img/tick-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.enable:hover{background-color: #32CD32}
+div.table-like-container.fixes > .item > .elem.buttons > button.disable{background-image: url(../media/img/cross-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.disable:hover{background-color: #DA0000}
+
+
+@media (max-width: 1100px){
+    div.table-like-container.fixes > .item > .elem.creation-date,
+    div.table-like-container.fixes > .item > .elem.update-date{
+        display: none;
     }
 }
