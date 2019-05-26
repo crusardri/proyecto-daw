@@ -160,7 +160,7 @@ class UserController {
             return 6;
         }else{
             $db = $this->connect(); 
-            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
+            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp, active ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate, 1)";
             $stmt = $db->prepare($sql);
             
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
