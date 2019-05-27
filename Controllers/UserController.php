@@ -60,6 +60,8 @@ class UserController {
     * @param int $itemsPerPage              Especifica la cantidad de usuarios que apareceran por página.
     *
     * @return User[]                        Array de usuarios
+    *
+    * @author Iván Maldonado Fernández
     */
     public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
         $searchString = "%$searchString%"; 
@@ -199,6 +201,8 @@ class UserController {
     * @param int $stateFilter          Especifica el estado del usuario
     *
     * @return int                       Numero total de usuarios segun filtros
+    *
+    * @author Iván Maldonado Fernández
     */
     public function getTotalUsers($searchString = "", $roleFilter = -1, $stateFilter = -1){
         $searchString = "%$searchString%"; 
