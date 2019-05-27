@@ -348,14 +348,16 @@ class UserController {
         } elseif(!$this->checkUsername($userName)){
             return 2;
         } elseif(strlen($password) < 6){
+             preg_grep ('/(A-Za-z0-9)/', $username);
             return 3;
-        }elseif(empty($email)){
+        } elseif(empty($email)){
+             preg_grep ('/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $email);
             return 4;
-        }elseif(!$this->checkEmail($email)){
+        } elseif(!$this->checkEmail($email)){
             return 5;
-        }elseif(empty($userName)){
+        } elseif(empty($userName)){
             return 6;
-        }else{
+        } else{
             $db = $this->connect(); 
             $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp, active ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate, 1)";
             $stmt = $db->prepare($sql);
@@ -404,14 +406,16 @@ class UserController {
         } elseif($this->checkUsername($userName)){
             return 2;
         } elseif(strlen($password) < 6){
+             preg_grep ('/(A-Za-z0-9)/', $username);
             return 3;
-        }elseif(empty($email)){
+        } elseif(empty($email)){
+             preg_grep ('/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $email);
             return 4;
-        }elseif($this->checkEmail($email)){
+        } elseif($this->checkEmail($email)){
             return 5;
-        }elseif(empty($userName)){
+        } elseif(empty($userName)){
             return 6;
-        }else{
+        } else{
             $db = $this->connect(); 
             $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
             $stmt = $db->prepare($sql);
