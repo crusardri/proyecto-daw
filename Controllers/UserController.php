@@ -45,16 +45,131 @@ class UserController {
     *
     * @return User[]                        Array de usuarios
     */
-    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
+    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 2){
         $page = $page - 1;
-        $genericTimestamp = time();
-        $users = array(
-            new User(1, "Iván", "password", "iván@don-dedal.com", new Role(2, "Administrador", "admin", "El usuario puede generar y modificar órdenes, y registrar y modificar usuarios de cualquier rol."), "918273849", "Iván", "Maldonado Fernández", $genericTimestamp, $genericTimestamp, true),
-            new User(2, "Sergio", "password", "gmail@sergio.com", new Role(1, "Empleado", "employee", "El usuario puede generar y modificar órdenes, como registrar y modificar clientes."), "902202122", "Sergio", "Barragán Llorente", $genericTimestamp, $genericTimestamp, false),
-            new User(3, "Jhoseph", "password", "un@correo.com", new Role(0, "Cliente", "client", "El usuario puede ver sus órdenes y editar su perfil."), "689412369", "Jhoseph", "Andre García Segovia", $genericTimestamp, $genericTimestamp, true)
-        );
+        $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL
+        $users = array();                       //Array de usuarios
+        $db = $this->connect();                 //Conexion DDBB
+        //SQL Principal
+        $sql = "
+            SELECT 
+                *
+            FROM
+                USERS AS U,
+                USER_ROLES AS R
+            WHERE
+                U.ROLE_ID = R.ROLE_ID"; 
+        //Concatenar condicion busqueda
+        if(!is_null($searchString) && !empty($searchString)){
+            $sql .= " 
+                AND (
+                    U.NAME LIKE :searchString OR 
+                    U.SURNAME LIKE :searchString OR 
+                    U.USERNAME LIKE :searchString OR 
+                    U.EMAIL LIKE :searchString OR 
+                    U.PHONE LIKE :searchString
+                )";
+        }
+        //Concatenar condicion filtro
+        if(!is_null($roleFilter) && $roleFilter >= 0){
+            $sql .= " AND 
+                U.ROLE_ID = :roleID";
+        }
+        //Cocnatenar condicion activo
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $sql .= " AND 
+                U.ACTIVE = :active";
+        }
+        //Cocnatenar condicion activo
+        $sql .= " 
+            ORDER BY 
+                :orderBy ";
+        //Bindear filtro orden 
+        //(NOTA!!!!!! No se pueden bindear a una statement nombres de tablas ni palabras claves)
+        switch ($orderDirectionFilter){
+            case 1:
+                $sql .= "DESC ";
+                break;
+            default: 
+                $sql .= "ASC ";
+                break;
+        }
+        //Final de la SQL (Limitado por página)
+        $sql .= " 
+            LIMIT 
+                :page, 
+                :maxItems";
+        $stmt = $db->prepare($sql);//Preparamos sentencia
+        //Bindear filtro busqueda
+        if(!is_null($searchString) && !empty($searchString)){
+            $stmt->bindParam(':searchString', $searchString);
+        }
+        //Bindear filtro rol
+        if(!is_null($roleFilter) && $roleFilter >= 0){
+            $stmt->bindParam(':roleID', $roleFilter);
+        }
+        //Bindear filtro estado
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $stmt->bindParam(':active', $stateFilter);
+        }
+        //Bindear filtro order by
+        switch($orderByFilter){
+            case 0:
+                $orderBy = "U.USER_ID";
+                break;
+            case 1:
+                $orderBy = "U.USERNAME";
+                break;
+            case 2:
+                $orderBy = "U.ROLE_ID";
+                break;
+            case 3: 
+                $orderBy = "U.NAME";
+                break;
+            case 4:
+                $orderBy = "U.SURNAME";
+                break;
+            case 5:
+                $orderBy = "U.EMAIL";
+                break;
+            case 6:
+                $orderBy = "U.ACTIVE";
+                break;
+            case 7:
+                $orderBy = "U.REGISTER_TIMESTAMP";
+                break;
+            case 8:
+                $orderBy = "U.UPDATE_TIMESTAMP";
+                break;
+            default:
+                $orderBy = "U.USER_ID";
+                break;
+        }
+        //Bindear filtro ordenar por
+        $stmt->bindParam(':orderBy', $orderBy);
+        //Bindear filtro empezar desde (página)
+        $stmt->bindParam(":page", $startFromItem);
+        //Bindear filtro elementos por página
+        $stmt->bindParam(":maxItems", $itemsPerPage);
+        //Ejecutamos la Query
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                array_push($users, new User(
+                    $row["USER_ID"], 
+                    $row["USERNAME"],
+                    $row["HASHED_PASSWORD"],
+                    $row["EMAIL"],
+                    new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]),
+                    $row["PHONE"],
+                    $row["NAME"],
+                    $row["SURNAME"],
+                    $row["REGISTER_TIMESTAMP"],
+                    $row["UPDATE_TIMESTAMP"],
+                    $row["ACTIVE"]
+                ));
+            }
+        }
         return $users;
-        //TO DO
     }
     /**
     * Consulta en la base de datos y devuelve el total de usuarios que coincida con los filtros.

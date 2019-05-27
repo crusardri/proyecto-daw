@@ -35,8 +35,8 @@ function showStateFilter(){
         <div>Estado</div>
         <select data-class="labeled" name="state">
             <option value="-1">Todos</option>
-            <option value="0" data-class="enabled" <?=$state == 0 ? "selected" : "" ?>>Activado</option>
-            <option value="1" data-class="disabled" <?=$state == 1 ? "selected" : "" ?>>Desactivado</option>
+            <option value="1" data-class="enabled" <?=$state == 1 ? "selected" : "" ?>>Activado</option>
+            <option value="0" data-class="disabled" <?=$state == 0 ? "selected" : "" ?>>Desactivado</option>
         </select>
     </label>
     <?php

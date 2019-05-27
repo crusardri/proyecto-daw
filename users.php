@@ -37,8 +37,9 @@
             <?=showStateFilter();?>
             <?=showOrderByFilter($filters);?>
             <?=showOrderDirectionFilter();?>
-            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear">
-            <input type="submit" class="input-submit-button" value="Filtrar" style="margin-left: 0;">
+            <input type="submit" class="input-submit-button" value="Filtrar" name="filter">
+            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear" style="margin-left: 0;">
+            
         </form>
         <section class="users-container">
             <?php showUsersTable($users)?>
