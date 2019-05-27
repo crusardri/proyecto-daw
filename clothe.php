@@ -49,5 +49,50 @@
             <?php showClotheFixes(); ?>
         </div>
     </div>
+    <div class='modal-box add-fix' >
+        <div class='modal-box-content'>
+            <h1 class='modal-box-title'>Añadir nuevo arreglo a <?=$clothe->getName()?></h1>
+            <div class='modal-box-close'>x</div>
+            <div class='modal-box-body'>
+                <form method="post" action="clothe.php?id=<?=$clothe->getID()?>">
+                <input type="hidden" name="addFix">
+                <input type="hidden" value="<?=$clothe->getID()?>" name="clotheID">
+                <label class="boxed-input" >
+                    <div class="text-label"><span>Nombre</span></div>
+                    <div class="input-container">
+                        <input type="text" value="">
+                    </div>
+                </label>
+                <label class="boxed-input" >
+                    <div class="text-label"><span>Precio</span></div>
+                    <div class="input-container">
+                        <input type="number" value="">
+                    </div>
+                </label>
+                <div>
+                    <label class="boxed-radio active">
+                        <input type="radio" name="active" value="1" checked>
+                        <div class="container">
+                            <div class="radio-checkbox">&#x2713;</div>
+                            <div class="radio-title">Activado</div>
+                            <div class="radio-desc">Aparecerá en los listados y estará disponible para añadir en nuevas órdenes.</div>
+                        </div>
+                    </label>
+                    <label class="boxed-radio disabled">
+                        <input type="radio" name="active" value="0">
+                        <div class="container">
+                            <div class="radio-checkbox">&#x2713;</div>
+                            <div class="radio-title">Desactivado</div>
+                            <div class="radio-desc">No se podrá añadir a nuevas órdenes, pero se mantendrán en órdenes antiguas para consulta.</div>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-buttons">
+                    <input type="submit" value="Registrar prenda" name="registerFix" class="input-submit-button">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

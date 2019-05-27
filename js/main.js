@@ -211,3 +211,4 @@ function showClothesSearchForm(){
         <div class='modal-search-results clothes'></div>\
     </form>"
 }
+

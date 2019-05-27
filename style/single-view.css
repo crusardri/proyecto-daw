@@ -369,6 +369,19 @@ div.form-container.clothe {
     }
 }
 
+/* Ventana Modal */
+div.modal-box.add-fix > .modal-box-content{
+    height: 350px !important;
+    
+}
+div.modal-box.add-fix > .modal-box-content > .modal-box-body label.boxed-input{
+    width: calc(100% - 12px);
+}
+div.modal-box.add-fix > .modal-box-content > .modal-box-body div.form-buttons{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
 /* tabla */
 /*
 table.fixes-table td.active {width: 30px;}
