@@ -41,7 +41,7 @@ if(isset($_SESSION["userID"])){
 }
 
 
-var_dump($_POST);
+//var_dump($_POST);
 //Obtención tipo usuario
 if($sessionUserRole->getID() == 0){
     $client = true;
@@ -70,42 +70,144 @@ if(!$clothe = $controller->getClothe($_GET["id"])){
     header("Location: clothes.php");
 };
 
+//Cambiar nombre prenda
+if(isset($_POST["changeClotheName"])){
+    switch($controller->changeClotheName((int)$_POST["clotheID"], $_POST["clotheName"])){
+        case 0:
+            $successMSG = "Nombre de la prenda cambiado a \"$_POST[clotheName]\".";
+            break;
+        case 1:
+            $errorMSG = "Debes poner un nombre a la prenda";
+            break;
+        default:
+            $errorMSG = "Algo ha fallado al modificar la prenda.";
+            break;
+    }
+}
+//activar/desactivar prenda
+if(isset($_POST["toggleClothe"])){
+    switch($controller->toggleClothe($_POST["clotheID"], $_POST["active"])){
+        case 0:
+            if($_POST["active"] == 0){
+                $successMSG = "Prenda \"".$clothe->getName()."\" activado con éxito.";
+            }else{
+                $successMSG = "Prenda \"".$clothe->getName()."\" desactivado con éxito.";
+            }
+            break;
+        default:
+            if($_POST["active"] == 0){
+                $errorMSG = "Algo ha fallado al activar la prenda.";
+            }else{
+                $errorMSG = "Algo ha fallado al desactivar la prenda.";
+            }
+            break;
+    }
+}
+//Registrar arreglo prenda
+if(isset($_POST["registerFix"])){
+    switch($controller->addFix($_POST["clotheID"], $_POST["fixName"], $_POST["fixPrice"], $_POST["active"])){
+        case 0:
+            $successMSG = "Arreglo registrado con éxito.";
+            break;
+        case 1:
+            $errorMSG = "El ID de la prenda no especificado.";
+            break;
+        case 2:
+            $errorMSG = "El nombre del arreglo no esta especificado.";
+            break;
+        case 3:
+            $errorMSG = "El precio del arreglo no esta especificado.";
+            break;
+        default:
+            $errorMSG = "Algo ha fallado al registrar el arreglo.";
+            break;
+    }
+}
+//Modificar Prenda
+if(isset($_POST["editFix"])){
+    switch($controller->editFix($_POST["fixID"], $_POST["fixName"], $_POST["fixPrice"])){
+        case 0:
+            $successMSG = "Arreglo \"$_POST[fixName]\" modificado con éxito.";
+            break;
+        case 1:
+            $errorMSG = "El ID de la prenda no especificado.";
+            break;
+        case 2:
+            $errorMSG = "El nombre del arreglo no esta especificado.";
+            break;
+        case 3:
+            $errorMSG = "El precio del arreglo no esta especificado.";
+            break;
+        default:
+            $errorMSG = "Algo ha fallado al modificar el arreglo.";
+            break;
+    }
+}
+//activar/desactivar arreglo
+if(isset($_POST["toggle"])){
+    switch($controller->toggleFix($_POST["clotheID"], $_POST["fixID"], $_POST["active"])){
+        case 0:
+            if($_POST["active"] == 0){
+                $successMSG = "Arreglo \"$_POST[fixName]\" activado con éxito.";
+            }else{
+                $successMSG = "Arreglo \"$_POST[fixName]\" desactivado con éxito.";
+            }
+            break;
+        default:
+            if($_POST["active"] == 0){
+                $errorMSG = "Algo ha fallado al activar el arreglo.";
+            }else{
+                $errorMSG = "Algo ha fallado al desactivar el arreglo.";
+            }
+            break;
+    }
+}
 /**
  * Mostrar Datos Prenda
  */
 function showClotheInfoForm(){
-    
+    global $errorMSG;
+    global $successMSG;
+    global $clothe;
     ?>
-    <form id="clothe-info-container">
+    <form id="clothe-info-container" method="post" action="clothe.php?id=<?=$clothe->getID()?>">
         <h1>Prenda</h1>
+        <?php
+        if(isset($errorMSG)){
+            ?><div class="msg error"><?=$errorMSG?></div><?php
+        }elseif(isset($successMSG)){
+            ?><div class="msg success"><?=$successMSG?></div><?php
+        }
+        ?>
         <div class="field-set" id="clothe-infoset">
         <h3>Datos Prenda</h3>
-            <label class="boxed-input" id="clothe-id">
+            <label class="boxed-input" id="clotheID">
                 <div class="text-label"><span>ID</span></div>
                 <div class="input-container">
-                    <input type="text" value="000001" disabled>
+                    <input type="text" value="<?=$clothe->getID()?>" disabled>
                 </div>
             </label>
             <label class="boxed-input" id="clothe-name">
                 <div class="text-label"><span>Nombre Prenda</span></div>
                 <div class="input-container">
-                    <input type="text" value="Vaqueros">
+                    <input type="text" name="clotheName" value="<?=$clothe->getName()?>">
                 </div>
             </label>
             <label class="boxed-input" id="create-date">
                 <div class="text-label"><span>Fecha de creacion</span></div>
                 <div class="input-container">
-                    <input type="text" value="13/05/2019 13:03:24" disabled>
+                    <input type="text" value="<?=$clothe->getCreationDateString()?>" disabled>
                 </div>
             </label>
             <label class="boxed-input" id="update-date">
                 <div class="text-label"><span>Fecha de actualizacion</span></div>
                 <div class="input-container">
-                    <input type="text" value="13/05/2019 13:03:24" disabled>
+                    <input type="text" value="<?=$clothe->getUpdateDateString()?>" disabled>
                 </div>
             </label>
+            <input type="hidden" name="clotheID" value="<?=$clothe->getID()?>">
             <div class="form-buttons">
-                <input type="submit" value="Cambiar Nombre" class="input-submit-button">
+                <input type="submit" value="Cambiar Nombre" name="changeClotheName" class="input-submit-button">
             </div>
         </div>
             
@@ -140,23 +242,24 @@ function showClotheFixes(){
         foreach($fixes as $fix){
     ?>
         <form class="item" method="post" action="clothe.php?id=<?=$clothe->getId()?>">
-            <input type="hidden" name="clothe-id" value="<?=$clothe->getId()?>">
-            <input type="hidden" name="fix-id" value="<?=$fix->getId()?>">
-            <div class="elem id"><input type="number" value="<?=$fix->getId()?>" name="fix-id" disabled></div>
-            <div class="elem name"><input type="text" name="name" value="<?=$fix->getName()?>"></div>
-            <div class="elem price"><input type="number" name="price" value="<?=$fix->getPrice()?>">€</div>
+            <input type="hidden" name="clotheID" value="<?=$clothe->getId()?>">
+            <input type="hidden" name="fixID" value="<?=$fix->getId()?>">
+            <input type="hidden" name="active" value="<?=$fix->isActive()?1:0?>">
+            <div class="elem id"><input type="number" value="<?=$fix->getId()?>" disabled></div>
+            <div class="elem name"><input type="text" name="fixName" value="<?=$fix->getName()?>"></div>
+            <div class="elem price"><input type="number" name="fixPrice" value="<?=$fix->getPrice()?>">€</div>
             <div class="elem active"><span class="label-box <?=$fix->isActive() ? "enabled": "disabled"?>"><?=$fix->isActive() ? "Activado": "Desactivado"?></span></div>
             <div class="elem creation-date"><?=$fix->getCreationDateString()?></div>
             <div class="elem update-date"><?=$fix->getUpdateDateString()?></div>
             <div class="elem buttons">
             <?php
                 if($fix->isActive()){
-                    ?><button class="table-button disable" name="disable"><div class="hint-box">Desactivar arreglo</div></button><?php
+                    ?><button class="table-button disable" name="toggle"><div class="hint-box">Desactivar arreglo</div></button><?php
                 }else {
-                    ?><button class="table-button enable" name="disable"><div class="hint-box">Activar arreglo</div></button><?php
+                    ?><button class="table-button enable" name="toggle"><div class="hint-box">Activar arreglo</div></button><?php
                 }
             ?>
-                <button class="table-button edit" name="edit"><div class="hint-box">Editar arreglo</div></button>
+                <button class="table-button edit" name="editFix"><div class="hint-box">Editar arreglo</div></button>
             </div>
         </form>
         <?php
@@ -166,7 +269,36 @@ function showClotheFixes(){
     </div>
     <?php
 }
-
+function showStateForm(){
+    global $clothe;
+    ?>
+    <form id="active-container" method="post" action="clothe.php?id=<?=$clothe->getID()?>">
+        <h2>Estado</h2>
+        <div>
+            <label class="boxed-radio active">
+                <input type="radio" name="active" value="1" <?=$clothe->isActive()?"checked":""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Activado</div>
+                    <div class="radio-desc">Aparecerá en los listados y estará disponible para añadir en nuevas órdenes.</div>
+                </div>
+            </label>
+            <label class="boxed-radio disabled">
+                <input type="radio" name="active" value="0" <?=!$clothe->isActive()?"checked":""?>>
+                <div class="container">
+                    <div class="radio-checkbox">&#x2713;</div>
+                    <div class="radio-title">Desactivado</div>
+                    <div class="radio-desc">No se podrá añadir a nuevas órdenes, pero se mantendrán en órdenes antiguas para consulta.</div>
+                </div>
+            </label>
+        </div>
+        <input type="hidden" name="clotheID" value="<?=$clothe->getID()?>">
+        <div class="form-buttons">
+            <input type="submit" value="Actualizar estado" class="input-submit-button" name="toggleClothe">
+        </div>
+    </form>
+    <?php
+}
 
 /*function showFixesTable(){
     ?>

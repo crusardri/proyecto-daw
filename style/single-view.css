@@ -306,7 +306,7 @@ div.form-container.new-user form > .form-buttons{
 */
 div.form-container.clothe {
     display: grid;
-    grid-template-areas: "info" "active" "fixes";
+    grid-template-areas: "info"  "active" "fixes";
     grid-template-columns: 100%;
 }
 #clothe-info-container {
@@ -317,6 +317,9 @@ div.form-container.clothe {
     flex-flow: row wrap;
     align-items: baseline;
     justify-content: space-between;
+}
+#clothe-info-container .msg {
+    flex-basis: calc(100% - 40px);
 }
 #clothe-info-container > div > label{
     flex-basis: 300px;

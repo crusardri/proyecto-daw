@@ -155,6 +155,12 @@ $(document).ready(()=>{
         modalBox("Añadir Prenda", showClothesSearchForm);
         showClothes();
     })
+    //Abrir ventana modal crear prenda
+    $("#add-fix").on("click", ()=>{
+        let clotheID = parseInt($("#clotheID").children("div.input-container").children("input").val());
+        let clotheName = $("#clothe-name").children("div.input-container").children("input").val()
+        showClothesSearchForm(clotheID, clotheName)
+    })
 })
 /*
 * Cierra la ventana modal con un fadeout
@@ -202,25 +208,26 @@ function showSearchUserForm(){
     </form>"
 }
 
+
 function showClothesSearchForm(clotheID, clotheName){
-    return "<div class='modal-box add-fix'>\
+    $("<div class='modal-box add-fix'>\
     <div class='modal-box-content'>\
         <h1 class='modal-box-title'>Añadir nuevo arreglo a "+clotheName+"</h1>\
         <div class='modal-box-close'>x</div>\
         <div class='modal-box-body'>\
-            <form method='post' action='"+clotheID+"'>\
+            <form method='post' action='clothe.php?id="+clotheID+"'>\
             <input type='hidden' name='addFix'>\
             <input type='hidden' value='"+clotheID+"' name='clotheID'>\
             <label class='boxed-input' >\
                 <div class='text-label'><span>Nombre</span></div>\
                 <div class='input-container'>\
-                    <input type='text' value=''>\
+                    <input type='text' name='fixName' value=''>\
                 </div>\
             </label>\
             <label class='boxed-input' >\
                 <div class='text-label'><span>Precio</span></div>\
                 <div class='input-container'>\
-                    <input type='number' value=''>\
+                    <input type='number' name='fixPrice' value=''>\
                 </div>\
             </label>\
             <div>\
@@ -246,7 +253,15 @@ function showClothesSearchForm(clotheID, clotheName){
             </div>\
             </form>\
         </div>\
-    </div>\
-</div>>";
+    </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1");
+    }, 100);
+    $("div.modal-box-content").on("click", (e)=>{
+        e.stopPropagation();
+    })
+    $("div.modal-box, div.modal-box-close").on("click", function(e){
+        closeModalBox();
+    })
 }
 

@@ -20,13 +20,56 @@ class Controller {
     }
     /**
     * Devuelve un array de objetos de OrderItems
-    * @param int                        orderId ID de la orden
+    * @param int $orderID               ID de la orden
     *
     * @return null                      si no existe
     * @return Order[]                   Array de ordenes
     */
     private function getOrderItems($orderID){
         return null;       
+    }
+    /**
+     * Registra un nuevo arreglo para la prenda especificada
+     * @param int $clotheID             ID de la prenda a añadir el arreglo
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * @param int $active               0 Areglo deshabilitado, 1 arreglo hablitado
+     * 
+     * @return int 0                    Arreglo regitrado con exito
+     * @return int 1                    ID de la prenda no especificado
+     * @return int 2                    Falta el nombre del arreglo
+     * @return int 3                    Falta el precio recomendado del arreglo
+     * @return int -1                   Error desconocido
+     */
+    public function addFix($clotheID, $fixName, $fixPrice, $active = 0){
+        return -1;
+    }
+    /**
+     * Edita un arreglo para la prenda especificada
+     * @param int $clotheID             ID de la prenda a editar
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * 
+     * @return int 0                    Arreglo regitrado con exito
+     * @return int 1                    ID de la prenda no especificado
+     * @return int 2                    Falta el nombre del arreglo
+     * @return int 3                    Falta el precio recomendado del arreglo
+     * @return int -1                   Error desconocido
+     */
+    public function editFix($fixID, $fixName, $fixPrice){
+        return -1;
+    }
+    /**
+     * Activa o desactiva un arreglo arreglo para la prenda especificada
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * 
+     * @return int 0                    Arreglo modificado con exito
+     * @return int 1                    ID de la del arreglo no especificado
+     * @return int -1                   Error desconocido
+     */
+    public function toggleFix($fixID, $active){
+        return -1;
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
@@ -98,6 +141,29 @@ class Controller {
     public function getClothe($clotheID){
         $timestamp = time();
         return new Clothe(1, "Vaquero", Controller::getNumFixes(1), Controller::getFixes(1), $timestamp, $timestamp, true);
+    }
+    /**
+     * Cambia el nombre de una prenda
+     * @param int $clotheID                 ID de la prenda a consultar
+     * @param int $clotheName               Nombre de la prenda
+     * 
+     * @return int 0                        Nombre cambiado correctamente
+     * @return int 1                        No se ha declarado el nombre
+     * @return int -1                       Se ha producido un error
+     */
+    public function changeClotheName($clotheID, $clotheName){
+        return -1;
+    }
+    /**
+     * Activa o desactiva una prenda
+     * @param int $clotheID                 ID de la prenda a consultar
+     * @param int $active                   0 Desactivado, 1 Activado
+     * 
+     * @return int 0                        Nombre cambiado correctamente
+     * @return int -1                       Se ha producido un error
+     */
+    public function toggleClothe($clotheID, $active){
+        return -1;
     }
     /**
      * Consulta en la base de datos y trae información de las prendas segun filtros y página
