@@ -202,10 +202,10 @@ function showSearchUserForm(){
     </form>"
 }
 
-function showClothesSearchForm(clotheID){
+function showClothesSearchForm(clotheID, clotheName){
     return "<div class='modal-box add-fix'>\
     <div class='modal-box-content'>\
-        <h1 class='modal-box-title'>Añadir nuevo arreglo a <?=$clothe->getName()?></h1>\
+        <h1 class='modal-box-title'>Añadir nuevo arreglo a "+clotheName+"</h1>\
         <div class='modal-box-close'>x</div>\
         <div class='modal-box-body'>\
             <form method='post' action='"+clotheID+"'>\
