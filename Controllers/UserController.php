@@ -62,6 +62,7 @@ class UserController {
     * @return User[]                        Array de usuarios
     */
     public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
+        $searchString = "%$searchString%"; 
         $page = $page - 1;
         $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL
         $users = array();                       //Array de usuarios
@@ -79,11 +80,11 @@ class UserController {
         if(!is_null($searchString) && !empty($searchString)){
             $sql .= " 
                 AND (
-                    U.NAME LIKE :searchString OR 
-                    U.SURNAME LIKE :searchString OR 
-                    U.USERNAME LIKE :searchString OR 
-                    U.EMAIL LIKE :searchString OR 
-                    U.PHONE LIKE :searchString
+                    LOWER(U.NAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.SURNAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.USERNAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.EMAIL) LIKE LOWER(:searchString) OR 
+                    LOWER(U.PHONE) LIKE LOWER(:searchString)
                 )";
         }
         //Concatenar condicion filtro
@@ -200,6 +201,7 @@ class UserController {
     * @return int                       Numero total de usuarios segun filtros
     */
     public function getTotalUsers($searchString = "", $roleFilter = -1, $stateFilter = -1){
+        $searchString = "%$searchString%"; 
         $db = $this->connect();                 //Conexion DDBB
         //SQL Principal
         $sql = "
@@ -214,11 +216,11 @@ class UserController {
         if(!is_null($searchString) && !empty($searchString)){
             $sql .= " 
                 AND (
-                    U.NAME LIKE :searchString OR 
-                    U.SURNAME LIKE :searchString OR 
-                    U.USERNAME LIKE :searchString OR 
-                    U.EMAIL LIKE :searchString OR 
-                    U.PHONE LIKE :searchString
+                    LOWER(U.NAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.SURNAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.USERNAME) LIKE LOWER(:searchString) OR 
+                    LOWER(U.EMAIL) LIKE LOWER(:searchString) OR 
+                    LOWER(U.PHONE) LIKE LOWER(:searchString)
                 )";
         }
         //Concatenar condicion filtro
