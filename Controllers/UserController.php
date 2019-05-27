@@ -538,7 +538,24 @@ class UserController {
 
             if($stmt->execute()){
                 if($row = $stmt->fetch()){
-                    $user = new User($row["USER_ID"], $row["USERNAME"],$row["HASHED_PASSWORD"], $row["EMAIL"], new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]), $row["PHONE"], $row["NAME"], $row["SURNAME"], $row["REGISTER_TIMESTAMP"], $row["UPDATE_TIMESTAMP"], $row["ACTIVE"]);
+                    $user = new User(
+                        $row["USER_ID"],
+                        $row["USERNAME"],
+                        $row["HASHED_PASSWORD"],
+                        $row["EMAIL"], 
+                        new Role(
+                            $row["ROLE_ID"],
+                            $row["ROLE_NAME"],
+                            $row["ROLE_CSS_CLASS"],
+                            $row["ROLE_DESCRIPTION"]
+                        ), 
+                        $row["PHONE"],
+                        $row["NAME"],
+                        $row["SURNAME"],
+                        $row["REGISTER_TIMESTAMP"],
+                        $row["UPDATE_TIMESTAMP"],
+                        $row["ACTIVE"]
+                    );
                     if(!$user->isActive()){
                         return 4;
                     } 
