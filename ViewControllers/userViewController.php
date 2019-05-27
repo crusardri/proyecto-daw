@@ -148,7 +148,7 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
             $errorMSG = "No has rellenado el campo \"nombre\".";
             break;
         case -1: 
-            $errorMSG = "Algo ha fallado al intentar registrar al  usuario. Intentalo de nuevo.";
+            $errorMSG = "Se ha producido un error al registrar al  usuario.";
     }
 }
 /**
@@ -171,8 +171,8 @@ if(isset($_POST["changeEmail"])){
             case 2: 
                 $errorMSG = "El correo electrónico está en uso por otro usuario.";
                 break;
-            case -1: 
-                $errorMSG = "Algo ha fallado al intentar cambiar el correo electrónico. Intentalo de nuevo.";
+            default: 
+                $errorMSG = "Se ha producido un error al cambiar el correo electrónico.";
                 break;
         }  
     }else {
@@ -186,13 +186,12 @@ if(isset($_POST["changeEmail"])){
 if(isset($_POST["changePassword"])){
     $sameUser = $sessionUser->getID() == $user->getID();
     $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
-    
     $password = $_POST["password"];                 //Contraseña nueva
     if(isset($_POST["oldPassword"])){
         $oldPassword = $_POST["oldPassword"];       //Contraseña antigua
     }
     if(isset($_POST["repPassword"])){
-        $repeatPassword = $_POST["repPassword"]; //Repetir Contraseña
+        $repeatPassword = $_POST["repPassword"];    //Repetir Contraseña
     }
     //Si eres un cliente o es tu cuenta
     if($client || $user->getID() == $sessionUser->getID()){

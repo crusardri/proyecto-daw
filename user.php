@@ -32,15 +32,10 @@
                 <?=showUpdateDateField()?>
             </div>
         </div>   
-        <!-- Datos Cuenta -->
         <?php showAccountDataForm() ?>
-        <!-- Datos Usuario -->
         <?php showPasswordForm() ?>
-        <!-- Datos Personales -->
         <?php showPersonalInfoForm() ?>
-        <!-- Estados -->
         <?php showUserStateForm() ?>
-        <!-- Estados -->
         <?php showRoleForm()?>
     </div>
         <?php
@@ -58,15 +53,10 @@
                 }
                 ?>
             </div>   
-            <!-- Datos Cuenta -->
             <?php showAccountDataForm() ?>
-            <!-- Datos Usuario -->
             <?php showPasswordForm() ?>
-            <!-- Datos Personales -->
             <?php showPersonalInfoForm() ?>
-            <!-- Estados -->
             <?php showUserStateForm() ?>
-            <!-- Estados -->
             <?php showRoleForm()?>  
             <div class="form-buttons">
                 <input type="submit" value="Registrar Usuario" class="input-submit-button" name="registerUser">
