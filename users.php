@@ -44,7 +44,7 @@
         <section class="users-container">
             <?php showUsersTable($users)?>
             <div class="users-pag">
-                <?php showPaginator("users.php?", $page, $totalUsers, $_GET) ?>
+                <?php showPaginator("users.php?", $page, $totalUsers, $_GET, 20) ?>
             </div>
         </section>
         

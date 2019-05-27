@@ -61,6 +61,7 @@ if(isset($_GET["userRole"]))        {$userRoleFilter = (int) $_GET["userRole"];}
 if(isset($_GET["state"]))           {$state = (int) $_GET["state"];}
 if(isset($_GET["orderBy"]))         {$orderBy = (int) $_GET["orderBy"];}
 if(isset($_GET["orderDirection"]))  {$orderDirection = (int) $_GET["orderDirection"];}
+if($page < 1){$page = 1;}//Si la página es menor que 1 la devuelve a 1
 //Borrar Filtros
 if(isset($_GET["clear"])){
     header("location: users.php");
@@ -134,12 +135,12 @@ function showUsersTable(){
             <tr class="user">
                 <td class="id a-center"><span class="responsive-label">ID</span><a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=str_pad($user->getID(), 4, "0", STR_PAD_LEFT)?></a></td>
                 <td class="username"><span class="responsive-label">Usuario</span> <a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getUsername()?></a></td>
-                <td class="role a-center"><span class="responsive-label">Rol</span><a href="" class="label-box <?=$role->getCssClass()?>"><?=$role->getName()?></a></td>
-                <td class="name"><span class="responsive-label">Nombre</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getName()?></a></td>
-                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getSurname()?></a></td>
-                <td class="email"><span class="responsive-label">Correo</span><a href="user?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getEmail()?></a></td>
+                <td class="role a-center"><span class="responsive-label">Rol</span><a href="users.php?<?=http_build_query(array("userRole" => $role->getID()))?>" class="label-box <?=$role->getCssClass()?>"><?=$role->getName()?></a></td>
+                <td class="name"><span class="responsive-label">Nombre</span> <a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getName()?></a></td>
+                <td class="surname"><span class="responsive-label">Apellidos</span> <a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getSurname()?></a></td>
+                <td class="email"><span class="responsive-label">Correo</span><a href="user.php?<?=http_build_query(array("id" => $user->getID()))?>"><?=$user->getEmail()?></a></td>
                 <td class="registration-date date a-center"><span class="responsive-label">Registro</span><span><?=$user->getRegisteredDateString()?></span></td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="" class="label-box <?=$user->isActive()?"enabled":"disabled"?>"><?=$user->isActive()?"Si":"No"?></a></td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="users.php?<?=http_build_query(array("state" => $user->isActive()?1:0))?>" class="label-box <?=$user->isActive()?"enabled":"disabled"?>"><?=$user->isActive()?"Si":"No"?></a></td>
                 <td class="update-date date a-center"><span class="responsive-label">Actualizado</span><span><?=$user->getUpdateDateString()?></span></td>
             </tr>
                     <?php

@@ -25,7 +25,6 @@ class UserController {
         $sql = "SELECT * FROM USERS AS U, USER_ROLES AS R WHERE USER_ID = :userID AND U.ROLE_ID = R.ROLE_ID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':userID', $id);
-
         if($stmt->execute()){
             if($row = $stmt->fetch()){
                return new User(
