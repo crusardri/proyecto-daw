@@ -28,7 +28,24 @@ class UserController {
 
         if($stmt->execute()){
             if($row = $stmt->fetch()){
-               return new User($row["USER_ID"], $row["USERNAME"], $row["HASHED_PASSWORD"], $row["EMAIL"], new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]), $row["PHONE"], $row["NAME"], $row["SURNAME"], $row["REGISTER_TIMESTAMP"], $row["UPDATE_TIMESTAMP"], $row["ACTIVE"]);
+               return new User(
+                $row["USER_ID"], 
+                $row["USERNAME"], 
+                $row["HASHED_PASSWORD"], 
+                $row["EMAIL"], 
+                new Role(
+                    $row["ROLE_ID"], 
+                    $row["ROLE_NAME"], 
+                    $row["ROLE_CSS_CLASS"], 
+                    $row["ROLE_DESCRIPTION"]
+                ), 
+                $row["PHONE"], 
+                $row["NAME"], 
+                $row["SURNAME"], 
+                $row["REGISTER_TIMESTAMP"], 
+                $row["UPDATE_TIMESTAMP"], 
+                $row["ACTIVE"]
+                );
             }
         } 
         return null;
@@ -288,11 +305,22 @@ class UserController {
     * @return Role[] Roles              Array de roles de usuario
     */
     public function getRoles(){
-        $roles = array(
-            new Role("0", "Client", "client", "El usuario puede ver sus órdenes y editar su perfil."),
-            new Role("1", "Empleado", "employee", "El usuario puede generar y modificar órdenes, como registrar y modificar clientes."),
-            new Role("2", "Administrador", "admin", "El usuario puede generar y modificar órdenes, y registrar y modificar usuarios de cualquier rol.")
-        );
+        $roles = array();
+        $db = $this->connect();
+        $sql = "SELECT * FROM USER_ROLES";
+        $stmt = $db->prepare($sql);
+
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                $rol = new Role(
+                    $row["ROLE_ID"],
+                    $row["ROLE_NAME"],
+                    $row["ROLE_CSS_CLASS"], 
+                    $row["ROLE_DESCRIPTION"]
+                );
+                array_push($roles, $rol);
+            }
+        }
         return $roles;
     }
     /**
