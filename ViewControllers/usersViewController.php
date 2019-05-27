@@ -129,6 +129,7 @@ function showUsersTable(){
                 <th>Actualizado</th>
             </tr>
             <?php 
+            if(sizeof($users) > 0){
                 foreach($users as $user){
                     $role = $user->getRole();
                     ?>
@@ -145,6 +146,9 @@ function showUsersTable(){
             </tr>
                     <?php
                 }
+            }else{
+                ?><tr class="user no-items"><td colspan="9">No se han encontrado usuarios</td></tr><?php
+            }
             ?>
             
         </table>

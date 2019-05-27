@@ -750,8 +750,16 @@ div.table-container > table {
     overflow: hidden;
 }
 div.table-container > table tr:hover {
-    
     border-radius: 5px;
+}
+div.table-container > table  tr.no-items {
+    text-align: center;
+    color: #666;
+}
+div.table-container > table  tr.no-items:hover > td {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent !important;
 }
 div.table-container > table tr > th {
     background-color: #ffd700;
