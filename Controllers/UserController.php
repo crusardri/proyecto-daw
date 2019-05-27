@@ -293,6 +293,28 @@ class UserController {
         return -1;
     }
     /**
+     * Cambia el Rol de un usuario desde el panel de control
+     * @param int $userID               ID de usuario a cambiar
+     * @param int $roleID               ID del nuevo rol
+     * 
+     * @return int 0                    Si todo ha ido bien
+     * @return int -1                   Si algo ha fallado
+     */  
+    public function changeRole($userID, $roleID){
+        return -1;
+    }
+    /**
+     * Cambia el estado (activo/desactiado) de un usuario desde el panel de control
+     * @param int $userID               ID de usuario a cambiar
+     * @param boolean $newState         Nuevo Estado
+     * 
+     * @return int 0                    Si todo ha ido bien
+     * @return int -1                   Si algo ha fallado
+     */  
+    public function changeState($userID, $newState){
+        return -1;
+    }
+    /**
     * Consulta en la base de datos si el nombre del usuario y el Hash de la contraseña coincide en la base de datos y añade la ID de usuario a la sesion
     * @param String $username           Nombre de usuario
     * @param String $password           Contraseña en texto plano
@@ -346,7 +368,7 @@ class UserController {
 }
 //Ajax Get Username
 if(isset($_GET["check_username"])){
-    $uc = new UserController();
+    $uc = new UserController(true);
     if($uc->checkUsername($_GET["check_username"])){
         echo "DISPONIBLE";
     }else {
@@ -355,8 +377,8 @@ if(isset($_GET["check_username"])){
 }
 //Ajax Get Email
 if(isset($_GET["check_email"])){
-    $uc = new UserController();
-    if($uc->checkUsername($_GET["check_email"])){
+    $uc = new UserController(true);
+    if($uc->checkEmail($_GET["check_email"])){
         echo "DISPONIBLE";
     }else {
         echo "NO DISPONIBLE";

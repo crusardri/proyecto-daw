@@ -45,6 +45,7 @@ input.input-submit-button:disabled{
 }
 /* Mensajes */
 div.msg {
+    display: block !important;
     font-size: 1em;
     font-weight: 600;
     color: #fff;

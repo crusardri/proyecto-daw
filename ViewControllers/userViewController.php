@@ -242,21 +242,61 @@ if(isset($_POST["changePassword"])){
  */
 if(isset($_POST["changePersonalInfo"])){
     switch($userController->changePersonalInfo($_POST["name"], $_POST["surname"], $_POST["phone"])){
-        case 0: {
+        case 0: 
             $successMSG = "Informacion personal actualizada.";
             break;
-        }
-        case 1: {
+        case 1: 
             $errorMSG = "\"Nombre\" es un campo obligatorio.";
             break;
-        }
-        case -1: {
+        case -1: 
             $errorMSG = "Algo ha fallado al intentar actualizar la informacion de usuario.";
             break;
-        }
     }
 }
-
+/**
+ * Cambiar Rol
+ */
+if(isset($_POST["changeRole"])){
+    //Si eres admin y la ID de usuario a modificar no es la misma que la tuya
+    if($admin && $user->getID() != $sessionUser->getID()){
+        switch($userController->changeRole($user->getID(), $_POST["role"])){
+            case 0: 
+                $successMSG = "Rol de usuario actualizado.";
+                break;
+            default: 
+                $errorMSG = "Algo ha fallado al cambiar el rol del usuario.";
+                break;
+        }
+    }else {
+        $errorMSG = "No estas autorizado para cambiar el rol de este usuario.";
+    }
+    
+}
+/**
+ * Cambiar Rol
+ */
+if(isset($_POST["changeState"])){
+    //Si eres admin y la ID de usuario a modificar no es la misma que la tuya
+    $newState = $_POST["active"];
+    if($newState == 0){
+        $newState = true;
+    }else{
+        $newState = false;
+    }
+    if($admin && $user->getID() != $sessionUser->getID()){
+        switch($userController->changeState($user->getID(), $newState)){
+            case 0: 
+                $successMSG = "Estado de usuario actualizado.";
+                break;
+            default: 
+                $errorMSG = "Se ha producido un error al cambiar el estado del usuario.";
+                break;
+        }
+    }else {
+        $errorMSG = "No estas autorizado para cambiar el estado de este usuario.";
+    }
+    
+}
 /**
 * Muestra el campo UserID si esta editando, y es Empleado o Administrador
 */
@@ -531,7 +571,7 @@ function showRoleForm(){
         if($admin && $user->getID() != $sessionUser->getID()){
             ?>
         <div class="form-buttons">
-            <input type="submit" value="Cambiar Rol" class="input-submit-button">
+            <input type="submit" value="Cambiar Rol" class="input-submit-button" name="changeRole">
         </div>
             <?php
         }
@@ -592,10 +632,12 @@ function showRoleForm(){
 */
 function showUserStateForm(){
     global $edit, $register, $register, $client, $employee, $admin, $sessionUser, $user, $sessionUserRole, $userRole;
-    //Es editar, eres empleado o admin, el rango de usuario de la sesion sea igual o superior al rango del usuario a editar y no es tu cuenta
-    if($edit && ($employee || $admin) && ($sessionUserRole->getID() >= $userRole->getID() && $user->getID() != $sessionUser->getID()) ){
+    //Es editar, eres empleado o admin, 
+    //el rango de usuario de la sesion sea igual o superior al rango del usuario a editar 
+    //y no es tu cuenta
+    if($edit && ($employee || $admin) && $user->getID() != $sessionUser->getID()){
     ?>
-    <form id="active-form">
+    <form id="active-form" method="post" action="user.php?id=<?=$user->getID()?>">
         <h2>Estado</h2>
         <div>
             <label class="boxed-radio active">
@@ -615,6 +657,19 @@ function showUserStateForm(){
                 </div>
             </label>
         </div>
+        <?php 
+        //El rol del usuario que edita es mayor o igual
+        //y un empleado no esta editando a otro empleado
+        if($sessionUserRole->getID() >= $userRole->getID() &&
+        !($sessionUserRole->getID() == 0 && $userRole->getID() == 0)){
+            ?>
+        <div class="form-buttons">
+            <input type="submit" value="Cambiar Estado" class="input-submit-button" name="changeState">
+        </div>
+            <?php
+        }
+        ?>
+        
     </form>
     <?php
     }elseif($register && ($employee || $admin)){
