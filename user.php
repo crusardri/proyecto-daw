@@ -13,7 +13,7 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <?php 
-    var_dump($_POST);
+
     if($edit){
         ?>
     <div class="form-container user">
