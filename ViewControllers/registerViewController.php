@@ -38,7 +38,7 @@ if(isset($_POST["username"])){
             header("location: login.php");
             break;
         case 1:
-            $errorMSG = "El nombre de usuario debe tener al menos 4 carácteres.";
+            $errorMSG = "El nombre de usuario no es válido. <br> Debe tener al menos 4 letras y no tener carácteres especiales.";
             break;
         case 2: 
             $errorMSG = "El nombre de usuario ya esta registrado.";
