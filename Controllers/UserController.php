@@ -45,7 +45,7 @@ class UserController {
     *
     * @return User[]                        Array de usuarios
     */
-    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 2){
+    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
         $page = $page - 1;
         $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL
         $users = array();                       //Array de usuarios
@@ -81,38 +81,8 @@ class UserController {
                 U.ACTIVE = :active";
         }
         //Cocnatenar condicion activo
-        $sql .= " 
-            ORDER BY 
-                :orderBy ";
-        //Bindear filtro orden 
-        //(NOTA!!!!!! No se pueden bindear a una statement nombres de tablas ni palabras claves)
-        switch ($orderDirectionFilter){
-            case 1:
-                $sql .= "DESC ";
-                break;
-            default: 
-                $sql .= "ASC ";
-                break;
-        }
-        //Final de la SQL (Limitado por página)
-        $sql .= " 
-            LIMIT 
-                :page, 
-                :maxItems";
-        $stmt = $db->prepare($sql);//Preparamos sentencia
-        //Bindear filtro busqueda
-        if(!is_null($searchString) && !empty($searchString)){
-            $stmt->bindParam(':searchString', $searchString);
-        }
-        //Bindear filtro rol
-        if(!is_null($roleFilter) && $roleFilter >= 0){
-            $stmt->bindParam(':roleID', $roleFilter);
-        }
-        //Bindear filtro estado
-        if(!is_null($stateFilter) && $stateFilter >= 0){
-            $stmt->bindParam(':active', $stateFilter);
-        }
         //Bindear filtro order by
+        //(NOTA!!!!!! No se pueden bindear a una statement nombres de tablas, columnas, ni palabras claves)
         switch($orderByFilter){
             case 0:
                 $orderBy = "U.USER_ID";
@@ -145,21 +115,58 @@ class UserController {
                 $orderBy = "U.USER_ID";
                 break;
         }
-        //Bindear filtro ordenar por
-        $stmt->bindParam(':orderBy', $orderBy);
+        $sql .= " 
+            ORDER BY 
+                $orderBy ";
+        //Bindear filtro orden 
+        //(NOTA!!!!!! No se pueden bindear a una statement nombres de tablas, columnas, ni palabras claves)
+        switch ($orderDirectionFilter){
+            case 1:
+                $sql .= "DESC ";
+                break;
+            default: 
+                $sql .= "ASC ";
+                break;
+        }
+        //Final de la SQL (Limitado por página)
+        $sql .= " 
+            LIMIT 
+                :page, 
+                :maxItems";
+        $stmt = $db->prepare($sql);//Preparamos sentencia
+        //Bindear filtro busqueda
+        if(!is_null($searchString) && !empty($searchString)){
+            $stmt->bindParam(':searchString', $searchString);
+        }
+        //Bindear filtro rol
+        if(!is_null($roleFilter) && $roleFilter >= 0){
+            $stmt->bindParam(':roleID', $roleFilter);
+        }
+        //Bindear filtro estado
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $stmt->bindParam(':active', $stateFilter);
+        }
         //Bindear filtro empezar desde (página)
         $stmt->bindParam(":page", $startFromItem);
         //Bindear filtro elementos por página
         $stmt->bindParam(":maxItems", $itemsPerPage);
         //Ejecutamos la Query
         if($stmt->execute()){
+            echo "<pre>";
+            $stmt->debugDumpParams();
+            echo "</pre>";
             while($row = $stmt->fetch()){
                 array_push($users, new User(
                     $row["USER_ID"], 
                     $row["USERNAME"],
                     $row["HASHED_PASSWORD"],
                     $row["EMAIL"],
-                    new Role($row["ROLE_ID"], $row["ROLE_NAME"], $row["ROLE_CSS_CLASS"], $row["ROLE_DESCRIPTION"]),
+                    new Role(
+                        $row["ROLE_ID"], 
+                        $row["ROLE_NAME"], 
+                        $row["ROLE_CSS_CLASS"], 
+                        $row["ROLE_DESCRIPTION"]
+                    ),
                     $row["PHONE"],
                     $row["NAME"],
                     $row["SURNAME"],
