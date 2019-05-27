@@ -152,9 +152,6 @@ class UserController {
         $stmt->bindParam(":maxItems", $itemsPerPage);
         //Ejecutamos la Query
         if($stmt->execute()){
-            echo "<pre>";
-            $stmt->debugDumpParams();
-            echo "</pre>";
             while($row = $stmt->fetch()){
                 array_push($users, new User(
                     $row["USER_ID"], 
@@ -182,12 +179,62 @@ class UserController {
     * Consulta en la base de datos y devuelve el total de usuarios que coincida con los filtros.
     * @param String $searchString       Cadena a buscar
     * @param int $roleFilter            Especifica que usuarios mostrar por rol
-    * @param int $estateFilter          Especifica el estado del usuario
+    * @param int $stateFilter          Especifica el estado del usuario
     *
     * @return int                       Numero total de usuarios segun filtros
     */
-    public function getTotalUsers($searchString = "", $roleFilter = -1, $estateFilter = -1){
-        return 1000;
+    public function getTotalUsers($searchString = "", $roleFilter = -1, $stateFilter = -1){
+        $db = $this->connect();                 //Conexion DDBB
+        //SQL Principal
+        $sql = "
+            SELECT 
+                COUNT(*)
+            FROM
+                USERS AS U,
+                USER_ROLES AS R
+            WHERE
+                U.ROLE_ID = R.ROLE_ID"; 
+        //Concatenar condicion busqueda
+        if(!is_null($searchString) && !empty($searchString)){
+            $sql .= " 
+                AND (
+                    U.NAME LIKE :searchString OR 
+                    U.SURNAME LIKE :searchString OR 
+                    U.USERNAME LIKE :searchString OR 
+                    U.EMAIL LIKE :searchString OR 
+                    U.PHONE LIKE :searchString
+                )";
+        }
+        //Concatenar condicion filtro
+        if(!is_null($roleFilter) && $roleFilter >= 0){
+            $sql .= " AND 
+                U.ROLE_ID = :roleID";
+        }
+        //Cocnatenar condicion activo
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $sql .= " AND 
+                U.ACTIVE = :active";
+        }
+        $stmt = $db->prepare($sql);//Preparamos sentencia
+        //Bindear filtro busqueda
+        if(!is_null($searchString) && !empty($searchString)){
+            $stmt->bindParam(':searchString', $searchString);
+        }
+        //Bindear filtro rol
+        if(!is_null($roleFilter) && $roleFilter >= 0){
+            $stmt->bindParam(':roleID', $roleFilter);
+        }
+        //Bindear filtro estado
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $stmt->bindParam(':active', $stateFilter);
+        }
+        //Ejecutamos la Query
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                return($row[0]);
+            }
+        }
+        return 0;
     }
     /**
     * Consulta en la base de datos si el nombre de usuario esta disponible
