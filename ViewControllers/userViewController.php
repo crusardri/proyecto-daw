@@ -212,8 +212,8 @@ if(isset($_POST["changePassword"])){
             case 3:
                 $errorMSG = "Las contraseñas no coinciden.";
                 break;
-            case -1: 
-                $errorMSG = "Algo  ha fallado al cambiar la contraseña.";
+            default: 
+                $errorMSG = "Se ha producido un error al al cambiar la contraseña.";
                 break;
         }
     //Si es un empleado autorizado, o Administrador
@@ -228,8 +228,8 @@ if(isset($_POST["changePassword"])){
             case 1:
                 $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
                 break;
-            case -1: 
-                $errorMSG = "Algo  ha fallado al cambiar la contraseña.";
+            default: 
+                $errorMSG = "Se ha producido un error al cambiar la contraseña.";
                 break;
         }
     }else {
@@ -249,7 +249,7 @@ if(isset($_POST["changePersonalInfo"])){
             $errorMSG = "\"Nombre\" es un campo obligatorio.";
             break;
         case -1: 
-            $errorMSG = "Algo ha fallado al intentar actualizar la informacion de usuario.";
+            $errorMSG = "Se ha producido un error al actualizar la informacion de usuario.";
             break;
     }
 }
@@ -264,7 +264,7 @@ if(isset($_POST["changeRole"])){
                 $successMSG = "Rol de usuario actualizado.";
                 break;
             default: 
-                $errorMSG = "Algo ha fallado al cambiar el rol del usuario.";
+                $errorMSG = "Se ha producido un error al cambiar el rol del usuario.";
                 break;
         }
     }else {
