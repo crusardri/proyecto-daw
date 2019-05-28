@@ -19,7 +19,7 @@ require("Funciones/vistaController.php");
     <div class="orders-container">
         <form>
             <section class="search-box">
-                <input type="text" placeholder="Buscar órden por ID, Trabajador, Descripción o Cliente">
+                <input type="text" placeholder="Buscar órden por ID, Trabajador, Descripción o Cliente" autofocus>
                 <input type="submit" value="Buscar">
             </section>
         </form>

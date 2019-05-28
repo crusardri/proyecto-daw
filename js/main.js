@@ -140,6 +140,9 @@ $(document).ready(()=>{
     $(".boxed-input input, label.description-box textarea").on("focusout", function(){
         $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
     })
+    $(".boxed-input input:focus, label.description-box textarea:focus")
+    .parents("label.boxed-input, label.description-box")
+    .toggleClass("focussed", true);
     //Abrir ventana modal busqueda cliente
     $("#search-client").on("click", ()=>{
         modalBox("Buscar Cliente", showSearchUserForm);
