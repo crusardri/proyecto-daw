@@ -161,7 +161,7 @@ if(isset($_POST["changeEmail"])){
     //Si es un empleado, es su usuario o el usuario a editar es de un rol inferior
     //Si eres administrador
     if($clientAuthorize || $employeeAuthorize || $admin){
-        switch ($userController->changeEmail($_POST["email"], $user->getID())){
+        switch ($userController->changeEmail($user->getID(), $_POST["email"])){
             case 0:
                 $successMSG = "Correo electrónico cambiado con exito";
                 break;
