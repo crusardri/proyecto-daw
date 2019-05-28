@@ -156,7 +156,7 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
  */
 if(isset($_POST["changeEmail"])){
     $clientAuthorize = $client && ($sessionUser->getID() == $user->getID());
-    $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
+    $employeeAuthorize = $employee && ($sessionUser->getID() == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
     //Si es un cliente, y es su mismo usuario
     //Si es un empleado, es su usuario o el usuario a editar es de un rol inferior
     //Si eres administrador
