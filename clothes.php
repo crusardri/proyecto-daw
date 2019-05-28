@@ -14,9 +14,13 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="clothes-container">
-        <form>
-            
-        </form>
+    <?php
+        if(isset($errorMSG)){
+            ?><div class="msg error"><?=$errorMSG?></div><?php
+        }elseif(isset($successMSG)){
+            ?><div class="msg success"><?=$successMSG?></div><?php
+        }    
+    ?>
         <a class="haptic-button medium new-clothe" id="add-clothe">
             <img src="media/img/new-clothe.png">
             <div class="label">Nueva Prenda</div>

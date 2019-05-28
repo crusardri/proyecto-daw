@@ -296,12 +296,12 @@ div.clothes-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-clothe" "filters new-clothe" "clothes clothes" "paginator paginator";
+    grid-template-areas: "search new-clothe" "filters new-clothe" "infoMSG infoMSG" "clothes clothes" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.clothes-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "filters" "new-clothe" "clothes" "paginator";
+        grid-template-areas: "search" "filters" "infoMSG" "new-clothe" "clothes" "paginator";
     }
 }
 div.clothes-container .new-clothe{
@@ -310,6 +310,10 @@ div.clothes-container .new-clothe{
 }
 div.clothes-container > form {
     grid-area: search;
+}
+div.clothes-container .msg {
+    grid-area: infoMSG;
+    width: calc(100% - 60px);
 }
 section.clothes-container {
     grid-area: clothes;

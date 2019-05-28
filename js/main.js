@@ -280,7 +280,7 @@ function showNewClotheForm(){
             <label class='boxed-input' >\
                 <div class='text-label'><span>Nombre</span></div>\
                 <div class='input-container'>\
-                    <input type='text' name='fixName' value=''>\
+                    <input type='text' name='clotheName' value=''>\
                 </div>\
             </label>\
             <div class='form-buttons'>\

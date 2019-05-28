@@ -71,6 +71,21 @@ if(isset($_GET["clear"])){
 $totalClothes = $controller->getTotalClothes($search, $state);
 $clothes = $controller->getClothes($search, $state, $orderBy, $orderDirection, $page);
 
+//Registrar prenda
+if(isset($_POST["createClothe"]) && ($admin || $employee)){
+    switch($controller->addClothe($_POST["clotheName"])){
+        case 0:
+            $successMSG = "Prenda \"$_POST[clotheName]\" registrada con éxito.";
+            break;
+        case 1:
+            $errorMSG = "Debes completar el campo nombre.";
+            break;
+        default:
+            $errorMSG = "Se ha producido un error al registrar la prenda.";
+            break;
+    }
+}
+
 /**
  * Mostrar tabla prendas
  */
@@ -106,6 +121,6 @@ function showClothesTable(){
             ?>     
         </table>
     </div>
-    
+
     <?php
 }

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style/single-view.css">
 </head>
 <body>
-    <?php include("./includes/navbar.inc") ?>
+    <?php include("./includes/navbar.inc");?>
     <div class="form-container clothe">  
         <!-- Datos Prenda -->
         <?=showClotheInfoForm()?>

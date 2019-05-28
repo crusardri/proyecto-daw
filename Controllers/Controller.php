@@ -29,6 +29,17 @@ class Controller {
         return null;       
     }
     /**
+    * Registra una nueva prenda en la base de datos
+    * @param String $clotheName         Nombre de la prenda
+    *
+    * @return 0                         Prenda registrada con éxito
+    * @return 1                         Nombre no declarado
+    * @return -1                        Error desconocido
+    */
+    public function addClothe($clotheName){
+        return -1;
+    }
+    /**
      * Registra un nuevo arreglo para la prenda especificada
      * @param int $clotheID             ID de la prenda a añadir el arreglo
      * @param int $fixName              Nombre del arreglo
