@@ -17,7 +17,7 @@
         <form>
             
         </form>
-        <a class="haptic-button medium new-clothe" >
+        <a class="haptic-button medium new-clothe" id="add-clothe">
             <img src="media/img/new-clothe.png">
             <div class="label">Nueva Prenda</div>
         </a>

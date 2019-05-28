@@ -347,10 +347,10 @@ class UserController {
     * @return int 6                     Falta el nombre
     * @return int -1                    Algo ha fallado
     */
-    public function registerUser($userName, $password, $email, $name, $surname, $phone, $role = 0){
-        if (strlen($userName) < 4 || !preg_match('/(A-Za-z0-9)/', $username)){
+    public function registerUser($username, $password, $email, $name, $surname, $phone, $role = 0, $active = 1){
+        if (strlen($username) < 4 || !preg_match('/^[a-zA-Z0-9]+$/', $username)){
             return 1;
-        } elseif(!$this->checkUsername($userName)){
+        } elseif(!$this->checkUsername($username)){
             return 2;
         } elseif(strlen($password) < 6){
              return 3;
@@ -358,26 +358,33 @@ class UserController {
             return 4;
         } elseif(!$this->checkEmail($email)){
             return 5;
-        } elseif(empty($userName)){
+        } elseif(empty($name)){
             return 6;
         } else{
+            //Comprobar active bien formateado
+            if($active > 1 || $active < 0){
+                $active = 0;
+            }
             $db = $this->connect(); 
-            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp, active ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate, 1)";
+            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp, active ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate, :active)";
             $stmt = $db->prepare($sql);
             
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        
-            $stmt->bindParam(":usuario", $userName);
+            $registerDateTimestamp = time();
+            $stmt->bindParam(":usuario", $username);
             $stmt->bindParam(":contrasena", $passwordHash);
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":nombre", $name);
             $stmt->bindParam(":surname", $surname);
             $stmt->bindParam(":phone", $phone);
             $stmt->bindParam(":rol", $role);
-            $stmt->bindParam(":registeredDate", time());
-            $stmt->bindParam(":updateDate", time());
+            $stmt->bindParam(":registeredDate",$registerDateTimestamp );
+            $stmt->bindParam(":updateDate", $registerDateTimestamp);
+            $stmt->bindParam(":active", $active);
             if($stmt->execute()){
                 return 0;
+            }else {
+
             }
         }
         return -1;
@@ -403,7 +410,7 @@ class UserController {
     * @return int 6                     Falta el nombre
     * @return int -1                    Si algo ha fallado
     */
-    public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
+    /*public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
         if (strlen($userName) < 4 || !preg_match('/(A-Za-z0-9)/', $username)){
             return 1;
         } elseif($this->checkUsername($userName)){
@@ -437,7 +444,7 @@ class UserController {
             }
         }
         return -1;
-    }
+    }*/
     /**
     * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
     * @param String $oldPassword        La contraseña antigua

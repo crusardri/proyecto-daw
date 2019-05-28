@@ -126,11 +126,11 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
     $active =       isset($_POST["active"]) ?       $_POST["active"] : 0;
     switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone, $role, $active)){
         case 0:
-            $_SESSION["registerSuccess"] = true;
-            header("location: login.php?success");
+            $_SESSION["registerSuccess"] = $username;
+            header("location: users.php");
             break;
         case 1:
-            $errorMSG = "El nombre de usuario debe tener al menos 4 carácteres.";
+            $errorMSG = "El nombre de usuario debe tener al menos 4 carácteres y no debe contener especios ni carácteres especiales.";
             break;
         case 2: 
             $errorMSG = "El nombre de usuario ya esta registrado.";

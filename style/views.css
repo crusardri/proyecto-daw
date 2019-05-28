@@ -336,3 +336,21 @@ table.clothes-table td.date {width: 180px; text-align: center;}
     table.clothes-table td.active, 
     table.clothes-table td.date {width: auto; text-align: left;}
 }
+
+
+/* Ventana modal Añadir Prenda*/
+.modal-box.new-clothe > .modal-box-content{
+    height: 130px;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form{
+    display: flex;
+    flex-flow: row wrap;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form > *{
+    flex-basis: 100%;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form > div.form-buttons > input{
+    margin: auto;
+    height: 40px;
+    display: block;
+}

@@ -76,8 +76,8 @@ if(isset($_SESSION["unknownUser"])){
     unset($_SESSION["unknownUser"]);
     $errorMSG = "No se encuentra ese usuario.";
 }elseif(isset($_SESSION["registerSuccess"])){
+    $successMSG = "Se ha registrado a \"$_SESSION[registerSuccess]\" correctamente";
     unset($_SESSION["registerSuccess"]);
-    $successMSG = "Usuario registrado con éxito.";
 }
 
 

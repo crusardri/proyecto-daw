@@ -25,6 +25,5 @@
             <?php showClotheFixes(); ?>
         </div>
     </div>
-    
 </body>
 </html>
