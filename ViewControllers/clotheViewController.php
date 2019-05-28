@@ -64,6 +64,9 @@ if(!$clothe = $controller->getClothe($_GET["id"])){
     header("Location: clothes.php");
 };
 
+// Titulo
+$title = "Prenda: ".$clothe->getName();
+
 //Cambiar nombre prenda
 if(isset($_POST["changeClotheName"])){
     switch($controller->changeClotheName((int)$_POST["clotheID"], $_POST["clotheName"])){
@@ -163,9 +166,10 @@ function showClotheInfoForm(){
     global $errorMSG;
     global $successMSG;
     global $clothe;
+    global $title;
     ?>
     <form id="clothe-info-container" method="post" action="clothe.php?id=<?=$clothe->getID()?>">
-        <h1>Prenda</h1>
+        <h1><?=$title?></h1>
         <?php
         if(isset($errorMSG)){
             ?><div class="msg error"><?=$errorMSG?></div><?php

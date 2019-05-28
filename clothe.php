@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Usuario</title>
+    <title><?=$title?></title>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="style/style.css">
