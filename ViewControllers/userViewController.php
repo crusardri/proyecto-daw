@@ -185,7 +185,7 @@ if(isset($_POST["changeEmail"])){
  */
 if(isset($_POST["changePassword"])){
     $sameUser = $sessionUser->getID() == $user->getID();
-    $employeeAuthorize = $employee && ($sessionUser->getID == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
+    $employeeAuthorize = $employee && ($sessionUser->getID() == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
     $password = $_POST["password"];                 //Contraseña nueva
     if(isset($_POST["oldPassword"])){
         $oldPassword = $_POST["oldPassword"];       //Contraseña antigua
