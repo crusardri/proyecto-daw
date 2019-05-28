@@ -111,6 +111,8 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
 }
 
+
+
 /**
  * Registrar Usuario
  * Solo si eres admin o empleado
@@ -215,14 +217,11 @@ if(isset($_POST["changePassword"])){
                 $errorMSG = "Se ha producido un error al al cambiar la contraseña.";
                 break;
         }
-    //Si es un empleado autorizado, o Administrador
+    //Si eres un empleado autorizado, o Administrador
     }elseif($employeeAuthorize || $admin){
         switch ($userController->changePasswordAdmin($password, $user)){
             case 0:
-                session_destroy();
-                session_start();
-                $_SESSION["changePasswordSuccess"] = true;
-                header("location: login.php");
+                $successMSG = "Contraseña del usuario cambiada con éxito.";
                 break;
             case 1:
                 $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
