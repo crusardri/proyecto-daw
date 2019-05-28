@@ -1,31 +1,48 @@
-<?php 
-session_start(); //Iniciamos la sesion
-//Importamos las dependencias
-require_once("Funciones/vistaController.php");
-require_once("Classes/UserController.php");
-require_once("Classes/Controller.php");
+<?php
+/**
+ * 
+ * CONTROLADOR VENTANA ORDENES
+ * 
+ * 
+ */
+session_start();
+require_once("Controllers/UserController.php");
+require_once("Controllers/Controller.php");
 require_once("Classes/User.php");
 require_once("Classes/Role.php");
-require_once("Classes/Order.php");
-require_once("Classes/OrderItem.php");
-require_once("Classes/Estate.php");
-require_once("Classes/Fix.php");
 require_once("Classes/Clothe.php");
+require_once("Classes/Fix.php");
+require_once("Classes/Order.php");
+require_once("Classes/Estate.php");
+require_once("Classes/OrderItem.php");
+require_once("ViewControllers/vistaController.php");
 
-//Iniciamos los controladores 
-$userController = new UserController(); //Controlador de usuario
-$controller = new Controller(); //El controlador principal
+$userController = new UserController();         //Controlador de usuarios
+$controller = new Controller();                 //Controlador Prendas, Ordenes...
+
+$client = false;                                //Si es cliente
+$employee = false;                              //Si es empleado
+$admin = false;                                 //Si es administrador
+
+//Filtros del menu de filtros
+$filters = ["ID", "Nombre", "Número Arreglos", "Activo", "Fecha creación", "Fecha actualización"];
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
-    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
-    $role = $user->getRole(); //Obtener rol
-    if($role->getID() == 0){ //Comprobar rol
-        header("location: client.php"); //Si rol es cliente, a client.php
-    }
+    //Obtenemos Usuario y Rol
+    $sessionUser = $userController->getUser($_SESSION["userID"]); 
+    $sessionUserRole = $sessionUser->getRole();
 } else {
-    header("location: login.php"); //Si no tiene sesion iniciada, va al login.
+    //Si no tiene la sesión iniciada, va al login.
+    header("location: login.php"); 
+    //echo "Not Login in";
 }
+
+/*********************************************************
+ * 
+ * QUITAR LO DE ARRIBA
+ * 
+ */
 ?>
 <!DOCTYPE html>
 <html lang="en">

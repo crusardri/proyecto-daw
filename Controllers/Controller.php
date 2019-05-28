@@ -16,8 +16,22 @@ class Controller {
     * @return null                      si no existe
     */
     public function getOrder($orderID){
-        return null;
+        return new Order(
+            1
+            ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+            ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+            ,new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera.")
+            ,time()
+            ,time()
+            ,time()
+            ,time()
+            ,time()
+            ,10
+            ,"Observaciones"
+            ,time()
+        );
     }
+
     /**
     * Devuelve un array de objetos de OrderItems
     * @param int $orderID               ID de la orden
@@ -26,61 +40,10 @@ class Controller {
     * @return Order[]                   Array de ordenes
     */
     private function getOrderItems($orderID){
+        $orderItems = [
+            new OrderItem(1)
+        ];
         return null;       
-    }
-    /**
-    * Registra una nueva prenda en la base de datos
-    * @param String $clotheName         Nombre de la prenda
-    *
-    * @return 0                         Prenda registrada con éxito
-    * @return 1                         Nombre no declarado
-    * @return -1                        Error desconocido
-    */
-    public function addClothe($clotheName){
-        return -1;
-    }
-    /**
-     * Registra un nuevo arreglo para la prenda especificada
-     * @param int $clotheID             ID de la prenda a añadir el arreglo
-     * @param int $fixName              Nombre del arreglo
-     * @param int $fixPrice             Precio recomendado del arreglo
-     * @param int $active               0 Areglo deshabilitado, 1 arreglo hablitado
-     * 
-     * @return int 0                    Arreglo regitrado con exito
-     * @return int 1                    ID de la prenda no especificado
-     * @return int 2                    Falta el nombre del arreglo
-     * @return int 3                    Falta el precio recomendado del arreglo
-     * @return int -1                   Error desconocido
-     */
-    public function addFix($clotheID, $fixName, $fixPrice, $active = 0){
-        return -1;
-    }
-    /**
-     * Edita un arreglo para la prenda especificada
-     * @param int $clotheID             ID de la prenda a editar
-     * @param int $fixName              Nombre del arreglo
-     * @param int $fixPrice             Precio recomendado del arreglo
-     * 
-     * @return int 0                    Arreglo regitrado con exito
-     * @return int 1                    ID de la prenda no especificado
-     * @return int 2                    Falta el nombre del arreglo
-     * @return int 3                    Falta el precio recomendado del arreglo
-     * @return int -1                   Error desconocido
-     */
-    public function editFix($fixID, $fixName, $fixPrice){
-        return -1;
-    }
-    /**
-     * Activa o desactiva un arreglo arreglo para la prenda especificada
-     * @param int $fixName              Nombre del arreglo
-     * @param int $fixPrice             Precio recomendado del arreglo
-     * 
-     * @return int 0                    Arreglo modificado con exito
-     * @return int 1                    ID de la del arreglo no especificado
-     * @return int -1                   Error desconocido
-     */
-    public function toggleFix($fixID, $active){
-        return -1;
     }
     /**
     * Devuelve todas las ordenes limitado por pagina
@@ -139,8 +102,135 @@ class Controller {
                 break;
         }
         //TO DO
-        return array();
+        //return array();
+        return array(
+            new Order(
+                1
+                ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+                ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+                ,new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera.")
+                ,time()
+                ,null
+                ,null
+                ,null
+                ,null
+                ,5
+                ,"Observaciones"
+                ,time()
+            ),
+            new Order(
+                2
+                ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+                ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+                ,new Estate(0, "En proceso", "working", "La órden ha sido recibida y está en espera.")
+                ,time()
+                ,time()
+                ,null
+                ,null
+                ,null
+                ,2
+                ,"Observaciones"
+                ,time()
+            ),
+            new Order(
+                3
+                ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+                ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+                ,new Estate(0, "Finalizado", "finished", "La órden ha sido recibida y está en espera.")
+                ,time()
+                ,time()
+                ,time()
+                ,null
+                ,null
+                ,24
+                ,"Observaciones"
+                ,time()
+            ),
+            new Order(
+                4
+                ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+                ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+                ,new Estate(0, "Recogido", "out", "La órden ha sido recibida y está en espera.")
+                ,time()
+                ,time()
+                ,time()
+                ,time()
+                ,time()
+                ,85
+                ,"Observaciones"
+                ,time()
+            ),
+            new Order(
+                5
+                ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+                ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
+                ,new Estate(0, "Cancelado", "canceled", "La órden ha sido recibida y está en espera.")
+                ,time()
+                ,null
+                ,null
+                ,null
+                ,time()
+                ,10
+                ,"Observaciones"
+                ,time()
+            )
+        );
     }
+    /**
+    * Registra una nueva prenda en la base de datos
+    * @param String $clotheName         Nombre de la prenda
+    *
+    * @return 0                         Prenda registrada con éxito
+    * @return 1                         Nombre no declarado
+    * @return -1                        Error desconocido
+    */
+    public function addClothe($clotheName){
+        return -1;
+    }
+    /**
+     * Registra un nuevo arreglo para la prenda especificada
+     * @param int $clotheID             ID de la prenda a añadir el arreglo
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * @param int $active               0 Areglo deshabilitado, 1 arreglo hablitado
+     * 
+     * @return int 0                    Arreglo regitrado con exito
+     * @return int 1                    ID de la prenda no especificado
+     * @return int 2                    Falta el nombre del arreglo
+     * @return int 3                    Falta el precio recomendado del arreglo
+     * @return int -1                   Error desconocido
+     */
+    public function addFix($clotheID, $fixName, $fixPrice, $active = 0){
+        return -1;
+    }
+    /**
+     * Edita un arreglo para la prenda especificada
+     * @param int $clotheID             ID de la prenda a editar
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * 
+     * @return int 0                    Arreglo regitrado con exito
+     * @return int 1                    ID de la prenda no especificado
+     * @return int 2                    Falta el nombre del arreglo
+     * @return int 3                    Falta el precio recomendado del arreglo
+     * @return int -1                   Error desconocido
+     */
+    public function editFix($fixID, $fixName, $fixPrice){
+        return -1;
+    }
+    /**
+     * Activa o desactiva un arreglo arreglo para la prenda especificada
+     * @param int $fixName              Nombre del arreglo
+     * @param int $fixPrice             Precio recomendado del arreglo
+     * 
+     * @return int 0                    Arreglo modificado con exito
+     * @return int 1                    ID de la del arreglo no especificado
+     * @return int -1                   Error desconocido
+     */
+    public function toggleFix($fixID, $active){
+        return -1;
+    }
+    
 
     /**
      * Consulta en la base de datos y devuelve una prenda
@@ -234,5 +324,29 @@ class Controller {
      */
     private function getNumFixes($clotheId){
         return 4;
+    }
+    /**
+     * Obtiene los estados de una orden desde la base de datos
+     * 
+     * @return Estate[]                 Estados de la orden disponibles
+     */
+    public function getStates(){
+        $states = [
+            new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera."),
+            new Estate(1, "En proceso", "working", "La órden está realizandose."),
+            new Estate(2, "Finalizado", "finished", "La órden ha sido terminada y está pendiente de recogida."),
+            new Estate(3, "Entregado", "out", "La órden ha sido recogida."),
+            new Estate(4, "Cancelado", "canceled", "La órden ha sido cancelada.")
+        ];
+        return $states;
+    }
+    /**
+     * Obtiene los estados de una orden desde la base de datos
+     * @param int $stateID              ID de un estado
+     * 
+     * @return Estate                   Estado de una orden
+     */
+    private function getState($stateID){
+        return new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera.");
     }
 }

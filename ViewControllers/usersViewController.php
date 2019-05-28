@@ -83,7 +83,7 @@ if(isset($_SESSION["unknownUser"])){
 
 
 /**
-* Muestra el Select del filtro order-direction
+* Muestra el Select del filtro roles
 */
 function showRoleFilter(){
     global $roles; 

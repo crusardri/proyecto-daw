@@ -25,7 +25,7 @@
             <img src="media/img/new-clothe.png">
             <div class="label">Nueva Prenda</div>
         </a>
-        <section class="item-filters">
+        <form method="get" action="clothes.php" class="item-filters">
             <h1>Filtros</h1>
             <label class="boxed-input searchbox">
                 <div class="text-label"><span>Buscar</span></div>
@@ -36,7 +36,9 @@
             <?=showStateFilter()?>
             <?=showOrderByFilter($filters)?>
             <?=showOrderDirectionFilter();?>
-        </section>
+            <input type="submit" class="input-submit-button" value="Filtrar" name="filter">
+            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear" style="margin-left: 0;">
+        </form>
         
         <section class="clothes-container">
             <?php showClothesTable()?>

@@ -1,5 +1,5 @@
 <?php 
-require("Funciones/vistaController.php");
+require_once("ViewControllers/ordersViewController.php");
 
 ?>
 <!DOCTYPE html>
@@ -17,57 +17,28 @@ require("Funciones/vistaController.php");
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="orders-container">
-        <form>
-            <section class="search-box">
-                <input type="text" placeholder="Buscar órden por ID, Trabajador, Descripción o Cliente" autofocus>
-                <input type="submit" value="Buscar">
-            </section>
-        </form>
         <a class="haptic-button medium new-order" >
             <img src="media/img/new-order.png">
             <div class="label">Nueva Órden</div>
         </a>
-        <section class="item-filters">
+        <form class="item-filters">
+            <label class="boxed-input searchbox">
+                <div class="text-label"><span>Buscar</span></div>
+                <div class="input-container">
+                    <input type="text" placeholder="Buscar ordenes por ID, Cliente, Empleado o Descripción" name="search" value="<?=$search?>" autofocus>
+                </div>
+            </label>
             <h1>Filtros</h1>
-            <label class="boxed-select" id="order-estate-filter">
-                <div>Estado</div>
-                <select data-class="labeled">
-                    <option value="-1"> Todos </option>
-                    <option value="0" data-class="pending">Pendiente</option>
-                    <option value="1" data-class="working">En proceso</option>
-                    <option value="2" data-class="finished">Finalizado</option>
-                    <option value="3" data-class="out">Recogido</option>
-                    <option value="10" data-class="canceled">Cancelado</option>
-                </select>
-            </label>
-            <label class="boxed-select" id="order-by-filter">
-                <div>Ordenar por</div>
-                <select data-class="order-by-filter">
-                    <option value="0">ID</option>
-                    <option value="1">Fecha entrada</option>
-                    <option value="2">Fecha inicio</option>
-                    <option value="3">Fecha finalizado</option>
-                    <option value="4">Fecha salida</option>
-                    <option value="5">Fecha cancelado</option>
-                    <option value="6">Fecha actualizacion</option>
-                    <option value="7">Cliente</option>
-                    <option value="8">Trabajador</option>
-                    <option value="9">Precio</option>
-                    <option value="10">Número prendas</option>
-                </select>
-            </label>
-            <label class="boxed-select" id="order-direction-filter">
-                <div>Orden</div>
-                <select data-class="order-direction-filter">
-                    <option value="0">Ascendente</option>
-                    <option value="1">Descendente</option>
-                </select>
-            </label>
-        </section>
+            <?=showOrderStateFilter()?>
+            <?=showOrderByFilter($filters)?>
+            <?=showOrderDirectionFilter();?>
+            <input type="submit" class="input-submit-button" value="Filtrar" name="filter">
+            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear" style="margin-left: 0;">
+        </form>
         <section class="orders-container">
             <?php showOrdersTable()?>
             <div class="order-pag">
-                <?php showPaginator() ?>
+                <?php showPaginator("orders.php?", $page, $totalOrders, $_GET) ?>
             </div>
         </section>
         

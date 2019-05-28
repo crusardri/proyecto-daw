@@ -3,10 +3,12 @@ class Estate{
     private $id;
     private $name;
     private $cssClass;
-    function __construct($id, $name, $cssClass){
+    private $description;
+    function __construct($id, $name, $cssClass, $description){
         $this->id = $id;
         $this->name = $name;
         $this->cssClass = $cssClass;
+        $this->description = $description;
     }
     function getId(){
         return $this->id;
@@ -16,5 +18,8 @@ class Estate{
     }
     function getCssClass(){
         return $this->cssClass;
+    }
+    function getDescription(){
+        return $this->description;
     }
 }
