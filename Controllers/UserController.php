@@ -370,7 +370,7 @@ class UserController {
             $stmt = $db->prepare($sql);
             
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-            $registerDateTimestamp = time();
+            $timestamp = time();
             $stmt->bindParam(":usuario", $username);
             $stmt->bindParam(":contrasena", $passwordHash);
             $stmt->bindParam(":email", $email);
@@ -378,8 +378,8 @@ class UserController {
             $stmt->bindParam(":surname", $surname);
             $stmt->bindParam(":phone", $phone);
             $stmt->bindParam(":rol", $role);
-            $stmt->bindParam(":registeredDate",$registerDateTimestamp );
-            $stmt->bindParam(":updateDate", $registerDateTimestamp);
+            $stmt->bindParam(":registeredDate",$timestamp );
+            $stmt->bindParam(":updateDate", $timestamp);
             $stmt->bindParam(":active", $active);
             if($stmt->execute()){
                 return 0;
@@ -471,11 +471,11 @@ class UserController {
             $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-            $registerDateTimestamp = time();
+            $timestamp = time();
 
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':userID', $user->getID());
-            $stmt->bindParam(':updateDate', $registerDateTimestamp);
+            $stmt->bindParam(':updateDate', $timestamp);
             
             if($stmt->execute()){
                 return 0;
@@ -505,11 +505,11 @@ class UserController {
             $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-            $registerDateTimestamp = time();
+            $timestamp = time();
 
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':userID', $user->getID());
-            $stmt->bindParam(':updateDate', $registerDateTimestamp);
+            $stmt->bindParam(':updateDate', $timestamp);
 
             if($stmt->execute()){
                 return 0;
@@ -550,11 +550,11 @@ class UserController {
             $sql = "UPDATE USERS SET EMAIL = :emailUser, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             $stmt = $db->prepare($sql);
 
-            $registerDateTimestamp = time();
+            $timestamp = time();
 
             $stmt->bindParam(':emailUser', $email);
             $stmt->bindParam(':userID', $userID);
-            $stmt->bindParam(':updateDate', $registerDateTimestamp);
+            $stmt->bindParam(':updateDate', $timestamp);
 
             if($stmt->execute()){
                 return 0;  
@@ -575,11 +575,11 @@ class UserController {
         $sql = "UPDATE USERS SET ROLE_ID = :roleID, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
         $stmt = $db->prepare($sql);
 
-        $registerDateTimestamp = time();
+        $timestamp = time();
 
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':roleID', $roleID);
-        $stmt->bindParam(':updateDate', $registerDateTimestamp);
+        $stmt->bindParam(':updateDate', $timestamp);
 
         if($stmt->execute()){
            return 0;
@@ -599,11 +599,11 @@ class UserController {
         $sql = "UPDATE USERS SET ACTIVE = :newState, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
         $stmt = $db->prepare($sql);
 
-        $registerDateTimestamp = time();
+        $timestamp = time();
     
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':newState', $newState);
-        $stmt->bindParam(':updateDate', $registerDateTimestamp);
+        $stmt->bindParam(':updateDate', $timestamp);
     
         if($stmt->execute()){
             return 0;
