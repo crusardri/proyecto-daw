@@ -28,7 +28,7 @@ if(isset($_GET["logout"])){
             <?php
         }
         ?>
-        <a class="menu-item user" href="?logout">
+        <a class="menu-item user" href="user.php?id=<?=$sessionUser->getID()?>">
             <div class="user-avatar"><?=substr($sessionUser->getName(), 0,1) . substr($sessionUser->getSurname(), 0,1)?></div>
             <div class="username"><?=$sessionUser->getName()." ".$sessionUser->getSurname()?></div>
         </a>

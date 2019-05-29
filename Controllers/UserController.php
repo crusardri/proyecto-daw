@@ -472,9 +472,10 @@ class UserController {
             
             $stmt = $db->prepare($sql);
             $timestamp = time();
-
+            
+            $userId = $user->getID();
             $stmt->bindParam(':password', $hashedPassword);
-            $stmt->bindParam(':userID', $user->getID());
+            $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':updateDate', $timestamp);
             
             if($stmt->execute()){
@@ -506,9 +507,9 @@ class UserController {
             
             $stmt = $db->prepare($sql);
             $timestamp = time();
-
+            $userId = $user->getID();
             $stmt->bindParam(':password', $hashedPassword);
-            $stmt->bindParam(':userID', $user->getID());
+            $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':updateDate', $timestamp);
 
             if($stmt->execute()){
@@ -595,6 +596,12 @@ class UserController {
      * @return int -1                   Si algo ha fallado
      */  
     public function changeState($userID, $newState){
+        if($newState){
+            $newState = 0;
+        }else{
+            $newState = 1;
+        }
+        var_dump($newState);
         $db = $this->connect();
         $sql = "UPDATE USERS SET ACTIVE = :newState, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
         $stmt = $db->prepare($sql);
