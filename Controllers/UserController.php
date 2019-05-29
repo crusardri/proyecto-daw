@@ -63,7 +63,7 @@ class UserController {
     *
     * @author Iván Maldonado Fernández
     */
-    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
+    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 10){
         $searchString = "%$searchString%"; 
         $page = $page - 1;
         $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL

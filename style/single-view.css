@@ -162,6 +162,36 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
     div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
 }
 
+.modal-box.new-order-item .select-clothe, 
+.modal-box.new-order-item .select-fix{
+    width: 100%;
+}
+.modal-box.new-order-item > .modal-box-content {
+    height: initial;
+}
+.modal-box.new-order-item .modal-box-body{
+    width: calc(100% - 20px);
+    padding: 10px;
+    display: grid;
+    grid-template-areas: "clothe fix" "desc desc" "button button";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 100px 50px;
+    height: 300px;
+    grid-column-gap: 10px;
+}
+#select-clothe{
+    grid-area: clothe;
+}
+#select-fix{
+    grid-area: fix;
+}
+#order-item-description{
+    grid-area: desc;
+}
+#order-item-submit{
+    grid-area: button;
+}
+
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - user.php - -------------------------------------------- 

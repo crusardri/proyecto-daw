@@ -100,7 +100,6 @@ section.buttons-container {
     flex-flow: row wrap;
     justify-content: space-around;
     width: 100%;
-    margin: 20px 0 10px;
 }
 
 

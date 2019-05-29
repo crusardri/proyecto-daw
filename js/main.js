@@ -155,8 +155,7 @@ $(document).ready(()=>{
     })
     //Abrir ventana modal busqueda prenda
     $("#new-order-item").on("click", ()=>{
-        modalBox("Añadir Prenda", showClothesSearchForm);
-        showClothes();
+        showAddOrderItemForm();
     })
     //Abrir ventana modal crear arreglo
     $("#add-fix").on("click", ()=>{
@@ -299,3 +298,48 @@ function showNewClotheForm(){
         closeModalBox();
     })
 }
+
+function showAddOrderItemForm(){
+    $("<div class='modal-box new-order-item'>\
+    <div class='modal-box-content'>\
+        <h1 class='modal-box-title'>Añadir nueva prenda</h1>\
+        <div class='modal-box-close'>x</div>\
+        <div class='modal-box-body'>\
+            <label class='boxed-select' id='select-clothe'>\
+                <div>Prenda</div>\
+                <select data-class='select-clothe' name='clothe'>\
+                    <option value='0'>Vaqueros</option>\
+                    <option value='1'>Blusa</option>\
+                    <option value='2'>Opel Corsa</option>\
+                </select>\
+            </label>\
+            <label class='boxed-select' id='select-fix'>\
+                <div>Arreglo</div>\
+                <select data-class='select-fix' name='fix'>\
+                    <option value='0'>Bajo</option>\
+                    <option value='1'>Alto</option>\
+                    <option value='2'>Cambio de aceite</option>\
+                </select>\
+            </label>\
+            <label class='description-box order-item-description' id='order-item-description'>\
+            <div class='header'>Observaciones</div>\
+                <textarea name='order-item-description'>Sin descripción</textarea>\
+            </label>\
+            <div class='form-buttons' id='order-item-submit'>\
+                <input type='submit' value='Añadir prenda a la orden' name='createClothe' class='input-submit-button'>\
+            </div>\
+        </div>\
+    </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1");
+    }, 100);
+    $("div.modal-box-content").on("click", (e)=>{
+        e.stopPropagation();
+    })
+    $("div.modal-box, div.modal-box-close").on("click", function(e){
+        closeModalBox();
+    })
+    customSelect("#select-clothe");
+    customSelect("#select-fix");
+}
+

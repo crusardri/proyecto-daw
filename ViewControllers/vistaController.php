@@ -59,7 +59,7 @@ function showOrderDirectionFilter(){
 }
 
 
-function showPaginator($baseURL, $actualPage, $totalItems, $urlParams, $itemsPerPage = 20){
+function showPaginator($baseURL, $actualPage, $totalItems, $urlParams, $itemsPerPage = 10){
     $totalPages = ceil($totalItems / $itemsPerPage);
     $paginatorFillPages = 4;
     if($totalPages > 1){
