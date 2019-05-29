@@ -39,7 +39,7 @@ class Controller {
     * @return null                      si no existe
     * @return Order[]                   Array de ordenes
     */
-    private function getOrderItems($orderID){
+    public function getOrderItems($orderID){
         $orderItems = [
             new OrderItem(1)
         ];
