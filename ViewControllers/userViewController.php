@@ -73,7 +73,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
     $title = "Crear usuario";
     //echo "Estoy creando un usuario nuevo\n";
 }else { //Si no a empleado.php 
-    header("Location: employee.php");
+    header("Location: index.php");
 }
 
 

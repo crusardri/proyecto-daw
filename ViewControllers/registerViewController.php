@@ -14,13 +14,7 @@ require_once("Controllers/UserController.php");
 */
 $userController = new UserController(); //Controlador de usuario
 if(isset($_SESSION["userID"])){
-    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
-    $role = $user->getRole(); //Obtener rol
-    if($role->getID() == 0){ //Comprobar rol
-        header("location: client.php"); //Si cliente, a client.php
-    }elseif($role->getID() == 1 || $role->getID() == 2){
-        header("location: employee.php"); //Si empleado o administrador, a employee.php
-    }
+    header("location: index.php");
 }
 /*
 * Manejador registro

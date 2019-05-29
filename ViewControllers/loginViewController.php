@@ -16,12 +16,7 @@ $userController = new UserController();//Controlador Usuario
 */
 if(isset($_SESSION["userID"])){
     $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
-    $role = $user->getRole(); //Obtener rol
-    if($role->getID() == 0){ //Comprobar rol
-        header("location: client.php"); //Si cliente, a client.php
-    }elseif($role->getID() == 1 || $role->getID() == 2){
-        header("location: employee.php"); //Si empleado o administrador, a employee.php
-    }
+    header("location: index.php");
 }
 /*
 * Comprobar que viene de register
@@ -49,12 +44,7 @@ if(isset($_POST["login"])){
     switch ($userController->login($username, $password)){
         case 0:
             $user = $userController->getUser($_SESSION["userID"]);
-            $role = $user->getRole();
-            if($role->getID() == 0){
-                header("location: client.php");
-            }elseif($role->getID() == 1 || $role->getID() == 2){
-                header("location: employee.php");
-            }
+            header("Location: index.php");
             break;
         case 1:
             $infoMSG = "Debes completar el campo \"Nombre de usuario\".";

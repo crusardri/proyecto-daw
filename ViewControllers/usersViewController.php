@@ -45,7 +45,7 @@ if($sessionUserRole->getID() == 0){
 
 //Si no es un empleado o admin, a Client.php
 if(!($employee || $admin)){
-    header("location: client.php");
+    header("location: index.php");
 }
 
 //Asignar valores filtros

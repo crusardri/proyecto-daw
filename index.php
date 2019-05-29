@@ -1,4 +1,4 @@
-<?php require_once("ViewControllers/employeeViewController.php")?>
+<?php require_once("ViewControllers/indexViewController.php")?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +32,13 @@
             </a>
         </section>
         <section class="my-orders orders-container">
-           <?php showOrdersShowcase("Órdenes Asignadas a mí."); ?>
+           <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders); ?>
         </section>
         <section class="all-orders orders-container">
-           <?php showOrdersShowcase("Todas las ordenes."); ?>
+           <?php showOrdersShowcase("Todas las ordenes.", $orders); ?>
         </section>
         <section class="updates orders-container">
-           <?php showOrdersShowcase("Actualizaciones."); ?>
+           <?php showOrdersShowcase("Actualizaciones.", $orders); ?>
         </section>
     </div>
     

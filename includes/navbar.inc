@@ -6,7 +6,7 @@ if(isset($_GET["logout"])){
 }
 ?>
     <nav class="top-header">
-        <a class="menu-item" href="employee.php">
+        <a class="menu-item" href="index.php">
             <img src="media/img/inicio.png">
             <div class="label">Inicio</div>
         </a>
@@ -14,6 +14,9 @@ if(isset($_GET["logout"])){
             <img src="media/img/order.png">
             <div class="label">Órdenes</div>
         </a>
+        <?php 
+        if($employee||$admin){
+            ?>
         <a class="menu-item" href="clothes.php">
             <img src="media/img/prendas.png">
             <div class="label">Prendas</div>
@@ -22,6 +25,9 @@ if(isset($_GET["logout"])){
             <img src="media/img/users.png">
             <div class="label">Usuarios</div>
         </a>
+            <?php
+        }
+        ?>
         <a class="menu-item user" href="?logout">
             <div class="user-avatar"><?=substr($sessionUser->getName(), 0,1) . substr($sessionUser->getSurname(), 0,1)?></div>
             <div class="username"><?=$sessionUser->getName()." ".$sessionUser->getSurname()?></div>
