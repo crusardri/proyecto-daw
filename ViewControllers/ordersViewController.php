@@ -80,7 +80,7 @@ function showNewOrderButton(){
 
     if($employee || $admin){
     ?>
-    <a class="haptic-button medium new-order" >
+    <a class="haptic-button medium new-order" href="order.php?newOrder">
         <img src="media/img/new-order.png">
         <div class="label">Nueva Órden</div>
     </a>
