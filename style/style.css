@@ -1152,3 +1152,20 @@ div.table-like-container > .item.no-items:hover {
     box-shadow: none;
     
 }
+
+
+
+
+.logout-button{
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+    background-color: #DA0000;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.logout-button:hover{
+    text-decoration: none;
+    background-color: #ae0000;
+}

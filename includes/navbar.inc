@@ -33,3 +33,4 @@ if(isset($_GET["logout"])){
             <div class="username"><?=$sessionUser->getName()." ".$sessionUser->getSurname()?></div>
         </a>
     </nav>
+    <a class="logout-button" href="?logout">Cerrar sesión</a>

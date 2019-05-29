@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style/single-view.css">
 </head>
 <body>
+    
     <?php include("./includes/navbar.inc") ?>
     <?php 
 
@@ -62,7 +63,6 @@
                 <input type="submit" value="Registrar Usuario" class="input-submit-button" name="registerUser">
             </div>
         </form>
-        
     </div>    
         <?php
     }
