@@ -58,6 +58,9 @@ if(isset($_GET["search"]))          {$search = $_GET["search"];}                
 if(isset($_GET["state"]))           {$stateFilter = (int) $_GET["state"];}                    //Estado Prenda
 if(isset($_GET["orderBy"]))         {$orderBy = (int) $_GET["orderBy"];}                //Ordenado por
 if(isset($_GET["orderDirection"]))  {$orderDirection = (int) $_GET["orderDirection"];}  //ORden ordenación
+if($client){
+    $search = $sessionUser->getUsername();
+}
 
 //Borrar Filtros
 if(isset($_GET["clear"])){
@@ -68,6 +71,48 @@ if(isset($_GET["clear"])){
 $totalOrders = 1000;
 $states = $controller->getStates();
 $orders = $controller->getOrders($search, $stateFilter, $orderBy, $orderDirection, $page, 10);
+
+/**
+ * Mostrar boton nueva órden
+ */
+function showNewOrderButton(){
+    global $client, $employee, $admin;
+
+    if($employee || $admin){
+    ?>
+    <a class="haptic-button medium new-order" >
+        <img src="media/img/new-order.png">
+        <div class="label">Nueva Órden</div>
+    </a>
+    <?php
+    }
+}
+/**
+ * Mostrar menu de filtros
+ */
+function showOrderFilters(){
+    global $admin, $employee, $client;
+    global $filters;
+    global $page,$search,$stateFilter,$orderBy,$orderDirection; 
+    if($admin || $employee){
+    ?>
+        <form class="item-filters">
+            <label class="boxed-input searchbox">
+                <div class="text-label"><span>Buscar</span></div>
+                <div class="input-container">
+                    <input type="text" placeholder="Buscar ordenes por ID, Cliente, Empleado o Descripción" name="search" value="<?=$search?>" autofocus>
+                </div>
+            </label>
+            <h1>Filtros</h1>
+            <?=showOrderStateFilter()?>
+            <?=showOrderByFilter($filters)?>
+            <?=showOrderDirectionFilter();?>
+            <input type="submit" class="input-submit-button" value="Filtrar" name="filter">
+            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear" style="margin-left: 0;">
+        </form>
+    <?php
+    }
+}
 /**
  * Tabla ordenes
  */

@@ -5,7 +5,6 @@
 *
 */
 session_start();
-//require("Funciones/vistaController.php");
 require_once("Classes/User.php");
 require_once("Controllers/UserController.php");
 

@@ -27,8 +27,6 @@ $admin = false; //Es admin
 $edit = false; //Modo Editar
 $register = false; //Modo nuevo registro
 
-//echo "<pre>";
-//var_dump($_POST);
 /**
 * Comprueba que este la sesion iniciada y obtiene el usuario y el rol, si no lo esta te devuelve a login.php
 */
@@ -51,13 +49,10 @@ if(isset($_SESSION["userID"])){
 */
 if($sessionUserRole->getID() == 0){//Si es un cliente
     $client = true;
-    //echo "Soy un Cliente\n";
 }elseif($sessionUserRole->getID() == 1){ //Si es un empleado
     $employee = true;
-    //echo "Soy un Empleado\n";
 }elseif($sessionUserRole->getID() == 2){ //Si es administrador
     $admin = true;
-    //echo "Soy un Administrador\n";
 }
 
 /**
@@ -65,13 +60,11 @@ if($sessionUserRole->getID() == 0){//Si es un cliente
 */
 //Setear Modo
 if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarado y no es vacio, editara un usuario
-    //echo "Estoy Editando un usuario\n";
     $edit = true;
     $title = "Editar usuario: ";
 }elseif(isset($_GET["newUser"])){//Si el parametro newUser esta declarado, creara un usuario
     $register = true;
     $title = "Crear usuario";
-    //echo "Estoy creando un usuario nuevo\n";
 }else { //Si no a empleado.php 
     header("Location: index.php");
 }
@@ -83,23 +76,20 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 */
 if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
     $user = $userController->getUser($_GET["id"]);
-    if(is_null($user)){//Si el usuario no existe
-        $_SESSION["unknownUser"] = true;
-        header("location: users.php");
-    }
+    
     $userRole = $user->getRole();
-    //echo "Soy Admin/Empleado y puedo ver cualquier usuario";
 }elseif($edit && $client && $sessionUser->getID() == $_GET["id"]){ //Si esta editando, es cliente y esta consultando su misma ID
     $user = $userController->getUser($_GET["id"]);
-    //echo "Soy cliente, estoy editando, y la ID que estoy consultando es la misma que la mia";
-}else {
-    //header("location: employee.php");
 }
-
+//Si el usuario no existe genera un error
+if(is_null($user)){//Si el usuario no existe
+    $_SESSION["unknownUser"] = true;
+    header("location: users.php");
+}
+//Establece un titulo para la página
 if($edit){
     $title = $title . $user->getUsername();
 }
-//echo "</pre>";
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
@@ -442,7 +432,7 @@ function showPasswordForm(){
                     </div>
                 </label>
                 <?php 
-                if($client || $user->getID() == $sessionUser->getID()){ //Si es un cliente o es tu cuenta, require el campo "Repetir contraseña" ;
+                if($client || $user->getID() == $sessionUser->getID()){ //Si es un cliente o es tu cuenta, require el campo "Repetir contraseña"
                     ?>
                 <label class="boxed-input mandatory" id="repeatPassword">
                     <div class="text-label"><span>Repetir Contraseña</span></div>

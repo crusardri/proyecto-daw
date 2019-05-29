@@ -128,7 +128,8 @@ function showOrdersShowcase($titulo, $orders){
                         <span class="content"><?=$order->getOutDateString()?></span>
                     </div>
                         <?php
-                    }if(!is_null($order->getCancelDate())){
+                    }
+                    if(!is_null($order->getCancelDate())){
                         ?>
                     <div class="item-id">
                         <span class="label">Cancelado: </span>

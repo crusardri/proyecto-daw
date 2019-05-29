@@ -17,24 +17,8 @@ require_once("ViewControllers/ordersViewController.php");
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="orders-container">
-        <a class="haptic-button medium new-order" >
-            <img src="media/img/new-order.png">
-            <div class="label">Nueva Órden</div>
-        </a>
-        <form class="item-filters">
-            <label class="boxed-input searchbox">
-                <div class="text-label"><span>Buscar</span></div>
-                <div class="input-container">
-                    <input type="text" placeholder="Buscar ordenes por ID, Cliente, Empleado o Descripción" name="search" value="<?=$search?>" autofocus>
-                </div>
-            </label>
-            <h1>Filtros</h1>
-            <?=showOrderStateFilter()?>
-            <?=showOrderByFilter($filters)?>
-            <?=showOrderDirectionFilter();?>
-            <input type="submit" class="input-submit-button" value="Filtrar" name="filter">
-            <input type="submit" class="input-submit-button" value="Borrar filtros" name="clear" style="margin-left: 0;">
-        </form>
+        <?php showNewOrderButton();?>
+        <?php showOrderFilters();?>
         <section class="orders-container">
             <?php showOrdersTable()?>
             <div class="order-pag">

@@ -32,7 +32,6 @@ if(isset($_SESSION["userID"])){
 } else {
     //Si no tiene la sesión iniciada, va al login.
     header("location: login.php"); 
-    //echo "Not Login in";
 }
 
 //Obtencion tipo usuario
