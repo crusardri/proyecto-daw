@@ -13,16 +13,27 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="worker-container">
-        <?php showIndexButtons();?>
+        <?php showIndexButtons();
+        if($admin || $employee){
+            ?>
         <section class="my-orders orders-container">
-           <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders); ?>
+           <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders, "orders.php?search=".$sessionUser->getUsername()); ?>
         </section>
         <section class="all-orders orders-container">
-           <?php showOrdersShowcase("Todas las ordenes.", $orders); ?>
+           <?php showOrdersShowcase("Todas las ordenes.", $orders)?>
         </section>
         <section class="updates orders-container">
-           <?php showOrdersShowcase("Actualizaciones.", $orders); ?>
+           <?php showOrdersShowcase("Actualizaciones.", $orders, "orders.php?orderBy=6"); ?>
         </section>
+            <?php
+        }else{
+            ?>
+        <section class="client-orders orders-container">
+           <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders, "orders.php?search=".$sessionUser->getUsername()); ?>
+        </section>
+            <?php
+        }
+        ?>
     </div>
     
 </body>

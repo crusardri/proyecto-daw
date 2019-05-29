@@ -59,11 +59,11 @@ if($employee || $admin){
 /**
 * Mostrar tabla de ordenes
 */
-function showOrdersShowcase($titulo, $orders){
+function showOrdersShowcase($titulo, $orders, $url = "orders.php"){
     global $client, $employee, $admin;
     ?>
     <div class="showcase order-showcase">
-        <div class="title"><?=$titulo?><a class="button" href="">Ver todas</a></div>
+        <div class="title"><?=$titulo?><a class="button" href="<?=$url?>">Ver todas</a></div>
         <div class="order-container">
         <?php
         if(sizeof($orders)){
