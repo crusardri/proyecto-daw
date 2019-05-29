@@ -557,6 +557,16 @@ class UserController {
      * @return int -1                   Si algo ha fallado
      */  
     public function changeState($userID, $newState){
+        $db = $this->connect();
+        $sql = "UPDATE USERS SET ACTIVE = :newState WHERE USER_ID = :userID";
+        $stmt = $db->prepare($sql);
+    
+        $stmt->bindParam(':userID', $userID);
+        $stmt->bindParam(':newState', $newState);
+    
+        if($stmt->execute()){
+            return 0;
+        }
         return -1;
     }
     /**
