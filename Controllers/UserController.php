@@ -493,6 +493,24 @@ class UserController {
     * @return int -1                    Algo ha fallado
     */
     public function changePasswordAdmin($newPassword, $user){
+        if(strlen($newPassword) < 6){
+            return 1;
+        } elseif($newPassword != $newPassword){
+            return 2;
+        } else {
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            $db = $this->connect();
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
+            
+            $stmt = $db->prepare($sql);
+        
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':userID', $user->getID());
+            
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
