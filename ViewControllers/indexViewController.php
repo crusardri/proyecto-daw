@@ -45,6 +45,12 @@ if($sessionUserRole->getID() == 0){
     $admin = true;
 }
 
+if($client){
+    $title = "Panel de cliente";
+}elseif($admin||$employee){
+    $title = "Panel del trabajador";
+}
+
 //Obtener las órdenes del client
 if($client){
     $orders = $controller->getOrders($sessionUser->getUsername(), -1, -1, -1, 0, 5);
