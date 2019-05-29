@@ -45,7 +45,7 @@ div.form-container.order div.estate-container{
 }
 div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10px auto 5px;}
 div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
-div.form-container.order div.estate-container > label.boxed-radio.full-width{flex-basis: 100%;}
+div.form-container.order div.estate-container > label.boxed-radio:nth-child(even):last-child{flex-basis: 100%;}
 /* Order Items */
 div.order-items-container {
     position: relative;

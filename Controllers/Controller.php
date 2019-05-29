@@ -41,9 +41,26 @@ class Controller {
     */
     public function getOrderItems($orderID){
         $orderItems = [
-            new OrderItem(1)
+            new OrderItem(1, 
+                new Clothe(1, "Váquero", 10, null, time(), time(), 1),
+                new Fix(1, 1, "Bajo", 10, time(), time(), 1),
+                10.5,
+                "Sin descripción"
+        ),
+        new OrderItem(2, 
+                new Clothe(2, "Blusa", 5, null, time(), time(), 1),
+                new Fix(4, 1, "Descosido", 10, time(), time(), 1),
+                12,
+                "Sin descripción"
+        ),
+        new OrderItem(3, 
+                new Clothe(3, "Opel Corsa", 10, null, time(), time(), 1),
+                new Fix(2, 1, "Cambio búgias", 10, time(), time(), 1),
+                153.99,
+                "¿Y por qué no?"
+            )
         ];
-        return null;       
+        return $orderItems;       
     }
     /**
     * Devuelve todas las ordenes limitado por pagina

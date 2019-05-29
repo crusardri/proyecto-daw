@@ -23,6 +23,9 @@ select {
     font-family: "Lato", sans-serif;
     outline: none;
 }
+textarea:disabled{
+    background-color: #fff;
+}
 input.input-submit-button{
     border: 0px;
     border-radius: 5px;
@@ -344,11 +347,13 @@ label.boxed-radio > div.container {
     cursor: pointer;
     transition: border-color 0.1s, box-shadow 0.1s;
 }
-label.boxed-radio:hover > div.container{
+label.boxed-radio:hover > input:not(:disabled):not(:checked) + div.container{
     border-color: #0060ac;
     box-shadow: 0 0 0 1px #0060ac;
 }
-
+label.boxed-radio:hover > input:disabled + div.container{
+    cursor: default;
+}
 label.boxed-radio > input:checked + div.container {
     background-color: #ffd700;
     box-shadow: 0 2px 0 #926f1d;

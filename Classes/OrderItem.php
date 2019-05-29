@@ -1,20 +1,25 @@
 <?php
 class OrderItem{
-    private $prenda;
-    private $arreglo;
+    private $id;
+    private $clothe;
+    private $fix;
     private $price;
     private $description;
-    function __construct($prenda, $arreglo, $price, $description){
-        $this->prenda = $prenda;
-        $this->arreglo = $arreglo;
+    function __construct($id, $clothe, $fix, $price, $description){
+        $this->id = $id;
+        $this->clothe = $clothe;
+        $this->fix = $fix;
         $this->price = $price;
         $this->description = $description;
     }
-    function getPrenda(){
-        return $this->prenda;
+    function getID(){
+        return $this->id;
     }
-    function getArreglo(){
-         return $this->arreglo;
+    function getClothe(){
+        return $this->clothe;
+    }
+    function getFix(){
+         return $this->fix;
     }
     function getPrice(){
          return $this->price;

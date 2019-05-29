@@ -146,7 +146,7 @@ function showOrdersTable(){
                     $orderState = $order->getState();
                     ?>
             <tr class="order pending">
-                <td class="id a-center"><span class="responsive-label">ID</span> <a href="order?id=<?=$order->getID()?>"><?=str_pad($order->getID(), 6, "0", STR_PAD_LEFT)?></a></td>
+                <td class="id a-center"><span class="responsive-label">ID</span> <a href="order.php?id=<?=$order->getID()?>"><?=str_pad($order->getID(), 6, "0", STR_PAD_LEFT)?></a></td>
                 <td><span class="responsive-label">Estado</span> <a href="" class="label-box <?=$orderState->getCssClass()?>"><?=$orderState->getName()?></a></td>
                 <td class="a-center"><span class="responsive-label">Nº Prendas</span><?=$order->getTotalOrderItems()?></td>
                 <td class="a-center"><span class="responsive-label">Precio</span> 10€</td>

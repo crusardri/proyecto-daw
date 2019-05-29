@@ -29,17 +29,16 @@ $clothe;                                    //Prenda a editar
 if(isset($_SESSION["userID"])){
     //Obtener USuario
     $sessionUser = $userController->getUser($_SESSION["userID"]);
-    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
-        session_destroy();
-        header("location: login.php");
-    }
     $sessionUserRole = $sessionUser->getRole();
 }else {
     header("location: login.php");
 }
+if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+    session_destroy();
+    header("location: login.php");
+}
 
 
-//var_dump($_POST);
 //Obtención tipo usuario
 if($sessionUserRole->getID() == 0){
     $client = true;

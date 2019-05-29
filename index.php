@@ -29,7 +29,7 @@
         }else{
             ?>
         <section class="client-orders orders-container">
-           <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders, "orders.php?search=".$sessionUser->getUsername()); ?>
+           <?php showOrdersShowcase("Mis órdenes", $orders, "orders.php?search=".$sessionUser->getUsername()); ?>
         </section>
             <?php
         }

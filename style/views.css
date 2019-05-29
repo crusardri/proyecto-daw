@@ -113,7 +113,9 @@ div.worker-container > .all-orders {
 div.worker-container > .updates {
     grid-area: updates;
 }
-
+div.worker-container > .client-orders {
+    grid-column: 1 / 3;
+}
 
 
 

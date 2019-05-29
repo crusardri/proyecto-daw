@@ -20,7 +20,7 @@ class Fix{
         $this->updateDate = $updateDateOb;
         $this->active = $active;
     }
-    function getId(){
+    function getID(){
         return $this->id;
     }
     function getClotheId(){
