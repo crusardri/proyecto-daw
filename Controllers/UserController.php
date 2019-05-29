@@ -468,12 +468,14 @@ class UserController {
         } else {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $db = $this->connect();
-            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-        
+            $registerDateTimestamp = time();
+
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':userID', $user->getID());
+            $stmt->bindParam(':updateDate', $registerDateTimestamp);
             
             if($stmt->execute()){
                 return 0;
@@ -500,13 +502,15 @@ class UserController {
         } else {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $db = $this->connect();
-            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-        
+            $registerDateTimestamp = time();
+
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':userID', $user->getID());
-            
+            $stmt->bindParam(':updateDate', $registerDateTimestamp);
+
             if($stmt->execute()){
                 return 0;
             }
@@ -543,11 +547,14 @@ class UserController {
             return 2;
         } else {
             $db = $this->connect(); 
-            $sql = "UPDATE USERS SET EMAIL = :emailUser WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET EMAIL = :emailUser, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
             $stmt = $db->prepare($sql);
+
+            $registerDateTimestamp = time();
 
             $stmt->bindParam(':emailUser', $email);
             $stmt->bindParam(':userID', $userID);
+            $stmt->bindParam(':updateDate', $registerDateTimestamp);
 
             if($stmt->execute()){
                 return 0;  
@@ -565,11 +572,14 @@ class UserController {
      */  
     public function changeRole($userID, $roleID){
         $db = $this->connect();
-        $sql = "UPDATE USERS SET ROLE_ID = :roleID WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
+        $sql = "UPDATE USERS SET ROLE_ID = :roleID, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
         $stmt = $db->prepare($sql);
+
+        $registerDateTimestamp = time();
 
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':roleID', $roleID);
+        $stmt->bindParam(':updateDate', $registerDateTimestamp);
 
         if($stmt->execute()){
            return 0;
@@ -586,11 +596,14 @@ class UserController {
      */  
     public function changeState($userID, $newState){
         $db = $this->connect();
-        $sql = "UPDATE USERS SET ACTIVE = :newState WHERE USER_ID = :userID";
+        $sql = "UPDATE USERS SET ACTIVE = :newState, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
         $stmt = $db->prepare($sql);
+
+        $registerDateTimestamp = time();
     
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':newState', $newState);
+        $stmt->bindParam(':updateDate', $registerDateTimestamp);
     
         if($stmt->execute()){
             return 0;
