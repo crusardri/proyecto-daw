@@ -546,6 +546,16 @@ class UserController {
      * @return int -1                   Si algo ha fallado
      */  
     public function changeRole($userID, $roleID){
+        $db = $this->connect();
+        $sql = "UPDATE USERS SET ROLE_ID = :roleID WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':userID', $userID);
+        $stmt->bindParam(':roleID', $roleID);
+
+        if($stmt->execute()){
+           return 0;
+        }
         return -1;
     }
     /**
