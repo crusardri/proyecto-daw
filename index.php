@@ -13,24 +13,7 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="worker-container">
-        <section class="buttons-container">
-            <a class="haptic-button medium">
-                <img src="media/img/new-order.png">
-                <div class="label">Nueva Órden</div>
-            </a>
-            <a class="haptic-button medium">
-                <img src="media/img/see-order.png">
-                <div class="label">Ver Órdenes</div>
-            </a>
-            <a class="haptic-button medium">
-                <img src="media/img/add-user.png">
-                <div class="label">Registrar Usuario</div>
-            </a>
-            <a class="haptic-button medium">
-                <img src="media/img/see-users.png">
-                <div class="label">Ver Usuarios</div>
-            </a>
-        </section>
+        <?php showIndexButtons();?>
         <section class="my-orders orders-container">
            <?php showOrdersShowcase("Órdenes Asignadas a mí.", $orders); ?>
         </section>

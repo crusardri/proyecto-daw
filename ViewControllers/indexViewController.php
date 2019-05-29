@@ -44,7 +44,6 @@ if($sessionUserRole->getID() == 0){
 }elseif($sessionUserRole->getID() == 2){
     $admin = true;
 }
-var_dump($sessionUser);
 
 //Obtener las órdenes del client
 if($client){
@@ -155,4 +154,32 @@ function showOrdersShowcase($titulo, $orders){
         </div>       
     </div>
     <?php
+}
+ /**
+ * Muestra los botones de inicio
+ */
+function showIndexButtons(){
+    global $admin, $employee;
+    if($admin || $employee){
+    ?>
+    <section class="buttons-container">
+            <a href="order.php?newOrder" class="haptic-button medium">
+                <img src="media/img/new-order.png">
+                <div class="label">Nueva Órden</div>
+            </a>
+            <a href="orders.php" class="haptic-button medium">
+                <img src="media/img/see-order.png">
+                <div class="label">Ver Órdenes</div>
+            </a>
+            <a href="user.php?newUser" class="haptic-button medium">
+                <img src="media/img/add-user.png">
+                <div class="label">Registrar Usuario</div>
+            </a>
+            <a href="users.php" class="haptic-button medium">
+                <img src="media/img/see-users.png">
+                <div class="label">Ver Usuarios</div>
+            </a>
+        </section>
+    <?php
+    }
 }

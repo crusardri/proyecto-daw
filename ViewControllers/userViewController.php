@@ -64,7 +64,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
     $title = "Editar usuario: ";
 }elseif(isset($_GET["newUser"])){//Si el parametro newUser esta declarado, creara un usuario
     $register = true;
-    $title = "Crear usuario";
+    $title = "Registrar usuario";
 }else { //Si no a empleado.php 
     header("Location: index.php");
 }
@@ -82,7 +82,7 @@ if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
     $user = $userController->getUser($_GET["id"]);
 }
 //Si el usuario no existe genera un error
-if(is_null($user)){//Si el usuario no existe
+if($edit && is_null($user)){//Si el usuario no existe
     $_SESSION["unknownUser"] = true;
     header("location: users.php");
 }
