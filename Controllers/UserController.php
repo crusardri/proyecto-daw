@@ -459,7 +459,26 @@ class UserController {
     * @return int -1                    Algo ha fallado
     */
     public function changePasswordClient($oldPassword, $newPassword, $repeatPassword, $user){
-        return 0;
+        if(!$user->checkPassword($oldPassword)){
+            return 1;
+        } elseif(strlen($newPassword) < 6 || strlen($repeatPassword) < 6  ){
+            return 2;
+        } elseif ($newPassword != $repeatPassword){
+            return 3;
+        } else {
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            $db = $this->connect();
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
+            
+            $stmt = $db->prepare($sql);
+        
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':userID', $user->getID());
+            
+            if($stmt->execute()){
+                return 0;
+            }
+        }
     }
 
     /**
