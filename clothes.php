@@ -30,7 +30,7 @@
             <label class="boxed-input searchbox">
                 <div class="text-label"><span>Buscar</span></div>
                 <div class="input-container">
-                    <input type="text" placeholder="Buscar usuario por ID, Nombre de usuario, Correo, Nombre, Apellidos, o Teléfono " name="search" value="<?=$search?>" autofocus>
+                    <input type="text" placeholder="Buscar prenda por ID o nombre " name="search" value="<?=$search?>" autofocus>
                 </div>
             </label>
             <?=showStateFilter()?>
