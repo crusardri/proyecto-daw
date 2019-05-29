@@ -185,6 +185,23 @@ class Controller {
     * @return -1                        Error desconocido
     */
     public function addClothe($clotheName){
+        if(empty($clotheName)){
+            return 1;
+        } else {
+            $db = $this->connect(); 
+            $sql = "INSERT INTO CLOTHES (CLOTHES_NAME, ACTIVE, REGISTERED_DATE, UPDATE_DATE) VALUES (:clotheName, 0, :registeredDate, :updateDate)";
+            $stmt = $db->prepare($sql);
+
+            $registerDateTimestamp = time();
+        
+            $stmt->bindParam(':clotheName', $clotheName);
+            $stmt->bindParam(":registeredDate",$registerDateTimestamp );
+            $stmt->bindParam(":updateDate", $registerDateTimestamp);
+            
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
