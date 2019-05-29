@@ -165,6 +165,7 @@ if(isset($_POST["changeEmail"])){
     if($clientAuthorize || $employeeAuthorize || $admin){
         switch ($userController->changeEmail($user->getID(), $_POST["email"])){
             case 0:
+                $user = $userController->getUser($_GET["id"]);
                 $successMSG = "Correo electrónico cambiado con exito";
                 break;
             case 1:
@@ -222,6 +223,7 @@ if(isset($_POST["changePassword"])){
         switch ($userController->changePasswordAdmin($password, $user)){
             case 0:
                 $successMSG = "Contraseña del usuario cambiada con éxito.";
+                $user = $userController->getUser($_GET["id"]);
                 break;
             case 1:
                 $errorMSG = "La contraseña debe tener al menos 6 carácteres.";
@@ -242,6 +244,7 @@ if(isset($_POST["changePersonalInfo"])){
     switch($userController->changePersonalInfo($_POST["name"], $_POST["surname"], $_POST["phone"])){
         case 0: 
             $successMSG = "Informacion personal actualizada.";
+            $user = $userController->getUser($_GET["id"]);
             break;
         case 1: 
             $errorMSG = "\"Nombre\" es un campo obligatorio.";
@@ -260,6 +263,7 @@ if(isset($_POST["changeRole"])){
         switch($userController->changeRole($user->getID(), $_POST["role"])){
             case 0: 
                 $successMSG = "Rol de usuario actualizado.";
+                $user = $userController->getUser($_GET["id"]);
                 break;
             default: 
                 $errorMSG = "Se ha producido un error al cambiar el rol del usuario.";
@@ -284,6 +288,7 @@ if(isset($_POST["changeState"])){
     if($admin && $user->getID() != $sessionUser->getID()){
         switch($userController->changeState($user->getID(), $newState)){
             case 0: 
+                $user = $userController->getUser($_GET["id"]);
                 $successMSG = "Estado de usuario actualizado.";
                 break;
             default: 
