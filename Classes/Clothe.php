@@ -5,7 +5,7 @@ class Clothe{
     private $fixes;             //Arreglos de la prenda
     private $numFixes;          //Numero de arreglos de la prenda
     private $creationDate;      //Fecha de creacion
-    private $updateDate;        //Fecha de actualizacion
+    private $updateTime;        //Fecha de actualizacion
     private $active;            //Estado habilitado/deshabilitado
     function __construct($id, $name, $numFixes = 0, $fixes = null, $creationDate, $updateDate, $active = true){
         $this->id = $id;                                
@@ -30,6 +30,9 @@ class Clothe{
         return $this->numFixes;
     }
     function getFixes(){
+        return $this->fixes;
+    }
+    function getArreglos(){
         return $this->fixes;
     }
     function getCreationDate(){   
