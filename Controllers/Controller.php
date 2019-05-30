@@ -372,6 +372,22 @@ class Controller {
      * @return int -1                       Se ha producido un error
      */
     public function toggleClothe($clotheID, $active){
+        if(empty($clotheID)){
+            return 1;
+        } else {
+            $db = $this->connect(); 
+            $sql = "UPDATE CLOTHES SET ACTIVE = :active, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
+            $stmt = $db->prepare($sql);
+            $dateTimestamp = time();
+
+            $stmt->bindParam(':clotheID', $clotheID);
+            $stmt->bindParam(':active', $active);
+            $stmt->bindParam(':updateDate', $dateTimestamp);
+        
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
@@ -469,6 +485,6 @@ class Controller {
      * @return Estate                   Estado de una orden
      */
     private function getState($stateID){
-        return new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera.");
+        
     }
 }
