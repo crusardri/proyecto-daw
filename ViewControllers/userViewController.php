@@ -231,7 +231,7 @@ if(isset($_POST["changePassword"])){
  * Cambiar informacion personal
  */
 if(isset($_POST["changePersonalInfo"])){
-    switch($userController->changePersonalInfo($_POST["name"], $_POST["surname"], $_POST["phone"])){
+    switch($userController->changePersonalInfo($user->getID(), $_POST["name"], $_POST["surname"], $_POST["phone"])){
         case 0: 
             $successMSG = "Informacion personal actualizada.";
             $user = $userController->getUser($_GET["id"]);
