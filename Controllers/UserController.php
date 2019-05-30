@@ -528,8 +528,27 @@ class UserController {
     * @return int 1                     Si el nombre esta vacio
     * @return int -1                    Algo ha fallado
     */
-    public function changePersonalInfo($name, $surname, $phone){
-        return 0;
+    public function changePersonalInfo($userID, $name, $surname, $phone){
+        if(empty($name)){
+            return 1;
+        } else {
+            $db = $this->connect(); 
+            $sql = "UPDATE USERS SET NAME = :name, SURNAME = :surname, PHONE = :phone, UPDATE_TIMESTAMP = :updateDate WHERE USER_ID = :userID";
+            $stmt = $db->prepare($sql);
+
+            $timestamp = time();
+
+            $stmt->bindParam(':userID', $userID);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':surname', $surname);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':updateDate', $timestamp);
+
+            if($stmt->execute()){
+                return 0; 
+            }    
+        } 
+        return -1; 
     }
     /**
      * Cambia el correo electronico de un usuario desde el panel de control
