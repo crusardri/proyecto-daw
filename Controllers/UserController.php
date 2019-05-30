@@ -63,7 +63,7 @@ class UserController {
     *
     * @author Iván Maldonado Fernández
     */
-    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 10){
+    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 20){
         $searchString = "%$searchString%"; 
         $page = $page - 1;
         $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL
@@ -370,7 +370,7 @@ class UserController {
             $stmt = $db->prepare($sql);
             
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-            $timestamp = time();
+            $registerDateTimestamp = time();
             $stmt->bindParam(":usuario", $username);
             $stmt->bindParam(":contrasena", $passwordHash);
             $stmt->bindParam(":email", $email);
@@ -378,8 +378,8 @@ class UserController {
             $stmt->bindParam(":surname", $surname);
             $stmt->bindParam(":phone", $phone);
             $stmt->bindParam(":rol", $role);
-            $stmt->bindParam(":registeredDate",$timestamp );
-            $stmt->bindParam(":updateDate", $timestamp);
+            $stmt->bindParam(":registeredDate",$registerDateTimestamp );
+            $stmt->bindParam(":updateDate", $registerDateTimestamp);
             $stmt->bindParam(":active", $active);
             if($stmt->execute()){
                 return 0;
@@ -468,15 +468,12 @@ class UserController {
         } else {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $db = $this->connect();
-            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-            $timestamp = time();
-            
-            $userId = $user->getID();
+        
             $stmt->bindParam(':password', $hashedPassword);
-            $stmt->bindParam(':userID', $userId);
-            $stmt->bindParam(':updateDate', $timestamp);
+            $stmt->bindParam(':userID', $user->getID());
             
             if($stmt->execute()){
                 return 0;
@@ -503,15 +500,13 @@ class UserController {
         } else {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $db = $this->connect();
-            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET HASHED_PASSWORD = :password WHERE USER_ID = :userID";
             
             $stmt = $db->prepare($sql);
-            $timestamp = time();
-            $userId = $user->getID();
+        
             $stmt->bindParam(':password', $hashedPassword);
-            $stmt->bindParam(':userID', $userId);
-            $stmt->bindParam(':updateDate', $timestamp);
-
+            $stmt->bindParam(':userID', $user->getID());
+            
             if($stmt->execute()){
                 return 0;
             }
@@ -528,8 +523,27 @@ class UserController {
     * @return int 1                     Si el nombre esta vacio
     * @return int -1                    Algo ha fallado
     */
-    public function changePersonalInfo($name, $surname, $phone){
-        return 0;
+    public function changePersonalInfo($userID, $name, $surname, $phone){
+        if(empty($name)){
+            return 1;
+        } else {
+            $db = $this->connect(); 
+            $sql = "UPDATE USERS SET NAME = :name, SURNAME = :surname, PHONE = :phone, UPDATE_TIMESTAMP = :updateDate WHERE USER_ID = :userID";
+            $stmt = $db->prepare($sql);
+
+            $timestamp = time();
+
+            $stmt->bindParam(':userID', $userID);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':surname', $surname);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':updateDate', $timestamp);
+
+            if($stmt->execute()){
+                return 0; 
+            }    
+        } 
+        return -1; 
     }
     /**
      * Cambia el correo electronico de un usuario desde el panel de control
@@ -548,14 +562,11 @@ class UserController {
             return 2;
         } else {
             $db = $this->connect(); 
-            $sql = "UPDATE USERS SET EMAIL = :emailUser, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
+            $sql = "UPDATE USERS SET EMAIL = :emailUser WHERE USER_ID = :userID";
             $stmt = $db->prepare($sql);
-
-            $timestamp = time();
 
             $stmt->bindParam(':emailUser', $email);
             $stmt->bindParam(':userID', $userID);
-            $stmt->bindParam(':updateDate', $timestamp);
 
             if($stmt->execute()){
                 return 0;  
@@ -573,14 +584,11 @@ class UserController {
      */  
     public function changeRole($userID, $roleID){
         $db = $this->connect();
-        $sql = "UPDATE USERS SET ROLE_ID = :roleID, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
+        $sql = "UPDATE USERS SET ROLE_ID = :roleID WHERE USER_ID = :userID AND EXISTS(SELECT ROLE_ID FROM USER_ROLES WHERE ROLE_ID = :roleID)"; 
         $stmt = $db->prepare($sql);
-
-        $timestamp = time();
 
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':roleID', $roleID);
-        $stmt->bindParam(':updateDate', $timestamp);
 
         if($stmt->execute()){
            return 0;
@@ -596,21 +604,12 @@ class UserController {
      * @return int -1                   Si algo ha fallado
      */  
     public function changeState($userID, $newState){
-        if($newState){
-            $newState = 0;
-        }else{
-            $newState = 1;
-        }
-        var_dump($newState);
         $db = $this->connect();
-        $sql = "UPDATE USERS SET ACTIVE = :newState, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
+        $sql = "UPDATE USERS SET ACTIVE = :newState WHERE USER_ID = :userID";
         $stmt = $db->prepare($sql);
-
-        $timestamp = time();
     
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':newState', $newState);
-        $stmt->bindParam(':updateDate', $timestamp);
     
         if($stmt->execute()){
             return 0;
