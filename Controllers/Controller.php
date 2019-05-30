@@ -31,7 +31,39 @@ class Controller {
             ,time()
         );
     }
+    /**
+     * Crea una orden de servicio
+     * @param int clientID                          ID del cliente
+     * @param int employeeID                        ID del trabajador asignado
+     * @param int stateID                           ID del estado de la órden
+     * @param OrderItems[] $orderItems              Array de OrderItems
+     * @param String Description                    Descripción asociada a la órden
+     * 
+     * @return int 0                                Orden registrada con éxito
+     * @return int 1                                No se encuentra al cliente
+     * @return int 2                                No se encuentra al empleado
+     * @return int 3                                El estado de la órden no existe
+     * @return int 4                                Debe tener al menos 1 order-item
+     * @return int -1                               Se ha producido un error al intentar registrar la órden
+     */
+    public function createOrder(){
+        return -1;
+    }
+    /**
+     * Edita una órden de servicio
+     * @param int $orderID                          ID de la órden a editar
+     * @param int $stateID                          Nuevo estado de la órden
+     * @param String $description                   Descripción de la órden
+     * 
+     * @return int 0                                órden modificada con éxito
+     * @return int 1                                No se encuentra la órden
+     * @return int 2                                El estado de la órden no existe
+     * @return int -1                               Se ha producido un error al intentar editar la órden.
+     */
 
+    public function editOrder(){
+        return -1;
+    }
     /**
     * Devuelve un array de objetos de OrderItems
     * @param int $orderID               ID de la orden
