@@ -430,9 +430,8 @@ class Controller {
      * 
      * @return Fix[]                    Array de prendas
      */
-    private function getFixes($clotheID){
+    public function getFixes($clotheID){
         $fix = array();
-
         $db = $this->connect(); 
         $sql = "SELECT * FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID";
         $stmt = $db->prepare($sql);

@@ -705,25 +705,3 @@ class UserController {
         session_destroy();
     }
 }
-//Ajax Get Username
-if(isset($_GET["check_username"])){
-    $uc = new UserController(true);
-    if($uc->checkUsername($_GET["check_username"])){
-        echo "DISPONIBLE";
-    }else {
-        echo "NO DISPONIBLE";
-    }
-}
-//Ajax Get Email
-if(isset($_GET["check_email"])){
-    $uc = new UserController(true);
-    if($uc->checkEmail($_GET["check_email"])){
-        echo "DISPONIBLE";
-    }else {
-        echo "NO DISPONIBLE";
-    }
-}
-/*$test = new UserController();
-echo "<pre>";
-var_dump($test->getUser(0));
-echo "</pre>";*/

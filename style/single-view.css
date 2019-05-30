@@ -173,11 +173,15 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
     width: calc(100% - 20px);
     padding: 10px;
     display: grid;
-    grid-template-areas: "clothe fix" "desc desc" "button button";
+    grid-template-areas: "error error" "clothe fix" "desc desc" "button button";
     grid-template-columns: 50% 50%;
-    grid-template-rows: 50px 100px 50px;
+    grid-template-rows: auto 50px 100px 50px;
     height: 300px;
     grid-column-gap: 10px;
+}
+.modal-box.new-order-item .modal-box-body > .msg{
+    grid-area: error;
+    margin-bottom: 10px;
 }
 #select-clothe{
     grid-area: clothe;

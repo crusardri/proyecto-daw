@@ -1,70 +1,3 @@
-var users = {
-    000001: {
-        id: "0001",
-        name: "Iván",
-        surname: "Maldonado Fernandez",
-        username: "Ivan",
-        email: "ivan@dondedal.es",
-        phone: "918283748",
-        role: "Administrador",
-        roleClass: "admin"
-    },
-    000002: {
-        id: "0002",
-        name: "Halfonso",
-        surname: "Fernandez Zapatero",
-        username: "Halfonso",
-        email: "gmail@halfonso.com",
-        phone: "918253248",
-        role: "Cliente",
-        roleClass: "client"
-    },
-    000003: {
-        id: "0003",
-        name: "Halfredo",
-        surname: "Pelayo Pelayette",
-        username: "Halfredo",
-        email: "hotmail@halfredo.es",
-        phone: "689663322",
-        role: "Empleado",
-        roleClass: "employee"
-    },
-};
-var clothes = {
-    1: {
-        id: 1,
-        name: "vaqueros",
-        fixes: 3
-    },
-    2: {
-        id: 2,
-        name: "blusa",
-        fixes: 3
-    },
-    3: {
-        id: 3,
-        name: "abrigo",
-        fixes: 3
-    },
-}
-var fixes = {
-    1: {
-        id: 1,
-        name: "bajo",
-        price: 10
-    },
-    2: {
-        id: 2,
-        name: "ensanchado",
-        price: 20
-    },
-    3: {
-        id: 3,
-        name: "arreglo",
-        price: 5
-    }
-}
-
 /*
 * Modifica los valores de los inputs del fieldset de Cliente
 */
@@ -307,26 +240,22 @@ function showAddOrderItemForm(){
         <div class='modal-box-body'>\
             <label class='boxed-select' id='select-clothe'>\
                 <div>Prenda</div>\
-                <select data-class='select-clothe' name='clothe'>\
-                    <option value='0'>Vaqueros</option>\
-                    <option value='1'>Blusa</option>\
-                    <option value='2'>Opel Corsa</option>\
+                <select data-class='select-clothe' name='clothe' id='clothe-select-ajax'>\
+                    <option value='-1'>Buscando</option>\
                 </select>\
             </label>\
             <label class='boxed-select' id='select-fix'>\
                 <div>Arreglo</div>\
-                <select data-class='select-fix' name='fix'>\
-                    <option value='0'>Bajo</option>\
-                    <option value='1'>Alto</option>\
-                    <option value='2'>Cambio de aceite</option>\
+                <select data-class='select-fix' name='fix' id='fix-select-ajax'>\
+                    <option value='-1'>Seleccióne prenda</option>\
                 </select>\
             </label>\
             <label class='description-box order-item-description' id='order-item-description'>\
             <div class='header'>Observaciones</div>\
-                <textarea name='order-item-description'>Sin descripción</textarea>\
+                <textarea name='order-item-description' id='order-item-description'>Sin descripción</textarea>\
             </label>\
             <div class='form-buttons' id='order-item-submit'>\
-                <input type='submit' value='Añadir prenda a la orden' name='createClothe' class='input-submit-button'>\
+                <input type='submit' value='Añadir prenda a la orden' name='createClothe' class='input-submit-button' id='add-order-item'>\
             </div>\
         </div>\
     </div>").appendTo("body");
@@ -339,7 +268,137 @@ function showAddOrderItemForm(){
     $("div.modal-box, div.modal-box-close").on("click", function(e){
         closeModalBox();
     })
+    $("div.modal-box div.modal-box-body").on("click", closeSelectDropdown);//Cerrar dropdown
+    ajaxGetClothes();
     customSelect("#select-clothe");
     customSelect("#select-fix");
+    $("#clothe-select-ajax").on("change", (e)=>{
+        let val = $(e.currentTarget).val();
+        console.log(val);
+        ajaxGetFixes(val);
+    })
+    $("#add-order-item").on("click", addOrderItem)//Añadir nuevo order item
 }
 
+function ajaxGetClothes(){
+    $("#add-order-item").off("click", addOrderItem)
+    $.ajax({
+        url: "ajax.php",
+        method: "GET",
+        data: {getClothes: ""},
+        dataType: "html"
+    }).done((res)=>{
+        console.log("%cEsta es la respuesta del servidor de getClothe.", 'background: rgba(255,0,0,0.5); color: #000');
+        console.log(res)
+        let json = JSON.parse(res);
+        console.log("%cEsta es la respuesta parseada como JSON", 'background: rgba(255,0,0,0.5); color: #000');
+        console.log(json);
+        console.log("%cFin de la respuesta del servidor de Get Clothe", 'background: rgba(255,0,0,0.5); color: #000');
+        //Borrar options select clothe
+        $("#clothe-select-ajax").children().remove();
+        //Añadir opcion placeholder
+        $("<option>", {
+            value: -1,
+            html: "Selecciona prenda"
+        }).appendTo("#clothe-select-ajax");
+        //Recorrer array
+        Object.keys(json).forEach((o)=>{
+            //Crear objeto opcion dentro del select clothe
+            $("<option>", {
+                value: json[o].id,
+                html: json[o].name
+            }).appendTo("#clothe-select-ajax");
+        })
+        //Borrar menu select personalizado
+        $("#select-clothe > .custom-select").remove();
+        //Crear menu select personalizado
+        customSelect("#select-clothe");
+        $("#add-order-item").on("click", addOrderItem)
+    })
+}
+function ajaxGetFixes(clotheID){
+    $("#add-order-item").off("click", addOrderItem)
+    $.ajax({
+        url: "ajax.php",
+        method: "GET",
+        data: {getFixes: clotheID},
+        dataType: "html"
+    }).done((res)=>{
+        console.log("%cEsta es la respuesta del servidor de getFixes.", 'background: rgba(0,255,0,0.5); color: #000');
+        console.log(res)
+        let json = JSON.parse(res);
+        console.log("%cEsta es la respuesta parseada como JSON", 'background: rgba(0,255,0,0.5); color: #000');
+        console.log(json);
+        console.log("%cFin de la respuesta del servidor de Get Fixes", 'background: rgba(0,255,0,0.5); color: #000')
+        //Borrar options select fix
+        $("#fix-select-ajax").children().remove();
+        //Añadir opcion placeholder
+        $("<option>", {
+            value: -1,
+            html: "Seleccione arreglo"
+        }).appendTo("#fix-select-ajax");
+        Object.keys(json).forEach((o)=>{
+            //Crear objeto opcion dentro del select fix
+            $("<option>", {
+                value: json[o].id,
+                html: json[o].name,
+                price: json[o].price
+            }).appendTo("#fix-select-ajax");
+        //Borrar menu select personalizado
+        $("#select-fix > .custom-select").remove();
+        //Crear menu select personalizado
+        customSelect("#select-fix");
+        $("#add-order-item").on("click", addOrderItem)
+        })
+    })
+}
+
+function addOrderItem(){
+    let clotheID = $("#clothe-select-ajax").val(); //ID de la prenda
+    let fixID = $("#fix-select-ajax").val(); //ID del arreglo
+    let description = $("#order-item-description textarea").val(); //Contenido de la descripción
+    let price = $("#fix-select-ajax option[value="+fixID+"]").attr("price"); //Precio del option del select de fix
+    let fixName = $("#fix-select-ajax option[value="+fixID+"]").text(); //Nombre del option del select de Fix
+    let clotheName = $("#clothe-select-ajax option[value="+clotheID+"]").text(); //Nombre del option del select de clothe
+    console.log(clotheID);
+    console.log(fixID);
+    console.log(description);
+    console.log(price);
+    console.log(clotheName);
+    console.log(fixName);
+    if(clotheID > -1 && fixID > -1){
+        //Borrar el placeholder de order-items
+        $(".no-order-items").remove(); 
+        //Creamos el nuevo order item
+        $('<div class="order-item">\
+            <input type="hidden" value="'+clotheID+'" name="orderItemClotheID[]">\
+            <input type="hidden" value="'+fixID+'" name="orderItemFixID[]">\
+            <label class="boxed-input clothe">\
+                <div class="text-label"><span>Prenda</span></div>\
+                <div class="input-container">\
+                    <input type="text" value="'+clotheName+'" disabled="">\
+                </div>\
+            </label>\
+            <label class="boxed-input fix">\
+                <div class="text-label"><span>Arreglo</span></div>\
+                <div class="input-container">\
+                    <input type="text" value="'+fixName+'" disabled="">\
+                </div>\
+            </label>\
+            <label class="boxed-input price">\
+                <div class="text-label"><span>Precio</span></div>\
+                <div class="input-container">\
+                    <input type="number" value="'+price+'" name="orderItemPrice[]">\
+                </div>\
+            </label>\
+            <label class="description-box order-item-description">\
+            <div class="header">Observaciones</div>\
+                <textarea name="orderItemDescription[]">'+description+'</textarea>\
+            </label>\
+        </div>').appendTo(".order-items");
+        //Simulamos pulsar boton cerrar ventana
+        $("div.modal-box, div.modal-box-close").click();
+    }else{
+        $("<div class='msg error'>Debes seleccionar una prenda y un arreglo.</div>").appendTo(".modal-box.new-order-item .modal-box-body");
+    }
+}

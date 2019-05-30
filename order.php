@@ -17,7 +17,7 @@ require_once("ViewControllers/orderViewController.php");
     <?php include("./includes/navbar.inc") ?>
     <div class="form-container order">
         
-        <form>
+        <form method="post" action="order.php?newOrder">
             <?php showOrderInfo()?>  
             <!-- User Info -->
             

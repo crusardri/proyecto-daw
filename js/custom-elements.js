@@ -35,6 +35,7 @@ function customSelect(selector, callback = (o)=>$(o).text()){
             let value = $(this).data("value")
             select.val(value);
             $(selector + " span.custom-select-text").text($(selector + " option:selected").text());
+            $(selector + " select").change();//dispara el evento "change"
             closeSelectDropdown();
         })
         //Asigna el elemento del menu al contenedor de elementos

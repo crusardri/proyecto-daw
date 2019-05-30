@@ -103,6 +103,11 @@ div.custom-select > .custom-select-dropdown{
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
+div.custom-select > span.custom-select-text{
+    display: block;
+    width:100%;
+    height: 100%;
+}
 div.custom-select > .custom-select-dropdown.hidden {
     display: none;
 }
