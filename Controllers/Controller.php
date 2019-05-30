@@ -393,14 +393,28 @@ class Controller {
      * @return Fix[]                    Array de prendas
      */
     private function getFixes($clotheID){
-        $timestamp = time();
-        $fixes = [
-            new Fix(1, 1, "Bajo", 10.5, $timestamp, $timestamp, true),
-            new Fix(2, 1, "Ensanchar", 12.5, $timestamp, $timestamp, true),
-            new Fix(3, 1, "Bragueta", 8.5, $timestamp, $timestamp, false),
-            new Fix(4, 1, "Bolsillo", 10.5, $timestamp, $timestamp, true)
-        ];
-        return $fixes;
+        $fix = array();
+
+        $db = $this->connect(); 
+        $sql = "SELECT * FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID";
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':clotheID', $clotheID);
+
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                array_push($fix, new Fix(
+                    $row["FIX_ID"], 
+                    $row["CLOTHE_ID"],
+                    $row["NAME"],
+                    $row["PRICE"],
+                    $row["ACTIVE"],
+                    $row["CREATION_DATE"],
+                    $row["UPDATE_DATE"]
+                ));
+            }
+        }
+        return $fix;
     }
     /**
      * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
