@@ -235,6 +235,26 @@ class Controller {
      * @return int -1                   Error desconocido
      */
     public function addFix($clotheID, $fixName, $fixPrice, $active = 0){
+        if(empty($clotheID)){
+            return 1;
+        } elseif(empty($fixName)){
+            return 2;
+        } elseif(empty($fixPrice)){
+            return 3;
+        } else{
+            $db = $this->connect(); 
+            $sql = "INSERT INTO CLOTHES_FIXES (CLOTHE_ID, NAME, PRICE, ACTIVE) VALUES (:clotheID, :fixName, :fixPrice, 0)";
+            $stmt = $db->prepare($sql);
+
+            $registerDateTimestamp = time();
+            $stmt->bindParam(":clotheID", $clotheID);
+            $stmt->bindParam(":fixName", $fixName);
+            $stmt->bindParam(":fixPrice", $fixPrice);
+
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
