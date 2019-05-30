@@ -302,6 +302,28 @@ class Controller {
      * @return int -1                   Error desconocido
      */
     public function editFix($fixID, $fixName, $fixPrice){
+        if(empty($fixID)){
+            return 1;
+        } elseif(empty($fixName)){
+            return 2;
+        } elseif(empty($fixPrice)){
+            return 3;
+        } else{
+            $db = $this->connect(); 
+            $sql = "UPDATE CLOTHES_FIXES SET NAME = :fixName, PRICE = :fixPrice, UPDATE_DATE = :updateDate WHERE FIX_ID = :fixID";
+            $stmt = $db->prepare($sql);
+
+            $timestamp = time();
+
+            $stmt->bindParam(":fixID", $fixID);
+            $stmt->bindParam(":fixName", $fixName);
+            $stmt->bindParam(":fixPrice", $fixPrice);
+            $stmt->bindParam(":updateDate", $timestamp);
+            
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
