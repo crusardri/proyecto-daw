@@ -1,85 +1,125 @@
 <?php
 class Order{
     private $id;
-    private $user;
-    private $assigned;
-    private $estate;
+    private $client;
+    private $employee;
+    private $state;
     private $enterDate;
-    private $targetDate;
+    private $workingDate;
     private $finishDate;
     private $outDate;
-    private $items;
+    private $cancelDate;
+    private $totalOrderItems;
     private $observations;
     private $updateDate;
-    function __construct($orderID = 0, $user,$assigned, $estate = 0, $enterDate, $targetDate, $finishDate, $outDate, $items, $observations, $updateDate){
-        $this->id = $orderID;
-        $this->user = $user;
-        $this->assigned = $assigned;
-        $this->estate = $estate;
-        $this->enterDate = new DateTime($this->enterDate);
-        $this->targetDate = new DateTime($this->targetDate);
-        $this->finishDate = new DateTime($this->finishDate);
-        $this->outDate = new DateTime($this->outDate);
-        $this->items = $items;
+    function __construct($id = 0, $client, $employee, $state = 0, $enterDate, $workingDate, $finishDate, $outDate, $cancelDate, $totalOrderItems, $observations, $updateDate){
+        $this->id = $id;
+        $this->client = $client;
+        $this->employee = $employee;
+        $this->state = $state;
+        $this->totalOrderItems = $totalOrderItems;
         $this->observations = $observations;
-        $this->updateDate = new DateTime($this->updateDate);
+        if(!is_null($enterDate)){
+            $enterDateO = new DateTime();
+            $this->enterDate =  $enterDateO->setTimestamp($enterDate);
+        }
+        if(!is_null($workingDate)){
+        $workingDateO = new DateTime();
+        $this->workingDate = $workingDateO->setTimestamp($workingDate);
+        }
+        if(!is_null($finishDate)){
+        $finishDateO = new DateTime();
+        $this->finishDate = $finishDateO->setTimestamp($finishDate);
+        }
+        if(!is_null($outDate)){
+        $outDateO = new DateTime();
+        $this->outDate = $outDateO->setTimestamp($outDate);
+        }
+        if(!is_null($cancelDate)){
+        $cancelDateO = new DateTime();
+        $this->cancelDate = $cancelDateO->setTimestamp($cancelDate);
+        }
+        if(!is_null($updateDate)){
+        $updateDateO = new DateTime();
+        $this->updateDate = $updateDateO->setTimestamp($updateDate);
+        }
     }
-    function getOrderID(){
-        return $this->orderID;
+    function getID(){
+        return $this->id;
     }
-    function getUser(){
-        return $this->user;
+    function getClient(){
+        return $this->client;
     }
-    function getAssigneduser(){
-        return $this->assigned;
+    function getEmployee(){
+        return $this->employee;
     }
-    function getEstate(){
-        return $this->estate;
+    function getState(){
+        return $this->state;
     }
     function getEnterDate(){
         return $this->enterDate;
     }
     function getEnterDateString(){
         $date = $this->enterDate;
-        $date->format('d-m-Y H:i:s');   
-        return $this->enterDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');   
     }
-    function getTargetDate(){
-        return $this->targetDate;
+    function getWorkingDate(){
+        return $this->workingDate;
     }    
-    function getTargetDateString(){
-        $date = $this->targetDate;
-        $date->format('d-m-Y H:i:s');   
-        return $this->targetDate;
+    function getWorkingDateString(){
+        $date = $this->workingDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');     
     }
     function getFinishDate(){
         return $this->finishDate;
     }
     function getFinishDateString(){
         $date = $this->finishDate;
-        $date->format('d-m-Y H:i:s');   
-        return $this->finishDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');   
     }
     function getOutDate(){
         return $this->outDate;
     }
     function getOutDateString(){
         $date = $this->outDate;
-        $date->format('d-m-Y H:i:s');   
-        return $this->outDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');   
     }
-    function getOrderItems(){
-        return $this->items;
+    function getCancelDate(){
+        return $this->cancelDate;
+    }
+    function getCancelDateString(){
+        $date = $this->cancelDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');   
+    }
+    function getTotalOrderItems(){
+        return $this->totalOrderItems;
     }
     function getObservations(){
         return $this->observations;
-    }
+    }   
     function getUpdateDate(){   
         return $this->updateDate;
     }       
     function getUpdateDateString(){    
         $date = $this->updateDate;
-        $date->format('d-m-Y H:i:s');   
-        return $this->updateDate;
+        if(is_null($date)){
+            return "-";
+        }
+        return $date->format('d-m-Y H:i:s');   
     }
 }

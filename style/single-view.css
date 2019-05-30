@@ -45,7 +45,7 @@ div.form-container.order div.estate-container{
 }
 div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10px auto 5px;}
 div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
-div.form-container.order div.estate-container > label.boxed-radio.full-width{flex-basis: 100%;}
+div.form-container.order div.estate-container > label.boxed-radio:nth-child(even):last-child{flex-basis: 100%;}
 /* Order Items */
 div.order-items-container {
     position: relative;
@@ -162,6 +162,36 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
     div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
 }
 
+.modal-box.new-order-item .select-clothe, 
+.modal-box.new-order-item .select-fix{
+    width: 100%;
+}
+.modal-box.new-order-item > .modal-box-content {
+    height: initial;
+}
+.modal-box.new-order-item .modal-box-body{
+    width: calc(100% - 20px);
+    padding: 10px;
+    display: grid;
+    grid-template-areas: "clothe fix" "desc desc" "button button";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 100px 50px;
+    height: 300px;
+    grid-column-gap: 10px;
+}
+#select-clothe{
+    grid-area: clothe;
+}
+#select-fix{
+    grid-area: fix;
+}
+#order-item-description{
+    grid-area: desc;
+}
+#order-item-submit{
+    grid-area: button;
+}
+
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - user.php - -------------------------------------------- 
@@ -262,6 +292,43 @@ div.form-container.user .form-buttons {
             flex-basis: 100%;
     }
 }
+
+
+/* ----- registrar usuario ------ */
+div.form-container.new-user form{
+    display: grid;
+    grid-template-areas: "header header" "account info" "active active" "role role" "submit submit";
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 10px;
+}
+div.form-container.new-user  #header {
+    grid-area: header;
+}
+div.form-container.new-user #account-info {
+    grid-area: account;
+    display: flex;
+    flex-flow: column;
+}
+div.form-container.new-user #personal-info {
+    grid-area: info;
+    display: flex;
+    flex-flow: column;
+}
+div.form-container.new-user #account-info > label,
+div.form-container.new-user #personal-info > label {
+    flex-basis: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.form-container.new-user #active-form {
+    grid-area: active;
+}
+div.form-container.new-user #role-form {
+    grid-area: role;
+}
+div.form-container.new-user form > .form-buttons{
+    grid-area: submit;
+}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - clothe.php - -------------------------------------------- 
@@ -269,7 +336,7 @@ div.form-container.user .form-buttons {
 */
 div.form-container.clothe {
     display: grid;
-    grid-template-areas: "info" "active" "fixes";
+    grid-template-areas: "info"  "active" "fixes";
     grid-template-columns: 100%;
 }
 #clothe-info-container {
@@ -280,6 +347,9 @@ div.form-container.clothe {
     flex-flow: row wrap;
     align-items: baseline;
     justify-content: space-between;
+}
+#clothe-info-container .msg {
+    flex-basis: calc(100% - 40px);
 }
 #clothe-info-container > div > label{
     flex-basis: 300px;
@@ -332,7 +402,21 @@ div.form-container.clothe {
     }
 }
 
+/* Ventana Modal */
+div.modal-box.add-fix > .modal-box-content{
+    height: 350px !important;
+    
+}
+div.modal-box.add-fix > .modal-box-content > .modal-box-body label.boxed-input{
+    width: calc(100% - 12px);
+}
+div.modal-box.add-fix > .modal-box-content > .modal-box-body div.form-buttons{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
 /* tabla */
+/*
 table.fixes-table td.active {width: 30px;}
 table.fixes-table td.id {width: 80px;}
 table.fixes-table td.price {width: 50px;}
@@ -346,5 +430,109 @@ table.fixes-table td.toogle > a{width: 80px;}
     table.fixes-table td.date,
     table.fixes-table td.toogle{
         width: auto;
+    }
+}
+*/
+div.table-like-container.fixes {
+    width: calc(100% + 20px);
+    position: relative;
+    left: -10px;
+}
+
+div.table-like-container.fixes > .item > .elem > input{
+    border: 0;
+    -webkit-appearance: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+div.table-like-container.fixes > .item > .elem > input:focus{
+    box-shadow: 0 0 0 2px #0060ac;
+}
+div.table-like-container.fixes > .item:hover > .elem > input{
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+div.table-like-container.fixes > .item:hover > .elem > input:disabled{
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+div.table-like-container.fixes > .item > .elem.id{
+    flex-basis: 50px;
+    min-width: 50px;
+    text-align: center;
+}
+div.table-like-container.fixes > .item > .elem.id > input {
+    width: 100%;
+}
+div.table-like-container.fixes > .item.header > .elem.id{
+    flex-basis: 50px;
+    padding-left: 20px;
+    text-align: left;
+}
+div.table-like-container.fixes > .item > .elem.name{
+    /*flex-basis: calc(60% - 100px);*/
+    flex-grow: 2;
+    min-width: 100px;
+}
+div.table-like-container.fixes > .item.header > .elem.name{
+    /*flex-basis: calc(60% - 110px);*/
+    flex-grow: 2;
+    min-width: 100px;
+}
+div.table-like-container.fixes > .item > .elem.price{
+    flex-basis:80px;
+    min-width: 80px;
+}
+div.table-like-container.fixes > .item > .elem.price > input {
+    text-align: right;
+    width: calc(100% - 22px);
+    padding: 5px 2px 5px 0;
+}
+div.table-like-container.fixes > .item > .elem.active{
+    flex-basis:100px;
+    min-width: 100px;
+    justify-content: center;
+}
+div.table-like-container.fixes > .item > .elem.creation-date,
+div.table-like-container.fixes > .item > .elem.update-date{
+    flex-basis:180px;
+    min-width: 180px;
+}
+div.table-like-container.fixes > .item > .elem.buttons{
+    justify-content: flex-end;
+    border-left: 1px solid transparent;
+    flex-basis: 100px;
+}
+div.table-like-container.fixes > .item > .elem.buttons > button{
+    visibility: hidden;
+    padding: 0;
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+}
+div.table-like-container.fixes > .item:hover > .elem.buttons > button{
+    visibility: visible;
+}
+div.table-like-container.fixes > .item > .elem.buttons > button.edit{background-image: url(../media/img/edit-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.edit:hover{background-color: #0060ac}
+div.table-like-container.fixes > .item > .elem.buttons > button.enable{background-image: url(../media/img/tick-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.enable:hover{background-color: #32CD32}
+div.table-like-container.fixes > .item > .elem.buttons > button.disable{background-image: url(../media/img/cross-w.png);}
+div.table-like-container.fixes > .item > .elem.buttons > button.disable:hover{background-color: #DA0000}
+
+
+@media (max-width: 1100px){
+    div.table-like-container.fixes > .item > .elem.creation-date,
+    div.table-like-container.fixes > .item > .elem.update-date{
+        display: none;
     }
 }

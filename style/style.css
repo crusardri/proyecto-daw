@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
 /* ------------------------------------------------ START ------------------------------------- */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 body {
     font-family: "Lato", sans-serif;
     margin: 0;
@@ -11,22 +16,28 @@ body > *{
     transition: opacity 0.1s;
 }
 /* Comun */
+
 input,
 textarea,
 select {
     font-family: "Lato", sans-serif;
     outline: none;
 }
+textarea:disabled{
+    background-color: #fff;
+}
 input.input-submit-button{
     border: 0px;
     border-radius: 5px;
     background-color: #ffd700;
-    padding: 3px 5px;
+    padding: 3px 10px;
     color: #000;
-    margin: 10px auto;
+    margin: 5px 0;
     font-weight: 700;
     transition: all 0.2s;
     cursor: pointer;
+    /*height: 30px;*/
+    font-size: 1em;
 }
 input.input-submit-button:hover{
     background-color: #ffe34d;
@@ -35,7 +46,25 @@ input.input-submit-button:disabled{
     background-color: #DDD;
     cursor: no-drop;
 }
-
+/* Mensajes */
+div.msg {
+    display: block !important;
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 3px 5px;
+    text-align: center;
+}
+div.msg.error{
+    background-color: #DA0000;
+    box-shadow: 0 2px 0 #ae0000;
+}
+div.msg.success{
+    background-color: #32CD32;
+    box-shadow: 0 2px 0 #228B22;
+}
 /* ---- CUSTOM SELECT ---- */
 div.custom-select {
     position: relative;
@@ -56,6 +85,7 @@ div.custom-select:after {
     width: 25px;
     height: 100%;
     border-left: 1px solid #ddd;
+    transition: background-image 0.1s;
 }
 div.custom-select.selected:after{
     background-image: url(../media/img/select-arrow-up.png);
@@ -223,6 +253,7 @@ label.description-box > textarea{
 label.boxed-input {
     position: relative;
     display: inline-flex;
+    flex-flow: row nowrap;
     border-radius: 5px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -269,7 +300,7 @@ label.boxed-input > div.text-label.mandatory:after{
 }
 label.boxed-input > div.input-container {
     flex-grow: 2;
-    height: calc(100% - 7px );
+    height: calc(100% - 7px);
 }
 label.boxed-input > div.button{
     display: inline-flex;
@@ -290,6 +321,11 @@ label.boxed-input > div.button > span{
 label.boxed-input > div.button:hover{
     background-color: #eee;
 }
+/* Input de búsqueda*/
+label.boxed-input.searchbox{flex-basis: 100%;height: 30px; font-size: 1.2em;}
+label.boxed-input.searchbox > div.input-container{height: 100%;}
+label.boxed-input.searchbox input{font-size: 0.8em;}
+
 /* ---- Radio Button With Label ---- */
 label.boxed-radio {
     display: block;
@@ -311,11 +347,13 @@ label.boxed-radio > div.container {
     cursor: pointer;
     transition: border-color 0.1s, box-shadow 0.1s;
 }
-label.boxed-radio:hover > div.container{
+label.boxed-radio:hover > input:not(:disabled):not(:checked) + div.container{
     border-color: #0060ac;
     box-shadow: 0 0 0 1px #0060ac;
 }
-
+label.boxed-radio:hover > input:disabled + div.container{
+    cursor: default;
+}
 label.boxed-radio > input:checked + div.container {
     background-color: #ffd700;
     box-shadow: 0 2px 0 #926f1d;
@@ -425,7 +463,7 @@ label.boxed-radio.admin > input:checked + div.container > div.radio-checkbox {ba
 
 /* --- Boton con relieve --- */
 a.button {
-    display: inline-block;
+    /*display: inline-block;*/
     font-size: 0.7em;
     text-decoration: none;
     float: right;
@@ -717,8 +755,16 @@ div.table-container > table {
     overflow: hidden;
 }
 div.table-container > table tr:hover {
-    
     border-radius: 5px;
+}
+div.table-container > table  tr.no-items {
+    text-align: center;
+    color: #666;
+}
+div.table-container > table  tr.no-items:hover > td {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent !important;
 }
 div.table-container > table tr > th {
     background-color: #ffd700;
@@ -909,6 +955,15 @@ div.form-container div.field-set > div.button {
 div.form-container div.field-set > div.button:hover {
     background-color: #ffe34d;
 }
+@media (max-width: 850px){
+    div.form-container {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border-radius: 0;
+    }
+}
 /* ---- MODAL BOX ----*/
 div.modal-box {
     position: fixed;
@@ -990,5 +1045,114 @@ div.modal-box > div.modal-box-content > div.modal-box-body > form > div.modal-se
     display: inline-block;
     position: relative;
 }
+
+
+/* -------------- Table-Like-Container -------------------- */
+div.table-like-container {
+    width: 100%;
+}
+div.table-like-container > .item {
+    box-sizing: border-box;
+    display: flex;
+    align-content: stretch;
+    justify-content: flex-start;
+    width: calc(100% - 20px);
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    margin: 5px 10px;
+}
+div.table-like-container > .item:hover {
+    background-color: #f2f2f2;
+    box-shadow: 0px 1px 0 #ddd;
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
+}
+div.table-like-container > .item:last-child{
+    border-bottom: 0px;
+}
+div.table-like-container > .item.header {
+    font-weight: 600;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    margin: 0;
+    width: 100%;
+}
+
+div.table-like-container > .item.header:hover{
+    background-color: transparent;
+}
+div.table-like-container > .item.header > .elem {
+    border-left: 1px solid #ddd;
+}
+div.table-like-container > .item.header > .elem:first-child {
+    border-left: 0px;
+}
+div.table-like-container > .item > .elem {
+    padding: 0px 5px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+div.table-like-container > .item > .elem > button {
+    position: relative;
+    display: inline-block;
+    border: 0;
+    background-color: rgba(0,0,0,0.8);
+    margin-left: 5px;
+    border-radius: 3px;
+    color: #fff;
+    padding: 10px;
+    line-height: 1em;
+    transition: background-color 0.1s, color 0.1s;
+    cursor: pointer;
+}
+div.table-like-container > .item > .elem > button:hover{
+    background-color: rgba(0,0,0,0.2);
+    color: #000;
+}
+div.table-like-container > .item > .elem > button > div.hint-box{
+    display: none;
+    position: absolute;
+    border-radius: 5px;
+    bottom: calc(100% + 5px);
+    right: 50%;
+    background-color: #333;
+    transform: translateX(50%);
+    color: #fff;
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+div.table-like-container > .item > .elem > button > div.hint-box:after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    border-left: 5px solid #333;
+    border-bottom: 5px solid #333;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+    transform: rotate(-45deg) translate(-25%, -25%);
+}
+div.table-like-container > .item > .elem > button:hover > div.hint-box{
+    display: block;
+}
+div.table-like-container > .item.no-items {
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 5px;
+    height: 100px;
+    color: #777;
+}
+div.table-like-container > .item.no-items:hover {
+    background-color: transparent;
+    box-shadow: none;
+    
+}
+
+
 
 

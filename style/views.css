@@ -1,15 +1,16 @@
+
 /* Contenedor Filtros */
-section.item-filters {
+.item-filters {
     position: relative;
     display: flex;
     flex-flow: row wrap;
-    margin: 10px 20px;
+    margin: 20px;
     box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2);
     border-radius: 5px;
     background-color: #fff;
     padding: 20px 10px;
 }
-section.item-filters > h1 {
+.item-filters > h1 {
     position: absolute;
     top: -0.7em;
     left: 0.6em;
@@ -21,8 +22,12 @@ section.item-filters > h1 {
     border: 1px solid #ddd;
     
 }
-section.item-filters > label {
+.item-filters > label {
     margin: 5px 10px;
+}
+.item-filters > input.input-submit-button {
+    margin-left: auto;
+    margin-right: 10px;
 }
 /* ---- custom select filters ---- */
 /* Estados ordenes - activo - roles */
@@ -95,7 +100,6 @@ section.buttons-container {
     flex-flow: row wrap;
     justify-content: space-around;
     width: 100%;
-    margin: 20px 0 10px;
 }
 
 
@@ -108,7 +112,9 @@ div.worker-container > .all-orders {
 div.worker-container > .updates {
     grid-area: updates;
 }
-
+div.worker-container > .client-orders {
+    grid-column: 1 / 3;
+}
 
 
 
@@ -230,13 +236,17 @@ div.users-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-user" "filters new-user" "users users" "paginator paginator";
+    grid-template-areas: "search new-user" "filters new-user" "error error" "users users" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.users-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "filters" "new-user" "users" "paginator";
+        grid-template-areas: "search" "filters" "new-user" "error" "users" "paginator";
     }
+}
+div.users-container .msg{
+    grid-area: error;
+    width: calc(100% - 100px);
 }
 div.users-container .new-user{
     grid-area: new-user;
@@ -287,12 +297,12 @@ div.clothes-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-clothe" "filters new-clothe" "clothes clothes" "paginator paginator";
+    grid-template-areas: "search new-clothe" "filters new-clothe" "infoMSG infoMSG" "clothes clothes" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.clothes-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "filters" "new-clothe" "clothes" "paginator";
+        grid-template-areas: "search" "filters" "infoMSG" "new-clothe" "clothes" "paginator";
     }
 }
 div.clothes-container .new-clothe{
@@ -301,6 +311,10 @@ div.clothes-container .new-clothe{
 }
 div.clothes-container > form {
     grid-area: search;
+}
+div.clothes-container .msg {
+    grid-area: infoMSG;
+    width: calc(100% - 60px);
 }
 section.clothes-container {
     grid-area: clothes;
@@ -326,4 +340,22 @@ table.clothes-table td.date {width: 180px; text-align: center;}
     table.clothes-table td.num-fixes, 
     table.clothes-table td.active, 
     table.clothes-table td.date {width: auto; text-align: left;}
+}
+
+
+/* Ventana modal Añadir Prenda*/
+.modal-box.new-clothe > .modal-box-content{
+    height: 130px;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form{
+    display: flex;
+    flex-flow: row wrap;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form > *{
+    flex-basis: 100%;
+}
+.modal-box.new-clothe > .modal-box-content > .modal-box-body  > form > div.form-buttons > input{
+    margin: auto;
+    height: 40px;
+    display: block;
 }

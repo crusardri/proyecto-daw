@@ -140,6 +140,9 @@ $(document).ready(()=>{
     $(".boxed-input input, label.description-box textarea").on("focusout", function(){
         $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
     })
+    $(".boxed-input input:focus, label.description-box textarea:focus")
+    .parents("label.boxed-input, label.description-box")
+    .toggleClass("focussed", true);
     //Abrir ventana modal busqueda cliente
     $("#search-client").on("click", ()=>{
         modalBox("Buscar Cliente", showSearchUserForm);
@@ -152,9 +155,16 @@ $(document).ready(()=>{
     })
     //Abrir ventana modal busqueda prenda
     $("#new-order-item").on("click", ()=>{
-        modalBox("Añadir Prenda", showClothesSearchForm);
-        showClothes();
+        showAddOrderItemForm();
     })
+    //Abrir ventana modal crear arreglo
+    $("#add-fix").on("click", ()=>{
+        let clotheID = parseInt($("#clotheID").children("div.input-container").children("input").val());
+        let clotheName = $("#clothe-name").children("div.input-container").children("input").val()
+        showAddFixForm(clotheID, clotheName)
+    })
+    //Abrir ventana modal crear prenda
+     $("#add-clothe").on("click", showNewClotheForm);
 })
 /*
 * Cierra la ventana modal con un fadeout
@@ -202,12 +212,134 @@ function showSearchUserForm(){
     </form>"
 }
 
-function showClothesSearchForm(){
-    return "<form>\
-        <div class='search-box'>\
-            <input type='text' placeholder='Buscar prenda por ID o Nombre'>\
-            <input type='submit' value'Buscar'>\
+
+function showAddFixForm(clotheID, clotheName){
+    $("<div class='modal-box add-fix'>\
+    <div class='modal-box-content'>\
+        <h1 class='modal-box-title'>Añadir nuevo arreglo a "+clotheName+"</h1>\
+        <div class='modal-box-close'>x</div>\
+        <div class='modal-box-body'>\
+            <form method='post' action='clothe.php?id="+clotheID+"'>\
+            <input type='hidden' name='addFix'>\
+            <input type='hidden' value='"+clotheID+"' name='clotheID'>\
+            <label class='boxed-input' >\
+                <div class='text-label'><span>Nombre</span></div>\
+                <div class='input-container'>\
+                    <input type='text' name='fixName' value=''>\
+                </div>\
+            </label>\
+            <label class='boxed-input' >\
+                <div class='text-label'><span>Precio</span></div>\
+                <div class='input-container'>\
+                    <input type='number' name='fixPrice' value=''>\
+                </div>\
+            </label>\
+            <div>\
+                <label class='boxed-radio active'>\
+                    <input type='radio' name='active' value='1' checked>\
+                    <div class='container'>\
+                        <div class='radio-checkbox'>&#x2713;</div>\
+                        <div class='radio-title'>Activado</div>\
+                        <div class='radio-desc'>Aparecerá en los listados y estará disponible para añadir en nuevas órdenes.</div>\
+                    </div>\
+                </label>\
+                <label class='boxed-radio disabled'>\
+                    <input type='radio' name='active' value='0'>\
+                    <div class='container'>\
+                        <div class='radio-checkbox'>&#x2713;</div>\
+                        <div class='radio-title'>Desactivado</div>\
+                        <div class='radio-desc'>No se podrá añadir a nuevas órdenes, pero se mantendrán en órdenes antiguas para consulta.</div>\
+                    </div>\
+                </label>\
+            </div>\
+            <div class='form-buttons'>\
+                <input type='submit' value='Registrar prenda' name='registerFix' class='input-submit-button'>\
+            </div>\
+            </form>\
         </div>\
-        <div class='modal-search-results clothes'></div>\
-    </form>"
+    </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1");
+    }, 100);
+    $("div.modal-box-content").on("click", (e)=>{
+        e.stopPropagation();
+    })
+    $("div.modal-box, div.modal-box-close").on("click", function(e){
+        closeModalBox();
+    })
 }
+
+function showNewClotheForm(){
+    $("<div class='modal-box new-clothe'>\
+    <div class='modal-box-content'>\
+        <h1 class='modal-box-title'>Registrar nueva prenda</h1>\
+        <div class='modal-box-close'>x</div>\
+        <div class='modal-box-body'>\
+            <form method='post' action='clothes.php'>\
+            <label class='boxed-input' >\
+                <div class='text-label'><span>Nombre</span></div>\
+                <div class='input-container'>\
+                    <input type='text' name='clotheName' value=''>\
+                </div>\
+            </label>\
+            <div class='form-buttons'>\
+                <input type='submit' value='Registrar prenda' name='createClothe' class='input-submit-button'>\
+            </div>\
+            </form>\
+        </div>\
+    </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1");
+    }, 100);
+    $("div.modal-box-content").on("click", (e)=>{
+        e.stopPropagation();
+    })
+    $("div.modal-box, div.modal-box-close").on("click", function(e){
+        closeModalBox();
+    })
+}
+
+function showAddOrderItemForm(){
+    $("<div class='modal-box new-order-item'>\
+    <div class='modal-box-content'>\
+        <h1 class='modal-box-title'>Añadir nueva prenda</h1>\
+        <div class='modal-box-close'>x</div>\
+        <div class='modal-box-body'>\
+            <label class='boxed-select' id='select-clothe'>\
+                <div>Prenda</div>\
+                <select data-class='select-clothe' name='clothe'>\
+                    <option value='0'>Vaqueros</option>\
+                    <option value='1'>Blusa</option>\
+                    <option value='2'>Opel Corsa</option>\
+                </select>\
+            </label>\
+            <label class='boxed-select' id='select-fix'>\
+                <div>Arreglo</div>\
+                <select data-class='select-fix' name='fix'>\
+                    <option value='0'>Bajo</option>\
+                    <option value='1'>Alto</option>\
+                    <option value='2'>Cambio de aceite</option>\
+                </select>\
+            </label>\
+            <label class='description-box order-item-description' id='order-item-description'>\
+            <div class='header'>Observaciones</div>\
+                <textarea name='order-item-description'>Sin descripción</textarea>\
+            </label>\
+            <div class='form-buttons' id='order-item-submit'>\
+                <input type='submit' value='Añadir prenda a la orden' name='createClothe' class='input-submit-button'>\
+            </div>\
+        </div>\
+    </div>").appendTo("body");
+    setTimeout(()=>{
+        $("div.modal-box").css("opacity", "1");
+    }, 100);
+    $("div.modal-box-content").on("click", (e)=>{
+        e.stopPropagation();
+    })
+    $("div.modal-box, div.modal-box-close").on("click", function(e){
+        closeModalBox();
+    })
+    customSelect("#select-clothe");
+    customSelect("#select-fix");
+}
+

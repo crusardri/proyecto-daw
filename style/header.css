@@ -9,6 +9,7 @@ nav.top-header{
     width: 100%;
     background-color: #ffd700;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    margin-bottom: 60px;
 }
 nav.top-header > a.menu-item {
     display: flex;
@@ -74,4 +75,19 @@ section.index-container {
     justify-content: center;
     align-items: center;
     max-width: 1800px;
+}
+
+
+.logout-button{
+    position: absolute;
+    right: 10px;
+    top: 80px;
+    background-color: #DA0000;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.logout-button:hover{
+    text-decoration: none;
+    background-color: #ae0000;
 }

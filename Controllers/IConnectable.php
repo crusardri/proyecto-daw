@@ -1,4 +1,4 @@
 <?php
 interface IConnectable {
-    public function connect();
+    function connect();
 }

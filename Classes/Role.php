@@ -3,12 +3,14 @@ class Role{
     private $id;
     private $name;
     private $cssClass;
-    function __construct($id, $name, $cssClass){
+    private $description;
+    function __construct($id, $name, $cssClass, $description = ""){
         $this->id = $id;
         $this->name = $name;
         $this->cssClass = $cssClass;
+        $this->description = $description;
     }
-    function getId(){
+    function getID(){
         return $this->id;
     }
     function getName(){
@@ -16,5 +18,8 @@ class Role{
     }
     function getCssClass(){
         return $this->cssClass;
+    }
+    function getDescription(){
+        return $this->description;
     }
 }
