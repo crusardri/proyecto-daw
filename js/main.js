@@ -302,11 +302,10 @@ function ajaxGetClothes(){
             html: "Selecciona prenda"
         }).appendTo("#clothe-select-ajax");
         //Recorrer array
-        Object.keys(json).forEach((o)=>{
-            //Crear objeto opcion dentro del select clothe
+        $.each(json, function(){
             $("<option>", {
-                value: json[o].id,
-                html: json[o].name
+                value: this.id,
+                html: this.name
             }).appendTo("#clothe-select-ajax");
         })
         //Borrar menu select personalizado
@@ -337,19 +336,18 @@ function ajaxGetFixes(clotheID){
             value: -1,
             html: "Seleccione arreglo"
         }).appendTo("#fix-select-ajax");
-        Object.keys(json).forEach((o)=>{
-            //Crear objeto opcion dentro del select fix
+        $.each(json, function(){
             $("<option>", {
-                value: json[o].id,
-                html: json[o].name,
-                price: json[o].price
+                value: this.id,
+                html: this.name,
+                price: this.price
             }).appendTo("#fix-select-ajax");
+        })
         //Borrar menu select personalizado
         $("#select-fix > .custom-select").remove();
         //Crear menu select personalizado
         customSelect("#select-fix");
         $("#add-order-item").on("click", addOrderItem)
-        })
     })
 }
 

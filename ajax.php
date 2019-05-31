@@ -26,87 +26,58 @@ if(isset($_SESSION["userID"])){
         die("No estas autorizado para hacer eso.");
     }
     if(isset($_GET["getClothes"])){
-        $controller->getClothes("",1,-1,-1,1,500);
-        ?>
-{
-    "1": {
-        "id": "1",
-        "name": "vaqueros"
-    },
-    
-    "2": {
-        "id": "2",
-        "name": "blusa"
-    },
-    "3": {
-        "id": "3",
-        "name": "abrigo"
-    }
-}
-        <?php
+        $uc = $controller->getClothes("",1,-1,-1,1,500);
+        $clothes = array();
+        foreach($uc as $c){
+            array_push($clothes, new Class($c->getID(), $c->getName()){
+                function __construct($id, $name){
+                    $this->id = $id;
+                    $this->name = $name;
+                }
+            });
+        }
+        echo json_encode($clothes);
     }elseif(isset($_GET["getFixes"])){
-        //$controller->getFixes($_GET["getFixes"]);
-?>
-{
-    "1": {
-        "id": "1",
-        "name": "bajo",
-        "price": "10"
-    },
-    "2": {
-        "id": "2",
-        "name": "ensanchado",
-        "price": "20"
-    },
-    "3": {
-        "id": "3",
-        "name": "arreglo",
-        "price": "5"
-    }
-}
-<?php
+        $test = $controller->getFixes($_GET["getFixes"]);
+        var_dump($test);
+        $fixes = array();
+        $fix = new Class(1,"Bajo", 10){
+            function __construct($id, $name, $price){
+                $this->id = $id;
+                $this->name = $name;
+                $this->price = $price;
+            }
+        };
+        array_push($fixes, $fix);
+        echo json_encode($fixes);
+        /**
+         * SALIDA DE EJEMPLO
+         * [{"id":1,"name":"Bajo","price":10},{"id":1,"name":"Ensanchado","price":19.99},{"id":1,"name":"Descosido","price":7.99}]
+         */
     }elseif(isset($_GET["getUsers"])){
-        $userController->getUsers($_GET["getUsers"], -1, 1, -1, -1, 1, 10);
-?>
-{
-    1: {
-        "id": 0,
-        "username": "Halfonso",
-        "email": "Halfo@sett.es",
-        "role": {
-            "name": "Cliente",
-            "cssClass": "client"
-        }
-        "name": "Halfonso",
-        "surname": "Halfonsette",
-        "phone": "9191919191"
-    },
-    2: {
-        "id": 1,
-        "username": "Halfredo",
-        "email": "Hal@fre.do",
-        "role": {
-            "name": "Empleado",
-            "cssClass": "employee"
-        }
-        "name": "Halfredo",
-        "surname": "Haldredette",
-        "phone": "8484848393"
-    },
-    3: {
-        "id": 3,
-        "username": "Mafalda",
-        "email": "Maf@al.da",
-        "role": {
-            "name": "Administrador",
-            "cssClass": "admin"
-        }
-        "name": "Mafalda",
-        "surname": "Zapatero",
-        "phone": "828573829384"
-    }
-}
-<?php
+        //Obtenemos los usuarios buscando por cadena de texto, en cualquier orden, que esten activados, y maximo 10 usuarios
+        $us = $userController->getUsers($_GET["getUsers"], -1, 1, -1, -1, 1, 10);
+        $users = array();//Inicializamos el array
+        foreach ($us as $u){
+            //Añadimos al array un objeto anonimo con las propiedades de la consulta anterior
+            array_push($users, new Class($u->getID(), $u->getUsername(), $u->getEmail(), $u->getRole(), $u->getName(), $u->getSurname(), $u->getTelephone()){
+                function __construct($id, $username, $email, $role, $name, $surname, $phone){
+                    $this->id = $id;
+                    $this->username = $username;
+                    $this->email = $email;
+                    $this->role = new Class($role->getName(), $role->getCssClass()){
+                        function __construct($name, $cssClass){
+                            $this->name = $name;
+                            $this->cssClass = $cssClass;
+                        }
+                    };
+                    $this->name = $name;
+                    $this->surname = $surname;
+                    $this->phone = $phone;
+                }
+            });
+            echo json_encode($users); //Transformamos e imprimimos el array de objetos de usuario
+        } 
     }
 }elseif(isset($_GET["check_username"])){
     $uc = new UserController();

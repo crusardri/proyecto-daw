@@ -405,10 +405,10 @@ class Controller {
         $page = $page -1;
         $timestamp = time();
         $clothes = [
-            new Clothe(1, "Vaquero", $this->getNumFixes(1), $this->getFixes(1), $timestamp, $timestamp, true),
-            new Clothe(2, "Blusa", $this->getNumFixes(2), $this->getFixes(2), $timestamp, $timestamp, true),
-            new Clothe(3, "Camisa", $this->getNumFixes(3), $this->getFixes(3), $timestamp, $timestamp, false),
-            new Clothe(4, "Mercedes Benz", $this->getNumFixes(4), $this->getFixes(4), $timestamp, $timestamp, true)
+            new Clothe(1, "Vaquero", 10, null, $timestamp, $timestamp, true),
+            new Clothe(2, "Blusa", 10, null, $timestamp, $timestamp, true),
+            new Clothe(3, "Camisa", 10, null, $timestamp, $timestamp, false),
+            new Clothe(4, "Mercedes Benz", 10, null, $timestamp, $timestamp, true)
         ];
         return $clothes;
     }
@@ -431,7 +431,7 @@ class Controller {
      * @return Fix[]                    Array de prendas
      */
     public function getFixes($clotheID){
-        $fix = array();
+        $fixes = array();
         $db = $this->connect(); 
         $sql = "SELECT * FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID";
         $stmt = $db->prepare($sql);
@@ -440,7 +440,7 @@ class Controller {
 
         if($stmt->execute()){
             while($row = $stmt->fetch()){
-                array_push($fix, new Fix(
+                array_push($fixes, new Fix(
                     $row["FIX_ID"], 
                     $row["CLOTHE_ID"],
                     $row["NAME"],
@@ -451,16 +451,7 @@ class Controller {
                 ));
             }
         }
-        return $fix;
-    }
-    /**
-     * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
-     * @param int $clotheId             ID de la prenda a consultar
-     * 
-     * @return int                      Número de prendas encontradas
-     */
-    private function getNumFixes($clotheId){
-        return 4;
+        return $fixes;
     }
     /**
      * Obtiene los estados de una orden desde la base de datos
