@@ -92,7 +92,7 @@ div.order-items-container > div.order-items > div.order-item > .remove-order-ite
     grid-area: borrar;
     position: initial;
     display: inline-block;
-    width: 80px;
+    width: min-content;
     margin: 5px 0 5px auto;
 }
 

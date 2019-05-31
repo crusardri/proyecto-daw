@@ -67,9 +67,11 @@ function showClothes(){
 $(document).ready(()=>{
     $("body > *").css("opacity", "1");
     /*Animacion focus boxed-input*/
+    //Accion focus
     $(".boxed-input input, label.description-box textarea").on("focus", function(){
         $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);
     })
+    //Accion focus out
     $(".boxed-input input, label.description-box textarea").on("focusout", function(){
         $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
     })
@@ -265,6 +267,8 @@ function showAddOrderItemForm(){
             </div>\
         </div>\
     </div>").appendTo("body");
+    $(".new-order-item input, .new-order-item textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
+    $(".new-order-item input, .new-order-item textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
     setTimeout(()=>{
         $("div.modal-box").css("opacity", "1");
     }, 100);
@@ -410,12 +414,14 @@ function addOrderItem(){
             </label>\
             <div class="button remove-order-item">Borrar</div>\
         </div>')
-        //Añadimos el order item
-        $(orderItem).appendTo(".order-items");
-        //Borramos todos los eventos de borrar
-        $(".remove-order-item").off("click", removeOrderItem);
-        //Asignamos de nuevo a todos los botones los eventos de borrar (para evitar asignar 3 eventos al mismo boton)
-        $(".remove-order-item").on("click", removeOrderItem);
+        
+        //Asignamos las animaciones de focus al los text-area y los inputs
+        orderItem.find("input, textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
+        orderItem.find("input, textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
+        //Asignamos el evento de borrar order-item al boton
+        orderItem.find(".remove-order-item").on("click", removeOrderItem);
+        //Añadimos el order items al contenedor principal
+        orderItem.appendTo(".order-items");
         //Simulamos pulsar boton cerrar ventana
         $("div.modal-box, div.modal-box-close").click();
     }else{
