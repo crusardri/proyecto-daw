@@ -61,7 +61,7 @@ div.order-items-container > div.order-items > div.no-order-items{
 
 div.order-items-container > div.order-items > div.order-item{
     display: grid;
-    grid-template-areas: "clothe fix price" "description description description";
+    grid-template-areas: "clothe fix price" "description description description" "borrar borrar borrar";
     grid-template-columns: auto auto 140px;
     grid-column-gap: 5px;
     grid-row-gap: 0px;
@@ -88,6 +88,14 @@ div.order-items-container > div.order-items > div.order-item > label.price:after
     top: 3px;
     left: -10px;
 }
+div.order-items-container > div.order-items > div.order-item > .remove-order-item {
+    grid-area: borrar;
+    position: initial;
+    display: inline-block;
+    width: 80px;
+    margin: 5px 0 5px auto;
+}
+
 div.order-items-container > div.order-items > div.order-item > label.order-item-description {
     grid-area: description;
 }
@@ -173,9 +181,9 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
     width: calc(100% - 20px);
     padding: 10px;
     display: grid;
-    grid-template-areas: "error error" "clothe fix" "desc desc" "button button";
+    grid-template-areas: "error error" "clothe fix" "price price" "desc desc" "button button";
     grid-template-columns: 50% 50%;
-    grid-template-rows: auto 50px 100px 50px;
+    grid-template-rows: auto 35px 40px 100px 50px;
     height: 300px;
     grid-column-gap: 10px;
 }
@@ -192,10 +200,15 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
 #order-item-description{
     grid-area: desc;
 }
+#order-item-price{
+    grid-area: price;
+}
 #order-item-submit{
     grid-area: button;
 }
-
+#order-item-submit{
+    grid-area: button;
+}
 /*
 ------------------------------------------------------------------------------------------------------------
 -------------------------------------------- - user.php - -------------------------------------------- 
@@ -359,6 +372,20 @@ div.form-container.clothe {
     flex-basis: 300px;
     flex-grow: 2;
     margin: 5px;
+}
+#clothe-info-container > div > #clotheID{
+    flex-basis: 80px;
+    flex-grow: 0;
+}
+#clothe-info-container > div > #create-date,
+#clothe-info-container > div > #update-date{
+    flex-basis: 320px;
+    min-width: 320px;
+    flex-grow: 1;
+}
+#clothe-info-container > div > #create-date > .text-label,
+#clothe-info-container > div > #update-date > .text-label{
+    width: 125px;
 }
 #clothe-info-container > div > :last-child{
     flex-basis: 100%;

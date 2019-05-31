@@ -24,6 +24,7 @@ $employee = false;                          //Si es empleado
 $admin = false;                             //Si es administrador
 
 $clothe;                                    //Prenda a editar
+$fixes;                                     //Arreglos de la prenda
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
@@ -57,15 +58,6 @@ if(!($employee || $admin)){
 if(!isset($_GET["id"]) && empty($_GET["id"])){
     header("Location: clothes.php");
 }
-
-//Obtener prenda
-if(!$clothe = $controller->getClothe($_GET["id"])){
-    header("Location: clothes.php");
-};
-
-// Titulo
-$title = "Prenda: ".$clothe->getName();
-
 //Cambiar nombre prenda
 if(isset($_POST["changeClotheName"])){
     switch($controller->changeClotheName((int)$_POST["clotheID"], $_POST["clotheName"])){
@@ -85,9 +77,9 @@ if(isset($_POST["toggleClothe"])){
     switch($controller->toggleClothe($_POST["clotheID"], $_POST["active"])){
         case 0:
             if($_POST["active"] == 0){
-                $successMSG = "Prenda \"".$clothe->getName()."\" activado con éxito.";
+                $successMSG = "Prenda activada con éxito.";
             }else{
-                $successMSG = "Prenda \"".$clothe->getName()."\" desactivado con éxito.";
+                $successMSG = "Prenda desactivada con éxito.";
             }
             break;
         default:
@@ -158,6 +150,15 @@ if(isset($_POST["toggle"])){
             break;
     }
 }
+
+//Obtener prenda
+if(!$clothe = $controller->getClothe($_GET["id"])){
+    header("Location: clothes.php");
+};
+//Obtenemos los arreglos
+$fixes = $controller->getFixes($_GET["id"]);
+//Titulo
+$title = "Prenda: ".$clothe->getName();
 /**
  * Mostrar Datos Prenda
  */
@@ -212,8 +213,7 @@ function showClotheInfoForm(){
 }
 
 function showClotheFixes(){
-    global $clothe;
-    $fixes = $clothe->getFixes();
+    global $fixes, $clothe;
     ?>
     <div class="table-like-container fixes">
         <div class="item header fixes">
@@ -243,7 +243,7 @@ function showClotheFixes(){
             <input type="hidden" name="active" value="<?=$fix->isActive()?1:0?>">
             <div class="elem id"><input type="number" value="<?=$fix->getId()?>" disabled></div>
             <div class="elem name"><input type="text" name="fixName" value="<?=$fix->getName()?>"></div>
-            <div class="elem price"><input type="number" name="fixPrice" value="<?=$fix->getPrice()?>">€</div>
+            <div class="elem price"><input type="number" name="fixPrice" value="<?=$fix->getPrice()?>" step=".01">€</div>
             <div class="elem active"><span class="label-box <?=$fix->isActive() ? "enabled": "disabled"?>"><?=$fix->isActive() ? "Activado": "Desactivado"?></span></div>
             <div class="elem creation-date"><?=$fix->getCreationDateString()?></div>
             <div class="elem update-date"><?=$fix->getUpdateDateString()?></div>

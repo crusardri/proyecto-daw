@@ -349,7 +349,7 @@ class Controller {
      */
     public function getClothe($clotheID){
         $timestamp = time();
-        return new Clothe(1, "Vaquero", Controller::getNumFixes(1), Controller::getFixes(1), $timestamp, $timestamp, true);
+        return new Clothe(1, "Vaquero", 10, null, $timestamp, $timestamp, true);
     }
     /**
      * Cambia el nombre de una prenda

@@ -20,10 +20,8 @@ require_once("ViewControllers/orderViewController.php");
         <form method="post" action="order.php?newOrder">
             <?php showOrderInfo()?>  
             <!-- User Info -->
-            
             <?php showClientInfo();?>
             <?php showEmployeeInfo();?>
-        
             <!-- Estados -->
             <?php showOrderState()?>
             <!-- Order Items -->

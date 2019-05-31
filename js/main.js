@@ -250,6 +250,12 @@ function showAddOrderItemForm(){
                     <option value='-1'>Seleccióne prenda</option>\
                 </select>\
             </label>\
+            <label class='boxed-input' id='order-item-price' >\
+                <div class='text-label'><span>Precio</span></div>\
+                <div class='input-container'>\
+                    <input type='number' value='0' step='.01'>\
+                </div>\
+            </label>\
             <label class='description-box order-item-description' id='order-item-description'>\
             <div class='header'>Observaciones</div>\
                 <textarea name='order-item-description' id='order-item-description'>Sin descripción</textarea>\
@@ -274,10 +280,19 @@ function showAddOrderItemForm(){
     customSelect("#select-fix");
     $("#clothe-select-ajax").on("change", (e)=>{
         let val = $(e.currentTarget).val();
+        $("#order-item-price input").val("0");
         console.log(val);
         ajaxGetFixes(val);
     })
+    $("#fix-select-ajax").on("change", (e)=>{
+        let fixID = $("#fix-select-ajax").val();
+        let val = $("#fix-select-ajax option[value="+fixID+"]").attr("price");
+        $("#order-item-price input").val(val);
+    })
     $("#add-order-item").on("click", addOrderItem)//Añadir nuevo order item
+
+
+    
 }
 
 function ajaxGetClothes(){
@@ -355,7 +370,7 @@ function addOrderItem(){
     let clotheID = $("#clothe-select-ajax").val(); //ID de la prenda
     let fixID = $("#fix-select-ajax").val(); //ID del arreglo
     let description = $("#order-item-description textarea").val(); //Contenido de la descripción
-    let price = $("#fix-select-ajax option[value="+fixID+"]").attr("price"); //Precio del option del select de fix
+    let price = $("#order-item-price input").val(); //Precio del option del select de fix
     let fixName = $("#fix-select-ajax option[value="+fixID+"]").text(); //Nombre del option del select de Fix
     let clotheName = $("#clothe-select-ajax option[value="+clotheID+"]").text(); //Nombre del option del select de clothe
     console.log(clotheID);
@@ -368,7 +383,7 @@ function addOrderItem(){
         //Borrar el placeholder de order-items
         $(".no-order-items").remove(); 
         //Creamos el nuevo order item
-        $('<div class="order-item">\
+        let orderItem = $('<div class="order-item">\
             <input type="hidden" value="'+clotheID+'" name="orderItemClotheID[]">\
             <input type="hidden" value="'+fixID+'" name="orderItemFixID[]">\
             <label class="boxed-input clothe">\
@@ -386,17 +401,31 @@ function addOrderItem(){
             <label class="boxed-input price">\
                 <div class="text-label"><span>Precio</span></div>\
                 <div class="input-container">\
-                    <input type="number" value="'+price+'" name="orderItemPrice[]">\
+                    <input type="number" value="'+price+'" name="orderItemPrice[]" step=".01">\
                 </div>\
             </label>\
             <label class="description-box order-item-description">\
             <div class="header">Observaciones</div>\
                 <textarea name="orderItemDescription[]">'+description+'</textarea>\
             </label>\
-        </div>').appendTo(".order-items");
+            <div class="button remove-order-item">Borrar</div>\
+        </div>')
+        //Añadimos el order item
+        $(orderItem).appendTo(".order-items");
+        //Borramos todos los eventos de borrar
+        $(".remove-order-item").off("click", removeOrderItem);
+        //Asignamos de nuevo a todos los botones los eventos de borrar (para evitar asignar 3 eventos al mismo boton)
+        $(".remove-order-item").on("click", removeOrderItem);
         //Simulamos pulsar boton cerrar ventana
         $("div.modal-box, div.modal-box-close").click();
     }else{
+        //Si no hay ninguna prenda y arreglo seleciconado, mensaje de error
         $("<div class='msg error'>Debes seleccionar una prenda y un arreglo.</div>").appendTo(".modal-box.new-order-item .modal-box-body");
+    }
+}
+function removeOrderItem(e){
+    $(this).parent().remove(); //Borramos el contenedor del order item
+    if($(".order-items > .order-item").length <= 0){ //Si no hay mas order-items, se pone el placeholder
+        $('<div class="no-order-items">No hay prendas registradas.</div>').appendTo(".order-items");
     }
 }

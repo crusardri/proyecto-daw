@@ -290,7 +290,8 @@ label.boxed-input > div.text-label {
     margin: -5px auto;
     border-radius: 5px 0 0 5px;
     border-right: 1px solid #ddd;
-     background-color: #f6f6f6;
+    background-color: #f6f6f6;
+    white-space: nowrap;
 }
 label.boxed-input > div.text-label > span {
     font-size: 0.8em;
