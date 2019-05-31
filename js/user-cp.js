@@ -48,7 +48,7 @@ function checkAjaxUsernameAvailability(username){
   //return !testUsers.some((x)=>{return x.toLowerCase() == username.toLowerCase()}); 
     return new Promise((resolve, reject)=>{
         $.ajax({
-            url: "Controllers/UserController.php",
+            url: "ajax.php",
             method: "GET",
             data: {check_username: username},
             dataType: "html"
@@ -74,7 +74,7 @@ function checkAjaxEmailAvailability(email){
     //return !testEmail.some((x)=>{return x.toLowerCase() == email.toLowerCase()})
     return new Promise((resolve, reject)=>{
         $.ajax({
-            url: "Controllers/UserController.php",
+            url: "ajax.php",
             method: "GET",
             data: {check_email: email},
             dataType: "html"
