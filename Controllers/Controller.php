@@ -378,6 +378,27 @@ class Controller {
      * @return int -1                       Se ha producido un error
      */
     public function changeClotheName($clotheID, $clotheName){
+        if(empty($clotheName)){
+            return 1;
+        } else {
+            $db = $this->connect(); 
+            $sql = "UPDATE CLOTHES SET CLOTHES_NAME = :clotheName, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
+            $stmt = $db->prepare($sql);
+            $timestamp = time();
+
+            $stmt->bindParam(':clotheID', $clotheID);
+            $stmt->bindParam(':clotheName', $clotheName);
+            $stmt->bindParam(':updateDate', $timestamp);
+        
+            if($stmt->execute()){
+                return 0;
+            }
+            if($stmt->rowCount() > 0){
+                return 0;
+            } else {
+                return -1;
+            }
+        }
         return -1;
     }
     /**
