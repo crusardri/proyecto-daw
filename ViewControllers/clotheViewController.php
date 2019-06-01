@@ -76,14 +76,14 @@ if(isset($_POST["changeClotheName"])){
 if(isset($_POST["toggleClothe"])){
     switch($controller->toggleClothe($_POST["clotheID"], $_POST["active"])){
         case 0:
-            if($_POST["active"] == 0){
+            if($_POST["active"] == 1){
                 $successMSG = "Prenda activada con éxito.";
             }else{
                 $successMSG = "Prenda desactivada con éxito.";
             }
             break;
         default:
-            if($_POST["active"] == 0){
+            if($_POST["active"] == 1){
                 $errorMSG = "Algo ha fallado al activar la prenda.";
             }else{
                 $errorMSG = "Algo ha fallado al desactivar la prenda.";
