@@ -7,7 +7,7 @@ class Clothe{
     private $creationDate;      //Fecha de creacion
     private $updateDate;        //Fecha de actualizacion
     private $active;            //Estado habilitado/deshabilitado
-    function __construct($id, $name, $numFixes = 0, $fixes = null, $creationDate, $updateDate, $active = true){
+    function __construct($id, $name, $numFixes = 0, $fixes = null, $creationDate, $updateDate, $active = 0){
         $this->id = $id;                                
         $this->name = $name;                           
         $this->fixes = $fixes;                          
@@ -18,7 +18,11 @@ class Clothe{
         $updateDateOb = new DateTime();
         $updateDateOb->setTimestamp($updateDate);
         $this->updateDate = $updateDateOb;
-        $this->active = $active;
+        if($active == 0){
+            $this->active = true;
+        }else {
+            $this->active = false;
+        }
     }
     function getId(){
         return $this->id;

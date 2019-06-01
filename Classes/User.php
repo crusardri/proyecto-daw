@@ -27,7 +27,11 @@ class User{
         $updateDateOb = new DateTime();
         $updateDateOb->setTimestamp($updateDate);
         $this->updateDate = $updateDateOb;
-        $this->active = $active;
+        if($active == 0){
+            $this->active = false;
+        }else {
+            $this->active = true;
+        }
     }
     function getId(){
         return $this->id;
@@ -78,10 +82,7 @@ class User{
      * @return boolean false                Si esta deshabilitado
      */
     function isActive(){
-        if($this->active == 1){
-            return true;
-        }
-        return false;
+        return $this->active;
     }
     /**
      * Comprueba si una cadena de texto es igual a la contraseña del usuario
