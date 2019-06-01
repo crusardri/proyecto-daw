@@ -61,16 +61,16 @@ function showSearchUserBox(title, userType){
  * @param {String} searchString 
  */
 function ajaxGetUsers(searchString, type){
-    let filterRole = -1;
+    let noClients = "0";
     if(type){
-        filterRole = 0;
+        noClients = "1";
     }
     $.ajax({
         url: "ajax.php",
         method: "GET",
         data: {
             getUsers: searchString,
-            filterRole: filterRole
+            noClients: noClients
         },
         dataType: "html"
     }).done((res)=>{

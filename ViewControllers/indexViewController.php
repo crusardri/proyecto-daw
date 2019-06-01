@@ -62,6 +62,12 @@ if($employee || $admin){
     $updatedOrders = $controller->getOrders($sessionUser->getUsername(), -1, -1, -1, 0, 5);
 }
 
+//Mensaje de error no autorizado
+if(isset($_SESSION["unauthorized"])){
+    unset($_SESSION["unauthorized"]);
+    $errorMSG = "No estas autorizado para hacer eso.";
+}
+
 /**
 * Mostrar tabla de ordenes
 */
@@ -171,7 +177,7 @@ function showIndexButtons(){
     <section class="buttons-container">
             <a href="order.php?newOrder" class="haptic-button medium">
                 <img src="media/img/new-order.png">
-                <div class="label">Nueva Órden</div>
+                <div class="label">Nueva Orden</div>
             </a>
             <a href="orders.php" class="haptic-button medium">
                 <img src="media/img/see-order.png">

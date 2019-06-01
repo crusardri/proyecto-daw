@@ -35,7 +35,7 @@ $orderClient = null;                            //Cliente de la orden
 $orderEmployee = null;                          //Empleado asignado a la orden
 $orderState = null;                             //Estado de la órden
 
-var_dump($_POST);
+
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     //Obtenemos Usuario y Rol
@@ -81,6 +81,11 @@ if($edit){
     $orderItems = $controller->getOrderItems(1);
     $orderClient = $order->getClient();
     $orderEmployee = $order->getEmployee();
+    //Si es cliente y no ha sido pedida por el, a index.php
+    if($sessionUser->getID() != $orderClient->getID() && !($admin || $employee)){
+        $_SESSION["unauthorized"] = true;
+        header("location: index.php");
+    }
 }
 
 //Generar generar ordern falsa en caso de que falle al crear la orden
@@ -95,7 +100,6 @@ if($register){
             $description = $_POST["orderItemDescription"][$i];
             $oi = new OrderItem(null, $clothe, $fix, $price, $description);
             array_push($orderItems, $oi);
-            //var_dump($oi);
         }
     }
     //Generamos objeto usuario cliente
@@ -113,50 +117,105 @@ if($register){
         $description = "Sin descripción";
     }
 
-
-    if(isset($_POST["createOrder"])){
-
+    //Obtenemos la descripcion
+    if(isset($_POST["orderNotes"]) && !empty($_POST["orderNotes"])){
+        $notes = $_POST["orderNotes"];
+    }else{
+        $notes = "Sin notas";
     }
 }
 //Obtencion del titulo
 if($edit){
-    $title = "Pedido: ".str_pad($order->getID(), 6, "0", STR_PAD_LEFT);
+    $title = "Orden: ".str_pad($order->getID(), 6, "0", STR_PAD_LEFT). " | ".$orderClient->getName();
 }elseif($register){
-    $title = "Crear nuevo pedido.";
+    $title = "Nueva orden";
+}
+//Registrar orden
+if(isset($_POST["createOrder"]) && ($admin || $employee) && $register){
+    if(isset($_POST["clientID"])){
+        $clientID = $_POST["clientID"];
+    }else{
+        $clientID = -1;
+    }
+    if(isset($_POST["employeeID"])){
+        $employeeID = $_POST["employeeID"];
+    }else {
+        $employeeID = -1;
+    }
+    switch($controller->createOrder($clientID, $employeeID, $orderItems, $description, $notes)){
+        case 0:
+            $_SESSION["createOrdernSuccess"] = true;
+            $lastOrderID = $controller->getLastOrderID();
+            //header("Location: order.php?id=$lastOrderID");
+            break;
+        case 1:
+            $errorMSG = "No se ha especificado un cliente.";
+            break;
+        case 2:
+            $errorMSG = "No se ha especificado un empleado.";
+            break;
+        case 3:
+            $errorMSG = "No se ha encontrado ninguna prenda en la órden.";
+            break;
+        default:
+            $errorMSG = "Se ha producido un error al generar la orden.";
+            break;
+    };
+
 }
 
+//Registrar orden
+if(isset($_POST["editOrder"]) && ($admin || $employee) && $edit){
+    $stateID = $_POST["orderState"];
+    $notes = $_POST["orderNotes"];
+    $orderID = $_POST["orderID"];
+    switch($controller->editOrder($orderID, $stateID, $notes)){
+        case 0:
+            $successMSG = "Se ha modificado la orden con éxito.";
+            break;
+        default:
+            $errorMSG = "Se ha producido un error al editar la orden.";
+            break;
+    };
+}
 
+//Mensaje de crear orden correcto
+if(isset($_SESSION["createOrdernSuccess"])){
+    $successMSG = "Orden creada con éxito.";
+    unset($_SESSION["createOrdernSuccess"]);
+}
 
 /**
  * Mostrar cabecera order
  */
 function showOrderInfo(){
-    global $edit, $register, $client, $admin, $employee;
+    global $edit, $register, $client, $admin, $employee, $order;
     if($edit){
     ?>
     <div class="order-info">
-                <label class="boxed-input" id="username">
-                    <div class="text-label"><span>ID</span></div>
-                    <div class="input-container">
-                        <input type="text" value="000001" disabled>
-                    </div>
-                </label>
-                <?php
-                if($employee || $admin){
-                ?>
-                <label class="boxed-input" id="update-date">
-                    <div class="text-label"><span>Fecha de actualizacion</span></div>
-                    <div class="input-container">
-                        <input type="text" value="13/05/2019 13:03:24" disabled>
-                    </div>
-                </label>
-                <?php
-                }
-                ?>
-            </div>      
+        <input type="hidden" name="orderID" value="<?=$order->getID()?>">
+        <label class="boxed-input" id="username">
+            <div class="text-label"><span>ID</span></div>
+            <div class="input-container">
+                <input type="text" value="<?=str_pad($order->getID(), 6, "0", STR_PAD_LEFT)?>" disabled>
+            </div>
+        </label>
+        <?php
+        if($employee || $admin){
+        ?>
+        <label class="boxed-input" id="update-date">
+            <div class="text-label"><span>Fecha de actualizacion</span></div>
+            <div class="input-container">
+                <input type="text" value="<?=$order->getUpdateDateString()?>" disabled>
+            </div>
+        </label>
+        <?php
+        }
+        ?>
+    </div>      
     <?php
     }elseif($register){
-        ?><div class="order-info"><h1>Nueva órden</h1></div><?php
+        ?><div class="order-info"><h1>Nueva orden</h1></div><?php
     }
 }
 /**
@@ -382,7 +441,7 @@ function showOrderDescription(){
         <h2>Descripción</h2>
         <label class="description-box">
             <div class="header">Descripción del pedido</div>
-            <textarea name="orderDescription" <?=!($admin || $employee)?"disabled":""?>><?=$description?></textarea>
+            <textarea name="orderDescription" <?=$edit?"disabled":""?>><?=$description?></textarea>
         </label>
     </div>
     <?php
@@ -400,8 +459,8 @@ function showOrderNotes(){
     <div class="order-notes-container" id="order-notes">
         <h2>Notas</h2>
         <label class="description-box">
-            <div class="header">Notas del pedido</div>
-            <textarea name="orderNotes"?>><?=$notes?></textarea>
+            <div class="header">Notas de la orden</div>
+            <textarea name="orderNotes"><?=$notes?></textarea>
         </label>
     </div>
     <?php
@@ -415,13 +474,13 @@ function showSubmitOrderButton(){
     if(($admin ||$employee) && $edit){
     ?>
     <div class="form-buttons">
-        <input type="submit" value="Modificar órden" class="input-submit-button">
+        <input type="submit" name="editOrder" value="Modificar órden" class="input-submit-button">
     </div>
     <?php
-    }elseif($register){
+    }elseif(($admin ||$employee) && $register){
     ?>
     <div class="form-buttons">
-        <input type="submit" value="Crear órden" class="input-submit-button">
+        <input type="submit" name="createOrder" value="Crear órden" class="input-submit-button">
     </div>
     <?php
     }

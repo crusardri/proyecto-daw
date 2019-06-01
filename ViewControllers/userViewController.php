@@ -66,6 +66,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
     $register = true;
     $title = "Registrar usuario";
 }else { //Si no a empleado.php 
+    $_SESSION["unauthorized"] = true;
     header("Location: index.php");
 }
 
@@ -74,12 +75,13 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 /**
 * Obtiene el usuario, si es empleado o admin, obtiene cualquier, si es cliente, obtiene solo el suyo.
 */
-if($edit && ($employee || $admin)){ //Si esta editando, y es empleado o admin
+//Si estas editando, eres empleado o admin, o es tu usuario
+if($edit && (($employee || $admin) || $sessionUser->getID() == $_GET["id"])){ 
     $user = $userController->getUser($_GET["id"]);
-    
     $userRole = $user->getRole();
-}elseif($edit && $client && $sessionUser->getID() == $_GET["id"]){ //Si esta editando, es cliente y esta consultando su misma ID
-    $user = $userController->getUser($_GET["id"]);
+}else {
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 //Si el usuario no existe genera un error
 if($edit && is_null($user)){//Si el usuario no existe

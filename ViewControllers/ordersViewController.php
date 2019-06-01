@@ -82,7 +82,7 @@ function showNewOrderButton(){
     ?>
     <a class="haptic-button medium new-order" href="order.php?newOrder">
         <img src="media/img/new-order.png">
-        <div class="label">Nueva Órden</div>
+        <div class="label">Nueva Orden</div>
     </a>
     <?php
     }
@@ -100,7 +100,7 @@ function showOrderFilters(){
             <label class="boxed-input searchbox">
                 <div class="text-label"><span>Buscar</span></div>
                 <div class="input-container">
-                    <input type="text" placeholder="Buscar ordenes por ID, Cliente, Empleado o Descripción" name="search" value="<?=$search?>" autofocus>
+                    <input type="text" placeholder="Buscar órdenes por ID, Cliente, Empleado o Descripción" name="search" value="<?=$search?>" autofocus>
                 </div>
             </label>
             <h1>Filtros</h1>

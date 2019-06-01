@@ -1,0 +1,9 @@
+#AuthUserFile C:\xampp\htdocs\glitch-php\.apache2\.htpasswd
+#AuthType Basic
+#AuthName "Area Restringuda"
+#Require valid-user
+# User: botkeper
+# Password: bottyMcBot
+# URL: http://botkeper:bottyMcBot@localhost/glitch-php/.data
+order deny,allow
+deny from all

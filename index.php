@@ -13,6 +13,13 @@
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="worker-container">
+        <?php
+        if(isset($errorMSG)){
+            ?><div class="msg error"><?=$errorMSG?></div><?php
+        }elseif(isset($successMSG)){
+            ?><div class="msg success"><?=$successMSG?></div><?php
+        }
+        ?>
         <?php showIndexButtons();
         if($admin || $employee){
             ?>

@@ -28,11 +28,16 @@ div.form-buttons > input.input-submit-button:after {
 div.form-container.order > form{
     display: grid;
     grid-template-columns: calc(50% - 10px) 50%;
-    grid-template-areas: "info info" "client employee" "estate estate" "order-items order-items" "description description" "buttons buttons";
+    grid-template-areas: "error error" "info info" "client employee" "estate estate" "order-items order-items" "description description" "notes notes" "buttons buttons";
     grid-gap: 10px;
+}
+div.form-container.order .msg {
+    grid-area: error;
+    width: 100%;
 }
 div.form-container.order div.order-info {grid-area: info}
 div.form-container.order div.client-info{grid-area: client}
+div.form-container.order div.order-notes-container{grid-area: notes;}
 div.form-container.order div.user-data{
     width: 100%;
     display: flex;
@@ -63,6 +68,7 @@ div.form-container.order div.estate-container{
 div.form-container.order div.estate-container > h2{flex-basis: 100%; margin: 10px auto 5px;}
 div.form-container.order div.estate-container > label.boxed-radio{flex-basis: calc(50% - 5px);}
 div.form-container.order div.estate-container > label.boxed-radio:nth-child(even):last-child{flex-basis: 100%;}
+
 /* Order Items */
 div.order-items-container {
     position: relative;
@@ -100,7 +106,7 @@ div.order-items-container > div.order-items > div.order-item > label.price{
 }
 div.order-items-container > div.order-items > div.order-item > label.price input {
     text-align: right;
-    width: calc(100% - 3px);
+    width: calc(100% - 9px);
 }
 div.order-items-container > div.order-items > div.order-item > label.price:after{
     content: "€";
@@ -256,7 +262,7 @@ div.modal-box.search-user .modal-box-body > #modal-search-results{
     width: 100%;
 }
 .modal-box.new-order-item > .modal-box-content {
-    height: initial;
+    height: 500px;
 }
 .modal-box.new-order-item .modal-box-body{
     width: calc(100% - 20px);
@@ -264,13 +270,14 @@ div.modal-box.search-user .modal-box-body > #modal-search-results{
     display: grid;
     grid-template-areas: "error error" "clothe fix" "price price" "desc desc" "button button";
     grid-template-columns: 50% 50%;
-    grid-template-rows: auto 35px 40px 100px 50px;
+    grid-template-rows: auto 35px 40px 290px 50px;
     height: 300px;
     grid-column-gap: 10px;
 }
 .modal-box.new-order-item .modal-box-body > .msg{
     grid-area: error;
     margin-bottom: 10px;
+    max-height: 40px;
 }
 #select-clothe{
     grid-area: clothe;
@@ -280,11 +287,14 @@ div.modal-box.search-user .modal-box-body > #modal-search-results{
 }
 #select-clothe .custom-select-dropdown,
 #select-fix .custom-select-dropdown{
-    max-height: 200px;
+    max-height: 390px;
     overflow-y: auto;
 }
 #order-item-description{
     grid-area: desc;
+}
+#order-item-description textarea{
+    height: calc(100% - 40px);
 }
 #order-item-price{
     grid-area: price;
@@ -299,7 +309,7 @@ div.modal-box.search-user .modal-box-body > #modal-search-results{
 @media(max-width: 1000px){
     div.form-container.order > form{
         grid-template-columns: 100%;
-        grid-template-areas: "info" "client" "employee" "estate" "order-items" "description" "buttons";
+        grid-template-areas: "error" "info" "client" "employee" "estate" "order-items" "description" "notes" "buttons";
         grid-gap: 0px;
         
     }

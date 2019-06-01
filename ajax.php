@@ -75,7 +75,13 @@ if(isset($_SESSION["userID"])){
         echo json_encode($fixes);
     }elseif(isset($_GET["getUsers"])){
         //Obtenemos los usuarios buscando por cadena de texto, en cualquier orden, que esten activados, y maximo 10 usuarios
-        $us = $userController->getUsers($_GET["getUsers"], -1, 1, -1, -1, 1, 10);
+        if(isset($_GET["noClients"]) && $_GET["noClients"] == 1 ){
+            //Saca solo los usuarios que no son clientes
+            $us = $userController->getUsers($_GET["getUsers"], -1, 1, -1, -1, 1, 20, true);
+        }else{
+            //Saca todos los usuarios
+            $us = $userController->getUsers($_GET["getUsers"], -1, 1, -1, -1, 1, 20);
+        }
         $users = array();//Inicializamos el array
         if(sizeof($us) > 0){
             //Si encuentra usuarios

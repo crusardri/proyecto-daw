@@ -63,7 +63,7 @@ class UserController {
     *
     * @author Iván Maldonado Fernández
     */
-    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 10){
+    public function getUsers($searchString, $roleFilter, $stateFilter, $orderByFilter, $orderDirectionFilter, $page = 1, $itemsPerPage = 10, $noClients = false){
         $searchString = "%$searchString%"; 
         $page = $page - 1;
         $startFromItem = $page * $itemsPerPage; //Obtener desde que usuario va a obtener la SQL
@@ -93,6 +93,11 @@ class UserController {
         if(!is_null($roleFilter) && $roleFilter >= 0){
             $sql .= " AND 
                 U.ROLE_ID = :roleID";
+        }
+        //Mostrar solo no clientes (Especifico para el AJAX)
+        if($noClients){
+            $sql .= " AND 
+                U.ROLE_ID != 0";
         }
         //Cocnatenar condicion activo
         if(!is_null($stateFilter) && $stateFilter >= 0){

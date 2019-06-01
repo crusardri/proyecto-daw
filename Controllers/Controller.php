@@ -18,7 +18,7 @@ class Controller {
     public function getOrder($orderID){
         return new Order(
             1
-            ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+            ,new User(3, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
             ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
             ,new Estate(1, "En proceso", "working", "La órden está realizandose.")
             ,time()
@@ -29,39 +29,45 @@ class Controller {
             ,10
             ,"Observaciones"
             ,time()
+            ,"Sin notas"
         );
     }
     /**
      * Crea una orden de servicio
-     * @param int clientID                          ID del cliente
-     * @param int employeeID                        ID del trabajador asignado
-     * @param int stateID                           ID del estado de la órden
+     * @param int $clientID                         ID del cliente
+     * @param int $employeeID                       ID del trabajador asignado
      * @param OrderItems[] $orderItems              Array de OrderItems
-     * @param String Description                    Descripción asociada a la órden
+     * @param String $description                   Descripción asociada a la órden
+     * @param String $notes                         Notas de la orden
      * 
-     * @return int 0                                Orden registrada con éxito
+     * @return int 0                                Orden registrada con exito
      * @return int 1                                No se encuentra al cliente
      * @return int 2                                No se encuentra al empleado
-     * @return int 3                                El estado de la órden no existe
-     * @return int 4                                Debe tener al menos 1 order-item
+     * @return int 3                                Debe tener al menos 1 order-item
      * @return int -1                               Se ha producido un error al intentar registrar la órden
      */
-    public function createOrder(){
+    public function createOrder($clientID, $employeID, $orderItems, $description, $notes){
         return -1;
+    }
+    /**
+     * Devuelve el ID de la última orden
+     * 
+     * @return int                                  ID de la última orden
+     */
+    public function getLastOrderID(){
+        return 1;
     }
     /**
      * Edita una órden de servicio
      * @param int $orderID                          ID de la órden a editar
      * @param int $stateID                          Nuevo estado de la órden
-     * @param String $description                   Descripción de la órden
+     * @param String $notes                         Notas de la orden
      * 
      * @return int 0                                órden modificada con éxito
-     * @return int 1                                No se encuentra la órden
-     * @return int 2                                El estado de la órden no existe
      * @return int -1                               Se ha producido un error al intentar editar la órden.
      */
 
-    public function editOrder(){
+    public function editOrder($orderID, $stateID, $notes){
         return -1;
     }
     /**
@@ -166,6 +172,7 @@ class Controller {
                 ,5
                 ,"Observaciones"
                 ,time()
+                ,"Sin notas"
             ),
             new Order(
                 2
@@ -180,6 +187,7 @@ class Controller {
                 ,2
                 ,"Observaciones"
                 ,time()
+                ,"Sin notas"
             ),
             new Order(
                 3
@@ -194,6 +202,7 @@ class Controller {
                 ,24
                 ,"Observaciones"
                 ,time()
+                ,"Sin notas"
             ),
             new Order(
                 4
@@ -208,6 +217,7 @@ class Controller {
                 ,85
                 ,"Observaciones"
                 ,time()
+                ,"Sin notas"
             ),
             new Order(
                 5
@@ -222,6 +232,7 @@ class Controller {
                 ,10
                 ,"Observaciones"
                 ,time()
+                ,"Sin notas"
             )
         );
     }

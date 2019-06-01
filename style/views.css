@@ -86,12 +86,12 @@ div.worker-container {
     margin: auto;
     display: grid;
     grid-template-columns: 60% 40%;
-    grid-template-areas: "buttons buttons" "my-orders updates" "all-orders updates";
+    grid-template-areas: "error error" "buttons buttons" "my-orders updates" "all-orders updates";
 }
 @media (max-width: 1000px){
     div.worker-container {
         grid-template-columns: 100%;
-        grid-template-areas: "buttons" "my-orders" "all-orders" "updates";
+        grid-template-areas: "error" "buttons" "my-orders" "all-orders" "updates";
     }
 }
 section.buttons-container {
@@ -102,7 +102,10 @@ section.buttons-container {
     width: 100%;
 }
 
-
+div.worker-container > .msg {
+    grid-area: error;
+    width: calc(100% - 80px);
+}
 div.worker-container > .my-orders {
     grid-area: my-orders;
 }

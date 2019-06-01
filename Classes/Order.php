@@ -12,7 +12,8 @@ class Order{
     private $totalOrderItems;
     private $observations;
     private $updateDate;
-    function __construct($id = 0, $client, $employee, $state = 0, $enterDate, $workingDate, $finishDate, $outDate, $cancelDate, $totalOrderItems, $observations, $updateDate){
+    private $notes;
+    function __construct($id = 0, $client, $employee, $state = 0, $enterDate, $workingDate, $finishDate, $outDate, $cancelDate, $totalOrderItems, $observations, $updateDate, $notes){
         $this->id = $id;
         $this->client = $client;
         $this->employee = $employee;
@@ -43,6 +44,7 @@ class Order{
         $updateDateO = new DateTime();
         $this->updateDate = $updateDateO->setTimestamp($updateDate);
         }
+        $this->notes = $notes;
     }
     function getID(){
         return $this->id;
@@ -121,5 +123,8 @@ class Order{
             return "-";
         }
         return $date->format('d-m-Y H:i:s');   
+    }
+    function getNotes(){
+        return $this->notes;
     }
 }

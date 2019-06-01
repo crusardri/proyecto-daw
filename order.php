@@ -16,8 +16,25 @@ require_once("ViewControllers/orderViewController.php");
 <body>
     <?php include("./includes/navbar.inc") ?>
     <div class="form-container order">
+        <?php
+        if($edit){
+            ?>
+            <form method="post" action="order.php?id=<?=$order->getID()?>">
+            <?php
+        }elseif($register){
+            ?>
+            <form method="post" action="order.php?newOrder">
+            <?php
+        }
+        ?>
         
-        <form method="post" action="order.php?newOrder">
+            <?php
+            if(isset($errorMSG)){
+                ?><div class="msg error"><?=$errorMSG?></div><?php
+            }elseif(isset($successMSG)){
+                ?><div class="msg success"><?=$successMSG?></div><?php
+            }
+            ?>
             <?php showOrderInfo()?>  
             <!-- User Info -->
             <?php showClientInfo();?>
@@ -28,6 +45,8 @@ require_once("ViewControllers/orderViewController.php");
             <?php showOrderItems()?>
             <!-- Descripcion -->
             <?php showOrderDescription()?>
+            <!-- Notas -->
+            <?php showOrderNotes()?>
             <!-- Botones -->
             <?php showSubmitOrderButton()?>
         </form>
