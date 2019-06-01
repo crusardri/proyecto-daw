@@ -20,12 +20,12 @@ class Controller {
             1
             ,new User(1, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
             ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
-            ,new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera.")
+            ,new Estate(1, "En proceso", "working", "La órden está realizandose.")
             ,time()
             ,time()
-            ,time()
-            ,time()
-            ,time()
+            ,null
+            ,null
+            ,null
             ,10
             ,"Observaciones"
             ,time()
@@ -438,6 +438,35 @@ class Controller {
 
         $stmt->bindParam(':clotheID', $clotheID);
 
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                array_push($fixes, new Fix(
+                    $row["FIX_ID"], 
+                    $row["CLOTHE_ID"],
+                    $row["NAME"],
+                    $row["PRICE"],
+                    $row["ACTIVE"],
+                    $row["CREATION_DATE"],
+                    $row["UPDATE_DATE"]
+                ));
+            }
+        }
+        return $fixes;
+    }
+    /**
+     * Consulta en la base de datos y devuelve un unico arreglo
+     * @param int $clotheId             ID de la prenda a consultar
+     * @param int $fixID                ID del arreglo a consultar
+     * 
+     * @return Fix                      Array de prendas
+     */
+    public function getFix($clotheID, $fixID){
+        $fixes = array();
+        $db = $this->connect(); 
+        $sql = "SELECT * FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID AND FIX_ID = :fixID";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':clotheID', $clotheID);
+        $stmt->bindParam(':fixID', $fixID);
         if($stmt->execute()){
             while($row = $stmt->fetch()){
                 array_push($fixes, new Fix(
