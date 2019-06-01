@@ -349,7 +349,24 @@ class Controller {
      */
     public function getClothe($clotheID){
         $timestamp = time();
-        return new Clothe(1, "Vaquero", 10, null, $timestamp, $timestamp, true);
+
+        $db = $this->connect();
+        $sql = "SELECT * FROM CLOTHES WHERE CLOTHES_ID = :clotheID";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':clotheID', $clotheID);
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                return new Clothe(
+                    $row["CLOTHES_ID"],
+                    $row["CLOTHES_NAME"],
+                    null, null,
+                    $row["REGISTERED_DATE"],
+                    $row["UPDATE_DATE"],
+                    $row["ACTIVE"]
+                );
+            }
+        }
+        return null;
     }
     /**
      * Cambia el nombre de una prenda
