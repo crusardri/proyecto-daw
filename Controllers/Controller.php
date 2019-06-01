@@ -352,14 +352,16 @@ class Controller {
     }
     /**
      * Activa o desactiva un arreglo arreglo para la prenda especificada
-     * @param int $fixName              Nombre del arreglo
-     * @param int $fixPrice             Precio recomendado del arreglo
+     * @param int $clotheID             ID de la prenda
+     * @param int $fixID                ID del arreglo
+     * @param int $active               0 arreglo desactivado, 1 arreglo activado
      * 
-     * @return int 0                    Arreglo modificado con exito
-     * @return int 1                    ID de la del arreglo no especificado
+     * @return int 0                    Arreglo activado/desactivado con exito
+     * @return int 1                    ID de la prenda no especificado
+     * @return int 2                    ID del arreglo no especifricado
      * @return int -1                   Error desconocido
      */
-    public function toggleFix($fixID, $active){
+    public function toggleFix($clotheID, $fixID, $active){
         return -1;
     }
     
