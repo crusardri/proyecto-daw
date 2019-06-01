@@ -104,12 +104,6 @@ if(isset($_SESSION["userID"])){
                 function __construct($id, $username){
                     $this->id = $id;
                     $this->username = $username;
-                    $this->role = new Class("---"){
-                        function __construct($name){
-                            $this->name = $name;
-                            $this->cssClass = "";
-                        }
-                    };
                 }
             });
         }

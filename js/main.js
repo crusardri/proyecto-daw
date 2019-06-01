@@ -1,107 +1,4 @@
 /*
-* Modifica los valores de los inputs del fieldset de Cliente
-*/
-function changeClientInfo(user){
-    $("#client-id").val(user.id);
-    $("#client-username").val(user.username + "#" + user.id);
-    $("#client-name").val(user.name);
-    $("#client-surname").val(user.surname);
-    $("#client-email").val(user.email);
-    $("#client-phone").val(user.phone);
-}
-/*
-* Modifica los valores de los inputs del fieldset de empleado
-*/
-function changeEmployeeInfo(user){
-    $("#employee-id").val(user.id);
-    $("#employee-username").val(user.username + "#" +user.id);
-    $("#employee-name").val(user.name);
-    $("#employee-surname").val(user.surname);
-}
-/*
-* Muestra los usuarios en la ventana modal de busqueda de usuarios
-*/
-function showUsers(users, type){
-    console.log(users);
-    let changeUserInfo;
-    if(type == 1){
-        changeUserInfo = changeEmployeeInfo;
-        console.log("changeEmployeeInfo")
-    } else {
-        changeUserInfo = changeClientInfo;
-        console.log("changeClientInfo")
-    }
-    Object.keys(users).forEach((k)=>{
-        let user = users[k];
-        let $tag = $("<div class='user modal-search-result'><span class='user'>" +user.username + "#" + user.id + "</span> <span class='name'>" + user.name + " " + user.surname + "</span><span class='role label-box "+user.roleClass+"'>"+user.role+"</span></div>");
-        $tag.data("user", user);
-        $tag.on("click", function(e){
-            changeUserInfo($(this).data("user"));
-            closeModalBox();
-        })
-        $tag.appendTo("div.modal-search-results.users");
-        //console.log($tag.data("user"))
-        //console.log(user);
-    });
-}
-
-/*
-* Muestra las prendas en la ventana modal de busqueda de prendas
-*/
-function showClothes(){
-    console.log(clothes);
-    Object.keys(clothes).forEach((k)=>{
-        let clothe = clothes[k];
-        let $tag = $("<div class='clothes modal-search-result'><span class='clothe-name'>" +clothe.name + "</span><span class='clothe-num-fixes'> Arreglos: " + clothe.fixes + "</span></div>");
-        $tag.data("clothe", clothe);
-        $tag.on("click", function(e){
-            showFixes();
-            closeModalBox();
-        })
-        $tag.appendTo("div.modal-search-results.clothes");
-        //console.log($tag.data("user"))
-        //console.log(user);
-    });
-}
-
-$(document).ready(()=>{
-    $("body > *").css("opacity", "1");
-    /*Animacion focus boxed-input*/
-    //Accion focus
-    $(".boxed-input input, label.description-box textarea").on("focus", function(){
-        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);
-    })
-    //Accion focus out
-    $(".boxed-input input, label.description-box textarea").on("focusout", function(){
-        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
-    })
-    $(".boxed-input input:focus, label.description-box textarea:focus")
-    .parents("label.boxed-input, label.description-box")
-    .toggleClass("focussed", true);
-    //Abrir ventana modal busqueda cliente
-    $("#search-client").on("click", ()=>{
-        modalBox("Buscar Cliente", showSearchUserForm);
-        showUsers(users);
-    })
-    //Abrir ventana modal busqueda trabajador
-    $("#search-employee").on("click", ()=>{
-        modalBox("Buscar Trabajador", showSearchUserForm);
-        showUsers(users, 1);
-    })
-    //Abrir ventana modal busqueda prenda
-    $("#new-order-item").on("click", ()=>{
-        showAddOrderItemForm();
-    })
-    //Abrir ventana modal crear arreglo
-    $("#add-fix").on("click", ()=>{
-        let clotheID = parseInt($("#clotheID").children("div.input-container").children("input").val());
-        let clotheName = $("#clothe-name").children("div.input-container").children("input").val()
-        showAddFixForm(clotheID, clotheName)
-    })
-    //Abrir ventana modal crear prenda
-     $("#add-clothe").on("click", showNewClotheForm);
-})
-/*
 * Cierra la ventana modal con un fadeout
 */
 function closeModalBox(){
@@ -111,43 +8,203 @@ function closeModalBox(){
     }, 200)
     
 }
-/*
-* Abre la ventan modal de busqueda de usuario por Ajax con un FadeIn
-*/
-function modalBox(title, callback){
-    $("<div class='modal-box search-user'>\
+
+
+var searchUsersTimeout; //setTimeout de users
+/**
+ * Muestra la ventana de busqueda de usuario.
+ * 
+ * @param {String} title                    Titulo de la ventana
+ * @param {boolean} userType                Tipo de usuario, True empleado, false cliente
+ */
+function showSearchUserBox(title, userType){
+    let modalBox = $("<div class='modal-box search-user'>\
         <div class='modal-box-content'>\
             <h1 class='modal-box-title'>"+title+"</h1>\
             <div class='modal-box-close'>x</div>\
-            <div class='modal-box-body'>"+
-            callback()+
-            "</div>\
+            <div class='modal-box-body'>\
+            <label class='boxed-input' id='searchbox'>\
+                <div class='text-label'><span>Buscar</span></div>\
+                <div class='input-container'>\
+                    <input type='text' placeholder='Buscar prenda por ID o nombre ' name='search' value='' autofocus=''>\
+                </div>\
+            </label>\
+            <div id='modal-search-results'></div>\
+            </div>\
         </div>\
-    </div>").appendTo("body");
+    </div>")
+    modalBox.appendTo("body");
+    //Animacion entrada
     setTimeout(()=>{
         $("div.modal-box").css("opacity", "1")
     }, 100)
-    
+    //Prevenir propagacion cerrar
     $("div.modal-box-content").on("click", (e)=>{
         e.stopPropagation();
     })
+    //Asignar evento cerrar
     $("div.modal-box, div.modal-box-close").on("click", function(e){
         closeModalBox();
     })
+    //Buscamos usuarios
+    ajaxGetUsers("", userType);
+    //Asignamos evento al teclear en el campo de busqueda
+    modalBox.find("input").on("keyup",(e)=>{
+        let search = $(e.currentTarget);
+        window.clearTimeout(searchUsersTimeout);
+        searchUsersTimeout = setTimeout(()=>ajaxGetUsers(search.val(), userType),250);
+    }) 
+}
+/**
+ * Obtenemos los usuarios mediante un ajax al servidor y generamos los resultados de busqueda
+ * 
+ * @param {String} searchString 
+ */
+function ajaxGetUsers(searchString, type){
+    let filterRole = -1;
+    if(type){
+        filterRole = 0;
+    }
+    $.ajax({
+        url: "ajax.php",
+        method: "GET",
+        data: {
+            getUsers: searchString,
+            filterRole: filterRole
+        },
+        dataType: "html"
+    }).done((res)=>{
+        console.log("%cEsta es la respuesta del servidor de getUsers.", 'background: rgba(0,0,255,0.5); color: #000');
+        console.log(res)
+        let json = JSON.parse(res);
+        console.log("%cEsta es la respuesta parseada como JSON", 'background: rgba(0,0,255,0.5); color: #000');
+        console.log(json);
+        console.log("%cFin de la respuesta del servidor de Get Users", 'background: rgba(0,0,255,0.5); color: #000');
+        $("#modal-search-results > div.user-result").remove();
+        $.each(json, function(){
+            if(this.id > 0){
+                let item = $("<div>",{
+                    class: "user-result"
+                })
+                //ID de usuario
+                $("<div>",{
+                    class: "user-id",
+                    text: this.id.padStart(4, 0)
+                }).appendTo(item);
+                //Nombre de usuario
+                $("<div>",{
+                    class: "username",
+                    text: this.username
+                }).appendTo(item);
+                //Rol de usuario
+                $("<span>",{
+                    class: "role label-box " + this.role.cssClass,
+                    text: this.role.name
+                }).appendTo(item);
+                //Nombre
+                $("<div>",{
+                    class: "name",
+                    text: this.name
+                }).appendTo(item);
+                //Apellidos
+                $("<div>",{
+                    class: "surname",
+                    text: this.surname
+                }).appendTo(item);
+                //Telefono
+                $("<div>",{
+                    class: "phone",
+                    text: this.phone
+                }).appendTo(item);
+                //Correo
+                $("<div>",{
+                    class: "email",
+                    text: this.email
+                }).appendTo(item);
+                item.data("username", this.username);
+                item.data("name", this.name);
+                item.data("surname", this.surname);
+                item.data("email", this.email);
+                item.data("phone", this.phone);
+                item.data("id", this.id);
+                item.appendTo("#modal-search-results");
+                //Evento añadir usuario a la órden;
+                item.on("click",function(e){
+                    console.log(type)
+                    changeUserInfo(type, item.data());
+                    closeModalBox();
+                })
+            }else {
+                let item = $("<div>",{
+                    class: "user-result no-items",
+                    html: "<div>No se han encontrado usuarios</div>"
+                })
+                item.data("id", this.id);
+                item.appendTo("#modal-search-results");
+            }
+            
+        });
+    });
+}
+/**
+ * Modifica la información de usuario
+ * @param {*} clotheID 
+ * @param {*} clotheName 
+ */
+function changeUserInfo(type, data){
+    let inputName;
+    let selector;
+    if(type){
+        selector = "#employee-infoset";
+        inputName = "employeeID";
+    }else{
+        selector = "#client-infoset";
+        inputName = "clientID";
+    }
+    console.log(selector);
+    let item = $(selector + ' .user-data');
+    item.children().remove();
+    //Campo escondido clientID
+    item.append('<input type="hidden" value="'+data.id+'" name="'+inputName+'">');
+    //Campo Usuario
+    item.append('<div class="info-set">\
+                    <div class="form-info-title">Usuario</div>\
+                    <div class="form-info-data"><input type="text" value="'+data.username+'"disabled></div>\
+                 </div>');
+    //Campo Nombre
+    item.append('<div class="info-set">\
+                    <div class="form-info-title">Nombre</div>\
+                    <div class="form-info-data"><input type="text" value="'+data.name+'"disabled></div>\
+                </div>');
+    //Campo Apellidos
+    item.append('<div class="info-set">\
+                    <div class="form-info-title">Apellidos</div>\
+                    <div class="form-info-data"><input type="text" value="'+data.surname+'"disabled></div>\
+                </div>');
+    //Si es un cliente muestra el campo correo y telefono
+    if(!type){
+        //Campo Correo
+        item.append('<div class="info-set">\
+                    <div class="form-info-title">Correo electrónico</div>\
+                    <div class="form-info-data"><input type="text" value="'+data.email+'"disabled></div>\
+                </div>');
+        //Campo Teléfono        
+        item.append('<div class="info-set">\
+                    <div class="form-info-title">Teléfono</div>\
+                    <div class="form-info-data"><input type="text" value="'+data.phone+'"disabled></div>\
+                </div>');
+    }
     
+    
+    //Campo para cuadrar el flex
+    item.append('<div class="info-set hidden"></div>');
 }
-
-function showSearchUserForm(){
-    return "<form>\
-        <div class='search-box'>\
-            <input type='text' placeholder='Buscar usuario por nombre, apellidos o ID'>\
-            <input type='submit' value'Buscar'>\
-        </div>\
-        <div class='modal-search-results users'></div>\
-    </form>"
-}
-
-
+/**
+ * Genera una ventana modal con un formulario para crear un nuevo arreglo a una prenda
+ * 
+ * @param {int} clotheID                    ID de la prenda a añadir el arreglo
+ * @param {String} clotheName               Nombre de la prenda
+ */
 function showAddFixForm(clotheID, clotheName){
     $("<div class='modal-box add-fix'>\
     <div class='modal-box-content'>\
@@ -203,7 +260,9 @@ function showAddFixForm(clotheID, clotheName){
         closeModalBox();
     })
 }
-
+/**
+ * Genera una ventana modal para registrar una nueva prenda
+ */
 function showNewClotheForm(){
     $("<div class='modal-box new-clothe'>\
     <div class='modal-box-content'>\
@@ -233,7 +292,9 @@ function showNewClotheForm(){
         closeModalBox();
     })
 }
-
+/**
+ * Genera una ventana modal para añadir un order item
+ */
 function showAddOrderItemForm(){
     $("<div class='modal-box new-order-item'>\
     <div class='modal-box-content'>\
@@ -299,6 +360,11 @@ function showAddOrderItemForm(){
     
 }
 
+/**
+ * Obtiene una lista de prendas mediante un ajax hacia el servidor
+ * Por cada prenda genera un option dentro de un select
+ * Al hacer click en una prenda, dispara el ajax de obtener arreglos 
+ */
 function ajaxGetClothes(){
     $("#add-order-item").off("click", addOrderItem)
     $.ajax({
@@ -334,6 +400,12 @@ function ajaxGetClothes(){
         $("#add-order-item").on("click", addOrderItem)
     })
 }
+/**
+ * Obtiene una lista de arreglos de una prenda mendiante un ajax hacia el servidor
+ * Por cada arreglo encontrado genera un nuevo options al select de arreglos.
+ * 
+ * @param {int} clotheID                        ID de la prenda a buscar
+ */
 function ajaxGetFixes(clotheID){
     $("#add-order-item").off("click", addOrderItem)
     $.ajax({
@@ -369,7 +441,9 @@ function ajaxGetFixes(clotheID){
         $("#add-order-item").on("click", addOrderItem)
     })
 }
-
+/**
+ * Añade un order item al contenedor de order-items
+ */
 function addOrderItem(){
     let clotheID = $("#clothe-select-ajax").val(); //ID de la prenda
     let fixID = $("#fix-select-ajax").val(); //ID del arreglo
@@ -377,12 +451,6 @@ function addOrderItem(){
     let price = $("#order-item-price input").val(); //Precio del option del select de fix
     let fixName = $("#fix-select-ajax option[value="+fixID+"]").text(); //Nombre del option del select de Fix
     let clotheName = $("#clothe-select-ajax option[value="+clotheID+"]").text(); //Nombre del option del select de clothe
-    console.log(clotheID);
-    console.log(fixID);
-    console.log(description);
-    console.log(price);
-    console.log(clotheName);
-    console.log(fixName);
     if(clotheID > -1 && fixID > -1){
         //Borrar el placeholder de order-items
         $(".no-order-items").remove(); 
@@ -422,16 +490,59 @@ function addOrderItem(){
         orderItem.find(".remove-order-item").on("click", removeOrderItem);
         //Añadimos el order items al contenedor principal
         orderItem.appendTo(".order-items");
-        //Simulamos pulsar boton cerrar ventana
-        $("div.modal-box, div.modal-box-close").click();
+        //Cerramos ventana
+        closeModalBox();
     }else{
         //Si no hay ninguna prenda y arreglo seleciconado, mensaje de error
         $("<div class='msg error'>Debes seleccionar una prenda y un arreglo.</div>").appendTo(".modal-box.new-order-item .modal-box-body");
     }
 }
-function removeOrderItem(e){
+/**
+ * Elimina un contenedor de order item del contenedor order-items
+ */
+function removeOrderItem(){
     $(this).parent().remove(); //Borramos el contenedor del order item
     if($(".order-items > .order-item").length <= 0){ //Si no hay mas order-items, se pone el placeholder
         $('<div class="no-order-items">No hay prendas registradas.</div>').appendTo(".order-items");
     }
 }
+
+
+
+$(document).ready(()=>{
+    $("body > *").css("opacity", "1");
+    /*Animacion focus boxed-input*/
+    //Accion focus
+    $(".boxed-input input, label.description-box textarea").on("focus", function(){
+        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);
+    })
+    //Accion focus out
+    $(".boxed-input input, label.description-box textarea").on("focusout", function(){
+        $(this).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);
+    })
+    $(".boxed-input input:focus, label.description-box textarea:focus")
+    .parents("label.boxed-input, label.description-box")
+    .toggleClass("focussed", true);
+    //Abrir ventana modal busqueda cliente
+    $("#search-client").on("click", ()=>{
+        showSearchUserBox("Buscar Cliente", false);
+    })
+    //Abrir ventana modal busqueda trabajador
+    $("#search-employee").on("click", ()=>{
+        showSearchUserBox("Buscar Trabajador", true);
+    })
+    //Abrir ventana modal busqueda prenda
+    $("#new-order-item").on("click", ()=>{
+        showAddOrderItemForm();
+    })
+    //Abrir ventana modal crear arreglo
+    $("#add-fix").on("click", ()=>{
+        let clotheID = parseInt($("#clotheID").children("div.input-container").children("input").val());
+        let clotheName = $("#clothe-name").children("div.input-container").children("input").val()
+        showAddFixForm(clotheID, clotheName)
+    })
+    //Abrir ventana modal crear prenda
+     $("#add-clothe").on("click", showNewClotheForm);
+     //Asignar evento a los botones de borrar order-item al cargar la pagina
+     $(".button.remove-order-item").on("click", removeOrderItem);
+})

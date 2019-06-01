@@ -1,5 +1,4 @@
 <?php
-//var_dump($_POST);
 /**
  * 
  * CONTROLADOR VENTANA ORDENES
@@ -36,9 +35,7 @@ $orderClient = null;                            //Cliente de la orden
 $orderEmployee = null;                          //Empleado asignado a la orden
 $orderState = null;                             //Estado de la órden
 
-//Filtros del menu de filtros
-$filters = ["ID", "Nombre", "Número Arreglos", "Activo", "Fecha creación", "Fecha actualización"];
-
+var_dump($_POST);
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
     //Obtenemos Usuario y Rol
@@ -68,17 +65,67 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
     header("location: orders.php");
 }
 
+
+
 //expulsar cliente al intentar registrar
 if($client && $register){
     header("location: orders.php");
 }
 
+//Obtenemos todos los estados
 $states = $controller->getStates();
 
-$order = $controller->getOrder(1);
-$orderItems = $controller->getOrderItems(1);
-$orderClient = $order->getClient();
-$orderEmployee = $order->getEmployee();
+//Si estamos editando, obtenemos la orden, los orderItems, el cliente y
+if($edit){
+    $order = $controller->getOrder(1);
+    $orderItems = $controller->getOrderItems(1);
+    $orderClient = $order->getClient();
+    $orderEmployee = $order->getEmployee();
+}
+
+//Generar generar ordern falsa en caso de que falle al crear la orden
+if($register){
+    //Generamos los order-items
+    if(isset($_POST["orderItemClotheID"])){
+        $orderItems = array();
+        for($i = 0; $i < sizeof($_POST["orderItemClotheID"]); $i++){
+            $clothe = $controller->getClothe($_POST["orderItemClotheID"][$i]);
+            $fix = $controller->getFix($_POST["orderItemClotheID"][$i],$_POST["orderItemFixID"][$i]);
+            $price = $_POST["orderItemPrice"][$i];
+            $description = $_POST["orderItemDescription"][$i];
+            $oi = new OrderItem(null, $clothe, $fix, $price, $description);
+            array_push($orderItems, $oi);
+            //var_dump($oi);
+        }
+    }
+    //Generamos objeto usuario cliente
+    if(isset($_POST["clientID"]) && !empty($_POST["clientID"])){
+        $orderClient = $userController->getUser($_POST["clientID"]);
+    }
+    //Generamos objeto usuario empleado
+    if(isset($_POST["employeeID"]) && !empty($_POST["employeeID"])){
+        $orderEmployee = $userController->getUser($_POST["employeeID"]);
+    }
+    //Obtenemos la descripcion
+    if(isset($_POST["orderDescription"]) && !empty($_POST["orderDescription"])){
+        $description = $_POST["orderDescription"];
+    }else{
+        $description = "Sin descripción";
+    }
+
+
+    if(isset($_POST["createOrder"])){
+
+    }
+}
+//Obtencion del titulo
+if($edit){
+    $title = "Pedido: ".str_pad($order->getID(), 6, "0", STR_PAD_LEFT);
+}elseif($register){
+    $title = "Crear nuevo pedido.";
+}
+
+
 
 /**
  * Mostrar cabecera order
@@ -120,33 +167,43 @@ function showClientInfo(){
     ?>
         <div class="client-info" style="<?=$client?"grid-column: 1/3;":""?>">
             <div class="field-set" id="client-infoset" >
-            <h3>Cliente</h3>
-                <input type="hidden" value="<?=isset($order) && !is_null($order)?$orderClient->getID():""?>" id="client-id" name="client-id" disabled>
-                <div class="info-set">
-                    <div class="form-info-title">Usuario</div>
-                    <div class="form-info-data"><input type="text" value="<?=isset($order) && !is_null($order)?$orderClient->getUsername():""?>" id="client-username" name="client-username" disabled></div>
-                </div>
-                <div class="info-set">
-                    <div class="form-info-title">Nombre</div>
-                    <div class="form-info-data"><input type="text" value="<?=isset($order) && !is_null($order)?$orderClient->getName():""?>" id="client-name" name="client-name" disabled></div>
-                </div>
-                <div class="info-set">
-                    <div class="form-info-title">Apellidos</div>
-                    <div class="form-info-data"><input type="text" value="<?=isset($order) && !is_null($order)?$orderClient->getSurname():""?>" id="client-surname" name="client-surname" disabled></div>
-                </div>
-                <div class="info-set">
-                    <div class="form-info-title">Correo Electronico</div>
-                    <div class="form-info-data"><input type="text" value="<?=isset($order) && !is_null($order)?$orderClient->getEmail():""?>" id="client-email" name="client-email" disabled></div>
-                </div>
-                <div class="info-set">
-                    <div class="form-info-title">Telefono</div>
-                    <div class="form-info-data"><input type="number" value="<?=isset($order) && !is_null($order)?$orderClient->getTelephone():""?>" id="client-phone" name="client-phone" disabled></div>
-                </div>
+                <h3>Cliente</h3>
+                <div class="user-data">
+            <?php if(isset($orderClient) && !is_null($orderClient)){ ?>
+                    <input type="hidden" value="<?=$orderClient->getID()?>" name="clientID">
+                    <div class="info-set">
+                        <div class="form-info-title">Usuario</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderClient->getUsername()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderClient->getName()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Apellidos</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderClient->getSurname()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Correo Electronico</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderClient->getEmail()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Telefono</div>
+                        <div class="form-info-data"><input type="number" value="<?=$orderClient->getTelephone()?>" disabled></div>
+                    </div>
+                    <div class="info-set hidden"></div>
+                
                 <?php
-                if($register && ($admin || $employee)){
+                }else{
+                    ?><div class="no-user">Seleccione un cliente.</div><?php
+                }
+                
                 ?>
-                    <div class="button" id="search-client">Cambiar</div>
+                </div>
                 <?php
+                //Mostrar boton cambiar cliente
+                if($register && ($admin || $employee)){
+                ?><div class="button" id="search-client">Cambiar</div><?php
                 }
                 ?>
             </div>
@@ -162,24 +219,31 @@ function showEmployeeInfo(){
     ?>
         <div class="employee-info" id="employee-infoset" >
             <div class="field-set">
-            <h3>Empleado</h3>
-                <input type="hidden" value="0001" id="employee-id" name="employee-id" disabled>
-                <div class="info-set">
-                    <div class="form-info-title">Usuario</div>
-                    <div class="form-info-data"><input type="text" value="Ivan#0001" id="employee-username" name="employee-username" disabled></div>
+                <h3>Empleado</h3>
+                <div class="user-data">
+            <?php if(isset($orderEmployee) && !is_null($orderEmployee)){ ?>
+
+                    <input type="hidden" value="<?=$orderEmployee->getID()?>" name="employeeID">
+                    <div class="info-set">
+                        <div class="form-info-title">Usuario</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderEmployee->getUsername()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Nombre</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderEmployee->getName()?>" disabled></div>
+                    </div>
+                    <div class="info-set">
+                        <div class="form-info-title">Apellidos</div>
+                        <div class="form-info-data"><input type="text" value="<?=$orderEmployee->getSurname()?>" disabled></div>
+                    </div>
+                    <?php
+                    }else{ 
+                         ?><div class="no-user">Seleccione un empleado.</div><?php
+                    }
+                    ?>
                 </div>
-                <div class="info-set">
-                    <div class="form-info-title">Nombre</div>
-                    <div class="form-info-data"><input type="text" value="Iván" id="employee-name" name="employee-name" disabled></div>
-                </div>
-                <div class="info-set">
-                    <div class="form-info-title">Apellidos</div>
-                    <div class="form-info-data"><input type="text" value="Maldonado" id="employee-surname" name="employee-surname" disabled></div>
-                </div>
-                
-                <?php
-                if($register && ($admin || $employee)){
-                ?>
+                <?php 
+                    if($register && ($admin || $employee)){ ?>
                     <div class="button" id="search-employee">Cambiar</div>
                 <?php
                 }
@@ -194,38 +258,37 @@ function showEmployeeInfo(){
  */
 function showOrderState(){
     global $edit, $register, $client, $admin, $employee, $order, $states;
+    if($edit){
     $state = $order->getState();
-    
     ?>
     <div class="estate-container">
         <h2>Estado</h2>
         <?php
         foreach($states as $e){      
-            if($edit){
                 switch($e->getID()){
-                    case 0:
+                    case 1:
                         $date = $order->getEnterDateString();
                         break;
-                    case 1:
+                    case 2:
                         $date = $order->getWorkingDateString();
                         break;
-                    case 2:
+                    case 3:
                         $date = $order->getFinishDateString();
                         break;
-                    case 3:
+                    case 4:
                         $date = $order->getOutDateString();
                         break;
-                    case 4:
+                    case 5:
                         $date = $order->getCancelDateString();
                         break;
+                    default:
+                        $date = "-";
+                        break;
                 }
-            }else{
-                $date = "";
-            }
             
             ?>
         <label class="boxed-radio estate <?=$e->getCssClass()?>">
-            <input type="radio" name="estate" value="<?=$e->getId()?>" <?=$state->getID()==$e->getID()?"checked":""?> <?=!($admin||$employee)?"disabled":""?>>
+            <input type="radio" name="orderState" value="<?=$e->getId()?>" <?=$state->getID() == $e->getID()?"checked":""?> <?=!($admin||$employee)?"disabled":""?>>
             <div class="container">
                 <div class="radio-checkbox">&#x2713;</div>
                 <div class="radio-title"><?=$e->getName()?></div>
@@ -238,8 +301,8 @@ function showOrderState(){
         ?>
     </div>
     <?php
+    }
 }
-
 /**
  * Muestra las order items
  */
@@ -255,15 +318,14 @@ function showOrderItems(){
     ?>
     <div class="order-items">
         <?php
-        if($edit && sizeof($orderItems) > 0){
+        if(!is_null($orderItems) && sizeof($orderItems) > 0){
             foreach($orderItems as $oi){ 
                 $clothe = $oi->getClothe();
                 $fix = $oi->getFix();
         ?>
         <div class="order-item">
-            <input type="hidden" value="<?=$oi->getID()?>" name="order-item-id">
-            <input type="hidden" value="<?=$clothe->getID()?>" name="clothe-id">
-            <input type="hidden" value="<?=$fix->getID()?>" name="fix-id">
+            <input type="hidden" value="<?=$clothe->getID()?>" name="orderItemClotheID[]">
+            <input type="hidden" value="<?=$clothe->getID()?>" name="orderItemFixID[]">
             <label class="boxed-input clothe">
                 <div class="text-label"><span>Prenda</span></div>
                 <div class="input-container">
@@ -273,19 +335,27 @@ function showOrderItems(){
             <label class="boxed-input fix">
                 <div class="text-label"><span>Arreglo</span></div>
                 <div class="input-container">
-                    <input type="text" value="<?=$fix->getName()?>" disabled>
-                </div>
+                    <input type="text" value="<?=$clothe->getName()?>" disabled>
+                </div>            
             </label>
             <label class="boxed-input price">
                 <div class="text-label"><span>Precio</span></div>
                 <div class="input-container">
-                    <input type="number" value="<?=$oi->getPrice()?>" <?=!($admin||$employee)?"disabled":""?>>
+                    <input type="number" value="<?=$oi->getPrice()?>" name="orderItemPrice[]" step=".01" <?=$edit?"disabled":""?>>
                 </div>
             </label>
             <label class="description-box order-item-description">
-            <div class="header">Observaciones</div>
-                <textarea name="order-item-description" <?=!($admin||$employee)?"disabled":""?>><?=$oi->getDescription()?></textarea>
+                <div class="header">Observaciones</div>
+                <textarea name="orderItemDescription[]" <?=$edit?"disabled":""?>><?=$oi->getDescription()?></textarea>
             </label>
+            <?php
+            if($register){
+                ?>
+                <div class="button remove-order-item">Borrar</div>
+                <?php
+            }
+            
+            ?>
         </div>
         <?php
             }
@@ -303,16 +373,39 @@ function showOrderItems(){
  * Mostrara descripcion orden
  */
 function showOrderDescription(){
-    global $edit, $register, $order, $client, $admin, $employee;
+    global $edit, $register, $order, $client, $admin, $employee, $description;
+    if($edit){
+        $description = $order->getObservations();
+    }
     ?>
     <div class="order-description-container" id="order-description">
         <h2>Descripción</h2>
         <label class="description-box">
             <div class="header">Descripción del pedido</div>
-            <textarea name="order-description" <?=!($admin || $employee)?"disabled":""?>><?=$order->getObservations()?></textarea>
+            <textarea name="orderDescription" <?=!($admin || $employee)?"disabled":""?>><?=$description?></textarea>
         </label>
     </div>
     <?php
+}
+/**
+ * Mostrar notas de la orden
+ */
+function showOrderNotes(){
+    global $edit, $register, $order, $client, $admin, $employee, $notes;
+    if($edit){
+        $notes = $order->getNotes();
+    }
+    if($admin || $employee){
+    ?>
+    <div class="order-notes-container" id="order-notes">
+        <h2>Notas</h2>
+        <label class="description-box">
+            <div class="header">Notas del pedido</div>
+            <textarea name="orderNotes"?>><?=$notes?></textarea>
+        </label>
+    </div>
+    <?php
+    }
 }
 /**
  * Mostrar boton enviar/editar orden

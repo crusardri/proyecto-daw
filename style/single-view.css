@@ -33,9 +33,26 @@ div.form-container.order > form{
 }
 div.form-container.order div.order-info {grid-area: info}
 div.form-container.order div.client-info{grid-area: client}
+div.form-container.order div.user-data{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-between;
+    padding: 10px;
+}
+div.form-container.order div.user-data > .info-set{
+    flex-basis: 200px;
+    flex-grow: 2;
+}
+div.form-container.order div.user-data > .no-user{
+    color: #666;
+    text-align: center;
+    line-height: 120px;
+    flex-basis: 100%;
+}
+
 div.form-container.order div.employee-info{grid-area: employee}
 div.form-container.order div.order-items-container {grid-area: order-items;}
-
 /* Estados */
 div.form-container.order div.estate-container{
     grid-area: estate;
@@ -71,6 +88,7 @@ div.order-items-container > div.order-items > div.order-item{
     margin: 20px auto;
     padding: 10px;
 }
+
 div.order-items-container > div.order-items > div.order-item > label.clothe{
     grid-area: clothe;
 }
@@ -80,13 +98,17 @@ div.order-items-container > div.order-items > div.order-item > label.fix{
 div.order-items-container > div.order-items > div.order-item > label.price{
     grid-area: price;
 }
+div.order-items-container > div.order-items > div.order-item > label.price input {
+    text-align: right;
+    width: calc(100% - 3px);
+}
 div.order-items-container > div.order-items > div.order-item > label.price:after{
     content: "€";
     display: block;
     height: calc(100% - 10px);
     position: relative;
     top: 3px;
-    left: -10px;
+    left: -5px;
 }
 div.order-items-container > div.order-items > div.order-item > .remove-order-item {
     grid-area: borrar;
@@ -124,51 +146,110 @@ div.order-items-container div.button:hover{
 }
 
 /* Ventana Modal Buscar usuarios */
-div.modal-box div.modal-search-results > div.modal-search-result > span.name {
-    width: 185px;
+div.modal-box.search-user .modal-box-body{
+    display: grid;
+    grid-template-areas: "error" "search" "results";
+    grid-template-rows: min-content 50px auto;
+}
+div.modal-box.search-user .modal-box-body > .msg{
+    grid-area: error;
+}
+div.modal-box.search-user .modal-box-body > #searchbox{
+    grid-area: search;
+}
+div.modal-box.search-user .modal-box-body > #modal-search-results{
+    grid-area: results;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#modal-search-results > div.user-result {
+    display: grid;
+    grid-template-areas: "id username username role" "name name surname surname" "phone phone email email";
+    grid-template-columns: 80px 120px auto 120px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    grid-row-gap: 5px;
+}
+#modal-search-results > div.user-result.no-items {
+    position: relative;
+    display: block;
+    height: 100%;
+    line-height: 100%;
+    color: #666;
+    box-sizing: border-box;
+    text-align: center;
+}
+#modal-search-results > div.user-result.no-items > div{
+    vertical-align: middle;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#modal-search-results > div.user-result.no-items:hover{
+    background-color: transparent;
+    cursor: default;
+}
+#modal-search-results > div.user-result > div:before {
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: 600;
+}
+#modal-search-results > div.user-result > div{
     text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
 }
-div.modal-box div.modal-search-result > span.user {
-    min-width:130px;
-    margin-right: 5px
+#modal-search-results > div.user-result:nth-child(even) {
+    background-color: rgba(0,0,0,0.035);
 }
-div.modal-box div.modal-search-result > span.user:after {
-    display: block;
-    content: "";
-    position: absolute;
-    height: calc(100% - 6px);
-    top: 3px;
-    right: 0;
-    border-left: 1px solid #ddd;
+#modal-search-results > div.user-result:hover {
+    background-color: rgba(0,0,0,0.07);
+    cursor: pointer;
 }
-div.modal-box div.modal-search-results > div.modal-search-result > span.role {
-    min-width:120px; 
-    margin-left: auto; 
-    font-size: 0.9em; 
-    height: 1.4em; 
-    line-height: 1.4em
+#modal-search-results > div.user-result > div.user-id{
+    grid-area: id;
 }
-div.modal-box div.modal-search-results > div.modal-search-result > span.role:after {
-    display: block;
-    content: "";
-    position: absolute;
-    height: calc(100% - 6px);
-    top: 3px;
-    left: -5px;
-    border-left: 1px solid #ddd;
+#modal-search-results > div.user-result > div.user-id:before{
+    content: "ID: ";
 }
-
-@media(max-width: 1000px){
-    div.form-container.order > form{
-        grid-template-columns: 100%;
-        grid-template-areas: "info" "client" "employee" "estate" "order-items" "description" "buttons";
-        grid-gap: 0px;
-        
-    }
-    div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
+#modal-search-results > div.user-result > div.username{
+    grid-area: username
 }
+#modal-search-results > div.user-result > div.username:before{
+    content: "Usuario: ";
+}
+#modal-search-results > div.user-result > div.role{
+    grid-area: role
+}
+#modal-search-results > div.user-result > div.name{
+    grid-area: name
+}
+#modal-search-results > div.user-result > div.name:before{
+    content: "Nombre: ";
+}
+#modal-search-results > div.user-result > div.surname{
+    grid-area: surname
+}
+#modal-search-results > div.user-result > div.surname:before{
+    content: "Apellidos: ";
+}
+#modal-search-results > div.user-result > div.phone{
+    grid-area: phone
+}
+#modal-search-results > div.user-result > div.phone:before{
+    content: "Teléfono: ";
+}
+#modal-search-results > div.user-result > div.email{
+    grid-area: email
+}
+#modal-search-results > div.user-result > div.email:before{
+    content: "Correo: ";
+}
+/* Ventana modal order-item*/
 
 .modal-box.new-order-item .select-clothe, 
 .modal-box.new-order-item .select-fix{
@@ -197,6 +278,11 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
 #select-fix{
     grid-area: fix;
 }
+#select-clothe .custom-select-dropdown,
+#select-fix .custom-select-dropdown{
+    max-height: 200px;
+    overflow-y: auto;
+}
 #order-item-description{
     grid-area: desc;
 }
@@ -208,6 +294,16 @@ div.modal-box div.modal-search-results > div.modal-search-result > span.role:aft
 }
 #order-item-submit{
     grid-area: button;
+}
+
+@media(max-width: 1000px){
+    div.form-container.order > form{
+        grid-template-columns: 100%;
+        grid-template-areas: "info" "client" "employee" "estate" "order-items" "description" "buttons";
+        grid-gap: 0px;
+        
+    }
+    div.form-container.order div.estate-container > label.boxed-radio{flex-basis: 100%;}
 }
 /*
 ------------------------------------------------------------------------------------------------------------
@@ -446,24 +542,6 @@ div.modal-box.add-fix > .modal-box-content > .modal-box-body div.form-buttons{
     align-content: center;
     justify-content: center;
 }
-/* tabla */
-/*
-table.fixes-table td.active {width: 30px;}
-table.fixes-table td.id {width: 80px;}
-table.fixes-table td.price {width: 50px;}
-table.fixes-table td.date {width: 200px;}
-table.fixes-table td.toogle {width: 100px; text-align: center;}
-table.fixes-table td.toogle > a{width: 80px;}
-@media (max-width: 1000px){
-    table.fixes-table td.active,
-    table.fixes-table td.id,
-    table.fixes-table td.price,
-    table.fixes-table td.date,
-    table.fixes-table td.toogle{
-        width: auto;
-    }
-}
-*/
 div.table-like-container.fixes {
     width: calc(100% + 20px);
     position: relative;

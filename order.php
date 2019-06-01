@@ -5,7 +5,7 @@ require_once("ViewControllers/orderViewController.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nueva Orden</title>
+    <title><?=$title?></title>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/custom-elements.js"></script>
