@@ -266,7 +266,7 @@ class Controller {
      * @return int 3                    Falta el precio recomendado del arreglo
      * @return int -1                   Error desconocido
      */
-    public function addFix($clotheID, $fixName, $fixPrice, $active = 0){
+    public function addFix($clotheID, $fixName, $fixPrice, $active){
         if(empty($clotheID)){
             return 1;
         } elseif(empty($fixName)){
@@ -275,13 +275,35 @@ class Controller {
             return 3;
         } else{
             $db = $this->connect(); 
-            $sql = "INSERT INTO CLOTHES_FIXES (CLOTHE_ID, NAME, PRICE, ACTIVE) VALUES (:clotheID, :fixName, :fixPrice, 0)";
+            
+            $sql = "INSERT INTO CLOTHES_FIXES (
+                FIX_ID, 
+                CLOTHE_ID, 
+                NAME, PRICE, 
+                ACTIVE, 
+                CREATION_DATE,
+                UPDATE_DATE
+            )
+            VALUES (
+                (SELECT MAX(FIX_ID) + 1 AS MAX_FIX_ID FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID), 
+                :clotheID, 
+                :fixName, 
+                :fixPrice, 
+                :active, 
+                :creationDate, 
+                :updateDate
+            )";
+
+            
             $stmt = $db->prepare($sql);
 
-            $registerDateTimestamp = time();
+            $timestamp = time();
             $stmt->bindParam(":clotheID", $clotheID);
             $stmt->bindParam(":fixName", $fixName);
             $stmt->bindParam(":fixPrice", $fixPrice);
+            $stmt->bindParam(":active", $active);
+            $stmt->bindParam(":creationDate", $timestamp);
+            $stmt->bindParam(":updateDate", $timestamp);
 
             if($stmt->execute()){
                 return 0;
@@ -348,8 +370,6 @@ class Controller {
      * @return null                         Si no ha encontrado la prenda
      */
     public function getClothe($clotheID){
-        $timestamp = time();
-
         $db = $this->connect();
         $sql = "SELECT * FROM CLOTHES WHERE CLOTHES_ID = :clotheID";
         $stmt = $db->prepare($sql);
