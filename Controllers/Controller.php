@@ -238,7 +238,7 @@ class Controller {
             return 1;
         } else {
             $db = $this->connect(); 
-            $sql = "INSERT INTO CLOTHES (CLOTHES_NAME, ACTIVE, REGISTERED_DATE, UPDATE_DATE) VALUES (:clotheName, 0, :registeredDate, :updateDate)";
+            $sql = "INSERT INTO CLOTHES (CLOTHE_NAME, ACTIVE, REGISTERED_DATE, UPDATE_DATE) VALUES (:clotheName, 0, :registeredDate, :updateDate)";
             $stmt = $db->prepare($sql);
 
             $registerDateTimestamp = time();
@@ -358,7 +358,7 @@ class Controller {
             while($row = $stmt->fetch()){
                 return new Clothe(
                     $row["CLOTHES_ID"],
-                    $row["CLOTHES_NAME"],
+                    $row["CLOTHE_NAME"],
                     null, null,
                     $row["REGISTERED_DATE"],
                     $row["UPDATE_DATE"],
@@ -382,7 +382,7 @@ class Controller {
             return 1;
         } else {
             $db = $this->connect(); 
-            $sql = "UPDATE CLOTHES SET CLOTHES_NAME = :clotheName, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
+            $sql = "UPDATE CLOTHES SET CLOTHE_NAME = :clotheName, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
             $stmt = $db->prepare($sql);
             $timestamp = time();
 
@@ -527,11 +527,11 @@ class Controller {
      */
     public function getStates(){
         $states = [
-            new Estate(0, "Pendiente", "pending", "La órden ha sido recibida y está en espera."),
-            new Estate(1, "En proceso", "working", "La órden está realizandose."),
-            new Estate(2, "Finalizado", "finished", "La órden ha sido terminada y está pendiente de recogida."),
-            new Estate(3, "Entregado", "out", "La órden ha sido recogida."),
-            new Estate(4, "Cancelado", "canceled", "La órden ha sido cancelada.")
+            new Estate(1, "Pendiente", "pending", "La órden ha sido recibida y está en espera."),
+            new Estate(2, "En proceso", "working", "La órden está realizandose."),
+            new Estate(3, "Finalizado", "finished", "La órden ha sido terminada y está pendiente de recogida."),
+            new Estate(4, "Entregado", "out", "La órden ha sido recogida."),
+            new Estate(5, "Cancelado", "canceled", "La órden ha sido cancelada.")
         ];
         return $states;
     }
@@ -542,6 +542,19 @@ class Controller {
      * @return Estate                   Estado de una orden
      */
     public function getState($stateID){
-        return new Estate(4, "Cancelado", "canceled", "La órden ha sido cancelada.");
+        // Pendiente de hacer
+        //s
+        switch($stateID){
+            case 1:
+                return new Estate(2, "En proceso", "working", "La órden está realizandose.");
+            case 2:
+                return new Estate(3, "Finalizado", "finished", "La órden ha sido terminada y está pendiente de recogida.");
+            case 3:
+                return new Estate(4, "Entregado", "out", "La órden ha sido recogida.");
+            case 4:
+                return new Estate(5, "Cancelado", "canceled", "La órden ha sido cancelada.");
+            default:
+                return new Estate(1, "Pendiente", "pending", "La órden ha sido recibida y está en espera.");
+        }
     }
 }
