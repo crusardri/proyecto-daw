@@ -7,7 +7,7 @@ class Fix{
     private $creationDate;      //Fecha de creacion del arreglo
     private $updateDate;        //Fecha de actualizacion del arreglo
     private $active;            //Si el arreglo esta habilitado o deshabilitado
-    function __construct($id, $clotheID, $name, $price, $creationDate, $updateDate, $active = true){
+    function __construct($id, $clotheID, $name, $price, $creationDate, $updateDate, $active = 0){
         $this->id = $id;
         $this->name = $name;
         $this->clotheID = $clotheID;
@@ -19,6 +19,12 @@ class Fix{
         $updateDateOb->setTimestamp($updateDate);
         $this->updateDate = $updateDateOb;
         $this->active = $active;
+        if($active == 0){
+            $this->active = false;
+        }else {
+            $this->active = true;
+        }
+        
     }
     function getID(){
         return $this->id;
@@ -63,9 +69,6 @@ class Fix{
      * @return boolean false            //Si esta deshabilitado
      */
     function isActive(){
-        if($this->active = 0){
-            return false;
-        }
-        return true;
+        return $this->active;
     }
 }
