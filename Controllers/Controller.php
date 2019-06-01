@@ -375,13 +375,13 @@ class Controller {
      */
     public function getClothe($clotheID){
         $db = $this->connect();
-        $sql = "SELECT * FROM CLOTHES WHERE CLOTHES_ID = :clotheID";
+        $sql = "SELECT * FROM CLOTHES WHERE CLOTHE_ID = :clotheID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':clotheID', $clotheID);
         if($stmt->execute()){
             while($row = $stmt->fetch()){
                 return new Clothe(
-                    $row["CLOTHES_ID"],
+                    $row["CLOTHE_ID"],
                     $row["CLOTHE_NAME"],
                     null, null,
                     $row["REGISTERED_DATE"],
@@ -406,7 +406,7 @@ class Controller {
             return 1;
         } else {
             $db = $this->connect(); 
-            $sql = "UPDATE CLOTHES SET CLOTHE_NAME = :clotheName, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
+            $sql = "UPDATE CLOTHES SET CLOTHE_NAME = :clotheName, UPDATE_DATE = :updateDate WHERE CLOTHE_ID = :clotheID";
             $stmt = $db->prepare($sql);
             $timestamp = time();
 
@@ -438,7 +438,7 @@ class Controller {
             return 1;
         } else {
             $db = $this->connect(); 
-            $sql = "UPDATE CLOTHES SET ACTIVE = :active, UPDATE_DATE = :updateDate WHERE CLOTHES_ID = :clotheID";
+            $sql = "UPDATE CLOTHES SET ACTIVE = :active, UPDATE_DATE = :updateDate WHERE CLOTHE_ID = :clotheID";
             $stmt = $db->prepare($sql);
             $dateTimestamp = time();
 
