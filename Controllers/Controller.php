@@ -267,6 +267,7 @@ class Controller {
      * @return int -1                   Error desconocido
      */
     public function addFix($clotheID, $fixName, $fixPrice, $active){
+        var_dump($active);
         if(empty($clotheID)){
             return 1;
         } elseif(empty($fixName)){
@@ -279,7 +280,8 @@ class Controller {
             $sql = "INSERT INTO CLOTHES_FIXES (
                 FIX_ID, 
                 CLOTHE_ID, 
-                NAME, PRICE, 
+                NAME,
+                PRICE, 
                 ACTIVE, 
                 CREATION_DATE,
                 UPDATE_DATE
@@ -503,9 +505,9 @@ class Controller {
                     $row["CLOTHE_ID"],
                     $row["NAME"],
                     $row["PRICE"],
-                    $row["ACTIVE"],
                     $row["CREATION_DATE"],
-                    $row["UPDATE_DATE"]
+                    $row["UPDATE_DATE"],
+                    $row["ACTIVE"]
                 ));
             }
         }

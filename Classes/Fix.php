@@ -63,6 +63,9 @@ class Fix{
      * @return boolean false            //Si esta deshabilitado
      */
     function isActive(){
-        return $this->active;
+        if($this->active = 0){
+            return false;
+        }
+        return true;
     }
 }
