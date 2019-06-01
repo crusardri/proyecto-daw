@@ -503,7 +503,7 @@ class Controller {
      * 
      * @return Estate                   Estado de una orden
      */
-    private function getState($stateID){
-        
+    public function getState($stateID){
+        return new Estate(4, "Cancelado", "canceled", "La órden ha sido cancelada.");
     }
 }

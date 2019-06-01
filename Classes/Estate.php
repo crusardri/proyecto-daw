@@ -10,7 +10,7 @@ class Estate{
         $this->cssClass = $cssClass;
         $this->description = $description;
     }
-    function getId(){
+    function getID(){
         return $this->id;
     }
     function getName(){
