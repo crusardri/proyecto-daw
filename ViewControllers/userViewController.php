@@ -83,7 +83,9 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 if($edit && (($employee || $admin) || $sessionUser->getID() == $_GET["id"])){ 
     $user = $userController->getUser($_GET["id"]);
     $userRole = $user->getRole();
-}else {
+}
+
+if($register && !($admin || $employee)){
     $_SESSION["unauthorized"] = true;
     header("location: index.php");
 }
@@ -108,9 +110,12 @@ if(isset($_SESSION["userID"])){
 }
 
 //seteamos permisos
-$sameUser = $sessionUser->getID() == $user->getID();
-$employeeChangeClient = $employee && $userRole->getID() < $sessionUserRole->getID() && !$sameUser; 
-$adminChangeUser = $admin && !$sameUser; 
+if($edit){
+    $sameUser = $sessionUser->getID() == $user->getID();
+    $employeeChangeClient = $employee && $userRole->getID() < $sessionUserRole->getID() && !$sameUser; 
+    $adminChangeUser = $admin && !$sameUser; 
+}
+
 
 
 /**
@@ -575,7 +580,7 @@ function showRoleForm(){
         
     </form>
     <?php
-    }elseif($register && ($admin || $employee)){
+    }elseif($register && $admin){
         global $role;
         if(isset($role)){
             $activeRole = $role;
@@ -600,17 +605,6 @@ function showRoleForm(){
         </label>
                 <?php
                 }
-            }elseif($employee){
-                ?>
-        <label class="boxed-radio <?=$userRole->getCssClass()?>">
-            <input type="radio" name="role" value="<?=$userRole->getID()?>" checked>
-            <div class="container">
-                <div class="radio-checkbox">&#x2713;</div>
-                <div class="radio-title"><?=$userRole->getName()?></div>
-                <div class="radio-desc"><?=$userRole->getDescription()?></div>
-            </div>
-        </label>
-                <?php
             }
             ?>
         </div>
