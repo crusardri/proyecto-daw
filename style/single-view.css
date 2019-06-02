@@ -58,6 +58,16 @@ div.form-container.order div.user-data > .no-user{
 
 div.form-container.order div.employee-info{grid-area: employee}
 div.form-container.order div.order-items-container {grid-area: order-items;}
+#total-price-container {
+    float: right;
+    font-size: 1.1em;
+    margin-top: 10px;
+    font-weight: 600;
+}
+#total-price-container input {
+    text-align: right;
+    width: 80px;
+}
 /* Estados */
 div.form-container.order div.estate-container{
     grid-area: estate;

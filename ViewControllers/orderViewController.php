@@ -44,7 +44,6 @@ if(isset($_SESSION["userID"])){
 } else {
     //Si no tiene la sesión iniciada, va al login.
     header("location: login.php"); 
-    //echo "Not Login in";
 }
 
 //Obtención tipo usuario
@@ -425,6 +424,27 @@ function showOrderItems(){
         }
         ?>
     </div>
+    <?php
+    if($edit){
+        ?>
+        <label class="boxed-input" id="total-price-container">
+            <div class="text-label"><span>Precio total</span></div>
+            <div class="input-container">
+                <input type="number" value="<?=$order->getPrice()?>€" disabled>
+            </div>
+        </label>
+        <?php
+    }else {
+        ?>
+        <label class="boxed-input" id="total-price-container">
+            <div class="text-label"><span>Precio total</span></div>
+            <div class="input-container">
+                <input type="text" value="0.00€" disabled>
+            </div>
+        </label>
+        <?php
+    }
+    ?>
 </div>
     <?php
 }
@@ -434,7 +454,7 @@ function showOrderItems(){
 function showOrderDescription(){
     global $edit, $register, $order, $client, $admin, $employee, $description;
     if($edit){
-        $description = $order->getObservations();
+        $description = $order->getDescription();
     }
     ?>
     <div class="order-description-container" id="order-description">

@@ -10,16 +10,18 @@ class Order{
     private $outDate;
     private $cancelDate;
     private $totalOrderItems;
-    private $observations;
+    private $description;
     private $updateDate;
     private $notes;
-    function __construct($id = 0, $client, $employee, $state = 0, $enterDate, $workingDate, $finishDate, $outDate, $cancelDate, $totalOrderItems, $observations, $updateDate, $notes){
+    private $price;
+    function __construct($id = 0, $client, $employee, $state = 0, $enterDate, $workingDate, $finishDate, $outDate, $cancelDate, $totalOrderItems, $description, $updateDate, $notes, $price = 0){
         $this->id = $id;
         $this->client = $client;
         $this->employee = $employee;
         $this->state = $state;
         $this->totalOrderItems = $totalOrderItems;
-        $this->observations = $observations;
+        $this->description = $description;
+        $this->price = $price;
         if(!is_null($enterDate)){
             $enterDateO = new DateTime();
             $this->enterDate =  $enterDateO->setTimestamp($enterDate);
@@ -111,8 +113,8 @@ class Order{
     function getTotalOrderItems(){
         return $this->totalOrderItems;
     }
-    function getObservations(){
-        return $this->observations;
+    function getDescription(){
+        return $this->description;
     }   
     function getUpdateDate(){   
         return $this->updateDate;
@@ -126,5 +128,8 @@ class Order{
     }
     function getNotes(){
         return $this->notes;
+    }
+    function getPrice(){
+        return $this->price;
     }
 }

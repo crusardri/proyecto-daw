@@ -18,7 +18,7 @@ class Controller {
     public function getOrder($orderID){
         return new Order(
             1
-            ,new User(3, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
+            ,new User(2, "Usuario", null, "email",new Role(0, "Cliente", "client"),91478563,"Halfonso1","Pelayo1",time(),time(),1)
             ,new User(2, "Usuario1", null, "email",new Role(0, "Empleado", "employee"),91486325,"Halfonso","Pelayo",time(),time(),1)
             ,new Estate(1, "En proceso", "working", "La órden está realizandose.")
             ,time()
@@ -30,6 +30,7 @@ class Controller {
             ,"Observaciones"
             ,time()
             ,"Sin notas"
+            ,10.15
         );
     }
     /**
@@ -173,6 +174,7 @@ class Controller {
                 ,"Observaciones"
                 ,time()
                 ,"Sin notas"
+                ,10.15
             ),
             new Order(
                 2
@@ -188,6 +190,7 @@ class Controller {
                 ,"Observaciones"
                 ,time()
                 ,"Sin notas"
+                ,10.15
             ),
             new Order(
                 3
@@ -203,6 +206,7 @@ class Controller {
                 ,"Observaciones"
                 ,time()
                 ,"Sin notas"
+                ,10.15
             ),
             new Order(
                 4
@@ -218,6 +222,7 @@ class Controller {
                 ,"Observaciones"
                 ,time()
                 ,"Sin notas"
+                ,10.15
             ),
             new Order(
                 5
@@ -233,6 +238,7 @@ class Controller {
                 ,"Observaciones"
                 ,time()
                 ,"Sin notas"
+                ,10.15
             )
         );
     }
@@ -278,7 +284,6 @@ class Controller {
      * @return int -1                   Error desconocido
      */
     public function addFix($clotheID, $fixName, $fixPrice, $active){
-        var_dump($active);
         if(empty($clotheID)){
             return 1;
         } elseif(empty($fixName)){

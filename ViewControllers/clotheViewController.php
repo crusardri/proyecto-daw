@@ -51,7 +51,8 @@ if($sessionUserRole->getID() == 0){
 
 //Si no es un empleado o admin, a Client.php
 if(!($employee || $admin)){
-    header("location: client.php");
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 
 //Comprobamos si estamos editando o creando

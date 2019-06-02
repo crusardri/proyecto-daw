@@ -152,7 +152,7 @@ function showOrdersShowcase($titulo, $orders, $url = "orders.php"){
                     
                 </div>
                 <div class="order-desc">
-                    <?=$order->getObservations()?>
+                    <?=$order->getDescription()?>
                 </div>
             </a>
         <?php  

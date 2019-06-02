@@ -397,9 +397,11 @@ function ajaxGetClothes(){
         $("#select-clothe > .custom-select").remove();
         //Crear menu select personalizado
         customSelect("#select-clothe");
-        $("#add-order-item").on("click", addOrderItem)
+        $("#add-order-item").on("click", addOrderItem);
+        
     })
 }
+
 /**
  * Obtiene una lista de arreglos de una prenda mendiante un ajax hacia el servidor
  * Por cada arreglo encontrado genera un nuevo options al select de arreglos.
@@ -482,7 +484,8 @@ function addOrderItem(){
             </label>\
             <div class="button remove-order-item">Borrar</div>\
         </div>')
-        
+        //Asignamos evento calcular precio al cambiar el formulario de precio
+        orderItem.find(".price input").on("keyup change", calculatePrice);
         //Asignamos las animaciones de focus al los text-area y los inputs
         orderItem.find("input, textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
         orderItem.find("input, textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
@@ -492,10 +495,25 @@ function addOrderItem(){
         orderItem.appendTo(".order-items");
         //Cerramos ventana
         closeModalBox();
+        //Recalculamos el precio total de la orden
+        calculatePrice();
     }else{
         //Si no hay ninguna prenda y arreglo seleciconado, mensaje de error
         $("<div class='msg error'>Debes seleccionar una prenda y un arreglo.</div>").appendTo(".modal-box.new-order-item .modal-box-body");
     }
+}
+/**
+ * Calcula el precio total de la orden
+ */
+function calculatePrice(){
+    items = $(".boxed-input.price input");
+    let totalPrice = 0;
+    $.each(items, function(){
+        totalPrice += parseFloat($(this).val());
+    })
+    
+    $("#total-price-container input").val(totalPrice.toFixed(2)+"€");
+
 }
 /**
  * Elimina un contenedor de order item del contenedor order-items
@@ -545,4 +563,9 @@ $(document).ready(()=>{
      $("#add-clothe").on("click", showNewClotheForm);
      //Asignar evento a los botones de borrar order-item al cargar la pagina
      $(".button.remove-order-item").on("click", removeOrderItem);
+
+     //Al cambiar algun input de precio
+     $(".boxed-input.price input").on("keyup change", calculatePrice);
+     //Al cargar la pagina, calculamos el preico total
+     calculatePrice();
 })

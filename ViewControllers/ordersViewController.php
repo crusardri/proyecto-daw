@@ -35,7 +35,6 @@ if(isset($_SESSION["userID"])){
 } else {
     //Si no tiene la sesión iniciada, va al login.
     header("location: login.php"); 
-    //echo "Not Login in";
 }
 //Obtencion tipo usuario
 if($sessionUserRole->getID() == 0){
@@ -149,7 +148,7 @@ function showOrdersTable(){
                 <td class="id a-center"><span class="responsive-label">ID</span> <a href="order.php?id=<?=$order->getID()?>"><?=str_pad($order->getID(), 6, "0", STR_PAD_LEFT)?></a></td>
                 <td><span class="responsive-label">Estado</span> <a href="" class="label-box <?=$orderState->getCssClass()?>"><?=$orderState->getName()?></a></td>
                 <td class="a-center"><span class="responsive-label">Nº Prendas</span><?=$order->getTotalOrderItems()?></td>
-                <td class="a-center"><span class="responsive-label">Precio</span> 10€</td>
+                <td class="a-center"><span class="responsive-label">Precio</span><?=$order->getPrice()?>€</td>
                 <td><span class="responsive-label">Asignado a</span> <a href="orders.php?search=<?=$employee->getUsername()?>"><?=$employee->getName()." ".$employee->getSurname()?></a></td>
                 <td><span class="responsive-label">Cliente</span> <a href="orders.php?search=<?=$client->getUsername()?>"><?=$client->getName()." ".$client->getSurname()?></a></td>
                 <td class="date"><span class="responsive-label">Entrada</span> <span><?=$order->getEnterDateString()?></span></td>
@@ -157,7 +156,7 @@ function showOrdersTable(){
                 <td class="date hidden"><span class="responsive-label">Terminado</span><span><?=$order->getFinishDateString()?></span></td>
                 <td class="date hidden"><span class="responsive-label">Entregado</span><span><?=$order->getOutDateString()?></span></td>
                 <td class="date"><span class="responsive-label">Actualizado</span><span><?=$order->getUpdateDateString()?></span></td>
-                <td class="desc"><span class="desc-cont"><?=$order->getObservations()?></span></td>
+                <td class="desc"><span class="desc-cont"><?=$order->getDescription()?></span></td>
             </tr>
                     <?php
                 }

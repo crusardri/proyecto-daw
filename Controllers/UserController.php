@@ -625,7 +625,6 @@ class UserController {
         }else{
             $newState = 1;
         }
-        var_dump($newState);
         $db = $this->connect();
         $sql = "UPDATE USERS SET ACTIVE = :newState, UPDATE_TIMESTAMP = :updateDate  WHERE USER_ID = :userID";
         $stmt = $db->prepare($sql);
