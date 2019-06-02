@@ -59,7 +59,7 @@ if(!isset($_GET["id"]) && empty($_GET["id"])){
     header("Location: clothes.php");
 }
 //Cambiar nombre prenda
-if(isset($_POST["changeClotheName"])){
+if(isset($_POST["changeClotheName"]) && ($admin || $employee)){
     switch($controller->changeClotheName((int)$_POST["clotheID"], $_POST["clotheName"])){
         case 0:
             $successMSG = "Nombre de la prenda cambiado a \"$_POST[clotheName]\".";
@@ -73,7 +73,7 @@ if(isset($_POST["changeClotheName"])){
     }
 }
 //activar/desactivar prenda
-if(isset($_POST["toggleClothe"])){
+if(isset($_POST["toggleClothe"]) && ($admin || $employee)){
     switch($controller->toggleClothe($_POST["clotheID"], $_POST["active"])){
         case 0:
             if($_POST["active"] == 1){
@@ -90,9 +90,12 @@ if(isset($_POST["toggleClothe"])){
             }
             break;
     }
+}elseif(isset($_POST["toggleClothe"])){
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 //Registrar arreglo prenda
-if(isset($_POST["registerFix"])){
+if(isset($_POST["registerFix"]) && ($admin || $employee)){
     switch($controller->addFix($_POST["clotheID"], $_POST["fixName"], $_POST["fixPrice"], $_POST["active"])){
         case 0:
             $successMSG = "Arreglo registrado con éxito.";
@@ -110,9 +113,12 @@ if(isset($_POST["registerFix"])){
             $errorMSG = "Algo ha fallado al registrar el arreglo.";
             break;
     }
+}elseif(isset($_POST["registerFix"])){
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 //Modificar Prenda
-if(isset($_POST["editFix"])){
+if(isset($_POST["editFix"]) && ($admin || $employee)){
     switch($controller->editFix($_POST["fixID"], $_POST["fixName"], $_POST["fixPrice"])){
         case 0:
             $successMSG = "Arreglo \"$_POST[fixName]\" modificado con éxito.";
@@ -130,9 +136,12 @@ if(isset($_POST["editFix"])){
             $errorMSG = "Algo ha fallado al modificar el arreglo.";
             break;
     }
+}elseif(isset($_POST["editFix"])){
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 //activar/desactivar arreglo
-if(isset($_POST["toggle"])){
+if(isset($_POST["toggle"]) && ($admin || $employee)){
     switch($controller->toggleFix($_POST["clotheID"], $_POST["fixID"], $_POST["active"])){
         case 0:
             if($_POST["active"] == 0){
@@ -149,6 +158,9 @@ if(isset($_POST["toggle"])){
             }
             break;
     }
+}elseif(isset($_POST["toggle"])){
+    $_SESSION["unauthorized"] = true;
+    header("location: index.php");
 }
 
 //Obtener prenda
