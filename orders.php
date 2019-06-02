@@ -6,7 +6,7 @@ require_once("ViewControllers/ordersViewController.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ordenes</title>
+    <title>Ver órdenes</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/views.css">

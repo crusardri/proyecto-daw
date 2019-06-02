@@ -13,7 +13,7 @@
 <body id="user-cp">
     <div class="user-panel" id="register-panel">
        <div class="user-panel-header">
-           <h1>Registrate</h1>
+           <h1>Crear cuenta.</h1>
            <div class="main-text">Crea una cuenta para ver tus órdenes.</div>
            <div class="sub-text">¿Tienes una cuenta? <a href="login.php">Inicia sesión</a></div>
            <?php 
