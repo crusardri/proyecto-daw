@@ -11,21 +11,25 @@ require_once("Classes/Role.php");
 
 $userController = new UserController(); //Controlador de usuarios
 
-$sessionUser; //Usuario dueño de la sesion
-$sessionUserRole; //Rol del usuario dueño de la sesion
+$sessionUser;                           //Usuario dueño de la sesion
+$sessionUserRole;                       //Rol del usuario dueño de la sesion
 
-$title; //Titulo de la ventana
-$roles = $userController->getRoles(); //Todos los roles
+$title;                                 //Titulo de la ventana
+$roles = $userController->getRoles();   //Todos los roles
 
-$user; //Usuario a consultar
-$userRole; //Rol del usuario a consultar
+$user;                                  //Usuario a consultar
+$userRole;                              //Rol del usuario a consultar
 
-$client = false; //Es cliente
-$employee = false; //Es empleado
-$admin = false; //Es admin
+$client = false;                        //Es cliente
+$employee = false;                      //Es empleado
+$admin = false;                         //Es admin
 
-$edit = false; //Modo Editar
-$register = false; //Modo nuevo registro
+$edit = false;                          //Modo Editar
+$register = false;                      //Modo nuevo registro
+
+$employeeChangeClient;                  //Si eres empleado y el usuario a editar es menor rol que tu
+$adminChangeUser;                       //Si eres admin y el usuario a editar no es tu usuario
+$sameUser;                              //Si el usuario a editar es tu usuario
 
 /**
 * Comprueba que este la sesion iniciada y obtiene el usuario y el rol, si no lo esta te devuelve a login.php
@@ -103,6 +107,10 @@ if(isset($_SESSION["userID"])){
     header("location: login.php"); //Si no tiene sesion iniciada, va al login.
 }
 
+//seteamos permisos
+$sameUser = $sessionUser->getID() == $user->getID();
+$employeeChangeClient = $employee && $userRole->getID() < $sessionUserRole->getID() && !$sameUser; 
+$adminChangeUser = $admin && !$sameUser; 
 
 
 /**
@@ -179,8 +187,6 @@ if(isset($_POST["changeEmail"])){
  * Cambiar contraseña
  */
 if(isset($_POST["changePassword"])){
-    $sameUser = $sessionUser->getID() == $user->getID();
-    $employeeAuthorize = $employee && ($sessionUser->getID() == $user->getID() || $userRole->getID() < $sessionUserRole->getID());
     $password = $_POST["password"];                 //Contraseña nueva
     if(isset($_POST["oldPassword"])){
         $oldPassword = $_POST["oldPassword"];       //Contraseña antigua
@@ -189,7 +195,7 @@ if(isset($_POST["changePassword"])){
         $repeatPassword = $_POST["repPassword"];    //Repetir Contraseña
     }
     //Si eres un cliente o es tu cuenta
-    if($client || $user->getID() == $sessionUser->getID()){
+    if(($client && $sameUser) || $sameUser){
         switch ($userController->changePasswordClient($oldPassword, $password, $repeatPassword, $user)){
             case 0:
                 session_destroy();
@@ -211,7 +217,7 @@ if(isset($_POST["changePassword"])){
                 break;
         }
     //Si eres un empleado autorizado, o Administrador
-    }elseif($employeeAuthorize || $admin){
+    }elseif($employeeChangeClient || $admin){
         switch ($userController->changePasswordAdmin($password, $user)){
             case 0:
                 $successMSG = "Contraseña del usuario cambiada con éxito.";
@@ -232,7 +238,7 @@ if(isset($_POST["changePassword"])){
 /**
  * Cambiar informacion personal
  */
-if(isset($_POST["changePersonalInfo"])){
+if(isset($_POST["changePersonalInfo"]) && (($employeeChangeClient || $adminChangeUser) || $sameUser)){
     switch($userController->changePersonalInfo($user->getID(), $_POST["name"], $_POST["surname"], $_POST["phone"])){
         case 0: 
             $successMSG = "Informacion personal actualizada.";
@@ -245,31 +251,29 @@ if(isset($_POST["changePersonalInfo"])){
             $errorMSG = "Se ha producido un error al actualizar la informacion de usuario.";
             break;
     }
+}elseif(isset($_POST["changePersonalInfo"])){
+    $errorMSG = "No estas autorizado para cambiar la informacion personal a este usuario.";
 }
 /**
  * Cambiar Rol
  */
-if(isset($_POST["changeRole"])){
-    //Si eres admin y la ID de usuario a modificar no es la misma que la tuya
-    if($admin && $user->getID() != $sessionUser->getID()){
-        switch($userController->changeRole($user->getID(), $_POST["role"])){
-            case 0: 
-                $successMSG = "Rol de usuario actualizado.";
-                $user = $userController->getUser($_GET["id"]);
-                break;
-            default: 
-                $errorMSG = "Se ha producido un error al cambiar el rol del usuario.";
-                break;
-        }
-    }else {
-        $errorMSG = "No estas autorizado para cambiar el rol de este usuario.";
+if(isset($_POST["changeRole"]) && ($employeeChangeClient || $adminChangeUser)){
+    switch($userController->changeRole($user->getID(), $_POST["role"])){
+        case 0: 
+            $successMSG = "Rol de usuario actualizado.";
+            $user = $userController->getUser($_GET["id"]);
+            break;
+        default: 
+            $errorMSG = "Se ha producido un error al cambiar el rol del usuario.";
+            break;
     }
-    
+}elseif(isset($_POST["changeRole"]) ){
+    $errorMSG = "No estas autorizado para cambiar el Rol a este usuario.";
 }
 /**
- * Cambiar Rol
+ * Cambiar Estado
  */
-if(isset($_POST["changeState"])){
+if(isset($_POST["changeState"]) && ($employeeChangeClient || $adminChangeUser)){
     //Si eres admin y la ID de usuario a modificar no es la misma que la tuya
     $newState = $_POST["active"];
     if($newState == 0){
@@ -277,20 +281,17 @@ if(isset($_POST["changeState"])){
     }else{
         $newState = false;
     }
-    if($admin && $user->getID() != $sessionUser->getID()){
-        switch($userController->changeState($user->getID(), $newState)){
-            case 0: 
-                $user = $userController->getUser($_GET["id"]);
-                $successMSG = "Estado de usuario actualizado.";
-                break;
-            default: 
-                $errorMSG = "Se ha producido un error al cambiar el estado del usuario.";
-                break;
-        }
-    }else {
-        $errorMSG = "No estas autorizado para cambiar el estado de este usuario.";
+    switch($userController->changeState($user->getID(), $newState)){
+        case 0: 
+            $user = $userController->getUser($_GET["id"]);
+            $successMSG = "Estado de usuario actualizado.";
+            break;
+        default: 
+            $errorMSG = "Se ha producido un error al cambiar el estado del usuario.";
+            break;
     }
-    
+}elseif(isset($_POST["changeState"])){
+    $errorMSG = "No estas autorizado para cambiar el estado a este usuario.";
 }
 /**
 * Muestra el campo UserID si esta editando, y es Empleado o Administrador
@@ -626,11 +627,7 @@ function showRoleForm(){
 * Muestra el formulario de estado de usuario
 */
 function showUserStateForm(){
-    global $edit, $register, $register, $client, $employee, $admin, $sessionUser, $user, $sessionUserRole, $userRole;
-    //Si es empleado y el rol del usuario a editar es menor que el rol del usuario de la sesion
-    $employeeChangeClient = $employee && $userRole->getID() < $sessionUserRole->getID();
-    //Si eres administrador y no es tu rol
-    $adminChangeUser = $admin && $user->getID() != $sessionUser->getID();
+    global $edit, $register, $register, $client, $employee, $admin, $sessionUser, $user, $sessionUserRole, $userRole, $employeeChangeClient, $adminChangeUser;
     if($employeeChangeClient || $adminChangeUser){
     ?>
     <form id="active-form" method="post" action="user.php?id=<?=$user->getID()?>">
