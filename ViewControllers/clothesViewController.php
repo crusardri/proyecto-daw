@@ -69,10 +69,6 @@ if(isset($_GET["clear"])){
     header("location: clothes.php");
 }
 
-//Obtenemos Valores
-$totalClothes = $controller->getTotalClothes($search, $state);
-$clothes = $controller->getClothes($search, $state, $orderBy, $orderDirection, $page);
-
 //Registrar prenda
 if(isset($_POST["createClothe"]) && ($admin || $employee)){
     switch($controller->addClothe($_POST["clotheName"])){
@@ -87,6 +83,10 @@ if(isset($_POST["createClothe"]) && ($admin || $employee)){
             break;
     }
 }
+
+//Obtenemos Valores
+$totalClothes = $controller->getTotalClothes($search, $state);
+$clothes = $controller->getClothes($search, $state, $orderBy, $orderDirection, $page);
 
 /**
  * Mostrar tabla prendas
