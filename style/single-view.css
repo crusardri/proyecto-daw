@@ -490,7 +490,7 @@ div.form-container.clothe {
 }
 #clothe-info-container > div > label{
     flex-basis: 300px;
-    flex-grow: 2;
+    flex-grow: 100;
     margin: 5px;
 }
 #clothe-info-container > div > #clotheID{
@@ -514,6 +514,9 @@ div.form-container.clothe {
 #active-container {
     grid-area: active;
 }
+#active-container .input-submit-button{
+    margin-left: auto;
+}
 #active-container > div{
     display: flex;
     flex-flow: row wrap;
@@ -525,6 +528,9 @@ div.form-container.clothe {
 }
 #fixes-table{
     grid-area: fixes;
+}
+#fixes-table .input-submit-button {
+    margin-right: 10px;
 }
 #fixes-table .form-buttons:after{
     clear:both;

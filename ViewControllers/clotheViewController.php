@@ -144,14 +144,14 @@ if(isset($_POST["editFix"]) && ($admin || $employee)){
 if(isset($_POST["toggle"]) && ($admin || $employee)){
     switch($controller->toggleFix($_POST["clotheID"], $_POST["fixID"], $_POST["active"])){
         case 0:
-            if($_POST["active"] == 0){
+            if($_POST["active"] == 1){
                 $successMSG = "Arreglo \"$_POST[fixName]\" activado con éxito.";
             }else{
                 $successMSG = "Arreglo \"$_POST[fixName]\" desactivado con éxito.";
             }
             break;
         default:
-            if($_POST["active"] == 0){
+            if($_POST["active"] == 1){
                 $errorMSG = "Algo ha fallado al activar el arreglo.";
             }else{
                 $errorMSG = "Algo ha fallado al desactivar el arreglo.";
