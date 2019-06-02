@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.png" type="image/png">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Ver prendas</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/header.css">
