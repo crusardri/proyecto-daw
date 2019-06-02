@@ -252,7 +252,7 @@ function showClotheFixes(){
         <form class="item" method="post" action="clothe.php?id=<?=$clothe->getId()?>">
             <input type="hidden" name="clotheID" value="<?=$clothe->getId()?>">
             <input type="hidden" name="fixID" value="<?=$fix->getId()?>">
-            <input type="hidden" name="active" value="<?=$fix->isActive()?1:0?>">
+            <input type="hidden" name="active" value="<?=$fix->isActive()?0:1?>">
             <div class="elem id"><input type="number" value="<?=$fix->getId()?>" disabled></div>
             <div class="elem name"><input type="text" name="fixName" value="<?=$fix->getName()?>"></div>
             <div class="elem price"><input type="number" name="fixPrice" value="<?=$fix->getPrice()?>" step=".01">€</div>
