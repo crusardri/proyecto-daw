@@ -581,10 +581,10 @@ class Controller {
                 array_push($clothes, new Clothe(
                     $row["CLOTHE_ID"], 
                     $row["CLOTHE_NAME"],
-                    $row["FIXES"],
-                    $row["ACTIVE"],
+                    $row["FIXES"], null,
                     $row["REGISTERED_DATE"],
-                    $row["UPDATE_DATE"]
+                    $row["UPDATE_DATE"],
+                    $row["ACTIVE"]
                 ));
             }
         } 
