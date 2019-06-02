@@ -386,7 +386,7 @@ class UserController {
             $stmt->bindParam(":registeredDate",$timestamp );
             $stmt->bindParam(":updateDate", $timestamp);
             $stmt->bindParam(":active", $active);
-            if($stmt->execute() && $stmt->rowCount > 0){
+            if($stmt->execute() && $stmt->rowCount() > 0){
                 return 0;
             }else {
 
@@ -427,7 +427,7 @@ class UserController {
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':updateDate', $timestamp);
             
-            if($stmt->execute() && $stmt->rowCount > 0){
+            if($stmt->execute() && $stmt->rowCount() > 0){
                 return 0;
             }
         }
@@ -461,7 +461,7 @@ class UserController {
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':updateDate', $timestamp);
 
-            if($stmt->execute() && $stmt->rowCount > 0){
+            if($stmt->execute() && $stmt->rowCount() > 0){
                 return 0;
             }
         }
@@ -493,7 +493,7 @@ class UserController {
             $stmt->bindParam(':phone', $phone);
             $stmt->bindParam(':updateDate', $timestamp);
 
-            if($stmt->execute() && $stmt->rowCount > 0){
+            if($stmt->execute() && $stmt->rowCount() > 0){
                 return 0; 
             }    
         } 
@@ -525,7 +525,7 @@ class UserController {
             $stmt->bindParam(':userID', $userID);
             $stmt->bindParam(':updateDate', $timestamp);
 
-            if($stmt->execute() && $stmt->rowCount > 0){
+            if($stmt->execute() && $stmt->rowCount() > 0){
                 return 0;  
             }    
         } 
@@ -550,7 +550,7 @@ class UserController {
         $stmt->bindParam(':roleID', $roleID);
         $stmt->bindParam(':updateDate', $timestamp);
 
-        if($stmt->execute() && $stmt->rowCount > 0){
+        if($stmt->execute() && $stmt->rowCount() > 0){
            return 0;
         }
         return -1;
@@ -579,7 +579,7 @@ class UserController {
         $stmt->bindParam(':newState', $newState);
         $stmt->bindParam(':updateDate', $timestamp);
     
-        if($stmt->execute() && $stmt->rowCount > 0){
+        if($stmt->execute() && $stmt->rowCount() > 0){
             return 0;
         }
         return -1;
