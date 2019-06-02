@@ -370,7 +370,7 @@ function showAccountDataForm(){
             <label class="boxed-input" id="email">
                 <div class="text-label"><span>Correo Electronico</span></div>
                 <div class="input-container">
-                    <input type="text" value="<?=$user->getEmail()?>" name="email">
+                    <input autocomplete="off" type="text" value="<?=$user->getEmail()?>" name="email">
                 </div>
             </label>
             <div class="form-buttons">
@@ -387,19 +387,19 @@ function showAccountDataForm(){
             <label class="boxed-input" id="username">
                 <div class="text-label"><span>Nombre de usuario</span></div>
                 <div class="input-container">
-                    <input type="text" name="username" value="<?=isset($username)?$username:""?>">
+                    <input autocomplete="off" type="text" name="username" value="<?=isset($username)?$username:""?>">
                 </div>
             </label>
             <label class="boxed-input" id="email">
                 <div class="text-label"><span>Correo Electronico</span></div>
                 <div class="input-container">
-                    <input type="text" name="email" value="<?=isset($email)?$email:""?>">
+                    <input autocomplete="off" type="text" name="email" value="<?=isset($email)?$email:""?>">
                 </div>
             </label>
             <label class="boxed-input" id="password">
                 <div class="text-label"><span>Contraseña</span></div>
                 <div class="input-container">
-                    <input type="password" name="password">
+                    <input autocomplete="off" type="password" name="password">
                 </div>
             </label>
         </div>   
@@ -426,7 +426,7 @@ function showPasswordForm(){
                 <label class="boxed-input mandatory" id="old-password">
                     <div class="text-label"><span>Contraseña actual</span></div>
                     <div class="input-container">
-                        <input type="password" name="oldPassword"> 
+                        <input autocomplete="off" type="password" name="oldPassword"> 
                     </div>
                 </label>
                     <?php
@@ -436,7 +436,7 @@ function showPasswordForm(){
                 <label class="boxed-input mandatory" id="password">
                     <div class="text-label"><span>Contraseña nueva</span></div>
                     <div class="input-container">
-                        <input type="password" name="password">
+                        <input autocomplete="off" type="password" name="password">
                     </div>
                 </label>
                 <?php 
@@ -445,7 +445,7 @@ function showPasswordForm(){
                 <label class="boxed-input mandatory" id="repeatPassword">
                     <div class="text-label"><span>Repetir Contraseña</span></div>
                     <div class="input-container">
-                        <input type="password" name="repPassword"> 
+                        <input autocomplete="off" type="password" name="repPassword"> 
                     </div>
                 </label>
                     <?php
@@ -476,19 +476,19 @@ function showPersonalInfoForm(){
             <label class="boxed-input" id="username">
                 <div class="text-label"><span>Nombre</span></div>
                 <div class="input-container">
-                    <input type="text" name="name" value="<?=$user->getName()?>">
+                    <input autocomplete="off" type="text" name="name" value="<?=$user->getName()?>">
                 </div>
             </label>
             <label class="boxed-input" id="surname">
                 <div class="text-label"><span>Apellidos</span></div>
                 <div class="input-container">
-                    <input type="text" name="surname" value="<?=$user->getSurname()?>">
+                    <input autocomplete="off" type="text" name="surname" value="<?=$user->getSurname()?>">
                 </div>
             </label>
             <label class="boxed-input" id="phone">
                 <div class="text-label"><span>Teléfono</span></div>
                 <div class="input-container">
-                    <input type="number" name="phone" value="<?=$user->getTelephone()?>">
+                    <input autocomplete="off" type="number" name="phone" value="<?=$user->getTelephone()?>">
                 </div>
             </label>
             <div class="form-buttons">
