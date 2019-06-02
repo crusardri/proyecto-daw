@@ -394,62 +394,6 @@ class UserController {
         }
         return -1;
     } 
-    
-    /**
-    * Registra un usuario en la base de datos desde el panel de control
-    * @param String $username           Nombre de usuario
-    * @param String $password           Contraseña del usuario (Se debe crear el Hash de la contraseña)
-    * @param String $email              El email del usuario
-    * @param String $name               El nombre del usuario
-    * @param String $surname            El apellido del usuario
-    * @param String $phone              El telefono del usuario
-    * @param int $role                  El ID del Rol del usuario
-    * @param int $active                Si el usuario esta activado
-    *
-    * @return int 0                     Todo ha ido bien
-    * @return int 1                     El nombre de usuario tiene menos de 4 caracteres
-    * @return int 2                     El nombre de usuario ya esta registrado
-    * @return int 3                     La contraseña tiene menos de 6 caracteres
-    * @return int 4                     El correo no es valido
-    * @return int 5                     El correo ya esta registrado
-    * @return int 6                     Falta el nombre
-    * @return int -1                    Si algo ha fallado
-    */
-    /*public function registerUserAdminPanel($userName, $password, $email, $name, $surname = "", $phone = "", $role = 0, $active = 0){
-        if (strlen($userName) < 4 || !preg_match('/(A-Za-z0-9)/', $username)){
-            return 1;
-        } elseif($this->checkUsername($userName)){
-            return 2;
-        } elseif(strlen($password) < 6){
-            return 3;
-        } elseif(empty($email) || !preg_match('/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD', $email)){
-            return 4;
-        } elseif($this->checkEmail($email)){
-            return 5;
-        } elseif(empty($userName)){
-            return 6;
-        } else{
-            $db = $this->connect(); 
-            $sql = "INSERT INTO USERS (username, hashed_password, email, name, surname, phone, role_id, update_timestamp, register_timestamp ) VALUES (:usuario, :contrasena, :email, :nombre, :surname, :phone, :rol, :registeredDate, :updateDate)";
-            $stmt = $db->prepare($sql);
-            
-            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        
-            $stmt->bindParam(":usuario", $userName);
-            $stmt->bindParam(":contrasena", $passwordHash);
-            $stmt->bindParam(":email", $email);
-            $stmt->bindParam(":nombre", $name);
-            $stmt->bindParam(":surname", $surname);
-            $stmt->bindParam(":phone", $phone);
-            $stmt->bindParam(":rol", $role);
-            $stmt->bindParam(":registeredDate", time());
-            $stmt->bindParam(":updateDate", time());
-            if($stmt->execute() && $stmt->rowCount > 0){
-                return 0;
-            }
-        }
-        return -1;
-    }*/
     /**
     * Comprueba si la contraseña antigua coincide en la base de datos,y  la cambia por la nueva establecida
     * @param String $oldPassword        La contraseña antigua

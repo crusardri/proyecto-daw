@@ -66,7 +66,7 @@ if(isset($_GET["orderDirection"]))  {$orderDirection = (int) $_GET["orderDirecti
 
 //Borrar Filtros
 if(isset($_GET["clear"])){
-    header("location: users.php");
+    header("location: clothes.php");
 }
 
 //Obtenemos Valores
