@@ -499,11 +499,14 @@ class Controller {
         $startFromItem = $page * $itemsPerPage;
         $clothes = array();                      
         $db = $this->connect();                 
-
-        $sql = "SELECT *, (SELECT COUNT(CF.FIX_ID) FROM CLOTHES_FIXES CF WHERE CF.CLOTHE_ID = C.CLOTHE_ID) 
-        AS FIXES FROM CLOTHES C WHERE CLOTHE_ID = CLOTHE_ID";
-
-        if(!is_null($searchString) && !empty($searchString)){
+        $sql = "SELECT 
+            C.CLOTHE_ID,
+            C.CLOTHE_NAME,
+            C.ACTIVE,
+            C.REGISTERED_DATE,
+            C.UPDATE_DATE,
+            (SELECT COUNT(CF.FIX_ID) FROM CLOTHES_FIXES CF WHERE CF.CLOTHE_ID = C.CLOTHE_ID) AS FIXES FROM CLOTHES C WHERE true";
+        if(!is_null($searchString) && strlen($searchString) > 2 ){
             $sql .= "
                  AND (
                     LOWER(C.CLOTHE_ID) LIKE LOWER(:searchString) OR 
@@ -513,30 +516,24 @@ class Controller {
         if(!is_null($stateFilter) && $stateFilter >= 0){
             $sql .= " AND C.ACTIVE = :active";
         }
-        if(!is_null($orderByFilter) && $orderByFilter >= 0){
-            $sql .= " AND C.CLOTHE_ID = :clotheID";
-        }
         switch($orderByFilter){
-            case 0:
-                $orderBy = "C.CLOTHE_ID";
-                break;
-            case 1:-
-                $orderBy = "C.CLOTHE_NAME";
+            case 1:
+                $orderBy = "CLOTHE_NAME";
                 break;
             case 2:
                 $orderBy = "FIXES";
                 break;
             case 3: 
-                $orderBy = "C.ACTIVE";
+                $orderBy = "ACTIVE";
                 break;
             case 4:
-                $orderBy = "C.REGISTERED_DATE";
+                $orderBy = "REGISTERED_DATE";
                 break;
             case 5:
-                $orderBy = "C.UPDATE_DATE";
+                $orderBy = "UPDATE_DATE";
                 break;
             default:
-                $orderBy = "C.CLOTHE_ID";
+                $orderBy = "CLOTHE_ID";
                 break;
         }
         $sql .= " 
@@ -555,14 +552,9 @@ class Controller {
             LIMIT 
                 :page, 
                 :maxItems";
-         $stmt = $db->prepare($sql);
-
-        if(!is_null($searchString) && !empty($searchString)){
+        $stmt = $db->prepare($sql);
+        if(!is_null($searchString) && strlen($searchString) > 2){
             $stmt->bindParam(':searchString', $searchString);
-        }
-
-        if(!is_null($orderByFilter) && $orderByFilter >= 0){
-            $stmt->bindParam(':clotheID', $orderByFilter);
         }
   
         if(!is_null($stateFilter) && $stateFilter >= 0){
