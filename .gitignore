@@ -9,3 +9,4 @@ test.js
 proyecto-daw.code-workspace
 .vscode/launch.json
 test.php
+*.sql

@@ -430,7 +430,7 @@ function showOrderItems(){
         <label class="boxed-input" id="total-price-container">
             <div class="text-label"><span>Precio total</span></div>
             <div class="input-container">
-                <input type="number" value="<?=$order->getPrice()?>€" disabled>
+                <input type="text" value="<?=$order->getPrice()?>€" disabled>
             </div>
         </label>
         <?php
