@@ -605,14 +605,28 @@ class Controller {
     /**
      * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
      * @param int $clotheId             ID de la prenda a consultar
+     * @param int $active               Mostrar solo los arreglos activos o inactivos
      * 
      * @return Fix[]                    Array de prendas
      */
-    public function getFixes($clotheID){
+    public function getFixes($clotheID, $active = -1){
         $fixes = array();
         $db = $this->connect(); 
         $sql = "SELECT * FROM CLOTHES_FIXES WHERE CLOTHE_ID = :clotheID";
+        if($active >= 0){
+            switch($active){
+                case 1:
+                    $sql .= " AND ACTIVE = 1";
+                    break;
+                default:
+                    $sql .= " AND ACTIVE = 0";
+                    break;
+            }
+            
+        }
+
         $stmt = $db->prepare($sql);
+        
 
         $stmt->bindParam(':clotheID', $clotheID);
 
