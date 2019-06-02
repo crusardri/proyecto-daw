@@ -19,9 +19,9 @@ class Clothe{
         $updateDateOb->setTimestamp($updateDate);
         $this->updateDate = $updateDateOb;
         if($active == 0){
-            $this->active = true;
-        }else {
             $this->active = false;
+        }else {
+            $this->active = true;
         }
     }
     function getId(){
