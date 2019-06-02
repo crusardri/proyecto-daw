@@ -131,6 +131,9 @@ if(isset($_POST["registerUser"]) && ($admin || $employee)){
     $phone =        isset($_POST["phone"]) ?        $_POST["phone"] : "";
     $role =         isset($_POST["role"]) ?         $_POST["role"] : 0;
     $active =       isset($_POST["active"]) ?       $_POST["active"] : 0;
+    if($employee){
+        $role = 0;
+    }
     switch ($userController->registerUser($username, $password, $email, $name, $surname, $phone, $role, $active)){
         case 0:
             $_SESSION["registerSuccess"] = $username;
