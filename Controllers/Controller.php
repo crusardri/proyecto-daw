@@ -480,14 +480,95 @@ class Controller {
      * @return Clothe[]                     Array de Prendas
      */
     public function getClothes($searchString, $stateFilter, $orderByFilter, $orderDirectionFilter, $page, $itemsPerPage = 20){
-        $page = $page -1;
-        $timestamp = time();
-        $clothes = [
-            new Clothe(1, "Vaquero", 10, null, $timestamp, $timestamp, true),
-            new Clothe(2, "Blusa", 10, null, $timestamp, $timestamp, true),
-            new Clothe(3, "Camisa", 10, null, $timestamp, $timestamp, false),
-            new Clothe(4, "Mercedes Benz", 10, null, $timestamp, $timestamp, true)
-        ];
+        $searchString = "%$searchString%"; 
+        $page = $page - 1;
+        $startFromItem = $page * $itemsPerPage;
+        $clothes = array();                      
+        $db = $this->connect();                 
+
+        $sql = "SELECT *, (SELECT COUNT(CF.FIX_ID) FROM CLOTHES_FIXES CF WHERE CF.CLOTHE_ID = C.CLOTHE_ID) 
+        AS FIXES FROM CLOTHES C WHERE CLOTHE_ID = CLOTHE_ID";
+
+        if(!is_null($searchString) && !empty($searchString)){
+            $sql .= "
+                 AND (
+                    LOWER(C.CLOTHE_ID) LIKE LOWER(:searchString) OR 
+                    LOWER(C.CLOTHE_NAME) LIKE LOWER(:searchString)
+                 )";
+        }
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $sql .= " AND C.ACTIVE = :active";
+        }
+        if(!is_null($orderByFilter) && $orderByFilter >= 0){
+            $sql .= " AND C.CLOTHE_ID = :clotheID";
+        }
+        switch($orderByFilter){
+            case 0:
+                $orderBy = "C.CLOTHE_ID";
+                break;
+            case 1:-
+                $orderBy = "C.CLOTHE_NAME";
+                break;
+            case 2:
+                $orderBy = "FIXES";
+                break;
+            case 3: 
+                $orderBy = "C.ACTIVE";
+                break;
+            case 4:
+                $orderBy = "C.REGISTERED_DATE";
+                break;
+            case 5:
+                $orderBy = "C.UPDATE_DATE";
+                break;
+            default:
+                $orderBy = "C.CLOTHE_ID";
+                break;
+        }
+        $sql .= " 
+            ORDER BY 
+                $orderBy ";
+
+        switch ($orderDirectionFilter){
+            case 1:
+                $sql .= "DESC ";
+                break;
+            default: 
+                $sql .= "ASC ";
+                break;
+        }
+        $sql .= " 
+            LIMIT 
+                :page, 
+                :maxItems";
+         $stmt = $db->prepare($sql);
+
+        if(!is_null($searchString) && !empty($searchString)){
+            $stmt->bindParam(':searchString', $searchString);
+        }
+
+        if(!is_null($orderByFilter) && $orderByFilter >= 0){
+            $stmt->bindParam(':clotheID', $orderByFilter);
+        }
+  
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $stmt->bindParam(':active', $stateFilter);
+        }
+        $stmt->bindParam(":page", $startFromItem);
+        $stmt->bindParam(":maxItems", $itemsPerPage);
+
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                array_push($clothes, new Clothe(
+                    $row["CLOTHE_ID"], 
+                    $row["CLOTHE_NAME"],
+                    $row["FIXES"],
+                    $row["ACTIVE"],
+                    $row["REGISTERED_DATE"],
+                    $row["UPDATE_DATE"]
+                ));
+            }
+        } 
         return $clothes;
     }
     /**
