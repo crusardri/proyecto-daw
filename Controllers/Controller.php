@@ -378,6 +378,25 @@ class Controller {
      * @return int -1                   Error desconocido
      */
     public function toggleFix($clotheID, $fixID, $active){
+        if(empty($clotheID)){
+            return 1;
+        } elseif(empty($fixID)){
+            return 2;
+        } else {
+            $db = $this->connect(); 
+            $sql = "UPDATE CLOTHES_FIXES SET ACTIVE = :active, UPDATE_DATE = :updateDate WHERE CLOTHE_ID = :clotheID AND FIX_ID = :fixID";
+            $stmt = $db->prepare($sql);
+            $dateTimestamp = time();
+
+            $stmt->bindParam(':clotheID', $clotheID);
+            $stmt->bindParam(':fixID', $fixID);
+            $stmt->bindParam(':active', $active);
+            $stmt->bindParam(':updateDate', $dateTimestamp);
+         
+            if($stmt->execute()){
+                return 0;
+            }
+        }
         return -1;
     }
     
