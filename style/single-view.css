@@ -395,6 +395,10 @@ div.form-container.user .form-buttons {
 #active-form {
     grid-area: active;
 }
+#active-form .input-submit-button,
+#role-form .input-submit-button{
+    margin-left: auto;
+}
 /* Form roles*/
 #role-form {
     grid-area: role;

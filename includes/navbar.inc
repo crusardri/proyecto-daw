@@ -3,7 +3,11 @@
 if(isset($_GET["logout"])){
     $userController->logout();
     header("location: login.php");
+    
 }
+//Obtener enlace logout
+$logoutParams = $_GET;
+$logoutParams["logout"] = "";
 ?>
     <nav class="top-header">
         <a class="menu-item" href="index.php">
@@ -33,4 +37,4 @@ if(isset($_GET["logout"])){
             <div class="username"><?=$sessionUser->getName()." ".$sessionUser->getSurname()?></div>
         </a>
     </nav>
-    <a class="logout-button" href="?logout">Cerrar sesión</a>
+    <a class="logout-button" href="?<?=http_build_query($logoutParams)?>">Cerrar sesión</a>

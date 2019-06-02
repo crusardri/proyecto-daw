@@ -657,7 +657,7 @@ function showUserStateForm(){
         !($sessionUserRole->getID() == 0 && $userRole->getID() == 0)){
             ?>
         <div class="form-buttons">
-            <input type="submit" value="Cambiar Estado" class="input-submit-button" name="changeState">
+            <input type="submit" value="Cambiar Estado" class="input-submit-button change-state" name="changeState">
         </div>
             <?php
         }
