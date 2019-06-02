@@ -31,7 +31,7 @@
                     <label class="boxed-input" id="username">
                         <div class="text-label mandatory"><span>Nombre de usuario</span></div>
                         <div class="input-container">
-                            <input type="text" name="username" value="<?=isset($username)?$username:""?>">
+                            <input autocomplete="off" type="text" name="username" value="<?=isset($username)?$username:""?>">
                         </div>
                         <div class="button"><span>Comprobar</span></div>
                     </label>
@@ -41,7 +41,7 @@
                     <label class="boxed-input" id="email">
                         <div class="text-label mandatory"><span>Correo Electrónico</span></div>
                         <div class="input-container">
-                            <input type="text" name="email" value="<?=isset($email)?$email:""?>">
+                            <input autocomplete="off" type="text" name="email" value="<?=isset($email)?$email:""?>">
                         </div>
                         <div class="button"><span>Comprobar</span></div>
                     </label>
@@ -51,7 +51,7 @@
                     <label class="boxed-input" id="password">
                         <div class="text-label mandatory"><span>Contraseña</span></div>
                         <div class="input-container">
-                            <input type="password" name="password">
+                            <input autocomplete="off" type="password" name="password">
                         </div>
                     </label>
                     <div class="input-box-desc">Contraseña de tu nueva cuenta de usuario.</div>
@@ -60,7 +60,7 @@
                     <label class="boxed-input" id="repeat-password">
                         <div class="text-label mandatory"><span>Confirmar Contr.</span></div>
                         <div class="input-container">
-                            <input type="password">
+                            <input autocomplete="off" type="password">
                         </div>
                     </label>
                     <div class="input-box-desc">Confirmar contraseña.</div>
@@ -73,7 +73,7 @@
                     <label class="boxed-input" id="name">
                         <div class="text-label mandatory"><span>Nombre</span></div>
                         <div class="input-container">
-                            <input type="text" name="name" value="<?=isset($name)?$name:""?>">
+                            <input autocomplete="off" type="text" name="name" value="<?=isset($name)?$name:""?>">
                         </div>
                     </label>
                     <div class="input-box-desc">Tu nombre.</div>
@@ -82,7 +82,7 @@
                     <label class="boxed-input" id="surname">
                         <div class="text-label"><span>Apellidos</span></div>
                         <div class="input-container">
-                            <input type="text" name="surname" value="<?=isset($surname)?$surname:""?>">
+                            <input autocomplete="off" type="text" name="surname" value="<?=isset($surname)?$surname:""?>">
                         </div>
                     </label>
                     <div class="input-box-desc">Tus apellidos.</div>
@@ -91,7 +91,7 @@
                     <label class="boxed-input" id="phone">
                         <div class="text-label"><span>Teléfono</span></div>
                         <div class="input-container">
-                            <input type="number" name="phone" value="<?=isset($phone)?$phone:""?>">
+                            <input autocomplete="off" type="number" name="phone" value="<?=isset($phone)?$phone:""?>">
                         </div>
                     </label>
                     <div class="input-box-desc">Teléfono de contacto.</div>

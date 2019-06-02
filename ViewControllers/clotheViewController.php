@@ -200,7 +200,7 @@ function showClotheInfoForm(){
             <label class="boxed-input" id="clothe-name">
                 <div class="text-label"><span>Nombre Prenda</span></div>
                 <div class="input-container">
-                    <input type="text" name="clotheName" value="<?=$clothe->getName()?>">
+                    <input autocomplete="off" type="text" name="clotheName" value="<?=$clothe->getName()?>">
                 </div>
             </label>
             <label class="boxed-input" id="create-date">
