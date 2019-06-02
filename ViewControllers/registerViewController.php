@@ -20,17 +20,15 @@ if(isset($_SESSION["userID"])){
     header("location: index.php");
 }
 
-//Comprobamos si ha iniciado sesión y el rol que tiene
+/*
+* Se comprueba si ya se ha iniciado sesión
+*/
 if(isset($_SESSION["userID"])){
-    //Obtener USuario
-    $sessionUser = $userController->getUser($_SESSION["userID"]);
-    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+    $user = $userController->getUser($_SESSION["userID"]);
+    if(is_null($user)){
         session_destroy();
-        header("location: login.php");
     }
-    $sessionUserRole = $sessionUser->getRole();
-}else {
-    header("location: login.php");
+    header("location: index.php");
 }
 /*
 * Manejador registro
