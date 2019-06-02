@@ -13,7 +13,24 @@ require_once("Controllers/UserController.php");
 */
 $userController = new UserController(); //Controlador de usuario
 if(isset($_SESSION["userID"])){
+    $user = $userController->getUser($_SESSION["userID"]);
+    if(is_null($user)){
+        session_destroy();
+    }
     header("location: index.php");
+}
+
+//Comprobamos si ha iniciado sesión y el rol que tiene
+if(isset($_SESSION["userID"])){
+    //Obtener USuario
+    $sessionUser = $userController->getUser($_SESSION["userID"]);
+    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+        session_destroy();
+        header("location: login.php");
+    }
+    $sessionUserRole = $sessionUser->getRole();
+}else {
+    header("location: login.php");
 }
 /*
 * Manejador registro

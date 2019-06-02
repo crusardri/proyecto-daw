@@ -29,12 +29,15 @@ $filters = ["ID", "Fecha de Entrada", "Fecha de inicio", "Fecha finalizado", "Fe
 
 //Comprobamos si ha iniciado sesión y el rol que tiene
 if(isset($_SESSION["userID"])){
-    //Obtenemos Usuario y Rol
-    $sessionUser = $userController->getUser($_SESSION["userID"]); 
+    //Obtener USuario
+    $sessionUser = $userController->getUser($_SESSION["userID"]);
+    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+        session_destroy();
+        header("location: login.php");
+    }
     $sessionUserRole = $sessionUser->getRole();
-} else {
-    //Si no tiene la sesión iniciada, va al login.
-    header("location: login.php"); 
+}else {
+    header("location: login.php");
 }
 //Obtencion tipo usuario
 if($sessionUserRole->getID() == 0){

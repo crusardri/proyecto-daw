@@ -627,10 +627,11 @@ function showRoleForm(){
 */
 function showUserStateForm(){
     global $edit, $register, $register, $client, $employee, $admin, $sessionUser, $user, $sessionUserRole, $userRole;
-    //Es editar, eres empleado o admin, 
-    //el rango de usuario de la sesion sea igual o superior al rango del usuario a editar 
-    //y no es tu cuenta
-    if($edit && ($employee || $admin) && $user->getID() != $sessionUser->getID()){
+    //Si es empleado y el rol del usuario a editar es menor que el rol del usuario de la sesion
+    $employeeChangeClient = $employee && $userRole->getID() < $sessionUserRole->getID();
+    //Si eres administrador y no es tu rol
+    $adminChangeUser = $admin && $user->getID() != $sessionUser->getID();
+    if($employeeChangeClient || $adminChangeUser){
     ?>
     <form id="active-form" method="post" action="user.php?id=<?=$user->getID()?>">
         <h2>Estado</h2>

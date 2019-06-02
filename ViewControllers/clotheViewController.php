@@ -30,15 +30,14 @@ $fixes;                                     //Arreglos de la prenda
 if(isset($_SESSION["userID"])){
     //Obtener USuario
     $sessionUser = $userController->getUser($_SESSION["userID"]);
+    if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
+        session_destroy();
+        header("location: login.php");
+    }
     $sessionUserRole = $sessionUser->getRole();
 }else {
     header("location: login.php");
 }
-if(is_null($sessionUser) || !$sessionUser->isActive()){//Si no se encuentra
-    session_destroy();
-    header("location: login.php");
-}
-
 
 //Obtención tipo usuario
 if($sessionUserRole->getID() == 0){

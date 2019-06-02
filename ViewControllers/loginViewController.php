@@ -15,7 +15,10 @@ $userController = new UserController();//Controlador Usuario
 * Se comprueba si ya se ha iniciado sesión
 */
 if(isset($_SESSION["userID"])){
-    $user = $userController->getUser($_SESSION["userID"]); //Obtener usuario
+    $user = $userController->getUser($_SESSION["userID"]);
+    if(is_null($user)){
+        session_destroy();
+    }
     header("location: index.php");
 }
 /*
