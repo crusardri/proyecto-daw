@@ -114,7 +114,7 @@ function showClothesTable(){
                 <td class="id a-center"><span class="responsive-label">ID</span> <a href="clothe.php?<?=http_build_query(array("id" => $clothe->getID()))?>"><?=str_pad($clothe->getID(), 4, "0", STR_PAD_LEFT)?></a></td>
                 <td class="clothe"><span class="responsive-label">Prenda</span><a href="clothe.php?<?=http_build_query(array("id" => $clothe->getID()))?>"><?=$clothe->getName()?></a></td>
                 <td class="num-fixes a-center"><span class="responsive-label">NºAreglos</span><span><?=$clothe->getNumFixes()?></span></td>
-                <td class="active a-center"><span class="responsive-label">Activo</span><a href="clothes.php?state=<?=$clothe->isActive()?1:0?>" class="label-box <?=$clothe->isActive()?"enabled":"disabled"?>"><?=$clothe->isActive()?"Si":"No"?></a></td>
+                <td class="active a-center"><span class="responsive-label">Activo</span><a href="clothes.php?state=<?=$clothe->isActive()?1:0?>" class="label-box <?=$clothe->isActive()?"enabled":"disabled"?>"><?=$clothe->isActive()?"Activado":"Desactivado"?></a></td>
                 <td class="date"><span class="responsive-label">Creado</span><span><?=$clothe->getCreationDateString()?></span></td>
                 <td class="date"><span class="responsive-label">Actualizado</span> <span><?=$clothe->getUpdateDateString()?></span></td>
             </tr>
