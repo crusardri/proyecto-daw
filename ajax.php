@@ -49,7 +49,7 @@ if(isset($_SESSION["userID"])){
         }
         echo json_encode($clothes);
     }elseif(isset($_GET["getFixes"])){
-        $cf = $controller->getFixes($_GET["getFixes"]);
+        $cf = $controller->getFixes($_GET["getFixes"], 1);
         $fixes = array();
         if(sizeof($cf) > 0){
             //Si encuentra arreglos
