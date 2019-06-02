@@ -493,23 +493,34 @@ div.form-container.clothe {
     flex-grow: 100;
     margin: 5px;
 }
-#clothe-info-container > div > #clotheID{
+#clothe-info-container #clotheID{
     flex-basis: 80px;
     flex-grow: 0;
+    order: 0
 }
-#clothe-info-container > div > #create-date,
-#clothe-info-container > div > #update-date{
+#clothe-info-container #clothe-name{
+    order: 1
+}
+#clothe-info-container #create-date,
+#clothe-info-container #update-date{
     flex-basis: 320px;
     min-width: 320px;
     flex-grow: 1;
+    order: 2;
 }
-#clothe-info-container > div > #create-date > .text-label,
-#clothe-info-container > div > #update-date > .text-label{
+@media (max-width: 1206px){
+    #clothe-info-container #clothe-name{
+        order: 8
+    }
+}
+#clothe-info-container #create-date > .text-label,
+#clothe-info-container #update-date > .text-label{
     width: 125px;
 }
 #clothe-info-container > div > :last-child{
     flex-basis: 100%;
     padding: 0 5px;
+    order: 10;
 }
 #active-container {
     grid-area: active;
