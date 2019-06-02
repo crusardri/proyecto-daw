@@ -264,7 +264,7 @@ class Controller {
             $stmt->bindParam(":registeredDate",$registerDateTimestamp );
             $stmt->bindParam(":updateDate", $registerDateTimestamp);
             
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
             }
         }
@@ -323,7 +323,7 @@ class Controller {
             $stmt->bindParam(":creationDate", $timestamp);
             $stmt->bindParam(":updateDate", $timestamp);
 
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
             }
         }
@@ -360,7 +360,7 @@ class Controller {
             $stmt->bindParam(":fixPrice", $fixPrice);
             $stmt->bindParam(":updateDate", $timestamp);
             
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
             }
         }
@@ -393,7 +393,7 @@ class Controller {
             $stmt->bindParam(':active', $active);
             $stmt->bindParam(':updateDate', $dateTimestamp);
          
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
             }
         }
@@ -449,13 +449,8 @@ class Controller {
             $stmt->bindParam(':clotheName', $clotheName);
             $stmt->bindParam(':updateDate', $timestamp);
         
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
-            }
-            if($stmt->rowCount() > 0){
-                return 0;
-            } else {
-                return -1;
             }
         }
         return -1;
@@ -481,7 +476,7 @@ class Controller {
             $stmt->bindParam(':active', $active);
             $stmt->bindParam(':updateDate', $dateTimestamp);
         
-            if($stmt->execute()){
+            if($stmt->execute() && $stmt->rowCount > 0){
                 return 0;
             }
         }
