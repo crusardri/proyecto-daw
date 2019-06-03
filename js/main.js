@@ -219,13 +219,13 @@ function showAddFixForm(clotheID, clotheName){
             <label class='boxed-input' >\
                 <div class='text-label'><span>Nombre</span></div>\
                 <div class='input-container'>\
-                    <input type='text' name='fixName' value=''>\
+                    <input type='text' name='fixName' value='' autocomplete='off'>\
                 </div>\
             </label>\
             <label class='boxed-input' >\
                 <div class='text-label'><span>Precio</span></div>\
                 <div class='input-container'>\
-                    <input type='number' name='fixPrice' value='' step='.01'>\
+                    <input type='number' name='fixPrice' value='' step='.01' autocomplete='off'>\
                 </div>\
             </label>\
             <div>\
