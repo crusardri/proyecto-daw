@@ -526,6 +526,7 @@ function removeOrderItem(){
     if($(".order-items > .order-item").length <= 0){ //Si no hay mas order-items, se pone el placeholder
         $('<div class="no-order-items">No hay prendas registradas.</div>').appendTo(".order-items");
     }
+    calculatePrice();
 }
 
 
