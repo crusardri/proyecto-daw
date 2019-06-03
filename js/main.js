@@ -225,7 +225,7 @@ function showAddFixForm(clotheID, clotheName){
             <label class='boxed-input' >\
                 <div class='text-label'><span>Precio</span></div>\
                 <div class='input-container'>\
-                    <input type='number' name='fixPrice' value=''>\
+                    <input type='number' name='fixPrice' value='' step='.01'>\
                 </div>\
             </label>\
             <div>\
