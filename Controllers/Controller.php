@@ -69,6 +69,26 @@ class Controller {
      */
 
     public function editOrder($orderID, $stateID, $notes){
+        if(empty($orderID)){
+            return 1;
+        } elseif (empty($stateID)) {
+            return 2;
+        } else {
+            $db = $this->connect();
+            $sql = "UPDATE ORDERS SET ESTATE_ID = :stateID, NOTES = :notes, UPDATE_TIMESTAMP = :updateDate WHERE ORDER_ID = :orderID";
+        
+            $stmt = $db->prepare($sql);
+            $timestamp = time();
+
+            $stmt->bindParam(':orderID', $orderID);
+            $stmt->bindParam(':stateID', $stateID);
+            $stmt->bindParam(':notes', $notes);
+            $stmt->bindParam(':updateDate', $timestamp);
+
+            if($stmt->execute() && $stmt->rowCount() > 0){
+                return 0;
+            }
+        }
         return -1;
     }
     /**
