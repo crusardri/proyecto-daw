@@ -26,13 +26,15 @@ function showSearchUserBox(title, userType){
             <label class='boxed-input' id='searchbox'>\
                 <div class='text-label'><span>Buscar</span></div>\
                 <div class='input-container'>\
-                    <input type='text' placeholder='Buscar prenda por ID o nombre ' name='search' value='' autofocus=''>\
+                    <input type='text' autofocus placeholder='Buscar prenda por ID o nombre ' name='search' value=''>\
                 </div>\
             </label>\
             <div id='modal-search-results'></div>\
             </div>\
         </div>\
     </div>")
+    modalBox.find("input, textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
+    modalBox.find("input, textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
     modalBox.appendTo("body");
     //Animacion entrada
     setTimeout(()=>{
@@ -296,7 +298,7 @@ function showNewClotheForm(){
  * Genera una ventana modal para añadir un order item
  */
 function showAddOrderItemForm(){
-    $("<div class='modal-box new-order-item'>\
+    let = form = $("<div class='modal-box new-order-item'>\
     <div class='modal-box-content'>\
         <h1 class='modal-box-title'>Añadir nueva prenda</h1>\
         <div class='modal-box-close'>x</div>\
@@ -327,9 +329,10 @@ function showAddOrderItemForm(){
                 <input type='submit' value='Añadir prenda a la orden' name='createClothe' class='input-submit-button' id='add-order-item'>\
             </div>\
         </div>\
-    </div>").appendTo("body");
-    $(".new-order-item input, .new-order-item textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
-    $(".new-order-item input, .new-order-item textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
+    </div>")
+    form.find("input, textarea").on("focus", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", true);})
+    form.find("input, textarea").on("focusout", (e)=>{$(e.currentTarget).parents("label.boxed-input, label.description-box").toggleClass("focussed", false);})
+    form.appendTo("body");
     setTimeout(()=>{
         $("div.modal-box").css("opacity", "1");
     }, 100);
