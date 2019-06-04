@@ -606,8 +606,36 @@ class Controller {
      * 
      * @return int                          Número de prendas segun filtros
      */
-    public static function getTotalClothes($searchString = "", $stateFilter = -1){
-        return 1000;
+    public function getTotalClothes($searchString = "", $stateFilter = -1){
+        $searchString = "%$searchString%";
+        $db = $this->connect();
+        $sql = "SELECT COUNT(*) FROM CLOTHES WHERE true "; 
+
+        if(!is_null($searchString) && strlen($searchString) > 2){
+            $sql .= " 
+                AND (
+                    LOWER(CLOTHE_ID) LIKE LOWER(:searchString) OR 
+                    LOWER(CLOTHE_NAME) LIKE LOWER(:searchString)
+                )";
+        }
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $sql .= " AND 
+                ACTIVE = :active";
+        }
+        $stmt = $db->prepare($sql);
+
+        if(!is_null($searchString) && strlen($searchString) > 2){
+            $stmt->bindParam(':searchString', $searchString);
+        }
+        if(!is_null($stateFilter) && $stateFilter >= 0){
+            $stmt->bindParam(':active', $stateFilter);
+        }
+        if($stmt->execute()){
+            if($row = $stmt->fetch()){
+                return($row[0]);
+            }
+        }
+        return 0;
     }
     /**
      * Consulta en la base de datos y devuelve toda la informacion sobre los arreglos de una prenda
