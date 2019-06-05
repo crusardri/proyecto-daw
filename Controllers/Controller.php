@@ -715,13 +715,22 @@ class Controller {
      * @return Estate[]                 Estados de la orden disponibles
      */
     public function getStates(){
-        $states = [
-            new Estate(1, "Pendiente", "pending", "La órden ha sido recibida y está en espera."),
-            new Estate(2, "En proceso", "working", "La órden está realizandose."),
-            new Estate(3, "Finalizado", "finished", "La órden ha sido terminada y está pendiente de recogida."),
-            new Estate(4, "Entregado", "out", "La órden ha sido recogida."),
-            new Estate(5, "Cancelado", "canceled", "La órden ha sido cancelada.")
-        ];
+        $states = array();
+
+        $db = $this->connect(); 
+        $sql = "SELECT * FROM ORDER_ESTATES";
+        $stmt = $db->prepare($sql);
+
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                array_push($states, new Estate(
+                    $row["ESTATE_ID"], 
+                    $row["NAME"],
+                    $row["CSS_CLASS"],
+                    $row["DESCRIPTION"]
+                ));
+            }
+        }    
         return $states;
     }
     /**
