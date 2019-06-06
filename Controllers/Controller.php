@@ -48,53 +48,62 @@ class Controller {
      * @return int -1                               Se ha producido un error al intentar registrar la órden
      */
     public function createOrder($clientID, $employeID, $orderItems, $description, $notes){
-        if(strlen($clientID) < 1){
-            return 1;
-        } elseif(strlen($employeID) < 1){
-            return 2;
-        } elseif(sizeof($orderItems) < 1){
-            return 3;
-        } else{
-            $db = $this->connect(); 
-            $sql = "INSERT INTO ORDERS (CLIENT_ID, EMPLOYEE_ID, DESCRIPTION, NOTES, IN_TIMESTAMP, UPDATE_TIMESTAMP) 
-                    VALUES (:clientID, :employeID, :description, :notes, :inTimestamp, :updateTimestamp)";
-            $stmt = $db->prepare($sql);
-            $timestamp = time();
-            $stmt->bindParam(':clientID', $clientID);
-            $stmt->bindParam(':employeID', $employeID);
-            $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':notes', $notes);
-            $stmt->bindParam(':inTimestamp', $timestamp);
-            $stmt->bindParam(':updateTimestamp', $timestamp);
-            
-            if(!$stmt->execute() && $stmt->rowCount() < 1){
-                return -1;
-            }
-            
-            $sql = "INSERT INTO ORDER_ITEMS(ORDER_ID, CLOTHE_ID, FIX_ID, ACTUAL_PRICE, DESCRIPTION) 
-            VALUES( (SELECT MAX(ORDER_ID) FROM ORDERS), :clothe, :fix, :price, :description) ";
-            $stmt = $db->prepare($sql); 
-            
-            foreach($orderItems as $oi){
-                $clothe = $oi->getClothe();
-                $fix = $oi->getFix();
-                $fixId = $fix->getID();
-                $clotheId = $clothe->getId();
-                $price = $oi->getPrice() ;
-                $description = $oi->getDescription();
-                $stmt->bindParam(":clothe", $clotheId);
-                $stmt->bindParam(":fix", $fixId);
-                $stmt->bindParam(':price', $price);
+        try{
+            if(strlen($clientID) < 1){
+                return 1;
+            } elseif(strlen($employeID) < 1){
+                return 2;
+            } elseif(sizeof($orderItems) < 1){
+                return 3;
+            } else{
+                $db = $this->connect(); 
+                $db->beginTransaction();
+                $sql = "INSERT INTO ORDERS (CLIENT_ID, EMPLOYEE_ID, DESCRIPTION, NOTES, IN_TIMESTAMP, UPDATE_TIMESTAMP) 
+                        VALUES (:clientID, :employeID, :description, :notes, :inTimestamp, :updateTimestamp)";
+                $stmt = $db->prepare($sql);
+                $timestamp = time();
+                $stmt->bindParam(':clientID', $clientID);
+                $stmt->bindParam(':employeID', $employeID);
                 $stmt->bindParam(':description', $description);
-
+                $stmt->bindParam(':notes', $notes);
+                $stmt->bindParam(':inTimestamp', $timestamp);
+                $stmt->bindParam(':updateTimestamp', $timestamp);
+                
                 if(!$stmt->execute() && $stmt->rowCount() < 1){
-                    $db->exec("DELETE FROM ORDER_ITEMS WHERE ORDER_ID = MAX(ORDERS.ORDER_ID)");
-                    $db->exec("DELETE FROM ORDERS WHERE ORDER_ID = MAX(ORDERS.ORDER_ID)");
                     return -1;
                 }
+                
+                $sql = "INSERT INTO ORDER_ITEMS(ORDER_ID, CLOTHE_ID, FIX_ID, ACTUAL_PRICE, DESCRIPTION) 
+                VALUES( (SELECT MAX(ORDER_ID) FROM ORDERS), :clothe, :fix, :price, :description) ";
+                $stmt = $db->prepare($sql); 
+                
+                foreach($orderItems as $oi){
+                    $clothe = $oi->getClothe();
+                    $fix = $oi->getFix();
+                    $fixId = $fix->getID();
+                    $clotheId = $clothe->getId();
+                    $price = $oi->getPrice() ;
+                    $description = $oi->getDescription();
+                    $stmt->bindParam(":clothe", $clotheId);
+                    $stmt->bindParam(":fix", $fixId);
+                    $stmt->bindParam(':price', $price);
+                    $stmt->bindParam(':description', $description);
+                    if(!$stmt->execute() && $stmt->rowCount() < 1){
+                        throw new Exception("Order Item no registrado");
+                    }
+                }
+                $db->commit();
+                return 0;
             }
+        }catch(PDOException $e){
+            $db->rollBack();
+            return -1;
+        }catch(Exception $e){
+            $db->rollBack();
+            return -1;
         }
-        return 0;
+        return -1;
+        
     }
     /**
      * Devuelve el ID de la última orden
@@ -741,7 +750,7 @@ class Controller {
         $stmt->bindParam(':clotheID', $clotheID);
         $stmt->bindParam(':fixID', $fixID);
         if($stmt->execute()){
-            while($row = $stmt->fetch()){
+            if($row = $stmt->fetch()){
                 return new Fix(
                     $row["FIX_ID"], 
                     $row["CLOTHE_ID"],
