@@ -696,7 +696,7 @@ class Controller {
         $stmt->bindParam(':fixID', $fixID);
         if($stmt->execute()){
             while($row = $stmt->fetch()){
-                array_push($fixes, new Fix(
+                return new Fix(
                     $row["FIX_ID"], 
                     $row["CLOTHE_ID"],
                     $row["NAME"],
@@ -704,7 +704,7 @@ class Controller {
                     $row["ACTIVE"],
                     $row["CREATION_DATE"],
                     $row["UPDATE_DATE"]
-                ));
+                );
             }
         }
         return $fixes;
