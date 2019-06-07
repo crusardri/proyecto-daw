@@ -243,17 +243,17 @@ div.users-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-user" "filters new-user" "error error" "users users" "paginator paginator";
+    grid-template-areas: "error error" "search new-user" "filters new-user"  "users users" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.users-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "filters" "new-user" "error" "users" "paginator";
+        grid-template-areas: "error" "search" "filters" "new-user" "users" "paginator";
     }
 }
 div.users-container .msg{
     grid-area: error;
-    width: calc(100% - 100px);
+    width: calc(100% - 50px);
 }
 div.users-container .new-user{
     grid-area: new-user;

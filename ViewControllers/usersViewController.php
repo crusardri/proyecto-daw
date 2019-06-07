@@ -49,13 +49,6 @@ if(!($employee || $admin)){
     header("location: index.php");
 }
 
-//Si no se encuentra al usuario
-if(isset($_SESSION["unknownUser"])){
-    $_SESSION["unknownUser"] = true;
-    header("location: users.php");
-}
-
-
 //Asignar valores filtros
 $page = 1;
 $search = "";
@@ -82,7 +75,7 @@ $totalUsers = $userController->getTotalUsers($search, $userRoleFilter,$state); /
 //Gestion de errores de User
 if(isset($_SESSION["unknownUser"])){
     unset($_SESSION["unknownUser"]);
-    $errorMSG = "No se encuentra ese usuario.";
+    $errorMSG = "No se ha encontrado a ese usuario.";
 }elseif(isset($_SESSION["registerSuccess"])){
     $successMSG = "Se ha registrado a \"$_SESSION[registerSuccess]\" correctamente";
     unset($_SESSION["registerSuccess"]);

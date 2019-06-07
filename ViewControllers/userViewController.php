@@ -81,18 +81,21 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){//Si el parametro ID esta declarad
 */
 //Si estas editando, eres empleado o admin, o es tu usuario
 if($edit && (($employee || $admin) || $sessionUser->getID() == $_GET["id"])){ 
-    $user = $userController->getUser($_GET["id"]);
-    $userRole = $user->getRole();
+    try{
+        $user = $userController->getUser($_GET["id"]);
+        if(is_null($user)){
+            throw new Exception();
+        }
+        $userRole = $user->getRole();
+    }catch(Exception $e){
+        $_SESSION["unknownUser"] = true;
+        header("location: users.php");
+    }
 }
 
 if($register && !($admin || $employee)){
     $_SESSION["unauthorized"] = true;
     header("location: index.php");
-}
-//Si el usuario no existe genera un error
-if($edit && is_null($user)){//Si el usuario no existe
-    $_SESSION["unknownUser"] = true;
-    header("location: users.php");
 }
 //Establece un titulo para la página
 if($edit){
