@@ -1148,10 +1148,9 @@ div.table-like-container > .item > .elem > button:hover > div.hint-box{
 div.table-like-container > .item.no-items {
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
     text-align: center;
-    border-radius: 5px;
-    height: 100px;
+    height: 50px;
+    line-height: 50px;
     color: #777;
 }
 div.table-like-container > .item.no-items:hover {
