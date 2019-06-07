@@ -48,6 +48,12 @@ if($sessionUserRole->getID() == 0){
     $admin = true;
 }
 
+//Mensaje de error orden no encontrada
+if(isset($_SESSION["orderNotFound"])){
+    unset($_SESSION["orderNotFound"]);
+    $errorMSG = "No se encuentra la órden.";
+}
+
 //Asignar valores filtros
 $page = 1;                          //Página
 $search = "";                       //Cadena a buscar

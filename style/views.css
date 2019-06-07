@@ -134,12 +134,12 @@ div.orders-container {
     display: grid;
     max-width: 1600px;
     grid-template-columns: auto 200px;
-    grid-template-areas: "search new-order" "filters new-order" "orders orders" "paginator paginator";
+    grid-template-areas: "error error" "search new-order"  "filters new-order" "orders orders" "paginator paginator";
 }
 @media (max-width: 1000px){
     div.orders-container {
         grid-template-columns: 100%;
-        grid-template-areas: "search" "filters" "new-order" "orders" "paginator";
+        grid-template-areas: "error" "search" "filters" "new-order" "orders" "paginator";
     }
 }
 div.orders-container .new-order{
@@ -148,6 +148,10 @@ div.orders-container .new-order{
 }
 div.orders-container > form {
     grid-area: search;
+}
+div.orders-container > .msg {
+    grid-area: error;
+    width: calc(100% - 50px);
 }
 section.orders-container {
     grid-area: orders;

@@ -79,15 +79,24 @@ $states = $controller->getStates();
 
 //Si estamos editando, obtenemos la orden, los orderItems, el cliente y
 if($edit){
-    $order = $controller->getOrder(1);
-    $orderItems = $controller->getOrderItems(1);
-    $orderClient = $order->getClient();
-    $orderEmployee = $order->getEmployee();
-    //Si es cliente y no ha sido pedida por el, a index.php
-    if($sessionUser->getID() != $orderClient->getID() && !($admin || $employee)){
-        $_SESSION["unauthorized"] = true;
-        header("location: index.php");
+    try{
+        $order = $controller->getOrder($_GET["id"]);
+        if(is_null($order)){
+            throw new Exception();
+        }
+        $orderItems = $controller->getOrderItems($_GET["id"]);
+        $orderClient = $order->getClient();
+        $orderEmployee = $order->getEmployee();
+        //Si es cliente y no ha sido pedida por el, a index.php
+        if($sessionUser->getID() != $orderClient->getID() && !($admin || $employee)){
+            $_SESSION["unauthorized"] = true;
+            header("location: index.php");
+        }
+    }catch(Exception $e){
+        $_SESSION["orderNotFound"] = true;
+        header("Location: orders.php");
     }
+    
 }
 
 //Generar generar ordern falsa en caso de que falle al crear la orden
